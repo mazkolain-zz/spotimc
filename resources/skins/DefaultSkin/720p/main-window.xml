@@ -1,0 +1,516 @@
+<window id="4001" type="window">
+    <defaultcontrol always="false">1</defaultcontrol>
+    <allowoverlay>yes</allowoverlay>
+    <backgroundcolor>ff000000</backgroundcolor>
+    <!-- <views>50,51,509,510<views> -->
+    <!-- <animation effect="fade" time="100">WindowOpen</animation> -->
+    <!-- <animation effect="slide" end="0,576" time="100">WindowClose</animation> -->
+    <visible>true</visible>
+    <zorder>0</zorder>
+    <coordinates>
+	    <posx></posx>
+	    <posy></posy>
+    </coordinates>
+    <previouswindow></previouswindow>
+    <useincludes>false</useincludes>
+    
+    <controls>
+    	<!-- Main background -->
+    	<control type="image">
+            <description>Main background image</description>
+            <posx></posx>
+            <posy></posy>
+            <width></width>
+            <height></height>
+            <visible>true</visible>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <fadetime>200</fadetime>
+            <texture border="5" flipy="false" flipx="false">main-bg.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+    
+    
+        <!-- Header -->
+        <control type="group" id="1">
+            <description>Header group</description>
+            <defaultcontrol>3</defaultcontrol>
+            <visible>true</visible>
+            <posx></posx>
+            <posy></posy>
+            <width></width>
+            <height>50</height>
+            
+            <control type="image" id="2">
+	            <description>Header bg</description>
+	            <posx></posx>
+	            <posy></posy>
+	            <width></width>
+	            <height>50</height>
+	            <visible>true</visible>
+	            <colordiffuse>FFFFFFFF</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture border="5" flipy="false" flipx="false">header-bg.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
+	        
+	        <control type="image" id="3">
+	            <description>SPOTIFY(R) CORE Logo</description>
+	            <posx>1180</posx>
+	            <posy>10</posy>
+	            <width>80</width>
+	            <height>80</height>
+	            <visible>true</visible>
+	            <colordiffuse>FFFFFFFF</colordiffuse>
+	            <fadetime>200</fadetime>
+	            <texture border="5" flipy="false" flipx="false">logo.png</texture>
+	            <aspectratio>keep</aspectratio>
+	        </control>
+	        
+	        <control type="button" id="10">
+	        	<label>New Stuff</label>
+				<description></description>
+				<posx>20</posx>
+				<posy>8</posy>
+				<width>140</width>
+				<height>50</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus></texturefocus>
+				<texturenofocus></texturenofocus>
+				<font>font12</font>
+				<textcolor>ff3a3a3a</textcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<focusedcolor>ffffffff</focusedcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx></textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect>true</pulseonselect>
+				<onclick></onclick>
+				<onup></onup>
+				<ondown>50</ondown>
+				<onright>11</onright>
+			</control>
+	        
+			<control type="button" id="11">
+				<label>Playlists</label>
+				<description></description>
+				<posx>180</posx>
+				<posy>8</posy>
+				<width>140</width>
+				<height>50</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus></texturefocus>
+				<texturenofocus></texturenofocus>
+				<font>font12</font>
+				<textcolor>ff3a3a3a</textcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<focusedcolor>ffffffff</focusedcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx></textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect>true</pulseonselect>
+				<onclick></onclick>
+				<onup></onup>
+				<ondown>50</ondown>
+				<onleft>10</onleft>
+				<onright>12</onright>
+			</control>
+			
+			<control type="button" id="12">
+				<label>Search</label>
+				<description></description>
+				<posx>340</posx>
+				<posy>8</posy>
+				<width>140</width>
+				<height>50</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus></texturefocus>
+				<texturenofocus></texturenofocus>
+				<font>font12</font>
+				<textcolor>ff3a3a3a</textcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<focusedcolor>ffffffff</focusedcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx></textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect>true</pulseonselect>
+				<onclick></onclick>
+				<onup></onup>
+				<ondown>50</ondown>
+				<onleft>11</onleft>
+				<onright>13</onright>
+			</control>
+			
+			<control type="button" id="13">
+				<label>Radio</label>
+				<description></description>
+				<posx>500</posx>
+				<posy>8</posy>
+				<width>140</width>
+				<height>50</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus></texturefocus>
+				<texturenofocus></texturenofocus>
+				<font>font12</font>
+				<textcolor>ff3a3a3a</textcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<focusedcolor>ffffffff</focusedcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx></textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect>true</pulseonselect>
+				<onclick></onclick>
+				<onup></onup>
+				<ondown>50</ondown>
+				<onleft>12</onleft>
+				<onright>14</onright>
+			</control>
+			
+			<control type="button" id="14">
+				<label>Toplists</label>
+				<description></description>
+				<posx>660</posx>
+				<posy>8</posy>
+				<width>140</width>
+				<height>50</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus></texturefocus>
+				<texturenofocus></texturenofocus>
+				<font>font12</font>
+				<textcolor>ff3a3a3a</textcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<focusedcolor>ffffffff</focusedcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx></textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect>true</pulseonselect>
+				<onclick></onclick>
+				<onup></onup>
+				<ondown>50</ondown>
+				<onleft>13</onleft>
+				<onright></onright>
+			</control>
+        </control>
+        
+        
+        <control type="group" id="50">
+            <description>Header group</description>
+            <defaultcontrol>51</defaultcontrol>
+            <visible>true</visible>
+            <posx>5</posx>
+            <posy></posy>
+            <width></width>
+            <height>50</height>
+            
+	        <!-- New stuff list -->
+	        <control type="panel" id="51">
+		      <description>My first list container</description>
+		      <posx></posx>
+		      <posy>60</posy>
+		      <width>1280</width>
+		      <height>650</height>
+		      <visible>true</visible>
+		      <onup>1</onup>
+		      <ondown></ondown>
+		      <onleft>1</onleft>
+		      <onright></onright>
+		      <viewtype label="list">wrap</viewtype>
+		      <orientation>vertical</orientation>
+		      <pagecontrol>25</pagecontrol>
+		      <scrolltime>200</scrolltime>
+		      <itemlayout width="170" height="200">
+				<control type="image">
+					<posx>10</posx>
+					<posy></posy>
+					<width>150</width>
+					<height>150</height>
+					<info>ListItem.Icon</info>
+					<colordiffuse>ffc8c8c8</colordiffuse>
+					<fadetime>150</fadetime>
+				</control>
+				<control type="label">
+					<posx>10</posx>
+					<posy>150</posy>
+					<width>150</width>
+					<height>18</height>
+					<font>font10</font>
+					<aligny>center</aligny>
+					<selectedcolor>green</selectedcolor>
+					<align>left</align>
+					<info>ListItem.Label</info>
+					<textcolor>ffffffff</textcolor>
+        			<shadowcolor>ff000000</shadowcolor>
+				</control>
+				<control type="label">
+					<posx>10</posx>
+					<posy>168</posy>
+					<width>150</width>
+					<height>18</height>
+					<font>font10</font>
+					<aligny>center</aligny>
+					<selectedcolor>green</selectedcolor>
+					<textcolor>grey</textcolor>
+					<align>left</align>
+					<info>ListItem.Label2</info>
+				</control>
+		      </itemlayout>
+		      <focusedlayout height="160" width="180">
+				<!--
+				<control type="image">
+					<width>150</width>
+					<height>150</height>
+					<posx>0</posx>
+					<posy>0</posy>
+					<visible>Control.HasFocus(50)</visible>
+					<texture>list-focus.png</texture>
+				</control>
+				-->
+				<control type="image">
+					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+					<posx>10</posx>
+					<posy></posy>
+					<width>150</width>
+					<height>150</height>
+					<info>ListItem.Icon</info>
+				</control>
+				<control type="label">
+					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+					<posx>10</posx>
+					<posy>150</posy>
+					<width>150</width>
+					<height>18</height>
+					<font>font10</font>
+					<aligny>center</aligny>
+					<selectedcolor>green</selectedcolor>
+					<align>left</align>
+					<info>ListItem.Label</info>
+					<textcolor>ffffffff</textcolor>
+        			<shadowcolor>ff000000</shadowcolor>
+				</control>
+				<control type="label">
+					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+					<posx>10</posx>
+					<posy>168</posy>
+					<width>150</width>
+					<height>18</height>
+					<font>font10</font>
+					<aligny>center</aligny>
+					<selectedcolor>green</selectedcolor>
+					<textcolor>grey</textcolor>
+					<align>left</align>
+					<info>ListItem.Label2</info>
+				</control>
+		      </focusedlayout>
+		      
+		      <!--
+		      <content>
+	    		 <item id="1">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://www.kallemagnusson.com/00covers/keane.jpg</icon>
+					<thumb>http://www.kallemagnusson.com/00covers/keane.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="2">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</icon>
+					<thumb>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="3">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
+					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="4">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="5">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="6">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
+					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="7">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
+					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="8">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</icon>
+					<thumb>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 
+				 <item id="9">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://www.kallemagnusson.com/00covers/keane.jpg</icon>
+					<thumb>http://www.kallemagnusson.com/00covers/keane.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="10">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</icon>
+					<thumb>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="11">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
+					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="12">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="13">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="14">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
+					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="15">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
+					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="16">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</icon>
+					<thumb>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 
+				 <item id="17">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
+					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="18">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 <item id="19">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="20">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
+					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="21">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
+					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+				 
+				 <item id="22">
+					<label>Sorry For Party Rocking</label>
+					<label2>Item1-2</label2>
+					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
+					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
+					<onclick>ActivateWindow(Home)</onclick> 
+					<visible>true</visible>
+				 </item>
+				 <item id="23">
+					<label>Item3</label>
+					<label2>Item3-2</label2>
+					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
+					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
+					<visible>true</visible>				
+				 </item>
+				 <item id="24">
+					<label>Item2</label>
+					<label2>Item2-2</label2>
+					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
+					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
+					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
+					<visible>true</visible>				
+				 </item>
+	           </content>
+	           -->
+		    </control>
+		 </control>
+    </controls>
+</window>

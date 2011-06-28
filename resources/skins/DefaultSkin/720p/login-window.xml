@@ -1,0 +1,260 @@
+<window id="4002" type="dialog">
+    <defaultcontrol always="false">1</defaultcontrol>
+    <allowoverlay>no</allowoverlay>
+    <backgroundcolor>0000000</backgroundcolor>
+    <!-- <views>50,51,509,510<views> -->
+    <!-- <animation effect="fade" time="100">WindowOpen</animation> -->
+    <!-- <animation effect="slide" end="0,576" time="100">WindowClose</animation> -->
+    
+    
+    <!-- Open animation -->
+    <animation type="WindowOpen">
+    	<effect type="fade" time="150" />
+    	<effect type="zoom" center="640,360" time="150" start="300,203" end="100,100" />
+    </animation>
+    
+    <animation effect="fade" time="1000">WindowClose</animation>
+    
+    
+    
+    <visible>true</visible>
+    <zorder>1</zorder>
+    <coordinates>
+	    <posx></posx>
+	    <posy></posy>
+    </coordinates>
+    <previouswindow></previouswindow>
+    <useincludes>false</useincludes>
+    
+    <controls>
+    	<!-- Window background -->
+    	<control type="image">
+            <description>Window background shadow</description>
+            <posx>443</posx>
+            <posy>226</posy>
+            <width>414</width>
+            <height>288</height>
+            <visible>true</visible>
+            <colordiffuse>88FFFFFF</colordiffuse>
+            <fadetime></fadetime>
+            <texture>login-window/background-shadow.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+    	<control type="image">
+            <description>Window background image</description>
+            <posx>433</posx>
+            <posy>216</posy>
+            <width>414</width>
+            <height>288</height>
+            <visible>true</visible>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <fadetime></fadetime>
+            <texture>login-window/background.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+        <control type="group" id="1">
+            <description>Login container</description>
+            <defaultcontrol>2</defaultcontrol>
+            <visible>true</visible>
+            <posx>443</posx>
+            <posy>226</posy>
+            <width>414</width>
+            <height>288</height>
+            
+            <!-- Login prompt text -->
+            <control type="label">
+            	<label>Enter your spotify username and password.</label>
+				<posx></posx>
+				<posy>20</posy>
+				<width>400</width>
+				<height>18</height>
+				<font>font12</font>
+				<aligny>center</aligny>
+				<selectedcolor></selectedcolor>
+				<textcolor>FF6A1A00</textcolor>
+				<align>center</align>
+			</control>
+			
+			
+			<control type="label">
+                <label>Username</label>
+                <posx></posx>
+                <posy>80</posy>
+                <width>126</width>
+                <height>18</height>
+                <font>font12</font>
+                <selectedcolor></selectedcolor>
+                <textcolor>FFFFFFFF</textcolor>
+                <shadowcolor>FF000000</shadowcolor>
+                <align>center</align>
+            </control>
+			<control type="button" id="10">
+				<description>Username input</description>
+				<posx>126</posx>
+				<posy>80</posy>
+				<width>254</width>
+				<height>27</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus>login-window/text-input-focus.png</texturefocus>
+				<texturenofocus>login-window/text-input-no-focus.png</texturenofocus>
+				<label>johndoe</label>
+				<font>font12</font>
+				<textcolor>FF000000</textcolor>
+				<disabledcolor>FF000000</disabledcolor>
+				<align></align>
+				<aligny></aligny>
+				<textoffsetx>10</textoffsetx>
+				<textoffsety></textoffsety>
+				<pulseonselect></pulseonselect>
+				<onclick></onclick>
+				<onfocus></onfocus>
+				<onup></onup>
+				<ondown>11</ondown>
+				<onleft></onleft>
+				<onright></onright>
+            </control>
+            
+            
+            <control type="label">
+                <label>Password</label>
+                <posx></posx>
+                <posy>130</posy>
+                <width>126</width>
+                <height>18</height>
+                <font>font12</font>
+                <selectedcolor></selectedcolor>
+                <textcolor>FFFFFFFF</textcolor>
+                <shadowcolor>FF000000</shadowcolor>
+                <align>center</align>
+            </control>
+            <control type="button" id="11">
+                <description>Password input</description>
+                <posx>126</posx>
+                <posy>130</posy>
+                <width>254</width>
+                <height>27</height>
+                <visible>true</visible>
+                <colordiffuse>FFFFFFFF</colordiffuse>
+                <texturefocus>login-window/text-input-focus.png</texturefocus>
+                <texturenofocus>login-window/text-input-no-focus.png</texturenofocus>
+                <label>******</label>
+                <font>font12</font>
+                <textcolor>FF000000</textcolor>
+                <disabledcolor>FF000000</disabledcolor>
+                <align></align>
+                <aligny></aligny>
+                <textoffsetx>10</textoffsetx>
+                <textoffsety></textoffsety>
+                <pulseonselect></pulseonselect>
+                <onclick></onclick>
+                <onfocus></onfocus>
+                <onup>10</onup>
+                <ondown>12</ondown>
+                <onleft></onleft>
+                <onright></onright>
+            </control>
+            
+            
+            <control type="label">
+                <label>Remember me </label>
+                <posx>160</posx>
+                <posy>170</posy>
+                <width>250</width>
+                <height>25</height>
+                <font>font12</font>
+                <selectedcolor></selectedcolor>
+                <textcolor>FFFFFFFF</textcolor>
+                <shadowcolor>FF000000</shadowcolor>
+                <align>left</align>
+                <aligny>center</aligny>
+            </control>
+            <control type="togglebutton" id="12">
+	            <description>My first togglebutton control</description>
+	            <posx>126</posx>
+	            <posy>175</posy>
+	            <width>23</width>
+	            <height>23</height>
+	            <visible>true</visible>
+	            <colordiffuse>FFFFFFFF</colordiffuse>
+	            <texturefocus>login-window/toggle-on-focus.png</texturefocus>
+	            <texturenofocus>login-window/toggle-on-no-focus.png</texturenofocus>
+	            <alttexturefocus>login-window/toggle-off-focus.png</alttexturefocus>
+	            <alttexturenofocus>login-window/toggle-off-no-focus.png</alttexturenofocus>
+	            <usealttexture>false</usealttexture>
+	            <label></label>
+	            <altlabel></altlabel>
+	            <font>font12</font>
+	            <textcolor>FFFFFFFF</textcolor>
+	            <disabledcolor>FFFFFFFF</disabledcolor>
+	            <align>left</align>
+	            <aligny>center</aligny>
+	            <textoffsetx>4</textoffsetx>
+	            <textoffsety>5</textoffsety>
+	            <pulseonselect>false</pulseonselect>
+	            <onclick></onclick>
+	            <onfocus></onfocus>
+	            <onup>11</onup>
+	            <ondown>14</ondown>
+	            <onleft></onleft>
+	            <onright></onright>
+	        </control>
+	        
+	        <control type="button" id="13">
+		        <description>Cancel button</description>
+		        <posx>42</posx>
+		        <posy>210</posy>
+		        <width>144</width>
+		        <height>35</height>
+		        <visible>true</visible>
+		        <colordiffuse>FFFFFFFF</colordiffuse>
+		        <texturefocus>login-window/button-focus.png</texturefocus>
+		        <texturenofocus>login-window/button-no-focus.png</texturenofocus>
+		        <label>Cancel</label>
+		        <font>font12</font>
+		        <textcolor>FF000000</textcolor>
+		        <disabledcolor>FF000000</disabledcolor>
+		        <align>center</align>
+		        <aligny>top</aligny>
+		        <textoffsetx></textoffsetx>
+		        <textoffsety>4</textoffsety>
+		        <pulseonselect></pulseonselect>
+		        <onclick></onclick>
+		        <onfocus></onfocus>
+		        <onup>12</onup>
+		        <ondown>-</ondown>
+		        <onleft></onleft>
+		        <onright>14</onright>
+	        </control>
+	        
+	        
+	        <control type="button" id="14">
+		        <description>Login button</description>
+		        <posx>221</posx>
+		        <posy>210</posy>
+		        <width>144</width>
+		        <height>35</height>
+		        <visible>true</visible>
+		        <colordiffuse>FFFFFFFF</colordiffuse>
+		        <texturefocus>login-window/button-focus.png</texturefocus>
+		        <texturenofocus>login-window/button-no-focus.png</texturenofocus>
+		        <label>Login</label>
+		        <font>font12</font>
+		        <textcolor>FF000000</textcolor>
+		        <disabledcolor>FF000000</disabledcolor>
+		        <align>center</align>
+		        <aligny>top</aligny>
+		        <textoffsetx></textoffsetx>
+		        <textoffsety>4</textoffsety>
+		        <pulseonselect></pulseonselect>
+		        <onclick></onclick>
+		        <onfocus></onfocus>
+		        <onup>12</onup>
+		        <ondown>-</ondown>
+		        <onleft>13</onleft>
+		        <onright></onright>
+	        </control>
+	        
+        </control>
+    </controls>
+</window>
