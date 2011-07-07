@@ -6,6 +6,7 @@ Created on 25/06/2011
 import xbmc, xbmcgui
 
 
+
 class LoginWindow(xbmcgui.WindowXMLDialog):
     #Controld id's
     username_input = 10
@@ -61,6 +62,34 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
                 value = kb.getText()
                 self.__password = value
                 self._set_input_value(controlID, "*" * len(value))
+    
+    
+    def onFocus(self, controlID):
+        pass
+
+
+
+class AlbumDialog(xbmcgui.WindowXMLDialog):
+    #Controld id's
+    
+    
+    __file = None
+    __script_path = None
+    __skin_dir = None
+    
+    
+    def __init__(self, file, script_path, skin_dir):
+        self.__file = file
+        self.__script_path = script_path
+        self.__skin_dir = skin_dir
+
+
+    def onInit(self):
+        pass
+    
+    
+    def onClick(self, controlID):
+        pass
     
     
     def onFocus(self, controlID):

@@ -44,6 +44,12 @@ class MainWindow(xbmcgui.WindowXML):
             )
             loginwin.doModal()
         
+        elif controlID == 11:
+            loginwin = dialogs.LoginWindow(
+                "album-info-dialog.xml", self.__script_path, self.__skin_dir
+            )
+            loginwin.doModal()
+        
     
     def onFocus(self, controlID):
         pass
