@@ -1,4 +1,4 @@
-<window id="SpotifyAlbumInfo" type="dialog">
+<window id="4003" type="dialog">
     <defaultcontrol always="false">1</defaultcontrol>
     <allowoverlay>no</allowoverlay>
     <backgroundcolor>0000000</backgroundcolor>
@@ -201,10 +201,10 @@
 				</control>
 				
 				<control type="group" id="20">
-					<description>Tab button group</description>
+					<description>Tab content group</description>
 					<defaultcontrol>21</defaultcontrol>
 					<visible>true</visible>
-					<posx>-16</posx>
+					<posx></posx>
 					<posy>168</posy>
 					<width>728</width>
 					<height>417</height>
@@ -213,6 +213,7 @@
 						<description>Track list</description>
 						<width>728</width>
 						<height>400</height>
+						<posx>-16</posx>
 						<visible>true</visible>
 						<onup>13</onup>
 						<ondown>-</ondown>
@@ -220,7 +221,7 @@
 						<onright>15</onright>
 						<viewtype label="list">list</viewtype>
 						<orientation>vertical</orientation>
-						<pagecontrol>25</pagecontrol>
+						<pagecontrol>22</pagecontrol>
 						<scrolltime>200</scrolltime>
 						
 						<itemlayout width="728" height="50">
@@ -242,7 +243,7 @@
 								<textcolor>ff969696</textcolor>
 							</control>
 							<control type="label">
-								<posx>710</posx>
+								<posx>690</posx>
 								<posy>0</posy>
 								<width>150</width>
 								<height>50</height>
@@ -282,7 +283,7 @@
 								<textcolor>ffffffff</textcolor>
 							</control>
 							<control type="label">
-								<posx>710</posx>
+								<posx>690</posx>
 								<posy>0</posy>
 								<width>150</width>
 								<height>50</height>
@@ -350,6 +351,27 @@
 								<onclick>-</onclick>
 							</item>
 						</content>
+					</control>
+					
+					<control type="scrollbar" id="22">
+						<description>Track list scrollbar</description>
+						<posx>690</posx>
+						<posy>15</posy>
+						<width>14</width>
+						<height>364</height>
+						<visible>true</visible>
+						<texturesliderbackground>album-dialog/scrollbar-bg.png</texturesliderbackground>
+						<texturesliderbar>album-dialog/scrollbar.png</texturesliderbar>
+						<texturesliderbarfocus>album-dialog/scrollbar.png</texturesliderbarfocus>
+						<textureslidernib></textureslidernib>
+						<textureslidernibfocus></textureslidernibfocus>
+						<pulseonselect></pulseonselect>
+						<orientation>vertical</orientation>
+						<showonepage>false</showonepage>
+						<onup></onup>
+						<ondown></ondown>
+						<onleft></onleft>
+						<onright></onright>
 					</control>
 				</control>
 			</control>
