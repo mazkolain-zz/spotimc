@@ -1,21 +1,15 @@
 <window id="4001" type="window">
-    <defaultcontrol always="false">1</defaultcontrol>
+    <defaultcontrol always="false">1000</defaultcontrol>
     <allowoverlay>yes</allowoverlay>
     <backgroundcolor>ff000000</backgroundcolor>
-    <!-- <views>50,51,509,510<views> -->
-    <!-- <animation effect="fade" time="100">WindowOpen</animation> -->
-    <!-- <animation effect="slide" end="0,576" time="100">WindowClose</animation> -->
+    <animation effect="fade" time="300">WindowOpen</animation>
     <visible>true</visible>
     <zorder>0</zorder>
-    <coordinates>
-	    <posx></posx>
-	    <posy></posy>
-    </coordinates>
     <previouswindow></previouswindow>
     <useincludes>false</useincludes>
     
     <controls>
-    	<!-- Main background -->
+    	<!-- Main background image -->
     	<control type="image">
             <description>Main background image</description>
             <posx></posx>
@@ -28,489 +22,345 @@
             <texture border="5" flipy="false" flipx="false">main-bg.png</texture>
             <aspectratio>stretch</aspectratio>
         </control>
-    
-    
-        <!-- Header -->
-        <control type="group" id="1">
-            <description>Header group</description>
-            <defaultcontrol>3</defaultcontrol>
-            <visible>true</visible>
-            <posx></posx>
-            <posy></posy>
-            <width></width>
-            <height>50</height>
-            
-            <control type="image" id="2">
-	            <description>Header bg</description>
-	            <posx></posx>
-	            <posy></posy>
-	            <width></width>
-	            <height>50</height>
-	            <visible>true</visible>
-	            <colordiffuse>FFFFFFFF</colordiffuse>
-	            <fadetime></fadetime>
-	            <texture border="5" flipy="false" flipx="false">header-bg.png</texture>
-	            <aspectratio>stretch</aspectratio>
-	        </control>
-	        
-	        <control type="image" id="3">
-	            <description>SPOTIFY(R) CORE Logo</description>
-	            <posx>1180</posx>
-	            <posy>10</posy>
-	            <width>80</width>
-	            <height>80</height>
-	            <visible>true</visible>
-	            <colordiffuse>FFFFFFFF</colordiffuse>
-	            <fadetime>200</fadetime>
-	            <texture border="5" flipy="false" flipx="false">logo.png</texture>
-	            <aspectratio>keep</aspectratio>
-	        </control>
-	        
-	        <control type="button" id="10">
-	        	<label>New Stuff</label>
-				<description></description>
-				<posx>20</posx>
-				<posy>8</posy>
-				<width>140</width>
-				<height>50</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus></texturefocus>
-				<texturenofocus></texturenofocus>
-				<font>font12</font>
-				<textcolor>ff3a3a3a</textcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<focusedcolor>ffffffff</focusedcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx></textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect>true</pulseonselect>
-				<onclick></onclick>
-				<onup></onup>
-				<ondown>50</ondown>
-				<onright>11</onright>
-			</control>
-	        
-			<control type="button" id="11">
-				<label>Playlists</label>
-				<description></description>
-				<posx>180</posx>
-				<posy>8</posy>
-				<width>140</width>
-				<height>50</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus></texturefocus>
-				<texturenofocus></texturenofocus>
-				<font>font12</font>
-				<textcolor>ff3a3a3a</textcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<focusedcolor>ffffffff</focusedcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx></textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect>true</pulseonselect>
-				<onclick></onclick>
-				<onup></onup>
-				<ondown>50</ondown>
-				<onleft>10</onleft>
-				<onright>12</onright>
-			</control>
-			
-			<control type="button" id="12">
-				<label>Search</label>
-				<description></description>
-				<posx>340</posx>
-				<posy>8</posy>
-				<width>140</width>
-				<height>50</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus></texturefocus>
-				<texturenofocus></texturenofocus>
-				<font>font12</font>
-				<textcolor>ff3a3a3a</textcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<focusedcolor>ffffffff</focusedcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx></textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect>true</pulseonselect>
-				<onclick></onclick>
-				<onup></onup>
-				<ondown>50</ondown>
-				<onleft>11</onleft>
-				<onright>13</onright>
-			</control>
-			
-			<control type="button" id="13">
-				<label>Radio</label>
-				<description></description>
-				<posx>500</posx>
-				<posy>8</posy>
-				<width>140</width>
-				<height>50</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus></texturefocus>
-				<texturenofocus></texturenofocus>
-				<font>font12</font>
-				<textcolor>ff3a3a3a</textcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<focusedcolor>ffffffff</focusedcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx></textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect>true</pulseonselect>
-				<onclick></onclick>
-				<onup></onup>
-				<ondown>50</ondown>
-				<onleft>12</onleft>
-				<onright>14</onright>
-			</control>
-			
-			<control type="button" id="14">
-				<label>Toplists</label>
-				<description></description>
-				<posx>660</posx>
-				<posy>8</posy>
-				<width>140</width>
-				<height>50</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus></texturefocus>
-				<texturenofocus></texturenofocus>
-				<font>font12</font>
-				<textcolor>ff3a3a3a</textcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<focusedcolor>ffffffff</focusedcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx></textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect>true</pulseonselect>
-				<onclick></onclick>
-				<onup></onup>
-				<ondown>50</ondown>
-				<onleft>13</onleft>
-				<onright></onright>
-			</control>
-        </control>
+		
         
-        
-        <control type="group" id="50">
-            <description>Header group</description>
-            <defaultcontrol>51</defaultcontrol>
+        <control type="group" id="100">
+            <description>Content Group</description>
+            <defaultcontrol>1000</defaultcontrol>
             <visible>true</visible>
-            <posx>5</posx>
-            <posy></posy>
-            <width></width>
-            <height>50</height>
-            
-	        <!-- New stuff list -->
-	        <control type="panel" id="51">
-		      <description>My first list container</description>
-		      <posx></posx>
-		      <posy>60</posy>
-		      <width>1280</width>
-		      <height>650</height>
-		      <visible>true</visible>
-		      <onup>1</onup>
-		      <ondown></ondown>
-		      <onleft>1</onleft>
-		      <onright></onright>
-		      <viewtype label="list">wrap</viewtype>
-		      <orientation>vertical</orientation>
-		      <pagecontrol>25</pagecontrol>
-		      <scrolltime>200</scrolltime>
-		      <itemlayout width="170" height="200">
+            <posx>35</posx>
+            <posy>16</posy>
+            <width>1200</width>
+            <height>720</height>
+			
+			<animation effect="slide" tween="sine" condition="ControlGroup(500).HasFocus()" time="300" easing="out" start="0,0" end="300,0">Conditional</animation>
+			
+			<!-- Left Menu -->
+			<control type="group" id="500">
+				<description>Left Menu Group</description>
+				<defaultcontrol>501</defaultcontrol>
+				<visible>true</visible>
+				<posx>-332</posx>
+				<posy></posy>
+				<width>332</width>
+				<height>692</height>
+				
 				<control type="image">
-					<posx>10</posx>
+					<description>Left menu background</description>
+					<posx>-94</posx>
 					<posy></posy>
-					<width>150</width>
-					<height>150</height>
-					<info>ListItem.Icon</info>
-					<colordiffuse>ffc8c8c8</colordiffuse>
-					<fadetime>150</fadetime>
+					<width>426</width>
+					<height>692</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<fadetime>200</fadetime>
+					<texture>left-menu/background.png</texture>
+					<aspectratio>stretch</aspectratio>
 				</control>
-				<control type="label">
-					<posx>10</posx>
-					<posy>150</posy>
-					<width>150</width>
-					<height>18</height>
-					<font>font10</font>
-					<aligny>center</aligny>
-					<selectedcolor>green</selectedcolor>
-					<align>left</align>
-					<info>ListItem.Label</info>
-					<textcolor>ffffffff</textcolor>
-        			<shadowcolor>ff000000</shadowcolor>
+				
+				<!-- Toplist options -->
+				<control type="group" id="501">
+					<description>Toplist options</description>
+					<defaultcontrol>502</defaultcontrol>
+					<visible>true</visible>
+					<posx>32</posx>
+					<posy>32</posy>
+					<width>200</width>
+					<height>623</height>
+					
+					<control type="label">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>300</width>
+						<height>16</height>
+						<font>font13</font>
+						<aligny>center</aligny>
+						<selectedcolor>ff969696</selectedcolor>
+						<align>left</align>
+						<textcolor>ff969696</textcolor>
+						<shadowcolor>00000000</shadowcolor>
+						<label>Show toplists for...</label>
+					</control>
+					
+					<control type="button" id="502">
+						<label>Button1</label>
+						<description></description>
+						<posx></posx>
+						<posy>32</posy>
+						<width>247</width>
+						<height>35</height>
+						<visible>true</visible>
+						<colordiffuse>ffffffff</colordiffuse>
+						<texturefocus>left-menu/button-focus.png</texturefocus>
+						<texturenofocus>left-menu/button.png</texturenofocus>
+						<font>font13</font>
+						<textcolor>ff969696</textcolor>
+						<disabledcolor>ffffffff</disabledcolor>
+						<focusedcolor>ff969696</focusedcolor>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx></textoffsetx>
+						<textoffsety></textoffsety>
+						<pulseonselect>true</pulseonselect>
+						<onfocus></onfocus>
+						<onclick>-</onclick>
+						<onup></onup>
+						<ondown></ondown>
+						<onleft></onleft>
+						<onright>1000</onright>
+					</control>
+					
+					<control type="button" id="503">
+						<label>Button2</label>
+						<description></description>
+						<posx>0</posx>
+						<posy>72</posy>
+						<width>247</width>
+						<height>35</height>
+						<visible>true</visible>
+						<colordiffuse>ffffffff</colordiffuse>
+						<texturefocus>left-menu/button-focus.png</texturefocus>
+						<texturenofocus>left-menu/button.png</texturenofocus>
+						<font>font13</font>
+						<textcolor>ff969696</textcolor>
+						<disabledcolor>ffffffff</disabledcolor>
+						<focusedcolor>ff969696</focusedcolor>
+						<align>center</align>
+						<aligny>center</aligny>
+						<textoffsetx></textoffsetx>
+						<textoffsety></textoffsety>
+						<pulseonselect>true</pulseonselect>
+						<onfocus>SendClick(53)</onfocus>
+						<onclick>-</onclick>
+						<onup></onup>
+						<ondown></ondown>
+						<onleft></onleft>
+						<onright>1000</onright>
+					</control>
 				</control>
-				<control type="label">
-					<posx>10</posx>
-					<posy>168</posy>
-					<width>150</width>
-					<height>18</height>
-					<font>font10</font>
-					<aligny>center</aligny>
-					<selectedcolor>green</selectedcolor>
-					<textcolor>grey</textcolor>
-					<align>left</align>
-					<info>ListItem.Label2</info>
+			</control>
+			
+            <!-- View Content Group -->
+			<control type="group" id="1000">
+				<description>View Content Group</description>
+				<defaultcontrol>1100</defaultcontrol>
+				<visible>true</visible>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>500</width>
+				<height>700</height>
+				
+				<!-- Home menu -->
+				<control type="list" id="1100">
+					<description>Home menu</description>
+					<posx>80</posx>
+					<posy>60</posy>
+					<width>500</width>
+					<height>700</height>
+					<visible>true</visible>
+					<onup>-</onup>
+					<ondown>-</ondown>
+					<onleft>500</onleft>
+					<onright>-</onright>
+					<viewtype label="3D list">list</viewtype>
+					<orientation>vertical</orientation>
+					<pagecontrol></pagecontrol>
+					<scrolltime>200</scrolltime>
+					<itemlayout width="512" height="64">
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>64</width>
+							<height>64</height>
+							<info>ListItem.Icon</info>
+							<colordiffuse>ff969696</colordiffuse>
+							<fadetime>150</fadetime>
+						</control>
+						<control type="label">
+							<posx>80</posx>
+							<posy>0</posy>
+							<width>458</width>
+							<height>64</height>
+							<font>font50caps_title</font>
+							<aligny>center</aligny>
+							<selectedcolor>ff969696</selectedcolor>
+							<align>left</align>
+							<info>ListItem.Label</info>
+							<textcolor>ff969696</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+						</control>
+					</itemlayout>
+					<focusedlayout width="512" height="64">
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>64</width>
+							<height>64</height>
+							<info>ListItem.Icon</info>
+							<colordiffuse>ffffffff</colordiffuse>
+							<fadetime>150</fadetime>
+						</control>
+						<control type="label">
+							<posx>80</posx>
+							<posy>0</posy>
+							<width>458</width>
+							<height>64</height>
+							<font>font50caps_title</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<align>left</align>
+							<info>ListItem.Label</info>
+							<textcolor>ffffffff</textcolor>
+						</control>
+					</focusedlayout>
+					
+					
+					<content>
+						<item id="1">
+							<label>New Stuff</label>
+							<onclick>-</onclick>
+							<icon>home-menu/new-stuff-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="2">
+							<label>Playlists</label>
+							<onclick>-</onclick>
+							<icon>home-menu/playlists-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="3">
+							<label>Search</label>
+							<onclick>-</onclick>
+							<icon>home-menu/search-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="4">
+							<label>Toplists</label>
+							<onclick>-</onclick>
+							<icon>home-menu/toplists-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="5">
+							<label>Radio</label>
+							<onclick>-</onclick>
+							<icon>home-menu/radio-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="6">
+							<label>Settings</label>
+							<onclick>-</onclick>
+							<icon>home-menu/settings-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="2">
+							<label>Logout</label>
+							<onclick>-</onclick>
+							<icon>home-menu/logout-active.png</icon>
+							<visible>true</visible>
+						</item>
+						<item id="2">
+							<label>Exit</label>
+							<onclick>-</onclick>
+							<icon>home-menu/exit-active.png</icon>
+							<visible>true</visible>
+						</item>
+					</content>
 				</control>
-		      </itemlayout>
-		      <focusedlayout height="160" width="180">
+				
+				
+				<!-- New stuff list -->
 				<!--
-				<control type="image">
-					<width>150</width>
-					<height>150</height>
-					<posx>0</posx>
-					<posy>0</posy>
-					<visible>Control.HasFocus(50)</visible>
-					<texture>list-focus.png</texture>
+				<control type="panel" id="1200">
+					<description>My first list container</description>
+					<posx>40</posx>
+					<posy></posy>
+					<width>1280</width>
+					<height>650</height>
+					<visible>false</visible>
+					<onup>50</onup>
+					<ondown></ondown>
+					<onleft>500</onleft>
+					<onright></onright>
+					<viewtype label="list">wrap</viewtype>
+					<orientation>vertical</orientation>
+					<pagecontrol>25</pagecontrol>
+					<scrolltime>200</scrolltime>
+					<itemlayout width="170" height="200">
+						<control type="image">
+							<posx>10</posx>
+							<posy></posy>
+							<width>150</width>
+							<height>150</height>
+							<info>ListItem.Icon</info>
+							<colordiffuse>ffc8c8c8</colordiffuse>
+							<fadetime>150</fadetime>
+						</control>
+						<control type="label">
+							<posx>10</posx>
+							<posy>150</posy>
+							<width>150</width>
+							<height>18</height>
+							<font>font10</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<align>left</align>
+							<info>ListItem.Label</info>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>ff000000</shadowcolor>
+						</control>
+						<control type="label">
+							<posx>10</posx>
+							<posy>168</posy>
+							<width>150</width>
+							<height>18</height>
+							<font>font10</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<textcolor>grey</textcolor>
+							<align>left</align>
+							<info>ListItem.Label2</info>
+						</control>
+					</itemlayout>
+					<focusedlayout height="160" width="180">
+						<control type="image">
+							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+							<posx>10</posx>
+							<posy></posy>
+							<width>150</width>
+							<height>150</height>
+							<info>ListItem.Icon</info>
+						</control>
+						<control type="label">
+							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+							<posx>10</posx>
+							<posy>150</posy>
+							<width>150</width>
+							<height>18</height>
+							<font>font10</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<align>left</align>
+							<info>ListItem.Label</info>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>ff000000</shadowcolor>
+						</control>
+						<control type="label">
+							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
+							<posx>10</posx>
+							<posy>168</posy>
+							<width>150</width>
+							<height>18</height>
+							<font>font10</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<textcolor>grey</textcolor>
+							<align>left</align>
+							<info>ListItem.Label2</info>
+						</control>
+					</focusedlayout>
 				</control>
 				-->
-				<control type="image">
-					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-					<posx>10</posx>
-					<posy></posy>
-					<width>150</width>
-					<height>150</height>
-					<info>ListItem.Icon</info>
-				</control>
-				<control type="label">
-					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-					<posx>10</posx>
-					<posy>150</posy>
-					<width>150</width>
-					<height>18</height>
-					<font>font10</font>
-					<aligny>center</aligny>
-					<selectedcolor>green</selectedcolor>
-					<align>left</align>
-					<info>ListItem.Label</info>
-					<textcolor>ffffffff</textcolor>
-        			<shadowcolor>ff000000</shadowcolor>
-				</control>
-				<control type="label">
-					<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-					<posx>10</posx>
-					<posy>168</posy>
-					<width>150</width>
-					<height>18</height>
-					<font>font10</font>
-					<aligny>center</aligny>
-					<selectedcolor>green</selectedcolor>
-					<textcolor>grey</textcolor>
-					<align>left</align>
-					<info>ListItem.Label2</info>
-				</control>
-		      </focusedlayout>
-		      
-		      <!--
-		      <content>
-	    		 <item id="1">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://www.kallemagnusson.com/00covers/keane.jpg</icon>
-					<thumb>http://www.kallemagnusson.com/00covers/keane.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="2">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</icon>
-					<thumb>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="3">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
-					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="4">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="5">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="6">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
-					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="7">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
-					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="8">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</icon>
-					<thumb>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 
-				 <item id="9">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://www.kallemagnusson.com/00covers/keane.jpg</icon>
-					<thumb>http://www.kallemagnusson.com/00covers/keane.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="10">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</icon>
-					<thumb>http://www.cddesign.com/covertalk/images/dark-side-of-the-moon-cd-cover-design.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="11">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
-					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="12">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="13">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="14">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
-					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="15">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
-					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="16">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</icon>
-					<thumb>http://4.bp.blogspot.com/-WtIpOjCyAAk/TdvM-M_bcKI/AAAAAAAAAXs/wlU22Vx8Rqk/s1600/supertramp-breakfast_in_america-album.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 
-				 <item id="17">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</icon>
-					<thumb>http://farm3.static.flickr.com/2350/2184094749_e5323e8ec2_o.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="18">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/__HilW7EXwh8/TKTJyQfVZ0I/AAAAAAAATO0/eKr9mQxo3d0/s1600/LOUD%2Balbum%2Bcover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 <item id="19">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="20">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
-					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="21">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
-					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-				 
-				 <item id="22">
-					<label>Sorry For Party Rocking</label>
-					<label2>Item1-2</label2>
-					<icon>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</icon>
-					<thumb>http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg</thumb>
-					<onclick>ActivateWindow(Home)</onclick> 
-					<visible>true</visible>
-				 </item>
-				 <item id="23">
-					<label>Item3</label>
-					<label2>Item3-2</label2>
-					<icon>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</icon>
-					<thumb>http://2.bp.blogspot.com/_9o0Eo7mbsgI/TSJFCKFDPZI/AAAAAAAAAtA/VoTT1HgkaRQ/s1600/Helloween-Metal_Jukebox-Frontal.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick>
-					<visible>true</visible>				
-				 </item>
-				 <item id="24">
-					<label>Item2</label>
-					<label2>Item2-2</label2>
-					<icon>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</icon>
-					<thumb>http://www.planetamusical.org/wp-content/uploads/2009/05/21st_century_breakdown_album_cover.jpg</thumb>
-					<onclick>ActivateWindow(MyMusicLibrary)</onclick> 
-					<visible>true</visible>				
-				 </item>
-	           </content>
-	           -->
-		    </control>
-		 </control>
+			</control>
+		</control>
     </controls>
 </window>

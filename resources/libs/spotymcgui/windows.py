@@ -20,15 +20,26 @@ class MainWindow(xbmcgui.WindowXML):
 
 
     def onInit(self ):
-        c = self.getControl(51)
+        """
+        c = self.getControl(1100)
         img = "http://1.bp.blogspot.com/_4BO-nX-j9B0/S9cS3ZGCJrI/AAAAAAAAST0/8MIRPkvxImM/s640/0720cbb017618f83601b955af55b99c0%5B1%5D.jpg"
         c.addItem(xbmcgui.ListItem('pg1. label', 'pg1. label2', img, img))
         
         img = "http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg"
         c.addItem(xbmcgui.ListItem('pg2. label', 'pg2. label2', img, img))
+        """
+        """
+        c = self.getControl(2000)
+        c.addItem(xbmcgui.ListItem('Item #1', ''))
+        c.addItem(xbmcgui.ListItem('Item #2', ''))
+        c.addItem(xbmcgui.ListItem('Somewhat Long Artist Name', ''))
+        c.addItem(xbmcgui.ListItem('Item #4', ''))
+        c.addItem(xbmcgui.ListItem('Item #5', 'active'))
+        c.addItem(xbmcgui.ListItem('Item #6', ''))
+        c.addItem(xbmcgui.ListItem('Item #7', ''))
+        c.addItem(xbmcgui.ListItem('Item #8', ''))
+        """
         
-        img = "http://1.bp.blogspot.com/_kCfQZm97tjs/TIQfesq0EtI/AAAAAAAACgA/0Yd9xOUDWhg/s1600/172760.jpg"
-        c.addItem(xbmcgui.ListItem('pg2. label', 'pg2. label2', img, img))
     
     #def onAction(self, action):
     #    pass
@@ -49,6 +60,10 @@ class MainWindow(xbmcgui.WindowXML):
                 "album-info-dialog.xml", self.__script_path, self.__skin_dir
             )
             loginwin.doModal()
+        
+        elif controlID == 14:
+            c = self.getControl(13)
+            c.setVisible(False)
         
     
     def onFocus(self, controlID):
