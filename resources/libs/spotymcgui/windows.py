@@ -4,19 +4,22 @@ Created on 24/06/2011
 @author: mikel
 '''
 import xbmcgui
-import dialogs
+import views
+import views.home
 
 
 class MainWindow(xbmcgui.WindowXML): 
     __file = None
     __script_path = None
     __skin_dir = None
-     
+    __view_manager = None
+    
     
     def __init__(self, file, script_path, skin_dir):
         self.__file = file
         self.__script_path = script_path
         self.__skin_dir = skin_dir
+        self.__view_manager = views.ViewManager(self)
 
 
     def onInit(self ):
@@ -39,6 +42,9 @@ class MainWindow(xbmcgui.WindowXML):
         c.addItem(xbmcgui.ListItem('Item #7', ''))
         c.addItem(xbmcgui.ListItem('Item #8', ''))
         """
+        #Start with the home view by default
+        home_view = views.home.HomeMenuView()
+        self.__view_manager.add_view(home_view)
         
     
     #def onAction(self, action):

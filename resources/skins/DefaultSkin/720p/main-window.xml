@@ -157,7 +157,7 @@
 					<posy>60</posy>
 					<width>500</width>
 					<height>700</height>
-					<visible>true</visible>
+					<visible>false</visible>
 					<onup>-</onup>
 					<ondown>-</ondown>
 					<onleft>500</onleft>
