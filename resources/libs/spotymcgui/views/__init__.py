@@ -72,6 +72,10 @@ class ViewManager:
         
         #Go to the next view
         self.next()
+    
+    
+    def click(self, control_id):
+        self.__view_list[self.__position].click(self.__window, control_id)
 
 
 

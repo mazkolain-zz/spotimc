@@ -50,26 +50,27 @@ class MainWindow(xbmcgui.WindowXML):
     #def onAction(self, action):
     #    pass
     
-    def onClick(self, controlID):
+    def onClick(self, control_id):
         #print "click (%d)!" % controlID
         #c = self.getControl(controlID)
         #si = c.getSelectedItem()
         #print "%s, %s" % (si.getLabel(), si.getLabel2())
-        if controlID == 10:
-            loginwin = dialogs.LoginWindow(
-                "login-window.xml", self.__script_path, self.__skin_dir
-            )
-            loginwin.doModal()
-        
-        elif controlID == 11:
-            loginwin = dialogs.LoginWindow(
-                "album-info-dialog.xml", self.__script_path, self.__skin_dir
-            )
-            loginwin.doModal()
-        
-        elif controlID == 14:
-            c = self.getControl(13)
-            c.setVisible(False)
+        #if controlID == 10:
+        #    loginwin = dialogs.LoginWindow(
+        #        "login-window.xml", self.__script_path, self.__skin_dir
+        #    )
+        #    loginwin.doModal()
+        #
+        #elif controlID == 11:
+        #    loginwin = dialogs.LoginWindow(
+        #        "album-info-dialog.xml", self.__script_path, self.__skin_dir
+        #    )
+        #    loginwin.doModal()
+        #
+        #elif controlID == 14:
+        #    c = self.getControl(13)
+        #    c.setVisible(False)
+        self.__view_manager.click(control_id)
         
     
     def onFocus(self, controlID):

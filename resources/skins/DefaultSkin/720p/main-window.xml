@@ -213,58 +213,6 @@
 							<textcolor>ffffffff</textcolor>
 						</control>
 					</focusedlayout>
-					
-					
-					<content>
-						<item id="1">
-							<label>New Stuff</label>
-							<onclick>-</onclick>
-							<icon>home-menu/new-stuff-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="2">
-							<label>Playlists</label>
-							<onclick>-</onclick>
-							<icon>home-menu/playlists-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="3">
-							<label>Search</label>
-							<onclick>-</onclick>
-							<icon>home-menu/search-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="4">
-							<label>Toplists</label>
-							<onclick>-</onclick>
-							<icon>home-menu/toplists-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="5">
-							<label>Radio</label>
-							<onclick>-</onclick>
-							<icon>home-menu/radio-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="6">
-							<label>Settings</label>
-							<onclick>-</onclick>
-							<icon>home-menu/settings-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="2">
-							<label>Logout</label>
-							<onclick>-</onclick>
-							<icon>home-menu/logout-active.png</icon>
-							<visible>true</visible>
-						</item>
-						<item id="2">
-							<label>Exit</label>
-							<onclick>-</onclick>
-							<icon>home-menu/exit-active.png</icon>
-							<visible>true</visible>
-						</item>
-					</content>
 				</control>
 				
 				
