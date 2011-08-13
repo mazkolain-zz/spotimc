@@ -29,7 +29,7 @@
             <defaultcontrol>1000</defaultcontrol>
             <visible>true</visible>
             <posx>35</posx>
-            <posy>16</posy>
+            <posy>0</posy>
             <width>1200</width>
             <height>720</height>
 			
@@ -83,27 +83,11 @@
 					</control>
 					
 					<control type="button" id="502">
+						<include>spotymc_leftbutton</include>
 						<label>Button1</label>
 						<description></description>
 						<posx></posx>
 						<posy>32</posy>
-						<width>247</width>
-						<height>35</height>
-						<visible>true</visible>
-						<colordiffuse>ffffffff</colordiffuse>
-						<texturefocus>left-menu/button-focus.png</texturefocus>
-						<texturenofocus>left-menu/button.png</texturenofocus>
-						<font>font13</font>
-						<textcolor>ff969696</textcolor>
-						<disabledcolor>ffffffff</disabledcolor>
-						<focusedcolor>ff969696</focusedcolor>
-						<align>center</align>
-						<aligny>center</aligny>
-						<textoffsetx></textoffsetx>
-						<textoffsety></textoffsety>
-						<pulseonselect>true</pulseonselect>
-						<onfocus></onfocus>
-						<onclick>-</onclick>
 						<onup></onup>
 						<ondown></ondown>
 						<onleft></onleft>
@@ -111,25 +95,11 @@
 					</control>
 					
 					<control type="button" id="503">
+						<include>spotymc_leftbutton</include>
 						<label>Button2</label>
 						<description></description>
 						<posx>0</posx>
 						<posy>72</posy>
-						<width>247</width>
-						<height>35</height>
-						<visible>true</visible>
-						<colordiffuse>ffffffff</colordiffuse>
-						<texturefocus>left-menu/button-focus.png</texturefocus>
-						<texturenofocus>left-menu/button.png</texturenofocus>
-						<font>font13</font>
-						<textcolor>ff969696</textcolor>
-						<disabledcolor>ffffffff</disabledcolor>
-						<focusedcolor>ff969696</focusedcolor>
-						<align>center</align>
-						<aligny>center</aligny>
-						<textoffsetx></textoffsetx>
-						<textoffsety></textoffsety>
-						<pulseonselect>true</pulseonselect>
 						<onfocus>SendClick(53)</onfocus>
 						<onclick>-</onclick>
 						<onup></onup>
@@ -147,16 +117,16 @@
 				<visible>true</visible>
 				<posx>0</posx>
 				<posy>0</posy>
-				<width>500</width>
-				<height>700</height>
+				<width></width>
+				<height></height>
 				
 				<!-- Home menu -->
 				<control type="list" id="1100">
 					<description>Home menu</description>
-					<posx>80</posx>
-					<posy>60</posy>
-					<width>500</width>
-					<height>700</height>
+					<posx>96</posx>
+					<posy>32</posy>
+					<width>672</width>
+					<height>640</height>
 					<visible>false</visible>
 					<onup>-</onup>
 					<ondown>-</ondown>
@@ -166,10 +136,10 @@
 					<orientation>vertical</orientation>
 					<pagecontrol></pagecontrol>
 					<scrolltime>200</scrolltime>
-					<itemlayout width="512" height="64">
+					<itemlayout width="672" height="80">
 						<control type="image">
-							<posx>0</posx>
-							<posy>0</posy>
+							<posx>10</posx>
+							<posy>12</posy>
 							<width>64</width>
 							<height>64</height>
 							<info>ListItem.Icon</info>
@@ -178,10 +148,10 @@
 						</control>
 						<control type="label">
 							<posx>80</posx>
-							<posy>0</posy>
+							<posy>12</posy>
 							<width>458</width>
-							<height>64</height>
-							<font>font50caps_title</font>
+							<height>48</height>
+							<font>spotymc_title</font>
 							<aligny>center</aligny>
 							<selectedcolor>ff969696</selectedcolor>
 							<align>left</align>
@@ -190,10 +160,19 @@
 							<shadowcolor>00000000</shadowcolor>
 						</control>
 					</itemlayout>
-					<focusedlayout width="512" height="64">
+					<focusedlayout width="512" height="80">
 						<control type="image">
 							<posx>0</posx>
 							<posy>0</posy>
+							<width>672</width>
+							<height>80</height>
+							<colordiffuse>ffffffff</colordiffuse>
+							<fadetime>150</fadetime>
+							<texture>home-menu/item-bg.png</texture>
+						</control>
+						<control type="image">
+							<posx>10</posx>
+							<posy>12</posy>
 							<width>64</width>
 							<height>64</height>
 							<info>ListItem.Icon</info>
@@ -202,10 +181,10 @@
 						</control>
 						<control type="label">
 							<posx>80</posx>
-							<posy>0</posy>
+							<posy>12</posy>
 							<width>458</width>
-							<height>64</height>
-							<font>font50caps_title</font>
+							<height>48</height>
+							<font>spotymc_title</font>
 							<aligny>center</aligny>
 							<selectedcolor>green</selectedcolor>
 							<align>left</align>

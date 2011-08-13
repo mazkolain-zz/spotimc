@@ -4,7 +4,6 @@ Created on 13/06/2011
 @author: mazkolain
 '''
 import os, os.path
-#os.chdir(os.path.abspath(os.path.dirname(__file__)))
 script_dir = os.getcwd()
 
 import envutils
@@ -18,22 +17,25 @@ import envutils
 libs_dir = os.path.join(script_dir, "resources/libs")
 sys.path.append(libs_dir)
 
-#print sys.path
 
-#import ctypes
-#print "ctypes loaded ok!"
+#Load font & include stuff
+from myscript.utils import reload_skin
+from myscript.fonts import FontManager
 
-#import spotify
+skin_dir = os.path.join(script_dir, "resources/skins/DefaultSkin")
+xml_path = os.path.join(skin_dir, "720p/font.xml")
+font_dir = os.path.join(skin_dir, "fonts")
+fm = FontManager()
+fm.install_file(xml_path, font_dir)
+reload_skin()
 
+
+#Load main window
 import spotymcgui.windows
-
-#from resources.libs import spotymcgui
-
-
-
 mainwin = spotymcgui.windows.MainWindow("main-window.xml", script_dir, "DefaultSkin")
-#mydisplay.getControl(51)
 mainwin.doModal()
 
 
+#Final cleanups
 del mainwin
+del fm
