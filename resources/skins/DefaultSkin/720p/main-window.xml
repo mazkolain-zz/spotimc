@@ -14,26 +14,127 @@
             <description>Main background image</description>
             <posx></posx>
             <posy></posy>
-            <width></width>
-            <height></height>
+            <width>1280</width>
+            <height>720</height>
             <visible>true</visible>
             <colordiffuse>FFFFFFFF</colordiffuse>
             <fadetime>200</fadetime>
             <texture border="5" flipy="false" flipx="false">main-bg.png</texture>
             <aspectratio>stretch</aspectratio>
         </control>
-		
         
         <control type="group" id="100">
             <description>Content Group</description>
             <defaultcontrol>1000</defaultcontrol>
             <visible>true</visible>
-            <posx>35</posx>
+            <posx>0</posx>
             <posy>0</posy>
-            <width>1200</width>
+            <width>1280</width>
             <height>720</height>
 			
 			<animation effect="slide" tween="sine" condition="ControlGroup(500).HasFocus()" time="300" easing="out" start="0,0" end="300,0">Conditional</animation>
+			
+			<control type="group" id="200">
+	        	<description>Main Menu</description>
+	            <defaultcontrol>1000</defaultcontrol>
+	            <visible>true</visible>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>1280</width>
+	            <height>128</height>
+	            
+	            <control type="image">
+					<description>Main menu background</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>1280</width>
+					<height>128</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<texture>main-menu/header-bg.png</texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				
+				<control type="button" id="201">
+					<description>Spotify core logo</description>
+					<posx>1164</posx>
+					<posy>12</posy>
+					<width>104</width>
+					<height>104</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<texturefocus>main-menu/spotify-core-logo-focus.png</texturefocus>
+					<texturenofocus>main-menu/spotify-core-logo.png</texturenofocus>
+					<label></label>
+					<font>font12</font>
+					<textcolor>FFFFFFFF</textcolor>
+					<disabledcolor>80FFFFFF</disabledcolor>
+					<onclick></onclick>
+					<onfocus>-</onfocus>
+					<onup>2</onup>
+					<ondown>3</ondown>
+					<onleft>1</onleft>
+					<onright>1</onright>
+				</control>
+				
+				<control type="grouplist" id="210">
+					<description>Main menu options</description>
+					<posx>32</posx>
+					<posy>88</posy>
+					<width>1000</width>
+					<height>40</height>
+					<itemgap>8</itemgap>
+					<pagecontrol>25</pagecontrol>
+					<scrolltime tween="sine" easing="out">200</scrolltime>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>false</usecontrolcoords>
+					<visible>true</visible>
+					<onup>2</onup>
+					<ondown>3</ondown>
+					<onleft>1</onleft>
+					<onright>1</onright>
+					
+					<control type="togglebutton" id="211">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>152</width>
+						<label>New Stuff</label>
+						<usealttexture>false</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="212">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>136</width>
+						<label>Playlists</label>
+						<usealttexture>true</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="213">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>120</width>
+						<label>Search</label>
+						<usealttexture>true</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="214">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>180</width>
+						<label>Now Playing</label>
+						<usealttexture>true</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="215">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>128</width>
+						<label>More...</label>
+						<usealttexture>true</usealttexture>
+					</control>
+				</control>
+	        </control>
 			
 			<!-- Left Menu -->
 			<control type="group" id="500">
@@ -115,178 +216,54 @@
 				<description>View Content Group</description>
 				<defaultcontrol>1100</defaultcontrol>
 				<visible>true</visible>
-				<posx>0</posx>
-				<posy>0</posy>
-				<width></width>
-				<height></height>
+				<posx>48</posx>
+				<posy>128</posy>
 				
-				<!-- Home menu -->
-				<control type="list" id="1100">
-					<description>Home menu</description>
-					<posx>96</posx>
+				<control type="label">
+					<include>spotymc_title</include>
+					<label>New Stuff</label>
+					<posx>0</posx>
 					<posy>32</posy>
-					<width>672</width>
-					<height>640</height>
-					<visible>false</visible>
-					<onup>-</onup>
-					<ondown>-</ondown>
-					<onleft>500</onleft>
-					<onright>-</onright>
-					<viewtype label="3D list">list</viewtype>
-					<orientation>vertical</orientation>
-					<pagecontrol></pagecontrol>
-					<scrolltime>200</scrolltime>
-					<itemlayout width="672" height="80">
-						<control type="image">
-							<posx>10</posx>
-							<posy>12</posy>
-							<width>64</width>
-							<height>64</height>
-							<info>ListItem.Icon</info>
-							<colordiffuse>ff969696</colordiffuse>
-							<fadetime>150</fadetime>
-						</control>
-						<control type="label">
-							<posx>80</posx>
-							<posy>12</posy>
-							<width>458</width>
-							<height>48</height>
-							<font>spotymc_title</font>
-							<aligny>center</aligny>
-							<selectedcolor>ff969696</selectedcolor>
-							<align>left</align>
-							<info>ListItem.Label</info>
-							<textcolor>ff969696</textcolor>
-							<shadowcolor>00000000</shadowcolor>
-						</control>
-					</itemlayout>
-					<focusedlayout width="512" height="80">
-						<control type="image">
-							<posx>0</posx>
-							<posy>0</posy>
-							<width>672</width>
-							<height>80</height>
-							<colordiffuse>ffffffff</colordiffuse>
-							<fadetime>150</fadetime>
-							<texture>home-menu/item-bg.png</texture>
-						</control>
-						<control type="image">
-							<posx>10</posx>
-							<posy>12</posy>
-							<width>64</width>
-							<height>64</height>
-							<info>ListItem.Icon</info>
-							<colordiffuse>ffffffff</colordiffuse>
-							<fadetime>150</fadetime>
-						</control>
-						<control type="label">
-							<posx>80</posx>
-							<posy>12</posy>
-							<width>458</width>
-							<height>48</height>
-							<font>spotymc_title</font>
-							<aligny>center</aligny>
-							<selectedcolor>green</selectedcolor>
-							<align>left</align>
-							<info>ListItem.Label</info>
-							<textcolor>ffffffff</textcolor>
-						</control>
-					</focusedlayout>
 				</control>
 				
 				
-				<!-- New stuff list -->
-				<!--
-				<control type="panel" id="1200">
-					<description>My first list container</description>
-					<posx>40</posx>
-					<posy></posy>
-					<width>1280</width>
-					<height>650</height>
+				<!-- New stuff container -->
+				<control type="group" id="1200">
+					<description>View Content Group</description>
+					<defaultcontrol>1100</defaultcontrol>
 					<visible>false</visible>
-					<onup>50</onup>
-					<ondown></ondown>
-					<onleft>500</onleft>
-					<onright></onright>
-					<viewtype label="list">wrap</viewtype>
-					<orientation>vertical</orientation>
-					<pagecontrol>25</pagecontrol>
-					<scrolltime>200</scrolltime>
-					<itemlayout width="170" height="200">
-						<control type="image">
-							<posx>10</posx>
-							<posy></posy>
-							<width>150</width>
-							<height>150</height>
-							<info>ListItem.Icon</info>
-							<colordiffuse>ffc8c8c8</colordiffuse>
-							<fadetime>150</fadetime>
-						</control>
-						<control type="label">
-							<posx>10</posx>
-							<posy>150</posy>
-							<width>150</width>
-							<height>18</height>
-							<font>font10</font>
-							<aligny>center</aligny>
-							<selectedcolor>green</selectedcolor>
-							<align>left</align>
-							<info>ListItem.Label</info>
-							<textcolor>ffffffff</textcolor>
-							<shadowcolor>ff000000</shadowcolor>
-						</control>
-						<control type="label">
-							<posx>10</posx>
-							<posy>168</posy>
-							<width>150</width>
-							<height>18</height>
-							<font>font10</font>
-							<aligny>center</aligny>
-							<selectedcolor>green</selectedcolor>
-							<textcolor>grey</textcolor>
-							<align>left</align>
-							<info>ListItem.Label2</info>
-						</control>
-					</itemlayout>
-					<focusedlayout height="160" width="180">
-						<control type="image">
-							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-							<posx>10</posx>
-							<posy></posy>
-							<width>150</width>
-							<height>150</height>
-							<info>ListItem.Icon</info>
-						</control>
-						<control type="label">
-							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-							<posx>10</posx>
-							<posy>150</posy>
-							<width>150</width>
-							<height>18</height>
-							<font>font10</font>
-							<aligny>center</aligny>
-							<selectedcolor>green</selectedcolor>
-							<align>left</align>
-							<info>ListItem.Label</info>
-							<textcolor>ffffffff</textcolor>
-							<shadowcolor>ff000000</shadowcolor>
-						</control>
-						<control type="label">
-							<animation effect="zoom" center="75,75" time="100" start="100,100" end="110,110">Focus</animation>
-							<posx>10</posx>
-							<posy>168</posy>
-							<width>150</width>
-							<height>18</height>
-							<font>font10</font>
-							<aligny>center</aligny>
-							<selectedcolor>green</selectedcolor>
-							<textcolor>grey</textcolor>
-							<align>left</align>
-							<info>ListItem.Label2</info>
-						</control>
-					</focusedlayout>
+					<posx>0</posx>
+					<posy>0</posy>
+				
+					<!-- New stuff list -->
+					<control type="panel" id="1201">
+						<include>spotymc_albumgrid</include>
+						<description>New Stuff</description>
+						<pagecontrol>1202</pagecontrol>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+						<posx>0</posx>
+						<posy>64</posy>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1202">
+						<include>spotymc_scrollbar</include>
+						<posx>1152</posx>
+						<posy>64</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
 				</control>
-				-->
+				
+				
+				
 			</control>
 		</control>
     </controls>

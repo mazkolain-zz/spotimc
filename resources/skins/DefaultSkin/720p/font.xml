@@ -1,9 +1,19 @@
 <fonts>
 	<fontset id="Default" unicode="true">
 		<font>
-			<name>spotymc_title</name>
+			<name>spotymc_font20</name>
 			<filename>spotymc.ttf</filename>
-			<size>60</size>
+			<size>20</size>
+		</font>
+		<font>
+			<name>spotymc_font22</name>
+			<filename>spotymc.ttf</filename>
+			<size>22</size>
+		</font>
+		<font>
+			<name>spotymc_font24</name>
+			<filename>spotymc.ttf</filename>
+			<size>24</size>
 		</font>
 	</fontset>
 </fonts>

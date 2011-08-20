@@ -1,0 +1,146 @@
+<includes>
+	<!-- Styles for buttons in the top menu -->
+	<include name="spotymc_topmenu_option">
+		<posx>0</posx>
+		<posy>0</posy>
+		<height>40</height>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<texturefocus>main-menu/option-bg-focus.png</texturefocus>
+		<texturenofocus>main-menu/option-bg.png</texturenofocus>
+		<alttexturefocus>main-menu/option-bg-focus.png</alttexturefocus>
+		<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
+		<font>spotymc_font24</font>
+		<textcolor>FFFFFFFF</textcolor>
+		<disabledcolor>80FFFFFF</disabledcolor>
+		<align>center</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety>8</textoffsety>
+		<pulseonselect>false</pulseonselect>
+	</include>
+	
+	<!-- General text styles -->
+	<include name="spotymc_title">
+		<width>auto</width>
+		<height>16</height>
+		<visible>true</visible>
+		<align>left</align>
+		<aligny>center</aligny>
+		<scroll>false</scroll>
+		<number></number>
+		<angle>0</angle>
+		<haspath>false</haspath>
+		<font>spotymc_font22</font>
+		<textcolor>ffffffff</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+		<wrapmultiline>false</wrapmultiline>
+		<scrollspeed>50</scrollspeed>
+		<scrollsuffix>-</scrollsuffix>
+	</include>
+	
+	<!-- Default scrollbar style -->
+	<include name="spotymc_scrollbar">
+		<visible>true</visible>
+		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
+		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
+		<texturesliderbarfocus>common/scrollbar-slider.png</texturesliderbarfocus>
+		<textureslidernib></textureslidernib>
+		<textureslidernibfocus></textureslidernibfocus>
+		<pulseonselect></pulseonselect>
+		<orientation>vertical</orientation>
+		<showonepage>false</showonepage>
+	</include>
+	
+	<!-- Styles for album grids -->
+	<include name="spotymc_albumgrid">
+		<width>1152</width>
+		<height>528</height>
+		<viewtype label="list">wrap</viewtype>
+		<orientation>vertical</orientation>
+		<scrolltime>200</scrolltime>
+		<visible>true</visible>
+		
+		<itemlayout width="384" height="112">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>368</width>
+				<height>96</height>
+				<texture>album-grid/album-bg.png</texture>
+				<aspectratio>stretch</aspectratio>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>80</width>
+				<height>80</height>
+				<info>ListItem.Icon</info>
+				<aspectratio>stretch</aspectratio>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>24</posy>
+				<width>150</width>
+				<height>18</height>
+				<font>spotymc_font22</font>
+				<aligny>center</aligny>
+				<selectedcolor>green</selectedcolor>
+				<align>left</align>
+				<info>ListItem.Label</info>
+				<textcolor>ffffffff</textcolor>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>56</posy>
+				<width>150</width>
+				<height>18</height>
+				<font>spotymc_font20</font>
+				<aligny>center</aligny>
+				<align>left</align>
+				<info>ListItem.Label2</info>
+				<textcolor>ff969696</textcolor>
+			</control>
+		</itemlayout>
+		<focusedlayout height="384" width="112">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>368</width>
+				<height>96</height>
+				<texture>album-grid/album-bg-selected.png</texture>
+				<aspectratio>stretch</aspectratio>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>80</width>
+				<height>80</height>
+				<info>ListItem.Icon</info>
+				<aspectratio>stretch</aspectratio>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>24</posy>
+				<width>150</width>
+				<height>18</height>
+				<font>spotymc_font22</font>
+				<aligny>center</aligny>
+				<selectedcolor>green</selectedcolor>
+				<align>left</align>
+				<info>ListItem.Label</info>
+				<textcolor>ffffffff</textcolor>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>56</posy>
+				<width>150</width>
+				<height>18</height>
+				<font>spotymc_font20</font>
+				<aligny>center</aligny>
+				<align>left</align>
+				<info>ListItem.Label2</info>
+				<textcolor>ffffffff</textcolor>
+			</control>
+		</focusedlayout>
+	</include>
+</includes>
