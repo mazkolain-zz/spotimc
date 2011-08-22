@@ -326,7 +326,7 @@
 					
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>$INFO[Container.Property(AlbumName)] [COLOR ff969696]by $INFO[Container.Property(ArtistName)][/COLOR]</label>
+						<label>$INFO[Container.Property(ArtistName)] [COLOR ff969696]Top tracks ($INFO[Container(1401).NumItems])[/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
 					</control>
@@ -335,19 +335,19 @@
 					<control type="list" id="1401">
 						<include>spotymc_tracklist</include>
 						<description>Track list</description>
-						<posx>336</posx>
+						<posx>0</posx>
 						<posy>80</posy>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
 						<onright>-</onright>
-						<pagecontrol>1304</pagecontrol>
+						<pagecontrol>1402</pagecontrol>
 					</control>
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1402">
 						<include>spotymc_scrollbar</include>
-						<posx>1168</posx>
+						<posx>832</posx>
 						<posy>80</posy>
 						<width>8</width>
 						<height>496</height>
