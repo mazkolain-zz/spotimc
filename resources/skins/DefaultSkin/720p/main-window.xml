@@ -94,6 +94,14 @@
 					<onleft>1</onleft>
 					<onright>1</onright>
 					
+					<control type="togglebutton" id="214">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>192</width>
+						<label>Now Playing</label>
+						<usealttexture>true</usealttexture>
+					</control>
+					
 					<control type="togglebutton" id="211">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
@@ -115,14 +123,6 @@
 						<visible>true</visible>
 						<width>120</width>
 						<label>Search</label>
-						<usealttexture>true</usealttexture>
-					</control>
-					
-					<control type="togglebutton" id="214">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>180</width>
-						<label>Now Playing</label>
 						<usealttexture>true</usealttexture>
 					</control>
 					
