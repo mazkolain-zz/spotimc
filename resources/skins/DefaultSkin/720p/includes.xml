@@ -143,4 +143,86 @@
 			</control>
 		</focusedlayout>
 	</include>
+	
+	<include name="spotymc_tracklist">
+		<width>816</width>
+		<height>496</height>
+		<visible>true</visible>
+		<viewtype label="3D list">list</viewtype>
+		<orientation>vertical</orientation>
+		<scrolltime tween="sine" easing="out">200</scrolltime>
+		
+		<itemlayout width="816" height="48">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>816</width>
+				<height>46</height>
+				<texture>common/item-bg.png</texture>
+			</control>
+			<control type="label">
+				<posx>48</posx>
+				<posy>0</posy>
+				<width>672</width>
+				<height>46</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+			<control type="label">
+				<posx>800</posx>
+				<posy>0</posy>
+				<width>112</width>
+				<height>46</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font22</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<info>ListItem.Duration</info>
+			</control>
+		</itemlayout>
+		<focusedlayout width="816" height="48">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>816</width>
+				<height>46</height>
+				<texture>common/item-bg-selected.png</texture>
+			</control>
+			<control type="label">
+				<posx>48</posx>
+				<posy>0</posy>
+				<width>672</width>
+				<height>46</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+			<control type="label">
+				<posx>800</posx>
+				<posy>0</posy>
+				<width>112</width>
+				<height>46</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>right</align>
+				<aligny>center</aligny>
+				<info>ListItem.Duration</info>
+			</control>
+		</focusedlayout>
+	</include>
+	
+	<!-- General styles for album covers -->
+	<include name="spotymc_albumcover">
+		<visible>true</visible>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<fadetime>200</fadetime>
+		<bordertexture>common/item-bg.png</bordertexture>
+		<bordersize>4</bordersize>
+		<aspectratio>stretch</aspectratio>
+	</include>
 </includes>

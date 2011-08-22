@@ -219,13 +219,6 @@
 				<posx>48</posx>
 				<posy>128</posy>
 				
-				<control type="label">
-					<include>spotymc_title</include>
-					<label>New Stuff</label>
-					<posx>0</posx>
-					<posy>32</posy>
-				</control>
-				
 				
 				<!-- New stuff container -->
 				<control type="group" id="1200">
@@ -234,6 +227,13 @@
 					<visible>false</visible>
 					<posx>0</posx>
 					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>New Stuff</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
 				
 					<!-- New stuff list -->
 					<control type="panel" id="1201">
@@ -263,6 +263,57 @@
 				</control>
 				
 				
+				<!-- Album tracks view -->
+				<control type="group" id="1300">
+					<description>Album tracks view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>$INFO[Container.Property(AlbumName)] [COLOR ff969696]by $INFO[Container.Property(ArtistName)][/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Album Cover -->
+					<control type="image">
+						<include>spotymc_albumcover</include>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>288</width>
+						<height>288</height>
+						<info>Container.Property(AlbumCover)</info>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1303">
+						<include>spotymc_tracklist</include>
+						<description>Track list</description>
+						<posx>336</posx>
+						<posy>80</posy>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+						<pagecontrol>1304</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1304">
+						<include>spotymc_scrollbar</include>
+						<posx>1168</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
+				</control>
 				
 			</control>
 		</control>
