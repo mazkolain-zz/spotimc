@@ -31,25 +31,6 @@
 		<angle>0</angle>
 		<haspath>false</haspath>
 		<font>spotymc_font22</font>
-		<textcolor>ffffffff</textcolor>
-		<shadowcolor>00000000</shadowcolor>
-		<wrapmultiline>false</wrapmultiline>
-		<scrollspeed>50</scrollspeed>
-		<scrollsuffix>-</scrollsuffix>
-	</include>
-	
-	<!-- General text styles -->
-	<include name="spotymc_titlegrey">
-		<width>auto</width>
-		<height>16</height>
-		<visible>true</visible>
-		<align>left</align>
-		<aligny>center</aligny>
-		<scroll>false</scroll>
-		<number></number>
-		<angle>0</angle>
-		<haspath>false</haspath>
-		<font>spotymc_font22</font>
 		<textcolor>ff969696</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
@@ -167,8 +148,6 @@
 	
 	<!-- General small track list (Artist tracks, Album tracks, ...) -->
 	<include name="spotymc_tracklist">
-		<width>816</width>
-		<height>496</height>
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>

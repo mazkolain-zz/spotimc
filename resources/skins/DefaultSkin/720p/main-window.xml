@@ -222,7 +222,7 @@
 				
 				<!-- New stuff container -->
 				<control type="group" id="1200">
-					<description>View Content Group</description>
+					<description>New stuff view</description>
 					<defaultcontrol>1100</defaultcontrol>
 					<visible>false</visible>
 					<posx>0</posx>
@@ -230,7 +230,7 @@
 					
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>New Stuff</label>
+						<label>New music on spotify</label>
 						<posx>0</posx>
 						<posy>32</posy>
 					</control>
@@ -245,14 +245,14 @@
 						<onleft>-</onleft>
 						<onright>-</onright>
 						<posx>0</posx>
-						<posy>64</posy>
+						<posy>80</posy>
 					</control>
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1202">
 						<include>spotymc_scrollbar</include>
 						<posx>1152</posx>
-						<posy>64</posy>
+						<posy>80</posy>
 						<width>8</width>
 						<height>496</height>
 						<onup>-</onup>
@@ -273,7 +273,7 @@
 					
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>$INFO[Container.Property(AlbumName)] [COLOR ff969696]by $INFO[Container.Property(ArtistName)][/COLOR]</label>
+						<label>Album [COLOR ffffffff]$INFO[Container.Property(AlbumName)][/COLOR] by $INFO[Container.Property(ArtistName)]</label>
 						<posx>0</posx>
 						<posy>32</posy>
 					</control>
@@ -294,6 +294,8 @@
 						<description>Track list</description>
 						<posx>336</posx>
 						<posy>80</posy>
+						<width>816</width>
+						<height>512</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
@@ -326,7 +328,7 @@
 					
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>$INFO[Container.Property(ArtistName)] [COLOR ff969696]Top tracks ($INFO[Container(1401).NumItems])[/COLOR]</label>
+						<label>Top tracks of [COLOR ffffffff]$INFO[Container.Property(ArtistName)][/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
 					</control>
@@ -337,6 +339,8 @@
 						<description>Track list</description>
 						<posx>0</posx>
 						<posy>80</posy>
+						<width>816</width>
+						<height>512</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
@@ -368,7 +372,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_titlegrey</include>
+						<include>spotymc_title</include>
 						<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
