@@ -358,6 +358,53 @@
 					</control>
 				</control>
 				
+				
+				<!-- Search tracks view -->
+				<control type="group" id="1500">
+					<description>Search tracks view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_titlegrey</include>
+						<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list header -->
+					<include>spotymc_tracklist_wide_header</include>
+					
+					<!-- Track list -->
+					<control type="list" id="1501">
+						<include>spotymc_tracklist_wide</include>
+						<description>Track list</description>
+						<posx>0</posx>
+						<posy>112</posy>
+						<width>1168</width>
+						<height>464</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+						<pagecontrol>1502</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1502">
+						<include>spotymc_scrollbar</include>
+						<posx>1184</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
+				</control>
 			</control>
 		</control>
     </controls>
