@@ -163,13 +163,24 @@
 			<control type="label">
 				<posx>48</posx>
 				<posy>0</posy>
+				<width>64</width>
+				<height>46</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.TrackNumber].</label>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>0</posy>
 				<width>672</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<font>spotymc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
-				<info>ListItem.Label</info>
+				<info>ListItem.Title</info>
 			</control>
 			<control type="label">
 				<posx>800</posx>
@@ -194,13 +205,24 @@
 			<control type="label">
 				<posx>48</posx>
 				<posy>0</posy>
+				<width>64</width>
+				<height>46</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.TrackNumber].</label>
+			</control>
+			<control type="label">
+				<posx>96</posx>
+				<posy>0</posy>
 				<width>672</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
-				<info>ListItem.Label</info>
+				<info>ListItem.Title</info>
 			</control>
 			<control type="label">
 				<posx>800</posx>

@@ -315,6 +315,49 @@
 					</control>
 				</control>
 				
+				
+				<!-- Artist tracks view -->
+				<control type="group" id="1400">
+					<description>Artist tracks view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>$INFO[Container.Property(AlbumName)] [COLOR ff969696]by $INFO[Container.Property(ArtistName)][/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1401">
+						<include>spotymc_tracklist</include>
+						<description>Track list</description>
+						<posx>336</posx>
+						<posy>80</posy>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+						<pagecontrol>1304</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1402">
+						<include>spotymc_scrollbar</include>
+						<posx>1168</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
+				</control>
+				
 			</control>
 		</control>
     </controls>
