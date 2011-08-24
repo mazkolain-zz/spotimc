@@ -230,7 +230,7 @@
 					
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>New music on spotify</label>
+						<label>New music on Spotify</label>
 						<posx>0</posx>
 						<posy>32</posy>
 					</control>
@@ -407,6 +407,198 @@
 						<ondown>-</ondown>
 						<onleft>-</onleft>
 						<onright>-</onright>
+					</control>
+				</control>
+				
+				
+				<!-- Now playing view -->
+				<control type="group" id="1600">
+					<description>Now playing view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<!-- Album Cover -->
+					<control type="image">
+						<include>spotymc_albumcover</include>
+						<posx>0</posx>
+						<posy>64</posy>
+						<width>288</width>
+						<height>288</height>
+						<info>Container.Property(AlbumCover)</info>
+					</control>
+					
+					<control type="label">
+						<label>Track Name</label>
+						<posx>336</posx>
+						<posy>64</posy>
+						<width>auto</width>
+						<height>64</height>
+						<visible>true</visible>
+						<align>left</align>
+						<aligny>center</aligny>
+						<scroll>false</scroll>
+						<number></number>
+						<angle>0</angle>
+						<haspath>false</haspath>
+						<font>spotymc_font48</font>
+						<textcolor>ffffffff</textcolor>
+						<shadowcolor>00000000</shadowcolor>
+						<wrapmultiline>false</wrapmultiline>
+						<scrollspeed>50</scrollspeed>
+						<scrollsuffix>-</scrollsuffix>
+					</control>
+					
+					<control type="label">
+						<label>Artist Name - Album Name</label>
+						<posx>336</posx>
+						<posy>128</posy>
+						<width>auto</width>
+						<height>32</height>
+						<visible>true</visible>
+						<align>left</align>
+						<aligny>center</aligny>
+						<scroll>false</scroll>
+						<number></number>
+						<angle>0</angle>
+						<haspath>false</haspath>
+						<font>spotymc_font24</font>
+						<textcolor>ff969696</textcolor>
+						<shadowcolor>00000000</shadowcolor>
+						<wrapmultiline>false</wrapmultiline>
+						<scrollspeed>50</scrollspeed>
+						<scrollsuffix>-</scrollsuffix>
+					</control>
+					
+					<control type="label">
+						<label>00:00</label>
+						<info>Player.Time</info>
+						<posx>336</posx>
+						<posy>176</posy>
+						<width>80</width>
+						<height>16</height>
+						<visible>true</visible>
+						<align>left</align>
+						<aligny>center</aligny>
+						<scroll>false</scroll>
+						<number></number>
+						<angle>0</angle>
+						<haspath>false</haspath>
+						<font>spotymc_font20</font>
+						<textcolor>ffffffff</textcolor>
+						<shadowcolor>00000000</shadowcolor>
+						<wrapmultiline>false</wrapmultiline>
+						<scrollspeed>50</scrollspeed>
+						<scrollsuffix>-</scrollsuffix>
+					</control>
+					
+					<control type="progress">
+						<description>My first progress control</description>
+						<posx>416</posx>
+						<posy>176</posy>
+						<width>640</width>
+						<height>16</height>
+						<visible>true</visible>
+						<reveal>false</reveal>
+						<texturebg>common/playback-bar-bg.png</texturebg>
+						<lefttexture>-</lefttexture>
+						<midtexture>common/playback-bar.png</midtexture>
+						<righttexture>-</righttexture>
+						<overlaytexture>-</overlaytexture>
+						<info>Player.Progress</info>
+					</control>
+					
+					<control type="label">
+						<label>00:00</label>
+						<info>Player.Duration</info>
+						<posx>1072</posx>
+						<posy>176</posy>
+						<width>80</width>
+						<height>16</height>
+						<visible>true</visible>
+						<align>left</align>
+						<aligny>center</aligny>
+						<scroll>false</scroll>
+						<number></number>
+						<angle>0</angle>
+						<haspath>false</haspath>
+						<font>spotymc_font20</font>
+						<textcolor>ffffffff</textcolor>
+						<shadowcolor>00000000</shadowcolor>
+						<wrapmultiline>false</wrapmultiline>
+						<scrollspeed>50</scrollspeed>
+						<scrollsuffix>-</scrollsuffix>
+					</control>
+					
+					<control type="grouplist" id="1601">
+						<description>Player menu</description>
+						<posx>336</posx>
+						<posy>224</posy>
+						<width>1000</width>
+						<height>64</height>
+						<itemgap>16</itemgap>
+						<pagecontrol></pagecontrol>
+						<scrolltime tween="sine" easing="out">200</scrolltime>
+						<orientation>horizontal</orientation>
+						<usecontrolcoords>false</usecontrolcoords>
+						<visible>true</visible>
+						<onup></onup>
+						<ondown></ondown>
+						<onleft></onleft>
+						<onright></onright>
+					
+						<!-- Back button -->
+						<control type="button" id="1602">
+							<include>spotymc_nowplaying_button</include>
+							<description>Backward button</description>
+							<texturefocus>common/player-backward-focus.png</texturefocus>
+							<texturenofocus>common/player-backward.png</texturenofocus>
+						</control>
+						
+						<!-- Play/Pause button -->
+						<control type="togglebutton" id="1603">
+							<include>spotymc_nowplaying_button</include>
+							<description>Play/Pause button</description>
+							<texturefocus>common/player-play-focus.png</texturefocus>
+							<texturenofocus>common/player-play.png</texturenofocus>
+							<alttexturefocus>common/player-pause-focus.png</alttexturefocus>
+							<alttexturenofocus>common/player-pause.png</alttexturenofocus>
+							<usealttexture>Player.Paused</usealttexture>
+							<onclick>PlayerControl(Play)</onclick>
+						</control>
+						
+						<!-- Forward button -->
+						<control type="button" id="1604">
+							<include>spotymc_nowplaying_button</include>
+							<description>Forward button</description>
+							<texturefocus>common/player-forward-focus.png</texturefocus>
+							<texturenofocus>common/player-forward.png</texturenofocus>
+						</control>
+						
+						<!-- Shuffle button -->
+						<control type="togglebutton" id="1605">
+							<include>spotymc_nowplaying_button</include>
+							<description>Shuffle button</description>
+							<texturefocus>common/player-shuffle-focus.png</texturefocus>
+							<texturenofocus>common/player-shuffle.png</texturenofocus>
+							<alttexturefocus>common/player-shuffle-on-focus.png</alttexturefocus>
+							<alttexturenofocus>common/player-shuffle-on.png</alttexturenofocus>
+							<usealttexture>Playlist.IsRandom</usealttexture>
+							<onclick>PlayerControl(Random)</onclick>
+						</control>
+						
+						<!-- Shuffle button -->
+						<control type="togglebutton" id="1606">
+							<include>spotymc_nowplaying_button</include>
+							<description>Repeat button</description>
+							<texturefocus>common/player-repeat-focus.png</texturefocus>
+							<texturenofocus>common/player-repeat.png</texturenofocus>
+							<alttexturefocus>common/player-repeat-on-focus.png</alttexturefocus>
+							<alttexturenofocus>common/player-repeat-on.png</alttexturenofocus>
+							<usealttexture>Playlist.IsRepeat</usealttexture>
+							<onclick>PlayerControl(Repeat)</onclick>
+						</control>
 					</control>
 				</control>
 			</control>

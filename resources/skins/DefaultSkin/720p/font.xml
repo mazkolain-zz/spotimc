@@ -15,5 +15,10 @@
 			<filename>spotymc.ttf</filename>
 			<size>24</size>
 		</font>
+		<font>
+			<name>spotymc_font48</name>
+			<filename>spotymc.ttf</filename>
+			<size>48</size>
+		</font>
 	</fontset>
 </fonts>

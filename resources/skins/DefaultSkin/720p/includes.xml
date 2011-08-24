@@ -429,4 +429,19 @@
 		<bordersize>4</bordersize>
 		<aspectratio>stretch</aspectratio>
 	</include>
+	
+	
+	<!-- Player buttons -->
+	<include name="spotymc_nowplaying_button">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>64</width>
+		<height>64</height>
+		<visible>true</visible>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<label></label>
+		<font>spotymc_font20</font>
+		<textcolor>FFFFFFFF</textcolor>
+		<disabledcolor>80FFFFFF</disabledcolor>
+	</include>
 </includes>
