@@ -150,7 +150,7 @@
 				<posy>0</posy>
 				<width>368</width>
 				<height>96</height>
-				<texture>album-grid/album-bg.png</texture>
+				<texture>common/item-bg.png</texture>
 				<aspectratio>stretch</aspectratio>
 			</control>
 			<control type="image">
@@ -191,7 +191,7 @@
 				<posy>0</posy>
 				<width>368</width>
 				<height>96</height>
-				<texture>album-grid/album-bg-selected.png</texture>
+				<texture>common/item-bg-selected.png</texture>
 				<aspectratio>stretch</aspectratio>
 			</control>
 			<control type="image">
