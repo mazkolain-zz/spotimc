@@ -8,14 +8,13 @@
     
     
     <!-- Open animation -->
+    <!--
     <animation type="WindowOpen">
-    	<effect type="fade" time="150" />
-    	<effect type="zoom" center="640,360" time="150" start="300,203" end="100,100" />
+    	<effect type="slide" center="640,360" time="150" start="0,-360" end="0,0" />
     </animation>
     
     <animation effect="fade" time="1000">WindowClose</animation>
-    
-    
+    -->
     
     <visible>true</visible>
     <zorder>1</zorder>
@@ -28,85 +27,86 @@
     
     <controls>
     	<!-- Window background -->
+    	<!--
     	<control type="image">
-            <description>Window background shadow</description>
-            <posx>443</posx>
-            <posy>226</posy>
-            <width>414</width>
-            <height>288</height>
+            <description>Background overlay</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
             <visible>true</visible>
-            <colordiffuse>88FFFFFF</colordiffuse>
+            <colordiffuse>80ffffff</colordiffuse>
             <fadetime></fadetime>
-            <texture>login-window/background-shadow.png</texture>
+            <texture>common/overlay.png</texture>
             <aspectratio>stretch</aspectratio>
         </control>
-    	<control type="image">
-            <description>Window background image</description>
-            <posx>433</posx>
-            <posy>216</posy>
-            <width>414</width>
-            <height>288</height>
-            <visible>true</visible>
-            <colordiffuse>FFFFFFFF</colordiffuse>
-            <fadetime></fadetime>
-            <texture>login-window/background.png</texture>
-            <aspectratio>stretch</aspectratio>
-        </control>
+        -->
+        
         <control type="group" id="1">
             <description>Login container</description>
             <defaultcontrol>2</defaultcontrol>
             <visible>true</visible>
-            <posx>443</posx>
-            <posy>226</posy>
-            <width>414</width>
-            <height>288</height>
+            <posx>384</posx>
+            <posy>160</posy>
+            <width>480</width>
+            <height>384</height>
+            
+            <animation type="WindowOpen">
+		    	<effect type="slide" tween="cubic" easing="out" center="640,360" time="200" start="0,-600" end="0,0" />
+		    </animation>
+		    
+		    <control type="image">
+	            <description>Window border</description>
+	            <posx>-16</posx>
+	            <posy>-16</posy>
+	            <width>512</width>
+	            <height>416</height>
+	            <visible>true</visible>
+	            <colordiffuse>80ffffff</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture>common/login-border.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
+	        
+	        <control type="image">
+	            <description>Window background image</description>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>480</width>
+	            <height>384</height>
+	            <visible>true</visible>
+	            <colordiffuse>ffffffff</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture>common/login-bg.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
             
             <!-- Login prompt text -->
             <control type="label">
-            	<label>Enter your spotify username and password.</label>
-				<posx></posx>
-				<posy>20</posy>
-				<width>400</width>
-				<height>18</height>
-				<font>font12</font>
+            	<label>Login to Spotify</label>
+				<posx>32</posx>
+				<posy>32</posy>
+				<width>416</width>
+				<height>32</height>
+				<font>spotymc_font24</font>
+				<align>center</align>
 				<aligny>center</aligny>
 				<selectedcolor></selectedcolor>
-				<textcolor>FF6A1A00</textcolor>
-				<align>center</align>
+				<textcolor>ffffffff</textcolor>
 			</control>
 			
-			
 			<control type="label">
+				<include>spotymc_login_inputlabel</include>
                 <label>Username</label>
-                <posx></posx>
+                <posx>32</posx>
                 <posy>80</posy>
-                <width>126</width>
-                <height>18</height>
-                <font>font12</font>
-                <selectedcolor></selectedcolor>
-                <textcolor>FFFFFFFF</textcolor>
-                <shadowcolor>FF000000</shadowcolor>
-                <align>center</align>
             </control>
+            
 			<control type="button" id="10">
+				<include>spotymc_login_textinput</include>
 				<description>Username input</description>
-				<posx>126</posx>
-				<posy>80</posy>
-				<width>254</width>
-				<height>27</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus>login-window/text-input-focus.png</texturefocus>
-				<texturenofocus>login-window/text-input-no-focus.png</texturenofocus>
-				<label>johndoe</label>
-				<font>font12</font>
-				<textcolor>FF000000</textcolor>
-				<disabledcolor>FF000000</disabledcolor>
-				<align></align>
-				<aligny></aligny>
-				<textoffsetx>10</textoffsetx>
-				<textoffsety></textoffsety>
-				<pulseonselect></pulseonselect>
+				<posx>32</posx>
+				<posy>112</posy>
 				<onclick></onclick>
 				<onfocus></onfocus>
 				<onup></onup>
@@ -117,36 +117,18 @@
             
             
             <control type="label">
+            	<include>spotymc_login_inputlabel</include>
                 <label>Password</label>
-                <posx></posx>
-                <posy>130</posy>
-                <width>126</width>
-                <height>18</height>
-                <font>font12</font>
-                <selectedcolor></selectedcolor>
-                <textcolor>FFFFFFFF</textcolor>
-                <shadowcolor>FF000000</shadowcolor>
-                <align>center</align>
+                <posx>32</posx>
+                <posy>160</posy>
             </control>
+            
             <control type="button" id="11">
+            	<include>spotymc_login_textinput</include>
                 <description>Password input</description>
-                <posx>126</posx>
-                <posy>130</posy>
-                <width>254</width>
-                <height>27</height>
-                <visible>true</visible>
-                <colordiffuse>FFFFFFFF</colordiffuse>
-                <texturefocus>login-window/text-input-focus.png</texturefocus>
-                <texturenofocus>login-window/text-input-no-focus.png</texturenofocus>
+                <posx>32</posx>
+                <posy>192</posy>
                 <label>******</label>
-                <font>font12</font>
-                <textcolor>FF000000</textcolor>
-                <disabledcolor>FF000000</disabledcolor>
-                <align></align>
-                <aligny></aligny>
-                <textoffsetx>10</textoffsetx>
-                <textoffsety></textoffsety>
-                <pulseonselect></pulseonselect>
                 <onclick></onclick>
                 <onfocus></onfocus>
                 <onup>10</onup>
@@ -157,41 +139,17 @@
             
             
             <control type="label">
-                <label>Remember me </label>
-                <posx>160</posx>
-                <posy>170</posy>
-                <width>250</width>
-                <height>25</height>
-                <font>font12</font>
-                <selectedcolor></selectedcolor>
-                <textcolor>FFFFFFFF</textcolor>
-                <shadowcolor>FF000000</shadowcolor>
-                <align>left</align>
-                <aligny>center</aligny>
+            	<include>spotymc_login_inputlabel</include>
+                <label>Remember me</label>
+                <posx>72</posx>
+                <posy>248</posy>
             </control>
+            
             <control type="togglebutton" id="12">
-	            <description>My first togglebutton control</description>
-	            <posx>126</posx>
-	            <posy>175</posy>
-	            <width>23</width>
-	            <height>23</height>
-	            <visible>true</visible>
-	            <colordiffuse>FFFFFFFF</colordiffuse>
-	            <texturefocus>login-window/toggle-on-focus.png</texturefocus>
-	            <texturenofocus>login-window/toggle-on-no-focus.png</texturenofocus>
-	            <alttexturefocus>login-window/toggle-off-focus.png</alttexturefocus>
-	            <alttexturenofocus>login-window/toggle-off-no-focus.png</alttexturenofocus>
-	            <usealttexture>false</usealttexture>
-	            <label></label>
-	            <altlabel></altlabel>
-	            <font>font12</font>
-	            <textcolor>FFFFFFFF</textcolor>
-	            <disabledcolor>FFFFFFFF</disabledcolor>
-	            <align>left</align>
-	            <aligny>center</aligny>
-	            <textoffsetx>4</textoffsetx>
-	            <textoffsety>5</textoffsety>
-	            <pulseonselect>false</pulseonselect>
+            	<include>spotymc_login_toggle</include>
+	            <description>Remember me toggle</description>
+	            <posx>32</posx>
+	            <posy>248</posy>
 	            <onclick></onclick>
 	            <onfocus></onfocus>
 	            <onup>11</onup>
@@ -201,25 +159,12 @@
 	        </control>
 	        
 	        <control type="button" id="13">
+	        	<include>spotymc_login_button</include>
 		        <description>Cancel button</description>
-		        <posx>42</posx>
-		        <posy>210</posy>
-		        <width>144</width>
-		        <height>35</height>
-		        <visible>true</visible>
-		        <colordiffuse>FFFFFFFF</colordiffuse>
-		        <texturefocus>login-window/button-focus.png</texturefocus>
-		        <texturenofocus>login-window/button-no-focus.png</texturenofocus>
 		        <label>Cancel</label>
-		        <font>font12</font>
-		        <textcolor>FF000000</textcolor>
-		        <disabledcolor>FF000000</disabledcolor>
-		        <align>center</align>
-		        <aligny>top</aligny>
-		        <textoffsetx></textoffsetx>
-		        <textoffsety>4</textoffsety>
-		        <pulseonselect></pulseonselect>
-		        <onclick></onclick>
+		        <posx>64</posx>
+		        <posy>304</posy>
+		        <onclick>Dialog.Close(4002)</onclick>
 		        <onfocus></onfocus>
 		        <onup>12</onup>
 		        <ondown>-</ondown>
@@ -229,24 +174,11 @@
 	        
 	        
 	        <control type="button" id="14">
+	        	<include>spotymc_login_button</include>
 		        <description>Login button</description>
-		        <posx>221</posx>
-		        <posy>210</posy>
-		        <width>144</width>
-		        <height>35</height>
-		        <visible>true</visible>
-		        <colordiffuse>FFFFFFFF</colordiffuse>
-		        <texturefocus>login-window/button-focus.png</texturefocus>
-		        <texturenofocus>login-window/button-no-focus.png</texturenofocus>
 		        <label>Login</label>
-		        <font>font12</font>
-		        <textcolor>FF000000</textcolor>
-		        <disabledcolor>FF000000</disabledcolor>
-		        <align>center</align>
-		        <aligny>top</aligny>
-		        <textoffsetx></textoffsetx>
-		        <textoffsety>4</textoffsety>
-		        <pulseonselect></pulseonselect>
+		        <posx>256</posx>
+		        <posy>304</posy>
 		        <onclick></onclick>
 		        <onfocus></onfocus>
 		        <onup>12</onup>

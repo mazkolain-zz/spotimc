@@ -527,4 +527,74 @@
 		<textcolor>FFFFFFFF</textcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 	</include>
+	
+	
+	<!-- Login form styles -->
+	<include name="spotymc_login_inputlabel">
+		<width>416</width>
+		<height>16</height>
+		<font>spotymc_font20</font>
+		<selectedcolor></selectedcolor>
+		<textcolor>ff6a1b00</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+		<align>left</align>
+	</include>
+	
+	<include name="spotymc_login_textinput">
+		<width>416</width>
+		<height>40</height>
+		<visible>true</visible>
+		<label>johndoe</label>
+		<colordiffuse>ffffffff</colordiffuse>
+		<texturefocus>common/login-field-focus.png</texturefocus>
+		<texturenofocus>common/login-field.png</texturenofocus>
+		<font>spotymc_font22</font>
+		<textcolor>ffffffff</textcolor>
+		<focusedcolor>ff6a1b00</focusedcolor>
+		<disabledcolor>ffffffff</disabledcolor>
+		<align>left</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety>0</textoffsety>
+		<pulseonselect>False</pulseonselect>
+	</include>
+	
+	<include name="spotymc_login_toggle">
+		<width>32</width>
+		<height>32</height>
+		<visible>true</visible>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<texturefocus>common/login-toggle-off-focus.png</texturefocus>
+		<texturenofocus>common/login-toggle-off.png</texturenofocus>
+		<alttexturefocus>common/login-toggle-on-focus.png</alttexturefocus>
+		<alttexturenofocus>common/login-toggle-on.png</alttexturenofocus>
+		<usealttexture>false</usealttexture>
+		<label></label>
+		<altlabel></altlabel>
+		<font>font12</font>
+		<textcolor>FFFFFFFF</textcolor>
+		<disabledcolor>FFFFFFFF</disabledcolor>
+		<align>left</align>
+		<aligny>center</aligny>
+		<textoffsetx></textoffsetx>
+		<textoffsety></textoffsety>
+		<pulseonselect>false</pulseonselect>
+	</include>
+	
+	<include name="spotymc_login_button">
+		<width>160</width>
+		<height>40</height>
+		<visible>true</visible>
+		<colordiffuse>ffffffff</colordiffuse>
+		<texturefocus>common/login-button-focus.png</texturefocus>
+		<texturenofocus>common/login-button.png</texturenofocus>
+		<font>spotymc_font22</font>
+		<focusedcolor>ff6a1b00</focusedcolor>
+		<disabledcolor>ffffffff</disabledcolor>
+		<align>center</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety>0</textoffsety>
+		<pulseonselect>False</pulseonselect>
+	</include>
 </includes>
