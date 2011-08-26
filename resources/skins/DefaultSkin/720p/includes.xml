@@ -19,6 +19,89 @@
 		<pulseonselect>false</pulseonselect>
 	</include>
 	
+	
+	<!-- Left menu styles -->
+	<include name="spotymc_leftmenu_grouplist">
+		<posx>16</posx>
+		<posy>8</posy>
+		<width>224</width>
+		<height>688</height>
+		<itemgap>8</itemgap>
+		<pagecontrol></pagecontrol>
+		<orientation>vertical</orientation>
+		<usecontrolcoords>false</usecontrolcoords>
+		<onup>-</onup>
+		<ondown>-</ondown>
+		<onleft>-</onleft>
+	</include>
+	
+	
+	<include name="spotymc_leftmenu_label">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>224</width>
+		<height>32</height>
+		<font>spotymc_font20</font>
+		<selectedcolor>ff545454</selectedcolor>
+		<align>left</align>
+		<aligny>center</aligny>
+		<textcolor>ff545454</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+	</include>
+	
+	<include name="spotymc_leftmenu_toggle">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>224</width>
+		<height>40</height>
+		<colordiffuse>ffffffff</colordiffuse>
+		<texturefocus>common/left-menu-toggle-off-focus.png</texturefocus>
+		<texturenofocus>common/left-menu-toggle-off.png</texturenofocus>
+		<alttexturefocus>common/left-menu-toggle-on-focus.png</alttexturefocus>
+		<alttexturenofocus>common/left-menu-toggle-on.png</alttexturenofocus>
+		<font>spotymc_font22</font>
+		<textcolor>ffffffff</textcolor>
+		<disabledcolor>ffffffff</disabledcolor>
+		<align>left</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety></textoffsety>
+		<pulseonselect>false</pulseonselect>
+		<onclick></onclick>
+		<onfocus></onfocus>
+		<onleft></onleft>
+		<onright></onright>
+		<onup></onup>
+		<ondown></ondown>
+	</include>
+	
+	<include name="spotymc_leftmenu_button">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>224</width>
+		<height>40</height>
+		<visible>true</visible>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<texturefocus>common/left-menu-button-focus.png</texturefocus>
+		<texturenofocus>common/left-menu-button.png</texturenofocus>
+		<font>spotymc_font22</font>
+		<textcolor>ffffffff</textcolor>
+		<disabledcolor>ffffffff</disabledcolor>
+		<align>left</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety>0</textoffsety>
+		<pulseonselect>False</pulseonselect>
+		<onclick></onclick>
+		<onfocus></onfocus>
+		<onleft></onleft>
+		<onright></onright>
+		<onup></onup>
+		<ondown></ondown>
+	</include>
+
+	
+	
 	<!-- General text styles -->
 	<include name="spotymc_title">
 		<width>auto</width>

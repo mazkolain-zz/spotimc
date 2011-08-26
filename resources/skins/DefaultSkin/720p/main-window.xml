@@ -32,7 +32,7 @@
             <width>1280</width>
             <height>720</height>
 			
-			<animation effect="slide" tween="sine" condition="ControlGroup(500).HasFocus()" time="300" easing="out" start="0,0" end="300,0">Conditional</animation>
+			<animation effect="slide" tween="sine" condition="ControlGroup(5000).HasFocus()" time="250" easing="inout" start="0,0" end="256,0">Conditional</animation>
 			
 			<control type="group" id="200">
 	        	<description>Main Menu</description>
@@ -136,80 +136,6 @@
 				</control>
 	        </control>
 			
-			<!-- Left Menu -->
-			<control type="group" id="500">
-				<description>Left Menu Group</description>
-				<defaultcontrol>501</defaultcontrol>
-				<visible>true</visible>
-				<posx>-332</posx>
-				<posy></posy>
-				<width>332</width>
-				<height>692</height>
-				
-				<control type="image">
-					<description>Left menu background</description>
-					<posx>-94</posx>
-					<posy></posy>
-					<width>426</width>
-					<height>692</height>
-					<visible>true</visible>
-					<colordiffuse>FFFFFFFF</colordiffuse>
-					<fadetime>200</fadetime>
-					<texture>left-menu/background.png</texture>
-					<aspectratio>stretch</aspectratio>
-				</control>
-				
-				<!-- Toplist options -->
-				<control type="group" id="501">
-					<description>Toplist options</description>
-					<defaultcontrol>502</defaultcontrol>
-					<visible>true</visible>
-					<posx>32</posx>
-					<posy>32</posy>
-					<width>200</width>
-					<height>623</height>
-					
-					<control type="label">
-						<posx>0</posx>
-						<posy>0</posy>
-						<width>300</width>
-						<height>16</height>
-						<font>font13</font>
-						<aligny>center</aligny>
-						<selectedcolor>ff969696</selectedcolor>
-						<align>left</align>
-						<textcolor>ff969696</textcolor>
-						<shadowcolor>00000000</shadowcolor>
-						<label>Show toplists for...</label>
-					</control>
-					
-					<control type="button" id="502">
-						<include>spotymc_leftbutton</include>
-						<label>Button1</label>
-						<description></description>
-						<posx></posx>
-						<posy>32</posy>
-						<onup></onup>
-						<ondown></ondown>
-						<onleft></onleft>
-						<onright>1000</onright>
-					</control>
-					
-					<control type="button" id="503">
-						<include>spotymc_leftbutton</include>
-						<label>Button2</label>
-						<description></description>
-						<posx>0</posx>
-						<posy>72</posy>
-						<onfocus>SendClick(53)</onfocus>
-						<onclick>-</onclick>
-						<onup></onup>
-						<ondown></ondown>
-						<onleft></onleft>
-						<onright>1000</onright>
-					</control>
-				</control>
-			</control>
 			
             <!-- View Content Group -->
 			<control type="group" id="1000">
@@ -218,7 +144,6 @@
 				<visible>true</visible>
 				<posx>48</posx>
 				<posy>128</posy>
-				
 				
 				<!-- New stuff container -->
 				<control type="group" id="1200">
@@ -266,10 +191,14 @@
 				<!-- Album tracks view -->
 				<control type="group" id="1300">
 					<description>Album tracks view</description>
-					<defaultcontrol>1100</defaultcontrol>
+					<defaultcontrol>1303</defaultcontrol>
 					<visible>false</visible>
 					<posx>0</posx>
 					<posy>0</posy>
+					<onup>-</onup>
+					<ondown>-</ondown>
+					<onleft>5300</onleft>
+					<onright>-</onright>
 					
 					<control type="label">
 						<include>spotymc_title</include>
@@ -296,9 +225,9 @@
 						<posy>80</posy>
 						<width>816</width>
 						<height>512</height>
-						<onup>-</onup>
+						<onup></onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
+						<onleft>5300</onleft>
 						<onright>-</onright>
 						<pagecontrol>1304</pagecontrol>
 					</control>
@@ -391,7 +320,7 @@
 						<height>464</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
+						<onleft>5500</onleft>
 						<onright>-</onright>
 						<pagecontrol>1502</pagecontrol>
 					</control>
@@ -602,6 +531,205 @@
 					</control>
 				</control>
 			</control>
+			
+			
+			<!-- Overlay when left menu is active -->
+			<control type="image">
+	            <description>Main background image</description>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>1280</width>
+	            <height>720</height>
+	            <visible>true</visible>
+	            <colordiffuse>80ffffff</colordiffuse>
+	            <fadetime>200</fadetime>
+	            <texture>common/overlay.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	            <visible>ControlGroup(5000).HasFocus()</visible>
+	        </control>
+	        
+	        
+	        <!-- Left menu -->
+			<control type="group" id="5000">
+				<description>Left Menu Group</description>
+				<defaultcontrol>501</defaultcontrol>
+				<visible>true</visible>
+				<posx>-256</posx>
+				<posy>0</posy>
+				<width>280</width>
+				<height>720</height>
+				
+				<control type="image">
+					<description>Left menu background</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>720</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<fadetime>200</fadetime>
+					<texture>common/left-menu-bg.png</texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				
+				<control type="togglebutton" id="5001">
+					<posx>256</posx>
+					<posy>320</posy>
+					<width>24</width>
+					<height>64</height>
+					<colordiffuse>ffffffff</colordiffuse>
+					<texturefocus>common/left-menu-toggler-off.png</texturefocus>
+					<texturenofocus>common/left-menu-toggler-off.png</texturenofocus>
+					<alttexturefocus>common/left-menu-toggler-on.png</alttexturefocus>
+					<alttexturenofocus>common/left-menu-toggler-on.png</alttexturenofocus>
+					<usealttexture>ControlGroup(5000).HasFocus()</usealttexture>
+					<font>spotymc_font22</font>
+					<textcolor>ffffffff</textcolor>
+					<disabledcolor>ffffffff</disabledcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<textoffsetx>16</textoffsetx>
+					<textoffsety></textoffsety>
+					<pulseonselect>false</pulseonselect>
+					<onclick></onclick>
+					<onfocus></onfocus>
+					<onleft></onleft>
+					<onright></onright>
+					<onup></onup>
+					<ondown></ondown>
+					<visible>
+						Control.IsVisible(1300) |
+						Control.IsVisible(1500)
+					</visible>
+				</control>
+				
+				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5300">
+					<include>spotymc_leftmenu_grouplist</include>
+					<description>Album track options</description>
+					<onright>1300</onright>
+					<visible>Control.IsVisible(1300)</visible>
+					
+					<control type="label" id="5301">
+						<include>spotymc_leftmenu_label</include>
+						<label>Album browsing:</label>
+					</control>
+					
+					<control type="togglebutton" id="5302">
+						<include>spotymc_leftmenu_toggle</include>
+						<description>Tracks option</description>
+						<usealttexture>True</usealttexture>
+						<label>Tracks</label>
+						<visible>true</visible>
+					</control>
+					
+					<control type="togglebutton" id="5303">
+						<include>spotymc_leftmenu_toggle</include>
+						<description>Tracks option</description>
+						<usealttexture>False</usealttexture>
+						<label>Critics</label>
+						<visible>true</visible>
+					</control>
+					
+					<control type="label" id="5304">
+						<include>spotymc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<control type="button" id="5305">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Add to playlist</label>
+					</control>
+					
+					<control type="button" id="5306">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Add to queue</label>
+					</control>
+					
+					<control type="button" id="5307">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Toggle star</label>
+					</control>
+				</control>
+				
+				<!-- Track search options -->
+				<control type="grouplist" id="5500">
+					<include>spotymc_leftmenu_grouplist</include>
+					<description>Album track options</description>
+					<onright>1500</onright>
+					<visible>Control.IsVisible(1500)</visible>
+					
+					<!-- New Search -->
+					<control type="label" id="5501">
+						<include>spotymc_leftmenu_label</include>
+						<label>Search:</label>
+					</control>
+					
+					<control type="button" id="5302">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>New Search</label>
+					</control>
+					
+					<!-- Track options -->
+					<control type="label" id="5503">
+						<include>spotymc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<control type="button" id="5304">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Add to playlist</label>
+					</control>
+					
+					<control type="button" id="5305">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Add to queue</label>
+					</control>
+					
+					<!-- Sort options -->
+					<control type="label" id="5506">
+						<include>spotymc_leftmenu_label</include>
+						<label>Sort by:</label>
+					</control>
+					
+					<control type="button" id="5307">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Track Title</label>
+					</control>
+					
+					<control type="button" id="5308">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Popularity</label>
+					</control>
+					
+					<control type="button" id="5309">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Album Title</label>
+					</control>
+					
+					<control type="button" id="5310">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Artist Name</label>
+					</control>
+					
+					<control type="button" id="5311">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Duration</label>
+					</control>
+				</control>
+			</control>
+	        
 		</control>
     </controls>
 </window>
