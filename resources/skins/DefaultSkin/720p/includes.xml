@@ -568,9 +568,6 @@
 		<texturenofocus>common/login-toggle-off.png</texturenofocus>
 		<alttexturefocus>common/login-toggle-on-focus.png</alttexturefocus>
 		<alttexturenofocus>common/login-toggle-on.png</alttexturenofocus>
-		<usealttexture>false</usealttexture>
-		<label></label>
-		<altlabel></altlabel>
 		<font>font12</font>
 		<textcolor>FFFFFFFF</textcolor>
 		<disabledcolor>FFFFFFFF</disabledcolor>

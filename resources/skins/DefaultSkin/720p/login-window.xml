@@ -150,12 +150,13 @@
 	            <description>Remember me toggle</description>
 	            <posx>32</posx>
 	            <posy>248</posy>
-	            <onclick></onclick>
 	            <onfocus></onfocus>
 	            <onup>11</onup>
 	            <ondown>14</ondown>
 	            <onleft></onleft>
 	            <onright></onright>
+	            <usealttexture>Skin.HasSetting(spotymc_session_remember)</usealttexture>
+	            <onclick>Skin.ToggleSetting(spotymc_session_remember)</onclick>
 	        </control>
 	        
 	        <control type="button" id="13">
