@@ -69,7 +69,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
 
 
 
-class AlbumDialog(xbmcgui.WindowXMLDialog):
+class PlaylistDialog(xbmcgui.WindowXMLDialog):
     #Controld id's
     
     
@@ -85,11 +85,29 @@ class AlbumDialog(xbmcgui.WindowXMLDialog):
 
 
     def onInit(self):
-        pass
+        c = self.getControl(3)
+        c.addItem(xbmcgui.ListItem('Item #1'))
+        c.addItem(xbmcgui.ListItem('Item #2'))
+        c.addItem(xbmcgui.ListItem('Item #3'))
+        c.addItem(xbmcgui.ListItem('Item #4'))
+        c.addItem(xbmcgui.ListItem('Item #5'))
+        c.addItem(xbmcgui.ListItem('Item #6'))
+        """"c.addItem(xbmcgui.ListItem('Item #7'))
+        c.addItem(xbmcgui.ListItem('Item #8'))
+        c.addItem(xbmcgui.ListItem('Item #9'))
+        c.addItem(xbmcgui.ListItem('Item #10'))
+        c.addItem(xbmcgui.ListItem('Item #11'))
+        c.addItem(xbmcgui.ListItem('Item #12'))
+        c.addItem(xbmcgui.ListItem('Item #13'))
+        c.addItem(xbmcgui.ListItem('Item #14'))"""
     
     
     def onClick(self, controlID):
-        pass
+        if controlID == 12:
+            self.getControl(1).setVisibleCondition("False")
+            import time
+            time.sleep(0.2)
+            self.close()
     
     
     def onFocus(self, controlID):

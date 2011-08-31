@@ -134,6 +134,18 @@
 		<showonepage>false</showonepage>
 	</include>
 	
+	<include name="spotymc_scrollbar_always">
+		<visible>true</visible>
+		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
+		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
+		<texturesliderbarfocus>common/scrollbar-slider.png</texturesliderbarfocus>
+		<textureslidernib></textureslidernib>
+		<textureslidernibfocus></textureslidernibfocus>
+		<pulseonselect></pulseonselect>
+		<orientation>vertical</orientation>
+		<showonepage>true</showonepage>
+	</include>
+	
 	
 	<!-- Styles for album grids -->
 	<include name="spotymc_albumgrid">
@@ -593,5 +605,103 @@
 		<textoffsetx>16</textoffsetx>
 		<textoffsety>0</textoffsety>
 		<pulseonselect>False</pulseonselect>
+	</include>
+	
+	
+	<!-- Common dialog styles -->
+	<include name="spotymc_dialog_border">
+		<visible>true</visible>
+		<colordiffuse>80ffffff</colordiffuse>
+		<fadetime></fadetime>
+		<texture border="16">common/dialog-border.png</texture>
+		<aspectratio>stretch</aspectratio>
+	</include>
+	
+	<include name="spotymc_dialog_bg">
+		<visible>true</visible>
+		<colordiffuse>ffffffff</colordiffuse>
+		<fadetime></fadetime>
+		<texture border="16,64,16,64">common/dialog-bg.png</texture>
+		<aspectratio>stretch</aspectratio>
+	</include>
+	
+	<include name="spotymc_dialog_title">
+		<posx>0</posx>
+		<posy>0</posy>
+		<height>64</height>
+		<font>spotymc_font24</font>
+		<align>left</align>
+		<aligny>center</aligny>
+		<selectedcolor></selectedcolor>
+		<textoffsetx>24</textoffsetx>
+		<textcolor>ff545454</textcolor>
+	</include>
+	
+	<include name="spotymc_dialog_button">
+		<width>144</width>
+		<height>40</height>
+		<visible>true</visible>
+		<colordiffuse>ffffffff</colordiffuse>
+		<texturefocus>common/dialog-button-focus.png</texturefocus>
+		<texturenofocus>common/dialog-button.png</texturenofocus>
+		<font>spotymc_font22</font>
+		<textcolor>ffffffff</textcolor>
+		<focusedcolor>ffffffff</focusedcolor>
+		<disabledcolor>ffffffff</disabledcolor>
+		<align>center</align>
+		<aligny>center</aligny>
+		<textoffsetx>16</textoffsetx>
+		<textoffsety>0</textoffsety>
+		<pulseonselect>False</pulseonselect>
+	</include>
+	
+	<include name="spotymc_dialog_list">
+		<visible>true</visible>
+		<viewtype label="3D list">list</viewtype>
+		<orientation>vertical</orientation>
+		<scrolltime tween="sine" easing="out">200</scrolltime>
+		
+		<itemlayout width="512" height="56">
+			<control type="image">
+				<posx>8</posx>
+				<posy>4</posy>
+				<width>480</width>
+				<height>48</height>
+				<texture border="8">common/dialog-button.png</texture>
+			</control>
+			<control type="label">
+				<posx>8</posx>
+				<posy>4</posy>
+				<width>464</width>
+				<height>48</height>
+				<textcolor>ffffffff</textcolor>
+				<textoffsetx>16</textoffsetx>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+		</itemlayout>
+		<focusedlayout width="512" height="56">
+			<control type="image">
+				<posx>8</posx>
+				<posy>4</posy>
+				<width>480</width>
+				<height>48</height>
+				<texture border="8">common/dialog-button-focus.png</texture>
+			</control>
+			<control type="label">
+				<posx>8</posx>
+				<posy>4</posy>
+				<width>464</width>
+				<height>48</height>
+				<textcolor>ffffffff</textcolor>
+				<textoffsetx>16</textoffsetx>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+		</focusedlayout>
 	</include>
 </includes>
