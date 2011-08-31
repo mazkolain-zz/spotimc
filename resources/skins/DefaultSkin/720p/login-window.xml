@@ -56,16 +56,12 @@
 		    </animation>
 		    
 		    <control type="image">
+		    	<include>spotymc_dialog_border</include>
 	            <description>Window border</description>
 	            <posx>-16</posx>
 	            <posy>-16</posy>
 	            <width>512</width>
 	            <height>416</height>
-	            <visible>true</visible>
-	            <colordiffuse>80ffffff</colordiffuse>
-	            <fadetime></fadetime>
-	            <texture>common/login-border.png</texture>
-	            <aspectratio>stretch</aspectratio>
 	        </control>
 	        
 	        <control type="image">
