@@ -4,6 +4,7 @@ Created on 25/06/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
+import time
 
 
 
@@ -11,6 +12,8 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     #Controld id's
     username_input = 10
     password_input = 11
+    login_button = 13
+    cancel_button = 14
     
     __file = None
     __script_path = None
@@ -62,6 +65,12 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
                 value = kb.getText()
                 self.__password = value
                 self._set_input_value(controlID, "*" * len(value))
+        
+        elif controlID == self.cancel_button:
+            c = self.getControl(1)
+            c.setVisibleCondition("False")
+            time.sleep(0.2)
+            self.close()
     
     
     def onFocus(self, controlID):

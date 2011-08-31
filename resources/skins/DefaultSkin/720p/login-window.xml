@@ -55,6 +55,10 @@
 		    	<effect type="slide" tween="cubic" easing="out" center="640,360" time="200" start="0,-600" end="0,0" />
 		    </animation>
 		    
+		    <animation type="Hidden">
+		    	<effect type="slide" tween="cubic" easing="in" center="640,360" time="200" start="0,0" end="0,600" />
+		    </animation>
+		    
 		    <control type="image">
 		    	<include>spotymc_dialog_border</include>
 	            <description>Window border</description>
@@ -148,7 +152,7 @@
 	            <posy>248</posy>
 	            <onfocus></onfocus>
 	            <onup>11</onup>
-	            <ondown>14</ondown>
+	            <ondown>13</ondown>
 	            <onleft></onleft>
 	            <onright></onright>
 	            <usealttexture>Skin.HasSetting(spotymc_session_remember)</usealttexture>
@@ -157,23 +161,22 @@
 	        
 	        <control type="button" id="13">
 	        	<include>spotymc_login_button</include>
-		        <description>Cancel button</description>
-		        <label>Cancel</label>
+		        <description>Login button</description>
+		        <label>Login</label>
 		        <posx>64</posx>
 		        <posy>304</posy>
-		        <onclick>Dialog.Close(4002)</onclick>
+		        <onclick></onclick>
 		        <onfocus></onfocus>
 		        <onup>12</onup>
-		        <ondown>-</ondown>
-		        <onleft></onleft>
+		        <ondown>14</ondown>
+		        <onleft>-</onleft>
 		        <onright>14</onright>
 	        </control>
 	        
-	        
 	        <control type="button" id="14">
 	        	<include>spotymc_login_button</include>
-		        <description>Login button</description>
-		        <label>Login</label>
+		        <description>Cancel button</description>
+		        <label>Cancel</label>
 		        <posx>256</posx>
 		        <posy>304</posy>
 		        <onclick></onclick>
@@ -181,7 +184,7 @@
 		        <onup>12</onup>
 		        <ondown>-</ondown>
 		        <onleft>13</onleft>
-		        <onright></onright>
+		        <onright>-</onright>
 	        </control>
 	        
         </control>
