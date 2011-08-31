@@ -36,7 +36,7 @@
 			
 			<control type="group" id="200">
 	        	<description>Main Menu</description>
-	            <defaultcontrol>1000</defaultcontrol>
+	            <defaultcontrol>210</defaultcontrol>
 	            <visible>true</visible>
 	            <posx>0</posx>
 	            <posy>0</posy>
@@ -71,10 +71,10 @@
 					<disabledcolor>80FFFFFF</disabledcolor>
 					<onclick></onclick>
 					<onfocus>-</onfocus>
-					<onup>2</onup>
-					<ondown>3</ondown>
-					<onleft>1</onleft>
-					<onright>1</onright>
+					<onup>-</onup>
+					<ondown>1000</ondown>
+					<onleft>210</onleft>
+					<onright>-</onright>
 				</control>
 				
 				<control type="grouplist" id="210">
@@ -89,10 +89,10 @@
 					<orientation>horizontal</orientation>
 					<usecontrolcoords>false</usecontrolcoords>
 					<visible>true</visible>
-					<onup>2</onup>
-					<ondown>3</ondown>
-					<onleft>1</onleft>
-					<onright>1</onright>
+					<onup>-</onup>
+					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>201</onright>
 					
 					<control type="togglebutton" id="214">
 						<include>spotymc_topmenu_option</include>
@@ -140,7 +140,7 @@
             <!-- View Content Group -->
 			<control type="group" id="1000">
 				<description>View Content Group</description>
-				<defaultcontrol>1100</defaultcontrol>
+				<defaultcontrol></defaultcontrol>
 				<visible>true</visible>
 				<posx>48</posx>
 				<posy>128</posy>
@@ -165,10 +165,10 @@
 						<include>spotymc_albumgrid</include>
 						<description>New Stuff</description>
 						<pagecontrol>1202</pagecontrol>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
-						<onright>-</onright>
+						<onright>200</onright>
 						<posx>0</posx>
 						<posy>80</posy>
 					</control>
@@ -195,10 +195,6 @@
 					<visible>false</visible>
 					<posx>0</posx>
 					<posy>0</posy>
-					<onup>-</onup>
-					<ondown>-</ondown>
-					<onleft>5300</onleft>
-					<onright>-</onright>
 					
 					<control type="label">
 						<include>spotymc_title</include>
@@ -225,10 +221,10 @@
 						<posy>80</posy>
 						<width>816</width>
 						<height>512</height>
-						<onup></onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5300</onleft>
-						<onright>-</onright>
+						<onright>200</onright>
 						<pagecontrol>1304</pagecontrol>
 					</control>
 					
@@ -270,10 +266,10 @@
 						<posy>80</posy>
 						<width>816</width>
 						<height>512</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
-						<onright>-</onright>
+						<onright>200</onright>
 						<pagecontrol>1402</pagecontrol>
 					</control>
 					
@@ -318,10 +314,10 @@
 						<posy>112</posy>
 						<width>1168</width>
 						<height>464</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5500</onleft>
-						<onright>-</onright>
+						<onright>200</onright>
 						<pagecontrol>1502</pagecontrol>
 					</control>
 					
@@ -472,10 +468,10 @@
 						<orientation>horizontal</orientation>
 						<usecontrolcoords>false</usecontrolcoords>
 						<visible>true</visible>
-						<onup></onup>
-						<ondown></ondown>
-						<onleft></onleft>
-						<onright></onright>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>200</onright>
 					
 						<!-- Back button -->
 						<control type="button" id="1602">
