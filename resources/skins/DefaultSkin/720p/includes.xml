@@ -171,7 +171,8 @@
 				<width>80</width>
 				<height>80</height>
 				<info>ListItem.Icon</info>
-				<aspectratio>stretch</aspectratio>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
 			</control>
 			<control type="label">
 				<posx>96</posx>
@@ -212,7 +213,8 @@
 				<width>80</width>
 				<height>80</height>
 				<info>ListItem.Icon</info>
-				<aspectratio>stretch</aspectratio>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
 			</control>
 			<control type="label">
 				<posx>96</posx>
@@ -512,6 +514,208 @@
 				<label>Album</label>
 			</control>
 		</control>
+	</include>
+	
+	
+	<!-- Playlist list -->
+	<include name="spotymc_playlist_list">
+		<visible>true</visible>
+		<viewtype label="3D list">list</viewtype>
+		<orientation>vertical</orientation>
+		<scrolltime tween="sine" easing="out">200</scrolltime>
+		
+		<itemlayout width="768" height="168">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>768</width>
+				<height>160</height>
+				<texture>common/item-bg.png</texture>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>40</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font24</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(PlaylistName)</info>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>80</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>104</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(PlaylistDuration)</info>
+			</control>
+			
+			<!-- Individual cover image -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>144</width>
+				<height>144</height>
+				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
+				<info>ListItem.Property(CoverItem1)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+			
+			<!-- Four cover image group -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem1)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>80</posx>
+				<posy>8</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem2)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>80</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem3)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>80</posx>
+				<posy>80</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem4)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+		</itemlayout>
+		<focusedlayout width="768" height="168">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>768</width>
+				<height>160</height>
+				<texture>common/item-bg-selected.png</texture>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>40</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font24</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(PlaylistName)</info>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>80</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
+			</control>
+			<control type="label">
+				<posx>176</posx>
+				<posy>104</posy>
+				<width>576</width>
+				<height>16</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font22</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(PlaylistDuration)</info>
+			</control>
+			
+			<!-- Individual cover image -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>144</width>
+				<height>144</height>
+				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
+				<info>ListItem.Property(CoverItem1)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+			
+			<!-- Four cover image group -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem1)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>80</posx>
+				<posy>8</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem2)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>80</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem3)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+			<control type="image">
+				<posx>80</posx>
+				<posy>80</posy>
+				<width>72</width>
+				<height>72</height>
+				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
+				<info>ListItem.Property(CoverItem4)</info>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+		</focusedlayout>
 	</include>
 	
 	

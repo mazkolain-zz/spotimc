@@ -526,6 +526,50 @@
 						</control>
 					</control>
 				</control>
+				
+				<!-- Playlists view -->
+				<control type="group" id="1700">
+					<description>Playlists view</description>
+					<defaultcontrol></defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>Showing [COLOR ffffffff]$INFO[Container(1701).NumItems] playlists[/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1701">
+						<include>spotymc_playlist_list</include>
+						<description>Playlist list</description>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>768</width>
+						<height>496</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5700</onleft>
+						<onright>200</onright>
+						<pagecontrol>1702</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1702">
+						<include>spotymc_scrollbar</include>
+						<posx>776</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
+				</control>
 			</control>
 			
 			
