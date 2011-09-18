@@ -5,6 +5,19 @@ Created on 25/06/2011
 '''
 import xbmc, xbmcgui
 import time
+from spotify.session import SessionCallbacks
+
+
+
+class LoginCallbacks(SessionCallbacks):
+    __dialog = None
+    
+    def __init__(self, dialog):
+        self.__dialog = dialog
+    
+    def logged_in(self, session, err):
+        if err == 0:
+            self.__dialog.do_close()
 
 
 
@@ -18,20 +31,27 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     __file = None
     __script_path = None
     __skin_dir = None
+    __session = None
+    __callbacks = None
     
     
     __username = None
     __password = None
     
     
-    def __init__(self, file, script_path, skin_dir):
+    def __init__(self, file, script_path, skin_dir, session):
         self.__file = file
         self.__script_path = script_path
         self.__skin_dir = skin_dir
+        self.__session = session
+        self.__callbacks = LoginCallbacks(self)
+        self.__session.add_callbacks(self.__callbacks)
 
 
     def onInit(self):
         pass
+    
+    
     #def onAction(self, action):
     #    pass
     
@@ -44,6 +64,17 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     def _set_input_value(self, controlID, value):
         c = self.getControl(controlID)
         c.setLabel(value)
+    
+    
+    def do_login(self):
+        self.__session.login(self.__username, self.__password, False)
+    
+    
+    def do_close(self):
+        c = self.getControl(1)
+        c.setVisibleCondition("False")
+        time.sleep(0.2)
+        self.close()
     
     
     def onClick(self, controlID):
@@ -66,12 +97,13 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
                 self.__password = value
                 self._set_input_value(controlID, "*" * len(value))
         
+        
+        elif controlID == self.login_button:
+            self.do_login()
+        
         elif controlID == self.cancel_button:
-            c = self.getControl(1)
-            c.setVisibleCondition("False")
-            time.sleep(0.2)
-            self.close()
-    
+            self.do_close()
+            
     
     def onFocus(self, controlID):
         pass
@@ -79,9 +111,6 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
 
 
 class PlaylistDialog(xbmcgui.WindowXMLDialog):
-    #Controld id's
-    
-    
     __file = None
     __script_path = None
     __skin_dir = None
@@ -101,14 +130,6 @@ class PlaylistDialog(xbmcgui.WindowXMLDialog):
         c.addItem(xbmcgui.ListItem('Item #4'))
         c.addItem(xbmcgui.ListItem('Item #5'))
         c.addItem(xbmcgui.ListItem('Item #6'))
-        """"c.addItem(xbmcgui.ListItem('Item #7'))
-        c.addItem(xbmcgui.ListItem('Item #8'))
-        c.addItem(xbmcgui.ListItem('Item #9'))
-        c.addItem(xbmcgui.ListItem('Item #10'))
-        c.addItem(xbmcgui.ListItem('Item #11'))
-        c.addItem(xbmcgui.ListItem('Item #12'))
-        c.addItem(xbmcgui.ListItem('Item #13'))
-        c.addItem(xbmcgui.ListItem('Item #14'))"""
     
     
     def onClick(self, controlID):

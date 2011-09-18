@@ -3,6 +3,9 @@ Created on 12/07/2011
 
 @author: mikel
 '''
+import xbmc
+import xbmcgui
+
 
 
 class ViewManager:
@@ -32,6 +35,13 @@ class ViewManager:
         )
     
     
+    def _show_view(self, view):
+        view.show(self.__window)
+        container_id = view.get_container_id()
+        if container_id is not None:
+            xbmc.executebuiltin("Control.SetFocus(%d)" % container_id)
+    
+    
     def next(self):
         #Fail if no next window
         if not self.has_next():
@@ -43,7 +53,7 @@ class ViewManager:
         
         #Show the next one
         self.__position += 1
-        self.__view_list[self.__position].show(self.__window)
+        self._show_view(self.__view_list[self.__position])
     
     
     def has_previous(self):
@@ -60,7 +70,7 @@ class ViewManager:
         
         #Show previous
         self.__position -= 1
-        self.__view_list[self.__position].show(self.__window)
+        self._show_view(self.__view_list[self.__position])
     
     
     def add_view(self, view):
@@ -75,12 +85,12 @@ class ViewManager:
     
     
     def click(self, control_id):
-        self.__view_list[self.__position].click(self.__window, control_id)
+        self.__view_list[self.__position].click(self, self.__window, control_id)
 
 
 
 class BaseView:
-    def click(self, window, control_id):
+    def click(self, view_manager, window, control_id):
         pass
     
     def show(self, window):
@@ -93,4 +103,7 @@ class BaseView:
     #    pass
     
     def back(self, window):
+        pass
+    
+    def get_container_id(self):
         pass
