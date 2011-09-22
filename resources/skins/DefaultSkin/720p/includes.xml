@@ -170,14 +170,14 @@
 				<posy>8</posy>
 				<width>80</width>
 				<height>80</height>
-				<info>ListItem.Icon</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
 			<control type="label">
 				<posx>96</posx>
 				<posy>24</posy>
-				<width>150</width>
+				<width>256</width>
 				<height>18</height>
 				<font>spotymc_font22</font>
 				<aligny>center</aligny>
@@ -189,7 +189,7 @@
 			<control type="label">
 				<posx>96</posx>
 				<posy>56</posy>
-				<width>150</width>
+				<width>256</width>
 				<height>18</height>
 				<font>spotymc_font20</font>
 				<aligny>center</aligny>
@@ -212,14 +212,14 @@
 				<posy>8</posy>
 				<width>80</width>
 				<height>80</height>
-				<info>ListItem.Icon</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
 			<control type="label">
 				<posx>96</posx>
 				<posy>24</posy>
-				<width>150</width>
+				<width>256</width>
 				<height>18</height>
 				<font>spotymc_font22</font>
 				<aligny>center</aligny>
@@ -231,7 +231,7 @@
 			<control type="label">
 				<posx>96</posx>
 				<posy>56</posy>
-				<width>150</width>
+				<width>256</width>
 				<height>18</height>
 				<font>spotymc_font20</font>
 				<aligny>center</aligny>
