@@ -5,7 +5,7 @@ Created on 24/06/2011
 '''
 import xbmcgui
 import views
-import views.home
+#import views.home
 import views.newstuff
 import views.album
 import views.artist
@@ -37,13 +37,14 @@ class MainWindow(xbmcgui.WindowXML):
             "login-window.xml", self.__script_path, self.__skin_dir, self.__session
         )
         loginwin.doModal()
+        del loginwin
 
 
     def onInit(self):
         self._login()
         
         #Start the new stuff view
-        v = views.newstuff.NewStuffView(self.__view_manager, self.__session)
+        v = views.newstuff.NewStuffView(self.__session)
         #v = views.album.AlbumTracksView()
         #v = views.artist.ArtistTracksView()
         #v = views.search.SearchTracksView()

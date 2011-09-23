@@ -19,6 +19,8 @@ from spotify.utils.audio import BufferManager
 
 from threading import Event
 
+import weakref
+
 
 class SpotymcCallbacks(SessionCallbacks):
     __mainloop = None
@@ -72,7 +74,7 @@ class MainLoopRunner(threading.Thread):
     def __init__(self, mainloop, session):
         threading.Thread.__init__(self)
         self.__mainloop = mainloop
-        self.__session = session
+        self.__session = weakref.proxy(session)
     
     
     def run(self):
@@ -119,6 +121,8 @@ def main(addon_dir):
     
     sess.logout()
     logout_event.wait(10)
-    sess.release()
+    #sess.release()
     
-    del mainwin
+    #del mainwin
+    
+    return sess

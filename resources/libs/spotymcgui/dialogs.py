@@ -71,6 +71,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     
     
     def do_close(self):
+        self.__session.remove_callbacks(self.__callbacks)
         c = self.getControl(1)
         c.setVisibleCondition("False")
         time.sleep(0.2)

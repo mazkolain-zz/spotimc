@@ -40,9 +40,32 @@ reload_skin()
 sys.path.append(os.path.join(libs_dir, "CherryPy-3.2.0-py2.4.egg"))
 sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes-0.1-py2.4.egg"))
 
+import gc
+import xbmc
+
+print 'gc objects: %d' % len(gc.get_objects())
+
+#xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
+
 #Load & start the actual gui, no init code beyond this point
 from spotymcgui import main
 main(addon_dir)
+
+
+xbmc.log('garbage collection: %d objects' % gc.collect())
+#print gc.garbage
+
+
+import _spotify
+_spotify.unload_library()
+
+
+import objgraph
+objgraph.show_backrefs(gc.garbage, max_depth=10)
+
+#xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
+
+#print 'gc objects: %d' % len(gc.get_objects())
 
 #Cleanup fonts and includes
 del fm
