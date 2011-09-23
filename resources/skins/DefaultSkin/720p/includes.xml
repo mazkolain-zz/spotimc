@@ -259,13 +259,14 @@
 				<texture>common/item-bg.png</texture>
 			</control>
 			<control type="label">
-				<posx>48</posx>
+				<posx>80</posx>
 				<posy>0</posy>
 				<width>64</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
-				<align>left</align>
+				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
 			</control>
@@ -275,6 +276,7 @@
 				<width>672</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ff969696</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -286,6 +288,7 @@
 				<width>112</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ff969696</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -301,13 +304,14 @@
 				<texture>common/item-bg-selected.png</texture>
 			</control>
 			<control type="label">
-				<posx>48</posx>
+				<posx>80</posx>
 				<posy>0</posy>
 				<width>64</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
-				<align>left</align>
+				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
 			</control>
@@ -317,10 +321,12 @@
 				<width>672</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
+				<visible>true</visible>
 			</control>
 			<control type="label">
 				<posx>800</posx>
@@ -328,6 +334,7 @@
 				<width>112</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
