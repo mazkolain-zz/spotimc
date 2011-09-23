@@ -15,6 +15,10 @@ import views.playlist
 
 import dialogs
 
+import playback
+
+import weakref
+
 
 class MainWindow(xbmcgui.WindowXML): 
     __file = None
@@ -29,6 +33,9 @@ class MainWindow(xbmcgui.WindowXML):
         self.__script_path = script_path
         self.__skin_dir = skin_dir
         self.__view_manager = views.ViewManager(self)
+        playlist_manager = playback.PlaylistManager(None)
+        self.__view_manager.set_var('playlist_manager', playlist_manager)
+        self.__view_manager.set_var('session', weakref.proxy(session))
         self.__session = session
 
 
