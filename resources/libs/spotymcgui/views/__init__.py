@@ -14,12 +14,15 @@ class ViewManager:
     __view_list = None
     __position = None
     
+    __vars = None
+    
     
     def __init__(self, window):
         self.__window = weakref.proxy(window)
         self.__view_list = []
         self.__position = -1
-    
+        self.__vars = {}
+        
     
     def num_views(self):
         return len(self.__view_list)
@@ -87,6 +90,14 @@ class ViewManager:
     
     def click(self, control_id):
         self.__view_list[self.__position].click(self, self.__window, control_id)
+    
+    
+    def set_var(self, name, value):
+        self.__vars[name] = value
+    
+    
+    def get_var(self, name):
+        return self.__vars[name]
 
 
 
