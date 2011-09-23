@@ -5,6 +5,7 @@ Created on 12/07/2011
 '''
 import xbmc
 import xbmcgui
+import weakref
 
 
 
@@ -15,7 +16,7 @@ class ViewManager:
     
     
     def __init__(self, window):
-        self.__window = window
+        self.__window = weakref.proxy(window)
         self.__view_list = []
         self.__position = -1
     
@@ -75,7 +76,7 @@ class ViewManager:
     
     def add_view(self, view):
         #Remove all views that come next (if any)
-        del self.__view_list[self.__position:]
+        del self.__view_list[self.__position+1:]
         
         #Add the new one
         self.__view_list.append(view)
