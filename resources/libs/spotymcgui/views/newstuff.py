@@ -6,8 +6,13 @@ Created on 05/08/2011
 import xbmc
 import xbmcgui
 from spotymcgui.views import BaseView
+from spotymcgui.views import album
 
 from spotify import search
+
+import weakref
+
+
 
 
 
@@ -18,7 +23,7 @@ class NewStuffCallbacks(search.SearchCallbacks):
     
     def __init__(self, window, view):
         self.__window = window
-        self.__view = view
+        self.__view = weakref.proxy(view)
     
     
     def search_complete(self, result):
@@ -30,17 +35,24 @@ class NewStuffView(BaseView):
     __group_id = 1200
     __list_id = 1201
     
-    __view_manager = None
     __session = None
+    __search = None
     
     
-    def __init__(self, view_manager, session):
-        self.__view_manager = view_manager
+    def __init__(self, session):
         self.__session = session
+        
+    
+    def _show_album(self, view_manager, window):
+        pos = self._get_list(window).getSelectedPosition()
+        v = album.AlbumTracksView(self.__session, self.__search.album(pos))
+        view_manager.add_view(v)
     
     
     def click(self, view_manager, window, control_id):
-        pass
+        #If the list was clicked...
+        if control_id == NewStuffView.__list_id:
+            self._show_album(view_manager, window)
     
     
     def _get_list(self, window):
@@ -51,25 +63,19 @@ class NewStuffView(BaseView):
         l = self._get_list(window)
         l.reset()
         
-        #xbmc.log('result loadad: %d' % result.is_loaded())
-        xbmc.log("num results: %d, %d" % (result.num_albums(), result.total_albums()))
-        
-        
         for album in result.albums():
+            print album.cover()
             l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
         
     
     def show(self, window):
         #Start a new search
         cb = NewStuffCallbacks(window, self)
-        search.Search(self.__session, 'tag:new', album_count=60, callbacks=cb)
-        
+        self.__search = search.Search(self.__session, 'tag:new', album_count=60, callbacks=cb)
         c = window.getControl(NewStuffView.__group_id)
         c.setVisibleCondition("true")
-        print "show!"
     
     
     def hide(self, window):
         c = window.getControl(NewStuffView.__group_id)
         c.setVisibleCondition("false")
-        print "hide!"
