@@ -26,12 +26,15 @@ class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
     
     def albumbrowse_complete(self, albumbrowse):
         self.__view.populate_list(self.__window, albumbrowse)
+        c = self.__window.getControl(AlbumTracksView.group_id)
+        c.setVisibleCondition("true")
+        self.__window.setFocusId(AlbumTracksView.group_id)
 
 
 
 class AlbumTracksView(BaseView):
-    __group_id = 1300
-    __list_id = 1303
+    group_id = 1300
+    list_id = 1303
     
     __session = None
     __albumbrowse = None
@@ -52,13 +55,13 @@ class AlbumTracksView(BaseView):
     
     def click(self, view_manager, window, control_id):
         print "list clicked: id: %d" % control_id
-        if control_id == AlbumTracksView.__list_id:
+        if control_id == AlbumTracksView.list_id:
             print 'control id test ok'
             self._play_selected_track(view_manager, window)
     
     
     def _get_list(self, window):
-        return window.getControl(AlbumTracksView.__list_id)
+        return window.getControl(AlbumTracksView.list_id)
     
     
     def _add_track(self, list, title, item_path, duration, number):
@@ -91,12 +94,11 @@ class AlbumTracksView(BaseView):
         
     
     def show(self, window):
-        cb = AlbumCallbacks(window, self)
-        self.__albumbrowse = albumbrowse.Albumbrowse(self.__session, self.__album, cb)
-        c = window.getControl(AlbumTracksView.__group_id)
-        c.setVisibleCondition("true")
+        if self.__albumbrowse is None:
+            cb = AlbumCallbacks(window, self)
+            self.__albumbrowse = albumbrowse.Albumbrowse(self.__session, self.__album, cb)
     
     
     def hide(self, window):
-        c = window.getControl(AlbumTracksView.__group_id)
+        c = window.getControl(AlbumTracksView.group_id)
         c.setVisibleCondition("false")
