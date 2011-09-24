@@ -258,6 +258,24 @@
 				<height>46</height>
 				<texture>common/item-bg.png</texture>
 			</control>
+			<control type="image">
+				<posx>12</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/item-playing-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Playing</visible>
+			</control>
+			<control type="image">
+				<posx>12</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/item-paused-icon.png</texture>
+				<visible>ListItem.IsPlaying | + Player.Paused</visible>
+			</control>
 			<control type="label">
 				<posx>80</posx>
 				<posy>0</posy>
@@ -276,7 +294,7 @@
 				<width>672</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
-				<selectedcolor>ff969696</selectedcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -288,7 +306,7 @@
 				<width>112</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
-				<selectedcolor>ff969696</selectedcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -302,6 +320,24 @@
 				<width>816</width>
 				<height>46</height>
 				<texture>common/item-bg-selected.png</texture>
+			</control>
+			<control type="image">
+				<posx>12</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/item-playing-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Playing</visible>
+			</control>
+			<control type="image">
+				<posx>12</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/item-paused-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Paused</visible>
 			</control>
 			<control type="label">
 				<posx>80</posx>
