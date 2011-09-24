@@ -274,7 +274,7 @@
 				<height>32</height>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture>common/item-paused-icon.png</texture>
-				<visible>ListItem.IsPlaying | + Player.Paused</visible>
+				<visible>ListItem.IsPlaying + Player.Paused</visible>
 			</control>
 			<control type="label">
 				<posx>80</posx>
