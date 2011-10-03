@@ -14,20 +14,9 @@ import weakref
 
 
 
-
-
 class NewStuffCallbacks(search.SearchCallbacks):
-    __window = None
-    __view = None
-    
-    
-    def __init__(self, window, view):
-        self.__window = window
-        self.__view = weakref.proxy(view)
-    
-    
     def search_complete(self, result):
-        self.__view.populate_list(self.__window, result)
+        xbmc.executebuiltin("Action(Noop)")
 
 
 
@@ -41,6 +30,10 @@ class NewStuffView(BaseView):
     
     def __init__(self, session):
         self.__session = session
+        cb = NewStuffCallbacks()
+        self.__search = search.Search(
+            self.__session, 'tag:new', album_count=60, callbacks=cb
+        )
         
     
     def _show_album(self, view_manager, window):
@@ -59,23 +52,25 @@ class NewStuffView(BaseView):
         return window.getControl(NewStuffView.__list_id)
     
     
-    def populate_list(self, window, result):
+    def _draw_list(self, window):
         l = self._get_list(window)
         l.reset()
         
-        for album in result.albums():
+        for album in self.__search.albums():
             print album.cover()
             l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
         
+        c = window.getControl(NewStuffView.__group_id)
+        c.setVisibleCondition("true")
         window.setFocusId(NewStuffView.__group_id)
         
     
+    def update(self, window):
+        self._draw_list(window)
+    
+    
     def show(self, window):
-        #Start a new search
-        cb = NewStuffCallbacks(window, self)
-        self.__search = search.Search(self.__session, 'tag:new', album_count=60, callbacks=cb)
-        c = window.getControl(NewStuffView.__group_id)
-        c.setVisibleCondition("true")
+        self._draw_list(window)
     
     
     def hide(self, window):

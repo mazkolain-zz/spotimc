@@ -15,20 +15,8 @@ import xbmc
 
 
 class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
-    __window = None
-    __view = None
-    
-    
-    def __init__(self, window, view):
-        self.__window = window
-        self.__view = weakref.proxy(view)
-    
-    
     def albumbrowse_complete(self, albumbrowse):
-        self.__view.populate_list(self.__window, albumbrowse)
-        c = self.__window.getControl(AlbumTracksView.group_id)
-        c.setVisibleCondition("true")
-        self.__window.setFocusId(AlbumTracksView.group_id)
+        xbmc.executebuiltin("Action(Noop)")
 
 
 
@@ -36,13 +24,12 @@ class AlbumTracksView(BaseView):
     group_id = 1300
     list_id = 1303
     
-    __session = None
     __albumbrowse = None
     
     
     def __init__(self, session, album):
-        self.__session = session
-        self.__album = album
+        cb = AlbumCallbacks()
+        self.__albumbrowse = albumbrowse.Albumbrowse(session, album, cb)
     
     
     def _play_selected_track(self, view_manager, window):
@@ -87,6 +74,7 @@ class AlbumTracksView(BaseView):
         item.setProperty("DiscNumber", str(disc_number))
         list.addItem(item)
     
+    
     def _add_track(self, list, track, real_index):
         track_link = link.create_from_track(track)
         track_id = track_link.as_string()[14:]
@@ -104,30 +92,43 @@ class AlbumTracksView(BaseView):
         list.addItem(item)
     
     
-    def populate_list(self, window, albumbrowse):
-        list = self._get_list(window)
-        list.reset()
-        
-        #Set album info
-        self._set_album_info(window, albumbrowse.album(), albumbrowse.artist())
-        
-        #For disc grouping
-        multiple_discs = self._have_multiple_discs(albumbrowse.tracks())
-        last_disc = None
-        
-        for idx, item in enumerate(albumbrowse.tracks()):
-            #If disc was changed add a separator
-            if multiple_discs and last_disc != item.disc():
-                last_disc = item.disc()
-                self._add_disc_separator(list, last_disc)
+    def _draw_list(self, window):
+        if self.__albumbrowse.is_loaded():
+            list = self._get_list(window)
+            list.reset()
             
-            self._add_track(list, item, idx)
-        
+            #Set album info
+            self._set_album_info(
+                window,
+                self.__albumbrowse.album(), self.__albumbrowse.artist()
+            )
+            
+            #For disc grouping
+            last_disc = None
+            multiple_discs = self._have_multiple_discs(
+                self.__albumbrowse.tracks()
+            )
+            
+            for idx, item in enumerate(self.__albumbrowse.tracks()):
+                #If disc was changed add a separator
+                if multiple_discs and last_disc != item.disc():
+                    last_disc = item.disc()
+                    self._add_disc_separator(list, last_disc)
+                
+                self._add_track(list, item, idx)
+            
+            c = window.getControl(AlbumTracksView.group_id)
+            c.setVisibleCondition("true")
+            window.setFocusId(AlbumTracksView.group_id)
+    
+    
+    def update(self, window):
+        print "album update action called"
+        self._draw_list(window)
+    
     
     def show(self, window):
-        if self.__albumbrowse is None:
-            cb = AlbumCallbacks(window, self)
-            self.__albumbrowse = albumbrowse.Albumbrowse(self.__session, self.__album, cb)
+        self._draw_list(window)
     
     
     def hide(self, window):
