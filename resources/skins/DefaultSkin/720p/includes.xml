@@ -252,11 +252,33 @@
 		
 		<itemlayout width="816" height="48">
 			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<texture>common/disc-icon.png</texture>
+				<visible>ListItem.Property(IsDiscSeparator)</visible>
+			</control>
+			<control type="label">
+				<posx>48</posx>
+				<posy>8</posy>
+				<width>64</width>
+				<height>32</height>
+				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
+				<font>spotymc_font32</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(DiscNumber)</info>
+				<visible>ListItem.Property(IsDiscSeparator)</visible>
+			</control>
+			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>816</width>
 				<height>46</height>
 				<texture>common/item-bg.png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="image">
 				<posx>12</posx>
@@ -287,6 +309,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">
 				<posx>96</posx>
@@ -315,11 +338,33 @@
 		</itemlayout>
 		<focusedlayout width="816" height="48">
 			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>32</width>
+				<height>32</height>
+				<texture>common/disc-icon.png</texture>
+				<visible>ListItem.Property(IsDiscSeparator)</visible>
+			</control>
+			<control type="label">
+				<posx>48</posx>
+				<posy>8</posy>
+				<width>64</width>
+				<height>32</height>
+				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
+				<font>spotymc_font32</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Property(DiscNumber)</info>
+				<visible>ListItem.Property(IsDiscSeparator)</visible>
+			</control>
+			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>816</width>
 				<height>46</height>
 				<texture>common/item-bg-selected.png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="image">
 				<posx>12</posx>
@@ -350,6 +395,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">
 				<posx>96</posx>
