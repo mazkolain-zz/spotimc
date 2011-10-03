@@ -67,6 +67,8 @@ class NewStuffView(BaseView):
             print album.cover()
             l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
         
+        window.setFocusId(NewStuffView.__group_id)
+        
     
     def show(self, window):
         #Start a new search
