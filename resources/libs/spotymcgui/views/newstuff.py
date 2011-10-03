@@ -53,17 +53,18 @@ class NewStuffView(BaseView):
     
     
     def _draw_list(self, window):
-        l = self._get_list(window)
-        l.reset()
-        
-        for album in self.__search.albums():
-            print album.cover()
-            l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
-        
-        c = window.getControl(NewStuffView.__group_id)
-        c.setVisibleCondition("true")
-        window.setFocusId(NewStuffView.__group_id)
-        
+        if self.__search.is_loaded():
+            l = self._get_list(window)
+            l.reset()
+            
+            for album in self.__search.albums():
+                print album.cover()
+                l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
+            
+            c = window.getControl(NewStuffView.__group_id)
+            c.setVisibleCondition("true")
+            window.setFocusId(NewStuffView.__group_id)
+    
     
     def update(self, window):
         self._draw_list(window)
