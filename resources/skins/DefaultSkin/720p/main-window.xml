@@ -210,7 +210,7 @@
 						<posy>80</posy>
 						<width>288</width>
 						<height>288</height>
-						<info>Container.Property(AlbumCover)</info>
+						<texture background="true">$INFO[Container.Property(AlbumCover)]</texture>
 					</control>
 					
 					<!-- Track list -->
