@@ -60,8 +60,14 @@ class MainWindow(xbmcgui.WindowXML):
         self.__view_manager.add_view(v)
         
     
-    #def onAction(self, action):
-    #    print "mainwin: on action called"
+    def onAction(self, action):
+        if action.getId() in [10,92]:
+            if self.__view_manager.position() > 0:
+                self.__view_manager.previous()
+            else:
+                self.close()
+        
+        print "mainwin action: %s, %s" % (action.getId(), action.getButtonCode())
     
     
     def onClick(self, control_id):
