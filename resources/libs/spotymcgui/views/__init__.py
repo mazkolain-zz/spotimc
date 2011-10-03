@@ -92,6 +92,10 @@ class ViewManager:
         self.__view_list[self.__position].click(self, self.__window, control_id)
     
     
+    def update(self):
+        self.__view_list[self.__position].update(self.__window)
+    
+    
     def set_var(self, name, value):
         self.__vars[name] = value
     
@@ -105,17 +109,22 @@ class BaseView:
     def click(self, view_manager, window, control_id):
         pass
     
+    
     def show(self, window):
         pass
+    
     
     def hide(self, window):
         pass
     
-    #def get_control(self, window, control_id):
-    #    pass
+    
+    def update(self, window):
+        pass
+    
     
     def back(self, window):
         pass
+    
     
     def get_container_id(self):
         pass
