@@ -116,13 +116,12 @@ def main(addon_dir):
     
     #And finally the window's loop
     mainwin.doModal()
-    ml_runner.stop()
-    proxy_runner.stop()
     
+    #Deinit sequence
+    xbmc.executebuiltin('PlayerControl(Stop)')
+    proxy_runner.stop()
+    ml_runner.stop()
     sess.logout()
     logout_event.wait(10)
-    #sess.release()
-    
-    #del mainwin
     
     return sess
