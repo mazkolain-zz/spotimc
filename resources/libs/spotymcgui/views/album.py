@@ -42,7 +42,7 @@ class AlbumTracksView(BaseView):
         if pos is not None:
             track_item = self.__albumbrowse.track(int(pos))
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(track_item)
+            playlist_manager.play(track_item, self.__albumbrowse.tracks())
     
     
     def click(self, view_manager, window, control_id):
