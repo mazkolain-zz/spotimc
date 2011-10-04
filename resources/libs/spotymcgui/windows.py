@@ -70,8 +70,6 @@ class MainWindow(xbmcgui.WindowXML):
         #Noop action
         elif action.getId() in [0,999]:
             self.__view_manager.update()
-        
-        print "mainwin action: %s, %s" % (action.getId(), action.getButtonCode())
     
     
     def onClick(self, control_id):
