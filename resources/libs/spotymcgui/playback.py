@@ -5,7 +5,7 @@ Created on 23/09/2011
 '''
 import xbmc, xbmcgui
 from spotify import link
-
+import time
 
 
 class PlaylistManager:
@@ -21,7 +21,7 @@ class PlaylistManager:
     
     
     def _play_first_item(self):
-        xbmc.executebuiltin('Playlist.PlayOffset(music,0)')
+        xbmc.executebuiltin('playlist.playoffset(music,0)')
     
     
     def _rebuild_playlist(self):
@@ -59,7 +59,16 @@ class PlaylistManager:
         return track_url, item
     
     
+    def _stop_playback(self):
+        if xbmc.getCondVisibility('Player.Playing'):
+            #Don't ask me why, but these ones help a lot
+            xbmc.executebuiltin('playercontrol(stop)')
+            time.sleep(0.7)
+    
+    
     def play(self, track, additional_tracks=None):
+        self._stop_playback()
+        
         self.__secondary_queue = [track]
         track_id = self._get_track_id(track)
         
