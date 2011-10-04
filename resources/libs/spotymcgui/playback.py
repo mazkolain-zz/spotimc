@@ -24,11 +24,11 @@ class PlaylistManager:
         xbmc.executebuiltin('Playlist.PlayOffset(music,0)')
     
     
-    def _rebuild_playlist(self, track_list):
+    def _rebuild_playlist(self):
         pl = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         pl.clear()
         
-        for item in track_list:
+        for item in self.__secondary_queue:
             path, info = self._prepare_track(item)
             pl.add(path, info)
     
@@ -37,10 +37,14 @@ class PlaylistManager:
         pass
     
     
+    def _get_track_id(self, track):
+        track_link = link.create_from_track(track)
+        return track_link.as_string()[14:]
+    
+    
     def _prepare_track(self, track):
         #Get the track url first
-        track_link = link.create_from_track(track)
-        track_id = track_link.as_string()[14:]
+        track_id = self._get_track_id(track)
         track_url = "http://localhost:8080/track/%s.wav" % track_id
         
         #And generate a listitem with track metadata
@@ -56,5 +60,14 @@ class PlaylistManager:
     
     
     def play(self, track, additional_tracks=None):
-        self._rebuild_playlist([track])
+        self.__secondary_queue = [track]
+        track_id = self._get_track_id(track)
+        
+        #Add the additional tracks except the one matching track param
+        if additional_tracks is not None:
+            for item in additional_tracks:
+                if self._get_track_id(item) != track_id:
+                    self.__secondary_queue.append(item)
+        
+        self._rebuild_playlist()
         self._play_first_item()
