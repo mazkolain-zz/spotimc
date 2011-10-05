@@ -48,17 +48,16 @@ class MainWindow(xbmcgui.WindowXML):
 
 
     def onInit(self):
-        self._login()
+        # Check if we already added views because after
+        # exiting music vis this gets called again.  
+        if self.__view_manager.num_views() == 0:
+            #Blocking login operation
+            self._login()
         
-        #Start the new stuff view
-        v = views.newstuff.NewStuffView(self.__session)
-        #v = views.album.AlbumTracksView()
-        #v = views.artist.ArtistTracksView()
-        #v = views.search.SearchTracksView()
-        #v = views.nowplaying.NowPlayingView()
-        #v = views.playlist.PlaylistView()
-        self.__view_manager.add_view(v)
-        
+            #Start the new stuff view
+            v = views.newstuff.NewStuffView(self.__session)
+            self.__view_manager.add_view(v)
+    
     
     def onAction(self, action):
         if action.getId() in [10,92]:
