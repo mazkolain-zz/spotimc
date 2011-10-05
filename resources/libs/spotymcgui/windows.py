@@ -60,7 +60,7 @@ class MainWindow(xbmcgui.WindowXML):
     
     
     def onAction(self, action):
-        if action.getId() in [10,92]:
+        if action.getId() in [9,10,92]:
             if self.__view_manager.position() > 0:
                 self.__view_manager.previous()
             else:
