@@ -27,6 +27,9 @@ class NewStuffView(BaseView):
     __session = None
     __search = None
     
+    #To store the list's last position
+    __list_position = None
+    
     
     def __init__(self, session):
         self.__session = session
@@ -54,6 +57,11 @@ class NewStuffView(BaseView):
     
     def _draw_list(self, window):
         if self.__search.is_loaded():
+            #Ensure that the group is hidden first
+            group = window.getControl(NewStuffView.__group_id)
+            group.setVisibleCondition("false")
+            
+            #Now start working on the list
             l = self._get_list(window)
             l.reset()
             
@@ -61,8 +69,15 @@ class NewStuffView(BaseView):
                 print album.cover()
                 l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
             
-            c = window.getControl(NewStuffView.__group_id)
-            c.setVisibleCondition("true")
+            #If we have the list index at hand...
+            if self.__list_position is not None:
+                l.selectItem(self.__list_position)
+            
+            #Show the list again
+            group = window.getControl(NewStuffView.__group_id)
+            group.setVisibleCondition("true")
+                
+            #And give it focus
             window.setFocusId(NewStuffView.__group_id)
     
     
@@ -75,5 +90,10 @@ class NewStuffView(BaseView):
     
     
     def hide(self, window):
-        c = window.getControl(NewStuffView.__group_id)
-        c.setVisibleCondition("false")
+        #Keep the list position
+        l = window.getControl(NewStuffView.__list_id)
+        self.__list_position = l.getSelectedPosition()
+        
+        #And hide the group
+        group = window.getControl(NewStuffView.__group_id)
+        group.setVisibleCondition("false")
