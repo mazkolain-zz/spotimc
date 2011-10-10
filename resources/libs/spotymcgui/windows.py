@@ -28,6 +28,14 @@ class MainWindow(xbmcgui.WindowXML):
     __session = None
     
     
+    #Button id constants
+    now_playing_button = 211
+    new_stuff_button = 212
+    playlists_button = 213
+    search_button = 214
+    more_button = 215
+    
+    
     def __init__(self, file, script_path, skin_dir, session):
         self.__file = file
         self.__script_path = script_path
@@ -71,8 +79,24 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.update()
     
     
+    def _process_layout_click(self, control_id):
+        if control_id == MainWindow.now_playing_button:
+            v = views.nowplaying.NowPlayingView()
+            self.__view_manager.add_view(v)
+        
+        elif control_id == MainWindow.playlists_button:
+            v = views.playlist.PlaylistView()
+            self.__view_manager.add_view(v)
+    
+    
     def onClick(self, control_id):
-        self.__view_manager.click(control_id)
+        #IDs lower than 1000 belong to the common layout
+        if control_id < 1000:
+            self._process_layout_click(control_id)
+        
+        #Hand the rest to the view manager
+        else:
+            self.__view_manager.click(control_id)
         
     
     def onFocus(self, controlID):
