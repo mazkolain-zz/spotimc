@@ -94,7 +94,7 @@
 					<onleft>-</onleft>
 					<onright>201</onright>
 					
-					<control type="togglebutton" id="214">
+					<control type="togglebutton" id="211">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
 						<width>192</width>
@@ -102,7 +102,7 @@
 						<usealttexture>true</usealttexture>
 					</control>
 					
-					<control type="togglebutton" id="211">
+					<control type="togglebutton" id="212">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
 						<width>152</width>
@@ -110,7 +110,7 @@
 						<usealttexture>false</usealttexture>
 					</control>
 					
-					<control type="togglebutton" id="212">
+					<control type="togglebutton" id="213">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
 						<width>136</width>
@@ -118,7 +118,7 @@
 						<usealttexture>true</usealttexture>
 					</control>
 					
-					<control type="togglebutton" id="213">
+					<control type="togglebutton" id="214">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
 						<width>120</width>
