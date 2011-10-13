@@ -102,6 +102,7 @@ def main(addon_dir):
         user_agent="python ctypes bindings",
         settings_location=os.path.join(temp_dir, 'libspotify', 'settings'),
         cache_location=os.path.join(temp_dir, 'libspotify', 'cache'),
+        initially_unload_playlists=True,
     )
     
     proxy_runner = ProxyRunner(sess, buf)
