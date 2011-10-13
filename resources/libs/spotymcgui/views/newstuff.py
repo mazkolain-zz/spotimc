@@ -66,7 +66,6 @@ class NewStuffView(BaseView):
             l.reset()
             
             for album in self.__search.albums():
-                print album.cover()
                 l.addItem(xbmcgui.ListItem(album.name(), album.artist().name(), 'http://localhost:8080/image/%s.jpg' % album.cover()))
             
             #If we have the list index at hand...
