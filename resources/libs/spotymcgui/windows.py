@@ -85,7 +85,8 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.add_view(v)
         
         elif control_id == MainWindow.playlists_button:
-            v = views.playlist.PlaylistView()
+            c = self.__session.playlistcontainer()
+            v = views.playlist.PlaylistView(self.__session, c)
             self.__view_manager.add_view(v)
     
     
