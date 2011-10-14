@@ -551,7 +551,7 @@
 						<posx>0</posx>
 						<posy>80</posy>
 						<width>768</width>
-						<height>496</height>
+						<height>512</height>
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5700</onleft>
@@ -565,7 +565,7 @@
 						<posx>776</posx>
 						<posy>80</posy>
 						<width>8</width>
-						<height>496</height>
+						<height>472</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>

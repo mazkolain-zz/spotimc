@@ -613,12 +613,12 @@
 		<orientation>vertical</orientation>
 		<scrolltime tween="sine" easing="out">200</scrolltime>
 		
-		<itemlayout width="768" height="168">
+		<itemlayout width="768" height="160">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>768</width>
-				<height>160</height>
+				<height>152</height>
 				<texture>common/item-bg.png</texture>
 			</control>
 			<control type="label">
@@ -659,62 +659,62 @@
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>144</width>
-				<height>144</height>
+				<width>136</width>
+				<height>136</height>
 				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
-				<info>ListItem.Property(CoverItem1)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			
 			<!-- Four cover image group -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>72</width>
-				<height>72</height>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem1)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			<control type="image">
-				<posx>80</posx>
+				<posx>76</posx>
 				<posy>8</posy>
-				<width>72</width>
-				<height>72</height>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem2)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem2)]</texture>
 			</control>
 			<control type="image">
 				<posx>8</posx>
-				<posy>80</posy>
-				<width>72</width>
-				<height>72</height>
+				<posy>76</posy>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem3)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem3)]</texture>
 			</control>
 			<control type="image">
-				<posx>80</posx>
-				<posy>80</posy>
-				<width>72</width>
-				<height>72</height>
+				<posx>76</posx>
+				<posy>76</posy>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem4)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem4)]</texture>
 			</control>
 		</itemlayout>
-		<focusedlayout width="768" height="168">
+		<focusedlayout width="768" height="160">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>768</width>
-				<height>160</height>
+				<height>152</height>
 				<texture>common/item-bg-selected.png</texture>
 			</control>
 			<control type="label">
@@ -755,54 +755,54 @@
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>144</width>
-				<height>144</height>
+				<width>136</width>
+				<height>136</height>
 				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
-				<info>ListItem.Property(CoverItem1)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			
 			<!-- Four cover image group -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>72</width>
-				<height>72</height>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem1)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			<control type="image">
-				<posx>80</posx>
+				<posx>76</posx>
 				<posy>8</posy>
-				<width>72</width>
-				<height>72</height>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem2)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem2)]</texture>
 			</control>
 			<control type="image">
 				<posx>8</posx>
-				<posy>80</posy>
-				<width>72</width>
-				<height>72</height>
+				<posy>76</posy>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem3)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem3)]</texture>
 			</control>
 			<control type="image">
-				<posx>80</posx>
-				<posy>80</posy>
-				<width>72</width>
-				<height>72</height>
+				<posx>76</posx>
+				<posy>76</posy>
+				<width>68</width>
+				<height>68</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
-				<info>ListItem.Property(CoverItem4)</info>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
+				<texture background="true">$INFO[ListItem.Property(CoverItem4)]</texture>
 			</control>
 		</focusedlayout>
 	</include>
