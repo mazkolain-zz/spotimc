@@ -6,25 +6,165 @@ Created on 22/08/2011
 import xbmc, xbmcgui
 from spotymcgui.views import BaseView
 
-from spotify import playlist, playlistcontainer, link, BulkConditionChecker
+from spotify import playlist, playlistcontainer, BulkConditionChecker
 
 from spotify.utils.iterators import CallbackIterator
 
+from spotify.utils.decorators import run_in_thread
+
 import weakref
+
+import threading
 
 
 
 class PlaylistCallbacks(playlist.PlaylistCallbacks):
-    __loader = None
+    __playlist_loader = None
     
     
-    def __init__(self, loader):
-        self.__loader = weakref.proxy(loader)
+    def __init__(self, playlist_loader):
+        self.__playlist_loader = playlist_loader
     
     
     def playlist_state_changed(self, playlist):
-        print "playlist state changed"
-        self.__loader.check()
+        self.__playlist_loader.load_playlist()
+        print 'playlist state changed'
+    
+    
+    def playlist_metadata_updated(self, playlist):
+        self.__playlist_loader.check()
+    
+    
+    def playlist_update_in_progress(self, playlist, done):
+        print 'update in progress: %s' % done
+        if done:
+            print 'done updating: %s' % playlist.name()
+            #self.__playlist_loader.set_done_updating()
+            #self.__playlist_loader.check()
+
+
+
+class PlaylistLoader:
+    __session = None
+    __container_loader = None
+    __playlist = None
+    __checker = None
+    
+    #Playlist attributes
+    __name = None
+    __num_tracks = None
+    __thumbnails = None
+    __is_loaded = None
+    
+    
+    
+    def __init__(self, session, container_loader, playlist):
+        #Initialize all instance vars
+        self.__session = session
+        self.__container_loader = weakref.proxy(container_loader)
+        self.__playlist = playlist
+        self.__checker = BulkConditionChecker()
+        self.__is_loaded = False
+        
+        #Add the callbacks we are interested in
+        playlist.add_callbacks(PlaylistCallbacks(self))
+        
+        #Fire playlist loading if neccesary
+        if not playlist.is_in_ram(self.__session):
+            playlist.set_in_ram(self.__session, True)
+        
+        #And finish the rest in the background
+        self.load_playlist()
+    
+    
+    def _wait_for_metadata(self, track):
+        def album_is_loaded():
+            album = track.album()
+            return album is not None and album.is_loaded()
+        
+        if not track.is_loaded():
+            self.__checker.add_condition(track.is_loaded)
+            self.__checker.complete_wait()
+        
+        if not album_is_loaded():
+            self.__checker.add_condition(album_is_loaded)
+            self.__checker.complete_wait()
+    
+    
+    def _load_thumbnails(self):
+        thumbnails = []
+        
+        for item in self.__playlist.tracks():
+            #Wait until this track is fully loaded
+            self._wait_for_metadata(item)
+            
+            #And append the cover if it's new
+            cover = 'http://localhost:8080/image/%s.jpg' % item.album().cover()
+            if cover not in thumbnails:
+                thumbnails.append(cover)
+            
+            #If we reached to the desired thumbnail count...
+            if len(thumbnails) == 4:
+                return thumbnails
+        
+        #Track list exhausted, return the thumbnails anyway
+        return thumbnails
+    
+    
+    @run_in_thread(threads_per_class=10, single_instance=True)
+    def load_playlist(self):
+        if self.__playlist.is_loaded():
+            thumbnails = self._load_thumbnails()
+            
+            #Now check for changes
+            has_changes = False
+            
+            if self.__thumbnails != thumbnails:
+                self.__thumbnails = thumbnails
+                has_changes = True
+            
+            if self.__name != self.__playlist.name():
+                self.__name = self.__playlist.name()
+                has_changes = True
+            
+            if self.__num_tracks != self.__playlist.num_tracks():
+                self.__num_tracks = self.__playlist.num_tracks()
+                has_changes = True
+            
+            #Finally set it as loaded
+            self.__is_loaded = True
+            
+            #If we detected something different
+            if has_changes:
+                self.__container_loader.update()
+    
+    
+    def check(self):
+        self.__checker.check_conditions()
+    
+    
+    def is_loaded(self):
+        return self.__is_loaded
+    
+    
+    def get_thumbnails(self):
+        return self.__thumbnails
+    
+    
+    def get_name(self):
+        return self.__name
+    
+    
+    def get_num_tracks(self):
+        return self.__num_tracks
+    
+    
+    def set_done_updating(self):
+        self.__done_updating = True
+    
+    
+    def __del__(self):
+        print "PlaylistLoader __del__"
 
 
 
@@ -37,13 +177,14 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_added(self, container, playlist, position):
-        print "playlist added (%d)" % position
+        #print "playlist added (%d)" % position
         self.__loader.add_playlist(playlist, position)
     
     
     def container_loaded(self, container):
-        print "container loaded"
-        self.__loader.check()
+        #print "container loaded"
+        print 'container loaded callback: playlists: %d' % container.num_playlists()
+        self.__loader.update()
     
     
     def playlist_removed(self, container, playlist, position):
@@ -52,11 +193,12 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
 
 
 class ContainerLoader:
+    __session = None
     __container = None
     __playlists = None
     __checker = None
-    __initial_load = None
-    __session = None
+    __loading_lock = None
+    __is_loaded = None
     
     
     def __init__(self, session, container):
@@ -64,50 +206,92 @@ class ContainerLoader:
         self.__container = container
         self.__playlists = {}
         self.__checker = BulkConditionChecker()
-        self.__initial_load= True
-        container.add_callbacks(ContainerCallbacks(self))
-        self.__checker.add_condition(container.is_loaded)
+        self.__loading_lock = threading.RLock()
+        self.__is_loaded = False
+        
+        #Load the rest in the background
+        self._start_load()
     
     
     def add_playlist(self, playlist, position):
-        if not playlist.is_loaded():
-            self.__checker.add_condition(playlist.is_loaded)
+        playlist_loader = PlaylistLoader(self.__session, self, playlist)
+        self.__playlists[position] = playlist_loader
+    
+    
+    def _load_container(self):
+        #Wait for the container to be fully loaded
+        self.__checker.add_condition(self.__container.is_loaded)
+        self.__checker.complete_wait()
         
-        if not playlist.is_in_ram(self.__session):
-            playlist.set_in_ram(self.__session, True)
-        
-        cb = PlaylistCallbacks(self)
-        playlist.add_callbacks(cb)
-        self.__playlists[position] = playlist
-    
-    
-    def remove_playlist(self, position):
-        del self.__playlists[position]
-    
-    
-    def _check_playlists(self):
         """
-        Ensure that all playlists have been loaded.
+        Ensure that we have seen all the playlists.
         Just if the container callbacks are registered too late
         and we missed some of them.
         """
-        out = True
-        
         for idx, item in enumerate(self.__container.playlists()):
+            print 'test playlist: %d' % idx
             if idx not in self.__playlists:
                 self.add_playlist(item, idx)
-                out = False
         
-        return out
+        num = 0
+        
+        #Check that all playlists have been loaded
+        for idx,item in enumerate(self.__playlists.itervalues()):
+            print "add condition for #%d" % idx
+            self.__checker.add_condition(item.is_loaded)
+            num += 1
+        
+        #Wait until all conditions became true
+        self.__checker.complete_wait()
+        
+        print 'playlist load complete (%d playlists)' % num
+        
+        #Set the status of the loader
+        self.__is_loaded = True
+        
+        #Finally tell the gui we are done
+        xbmc.executebuiltin("Action(Noop)")
+    
+    
+    @run_in_thread
+    def _start_update(self):
+        """
+        Try gaining a lock.
+        If we can't get one, another update is running, so do nothing.
+        """
+        if self.__loading_lock.acquire(False):
+            try:
+                self._load_container()
+            
+            finally:
+                self.__loading_lock.release()
+    
+    
+    @run_in_thread
+    def _start_load(self):
+        self.__loading_lock.acquire()
+        
+        try:
+            """
+            Register container callbacks so they start loading after
+            this point. Too bad if they reach before.
+            """
+            self.__container.add_callbacks(ContainerCallbacks(self))
+            
+            #And take care of the rest
+            self._load_container()
+        
+        finally:
+            self.__loading_lock.release()
+    
+    
+    def update(self):
+        self.__checker.check_conditions()
+        self._start_update()
     
     
     def is_loaded(self):
-        return self.__checker.check_conditions() and self._check_playlists()
-    
-    
-    def check(self):
-        if self.is_loaded():
-            xbmc.executebuiltin("Action(Noop)")
+        return self.__is_loaded
     
     
     def playlist(self, index):
@@ -142,37 +326,12 @@ class PlaylistView(BaseView):
         return window.getControl(PlaylistView.__list_id)
     
     
-    def _get_playlist_duration(self, playlist):
-        sum = 0
-        
-        for item in playlist.tracks():
-            sum += item.duration()
-        
-        return sum
-    
-    
-    def _get_thumbnails(self, playlist):
-        thumbnails = []
-        
-        for item in playlist.tracks():
-            if len(thumbnails) == 4:
-                return thumbnails
-            
-            else:
-                album = item.album()
-                cover = 'http://localhost:8080/image/%s.jpg' % album.cover()
-                if cover not in thumbnails:
-                    thumbnails.append(cover)
-        
-        return thumbnails
-    
-    
     def _add_playlist(self, playlist, window):
+        print 'gui: processing playlist: %s; loaded: %d' % (playlist.get_name(), playlist.is_loaded())
         item = xbmcgui.ListItem()
-        item.setProperty("PlaylistName", playlist.name())
-        item.setProperty("PlaylistNumTracks", str(playlist.num_tracks()))
-        item.setProperty("PlaylistDuration", str(self._get_playlist_duration(playlist)))
-        thumbnails = self._get_thumbnails(playlist)
+        item.setProperty("PlaylistName", playlist.get_name())
+        item.setProperty("PlaylistNumTracks", str(playlist.get_num_tracks()))
+        thumbnails = playlist.get_thumbnails()
         
         if len(thumbnails) > 0:
             #Set cover info
@@ -183,7 +342,6 @@ class PlaylistView(BaseView):
             
             #Now loop to set all the images
             for idx, thumb_item in enumerate(thumbnails):
-                print "adding thumb item: %s" % thumb_item
                 item.setProperty("CoverItem%d" % (idx + 1), thumb_item)
         
         list = self._get_list(window)

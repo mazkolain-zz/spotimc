@@ -20,9 +20,6 @@ class NowPlayingView(BaseView):
         
     
     def show(self, window):
-        p = xbmc.Player(xbmc.PLAYER_CORE_MPLAYER)
-        p.play("http://localhost:8080/track/5zliLGuOl3fwoAu4G6sujx.wav")
-        self._populate_list(window)
         c = window.getControl(NowPlayingView.__group_id)
         c.setVisibleCondition("true")
         print "show!"
