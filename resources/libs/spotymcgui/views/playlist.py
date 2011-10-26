@@ -230,7 +230,7 @@ class ContainerLoader:
         xbmc.executebuiltin("Action(Noop)")
     
     
-    @run_in_thread(single_instance=True)
+    @run_in_thread
     def _start_update(self):
         """
         Try gaining a lock.
@@ -244,7 +244,7 @@ class ContainerLoader:
                 self.__loading_lock.release()
     
     
-    @run_in_thread(single_instance=True)
+    @run_in_thread
     def _start_load(self):
         self.__loading_lock.acquire()
         
