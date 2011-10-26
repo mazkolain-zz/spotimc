@@ -149,10 +149,6 @@ class PlaylistLoader:
         return self.__num_tracks
     
     
-    def set_done_updating(self):
-        self.__done_updating = True
-    
-    
     def __del__(self):
         print "PlaylistLoader __del__"
 
