@@ -23,24 +23,15 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
     
     
     def __init__(self, playlist_loader):
-        self.__playlist_loader = playlist_loader
+        self.__playlist_loader = weakref.proxy(playlist_loader)
     
     
     def playlist_state_changed(self, playlist):
         self.__playlist_loader.load_playlist()
-        print 'playlist state changed'
     
     
     def playlist_metadata_updated(self, playlist):
         self.__playlist_loader.check()
-    
-    
-    def playlist_update_in_progress(self, playlist, done):
-        print 'update in progress: %s' % done
-        if done:
-            print 'done updating: %s' % playlist.name()
-            #self.__playlist_loader.set_done_updating()
-            #self.__playlist_loader.check()
 
 
 
@@ -55,7 +46,6 @@ class PlaylistLoader:
     __num_tracks = None
     __thumbnails = None
     __is_loaded = None
-    
     
     
     def __init__(self, session, container_loader, playlist):
@@ -84,11 +74,11 @@ class PlaylistLoader:
         
         if not track.is_loaded():
             self.__checker.add_condition(track.is_loaded)
-            self.__checker.complete_wait()
+            self.__checker.complete_wait(10)
         
         if not album_is_loaded():
             self.__checker.add_condition(album_is_loaded)
-            self.__checker.complete_wait()
+            self.__checker.complete_wait(10)
     
     
     def _load_thumbnails(self):
@@ -177,13 +167,10 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_added(self, container, playlist, position):
-        #print "playlist added (%d)" % position
         self.__loader.add_playlist(playlist, position)
     
     
     def container_loaded(self, container):
-        #print "container loaded"
-        print 'container loaded callback: playlists: %d' % container.num_playlists()
         self.__loader.update()
     
     
@@ -219,6 +206,7 @@ class ContainerLoader:
     
     
     def _load_container(self):
+        
         #Wait for the container to be fully loaded
         self.__checker.add_condition(self.__container.is_loaded)
         self.__checker.complete_wait()
@@ -229,22 +217,15 @@ class ContainerLoader:
         and we missed some of them.
         """
         for idx, item in enumerate(self.__container.playlists()):
-            print 'test playlist: %d' % idx
             if idx not in self.__playlists:
                 self.add_playlist(item, idx)
         
-        num = 0
-        
         #Check that all playlists have been loaded
-        for idx,item in enumerate(self.__playlists.itervalues()):
-            print "add condition for #%d" % idx
+        for item in self.__playlists.itervalues():
             self.__checker.add_condition(item.is_loaded)
-            num += 1
         
         #Wait until all conditions became true
-        self.__checker.complete_wait()
-        
-        print 'playlist load complete (%d playlists)' % num
+        self.__checker.complete_wait(self.__container.num_playlists() * 5)
         
         #Set the status of the loader
         self.__is_loaded = True
@@ -253,7 +234,7 @@ class ContainerLoader:
         xbmc.executebuiltin("Action(Noop)")
     
     
-    @run_in_thread
+    @run_in_thread(single_instance=True)
     def _start_update(self):
         """
         Try gaining a lock.
@@ -267,7 +248,7 @@ class ContainerLoader:
                 self.__loading_lock.release()
     
     
-    @run_in_thread
+    @run_in_thread(single_instance=True)
     def _start_load(self):
         self.__loading_lock.acquire()
         
@@ -304,6 +285,10 @@ class ContainerLoader:
     
     def playlists(self):
         return CallbackIterator(self.num_playlists, self.playlist)
+    
+    
+    def __del__(self):
+        print "ContainerLoader __del__"
 
 
 
@@ -327,7 +312,6 @@ class PlaylistView(BaseView):
     
     
     def _add_playlist(self, playlist, window):
-        print 'gui: processing playlist: %s; loaded: %d' % (playlist.get_name(), playlist.is_loaded())
         item = xbmcgui.ListItem()
         item.setProperty("PlaylistName", playlist.get_name())
         item.setProperty("PlaylistNumTracks", str(playlist.get_num_tracks()))
