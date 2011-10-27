@@ -96,6 +96,19 @@ class ViewManager:
         self.__view_list[self.__position].update(self.__window)
     
     
+    def clear_views(self):
+        #Fail if no previous window
+        if self.has_previous():
+            #Hide current
+            self.__view_list[self.__position].hide(self.__window)
+            
+            #Delete all views
+            self.__view_list = []
+            
+            #And reset the position counter
+            self.__position = -1
+    
+    
     def set_var(self, name, value):
         self.__vars[name] = value
     
