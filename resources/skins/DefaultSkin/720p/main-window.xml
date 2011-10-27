@@ -94,6 +94,7 @@
 					<onleft>-</onleft>
 					<onright>201</onright>
 					
+					<!-- 
 					<control type="togglebutton" id="211">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
@@ -101,13 +102,14 @@
 						<label>Now Playing</label>
 						<usealttexture>true</usealttexture>
 					</control>
+					 -->
 					
 					<control type="togglebutton" id="212">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
 						<width>152</width>
 						<label>New Stuff</label>
-						<usealttexture>false</usealttexture>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),newstuff)</usealttexture>
 					</control>
 					
 					<control type="togglebutton" id="213">
@@ -115,7 +117,7 @@
 						<visible>true</visible>
 						<width>136</width>
 						<label>Playlists</label>
-						<usealttexture>true</usealttexture>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),playlists)</usealttexture>
 					</control>
 					
 					<control type="togglebutton" id="214">
@@ -123,7 +125,7 @@
 						<visible>true</visible>
 						<width>120</width>
 						<label>Search</label>
-						<usealttexture>true</usealttexture>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),search)</usealttexture>
 					</control>
 					
 					<control type="togglebutton" id="215">
@@ -131,7 +133,15 @@
 						<visible>true</visible>
 						<width>128</width>
 						<label>More...</label>
-						<usealttexture>true</usealttexture>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="216">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>96</width>
+						<label>Exit</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
 					</control>
 				</control>
 	        </control>

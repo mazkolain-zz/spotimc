@@ -34,6 +34,7 @@ class MainWindow(xbmcgui.WindowXML):
     playlists_button = 213
     search_button = 214
     more_button = 215
+    exit_button = 216
     
     
     def __init__(self, file, script_path, skin_dir, session):
@@ -62,7 +63,8 @@ class MainWindow(xbmcgui.WindowXML):
             #Blocking login operation
             self._login()
         
-            #Start the new stuff view
+            #Start the new stuff view by default
+            self.setProperty('MainActiveTab', 'newstuff')
             v = views.newstuff.NewStuffView(self.__session)
             self.__view_manager.add_view(v)
     
@@ -81,13 +83,26 @@ class MainWindow(xbmcgui.WindowXML):
     
     def _process_layout_click(self, control_id):
         if control_id == MainWindow.now_playing_button:
+            self.setProperty('MainActiveTab', 'nowplaying')
             v = views.nowplaying.NowPlayingView()
+            self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
-        
+            
         elif control_id == MainWindow.playlists_button:
+            self.setProperty('MainActiveTab', 'playlists')
             c = self.__session.playlistcontainer()
             v = views.playlists.list.PlaylistView(self.__session, c)
+            self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
+        
+        elif control_id == MainWindow.new_stuff_button:
+            self.setProperty('MainActiveTab', 'newstuff')
+            v = views.newstuff.NewStuffView(self.__session)
+            self.__view_manager.clear_views()
+            self.__view_manager.add_view(v)
+        
+        elif control_id == MainWindow.exit_button:
+            self.close()
     
     
     def onClick(self, control_id):
