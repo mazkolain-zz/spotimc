@@ -141,7 +141,7 @@
 						<visible>true</visible>
 						<width>96</width>
 						<label>Exit</label>
-						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
+						<usealttexture>true</usealttexture>
 					</control>
 				</control>
 	        </control>
@@ -580,6 +580,29 @@
 						<ondown>-</ondown>
 						<onleft>-</onleft>
 						<onright>-</onright>
+					</control>
+				</control>
+				
+				<!-- Extras view -->
+				<control type="group" id="1800">
+					<description>Extras view</description>
+					<defaultcontrol></defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<!-- Track list -->
+					<control type="panel" id="1801">
+						<include>spotymc_extras_list</include>
+						<description>Playlist list</description>
+						<posx>0</posx>
+						<posy>56</posy>
+						<width>1216</width>
+						<height>504</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5700</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 			</control>

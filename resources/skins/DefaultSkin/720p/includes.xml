@@ -808,6 +808,72 @@
 	</include>
 	
 	
+	<!-- Playlist list -->
+	<include name="spotymc_extras_list">
+		<visible>true</visible>
+		<viewtype label="3D list">list</viewtype>
+		<orientation>vertical</orientation>
+		<scrolltime tween="sine" easing="out">200</scrolltime>
+		
+		<itemlayout width="608" height="168">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>576</width>
+				<height>144</height>
+				<texture>common/item-bg.png</texture>
+			</control>
+			<control type="image">
+				<posx>32</posx>
+				<posy>32</posy>
+				<width>80</width>
+				<height>80</height>
+				<info>ListItem.Icon</info>
+				<colordiffuse>ff969696</colordiffuse>
+			</control>
+			<control type="label">
+				<posx>144</posx>
+				<posy>40</posy>
+				<width>416</width>
+				<height>64</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font60</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+		</itemlayout>
+		<focusedlayout width="608" height="168">
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>576</width>
+				<height>144</height>
+				<texture>common/item-bg-selected.png</texture>
+			</control>
+			<control type="image">
+				<posx>32</posx>
+				<posy>32</posy>
+				<width>80</width>
+				<height>80</height>
+				<info>ListItem.Icon</info>
+				<colordiffuse>ffffffff</colordiffuse>
+			</control>
+			<control type="label">
+				<posx>144</posx>
+				<posy>40</posy>
+				<width>416</width>
+				<height>64</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font60</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Label</info>
+			</control>
+		</focusedlayout>
+	</include>
+	
+	
 	<!-- General styles for album covers -->
 	<include name="spotymc_albumcover">
 		<visible>true</visible>

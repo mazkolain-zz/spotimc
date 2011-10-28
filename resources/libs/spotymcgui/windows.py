@@ -12,6 +12,7 @@ import views.artist
 import views.search
 import views.nowplaying
 import views.playlists.list
+import views.more
 
 import dialogs
 
@@ -98,6 +99,12 @@ class MainWindow(xbmcgui.WindowXML):
         elif control_id == MainWindow.new_stuff_button:
             self.setProperty('MainActiveTab', 'newstuff')
             v = views.newstuff.NewStuffView(self.__session)
+            self.__view_manager.clear_views()
+            self.__view_manager.add_view(v)
+        
+        elif control_id == MainWindow.more_button:
+            self.setProperty('MainActiveTab', 'more')
+            v = views.more.MoreView()
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
         
