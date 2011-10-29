@@ -44,6 +44,7 @@ class PlaylistLoader:
     __name = None
     __num_tracks = None
     __thumbnails = None
+    __is_collaborative = None
     __is_loaded = None
     
     
@@ -120,6 +121,10 @@ class PlaylistLoader:
                 self.__num_tracks = self.__playlist.num_tracks()
                 has_changes = True
             
+            if self.__is_collaborative != self.__playlist.is_collaborative():
+                self.__is_collaborative = self.__playlist.is_collaborative()
+                has_changes = True
+            
             #Finally set it as loaded
             self.__is_loaded = True
             
@@ -146,6 +151,10 @@ class PlaylistLoader:
     
     def get_num_tracks(self):
         return self.__num_tracks
+    
+    
+    def get_is_collaborative(self):
+        return self.__is_collaborative
     
     
     def __del__(self):

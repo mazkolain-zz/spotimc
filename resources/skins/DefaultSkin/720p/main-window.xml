@@ -569,12 +569,12 @@
 					</control>
 					
 					<!-- Track list -->
-					<control type="list" id="1701">
+					<control type="panel" id="1701">
 						<include>spotymc_playlist_list</include>
 						<description>Playlist list</description>
 						<posx>0</posx>
 						<posy>80</posy>
-						<width>768</width>
+						<width>1200</width>
 						<height>512</height>
 						<onup>200</onup>
 						<ondown>-</ondown>
@@ -586,10 +586,10 @@
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1702">
 						<include>spotymc_scrollbar</include>
-						<posx>776</posx>
+						<posx>1184</posx>
 						<posy>80</posy>
 						<width>8</width>
-						<height>472</height>
+						<height>464</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>

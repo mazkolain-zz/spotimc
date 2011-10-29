@@ -613,12 +613,12 @@
 		<orientation>vertical</orientation>
 		<scrolltime tween="sine" easing="out">200</scrolltime>
 		
-		<itemlayout width="768" height="160">
+		<itemlayout width="592" height="160">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
-				<width>768</width>
-				<height>152</height>
+				<width>576</width>
+				<height>144</height>
 				<texture>common/item-bg.png</texture>
 			</control>
 			<control type="label">
@@ -643,24 +643,13 @@
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
 			</control>
-			<control type="label">
-				<posx>176</posx>
-				<posy>104</posy>
-				<width>576</width>
-				<height>16</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font22</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<info>ListItem.Property(PlaylistDuration)</info>
-			</control>
 			
 			<!-- Individual cover image -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>136</width>
-				<height>136</height>
+				<width>128</width>
+				<height>128</height>
 				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
@@ -671,18 +660,18 @@
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>68</width>
-				<height>68</height>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			<control type="image">
-				<posx>76</posx>
+				<posx>72</posx>
 				<posy>8</posy>
-				<width>68</width>
-				<height>68</height>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
@@ -690,31 +679,41 @@
 			</control>
 			<control type="image">
 				<posx>8</posx>
-				<posy>76</posy>
-				<width>68</width>
-				<height>68</height>
+				<posy>72</posy>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem3)]</texture>
 			</control>
 			<control type="image">
-				<posx>76</posx>
-				<posy>76</posy>
-				<width>68</width>
-				<height>68</height>
+				<posx>72</posx>
+				<posy>72</posy>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem4)]</texture>
 			</control>
+			
+			<!-- Collaborative status flag -->
+			<control type="image">
+				<posx>0</posx>
+				<posy>80</posy>
+				<width>64</width>
+				<height>64</height>
+				<texture>common/playlist-collaborative.png</texture>
+				<visible>ListItem.Property(PlaylistCollaborative)</visible>
+			</control>
 		</itemlayout>
-		<focusedlayout width="768" height="160">
+		<focusedlayout width="592" height="160">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
-				<width>768</width>
-				<height>152</height>
+				<width>576</width>
+				<height>144</height>
 				<texture>common/item-bg-selected.png</texture>
 			</control>
 			<control type="label">
@@ -739,24 +738,13 @@
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
 			</control>
-			<control type="label">
-				<posx>176</posx>
-				<posy>104</posy>
-				<width>576</width>
-				<height>16</height>
-				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font22</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<info>ListItem.Property(PlaylistDuration)</info>
-			</control>
 			
 			<!-- Individual cover image -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>136</width>
-				<height>136</height>
+				<width>128</width>
+				<height>128</height>
 				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
@@ -767,18 +755,18 @@
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>68</width>
-				<height>68</height>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			<control type="image">
-				<posx>76</posx>
+				<posx>72</posx>
 				<posy>8</posy>
-				<width>68</width>
-				<height>68</height>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
@@ -786,23 +774,33 @@
 			</control>
 			<control type="image">
 				<posx>8</posx>
-				<posy>76</posy>
-				<width>68</width>
-				<height>68</height>
+				<posy>72</posy>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem3)]</texture>
 			</control>
 			<control type="image">
-				<posx>76</posx>
-				<posy>76</posy>
-				<width>68</width>
-				<height>68</height>
+				<posx>72</posx>
+				<posy>72</posy>
+				<width>64</width>
+				<height>64</height>
 				<visible>SubString(ListItem.Property(CoverLayout),four)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem4)]</texture>
+			</control>
+			
+			<!-- Collaborative status flag -->
+			<control type="image">
+				<posx>0</posx>
+				<posy>80</posy>
+				<width>64</width>
+				<height>64</height>
+				<texture>common/playlist-collaborative.png</texture>
+				<visible>ListItem.Property(PlaylistCollaborative)</visible>
 			</control>
 		</focusedlayout>
 	</include>

@@ -34,6 +34,13 @@ class PlaylistView(BaseView):
         item = xbmcgui.ListItem()
         item.setProperty("PlaylistName", playlist.get_name())
         item.setProperty("PlaylistNumTracks", str(playlist.get_num_tracks()))
+        
+        #Collaborative status
+        if playlist.get_is_collaborative():
+            item.setProperty("PlaylistCollaborative", "True")
+        else:
+            item.setProperty("PlaylistCollaborative", "False")
+        
         thumbnails = playlist.get_thumbnails()
         
         if len(thumbnails) > 0:
