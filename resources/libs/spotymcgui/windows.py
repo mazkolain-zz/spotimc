@@ -37,6 +37,9 @@ class MainWindow(xbmcgui.WindowXML):
     more_button = 215
     exit_button = 216
     
+    #Loading gif id
+    loading_image = 50
+    
     
     def __init__(self, file, script_path, skin_dir, session):
         self.__file = file
@@ -47,6 +50,16 @@ class MainWindow(xbmcgui.WindowXML):
         self.__view_manager.set_var('playlist_manager', playlist_manager)
         self.__view_manager.set_var('session', weakref.proxy(session))
         self.__session = session
+    
+    
+    def show_loading(self):
+        c = self.getControl(MainWindow.loading_image)
+        c.setVisibleCondition("True")
+    
+    
+    def hide_loading(self):
+        c = self.getControl(MainWindow.loading_image)
+        c.setVisibleCondition("False")
 
 
     def _login(self):

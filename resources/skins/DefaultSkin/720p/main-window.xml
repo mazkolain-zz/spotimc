@@ -23,6 +23,20 @@
             <aspectratio>stretch</aspectratio>
         </control>
         
+        <control type="image" id="50">
+            <description>Loading animation</description>
+            <posx>576</posx>
+            <posy>360</posy>
+            <width>128</width>
+            <height>128</height>
+            <visible>true</visible>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <fadetime>200</fadetime>
+            <texture>common/main-loading.gif</texture>
+            <aspectratio>stretch</aspectratio>
+            <visible>False</visible>
+        </control>
+        
         <control type="group" id="100">
             <description>Content Group</description>
             <defaultcontrol>1000</defaultcontrol>
