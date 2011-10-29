@@ -52,6 +52,9 @@ class PlaylistView(BaseView):
     
     
     def _draw_list(self, window):
+        #Show loading animation
+        window.show_loading()
+        
         if self.__loader.is_loaded():
             #Hide the whole group first
             group = window.getControl(PlaylistView.__group_id)
@@ -63,6 +66,9 @@ class PlaylistView(BaseView):
             
             for item in self.__loader.playlists():
                 self._add_playlist(item, window)
+            
+            #Hide loading anim
+            window.hide_loading()
             
             #Show the group again
             group.setVisibleCondition("true")

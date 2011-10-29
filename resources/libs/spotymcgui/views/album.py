@@ -93,6 +93,9 @@ class AlbumTracksView(BaseView):
     
     
     def _draw_list(self, window):
+        #Always show the loading animation
+        window.show_loading()
+        
         if self.__albumbrowse.is_loaded():
             list = self._get_list(window)
             list.reset()
@@ -116,6 +119,9 @@ class AlbumTracksView(BaseView):
                     self._add_disc_separator(list, last_disc)
                 
                 self._add_track(list, item, idx)
+            
+            #Hide loading forst
+            window.hide_loading()
             
             c = window.getControl(AlbumTracksView.group_id)
             c.setVisibleCondition("true")

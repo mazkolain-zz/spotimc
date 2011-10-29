@@ -56,6 +56,9 @@ class NewStuffView(BaseView):
     
     
     def _draw_list(self, window):
+        #Always show the loading anim at this point
+        window.show_loading()
+        
         if self.__search.is_loaded():
             #Ensure that the group is hidden first
             group = window.getControl(NewStuffView.__group_id)
@@ -71,6 +74,9 @@ class NewStuffView(BaseView):
             #If we have the list index at hand...
             if self.__list_position is not None:
                 l.selectItem(self.__list_position)
+            
+            #Hide the loading anim
+            window.hide_loading()
             
             #Show the list again
             group = window.getControl(NewStuffView.__group_id)
