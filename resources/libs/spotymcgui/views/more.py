@@ -8,8 +8,8 @@ from spotymcgui.views import BaseView
 
 
 class MoreView(BaseView):
-    __group_id = 1800
-    __list_id = 1801
+    __group_id = 1900
+    __list_id = 1901
     
     
     def click(self, view_manager, window, control_id):
