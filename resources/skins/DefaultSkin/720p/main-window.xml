@@ -597,6 +597,136 @@
 					</control>
 				</control>
 				
+				
+				<control type="group" id="1800">
+					<description>Playlist detail view</description>
+					<defaultcontrol>1801</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<!-- Playlist image bg's -->
+					<control type="group">
+						<visible>true</visible>
+						<posx>0</posx>
+						<posy>24</posy>
+						
+						<!--
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>120</width>
+							<height>120</height>
+							<texture>common/item-bg.png</texture>
+						</control>
+						-->
+						
+						<!-- Individual cover image -->
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>112</width>
+							<height>112</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						
+						<!-- Four cover image group -->
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>56</width>
+							<height>56</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						<control type="image">
+							<posx>56</posx>
+							<posy>0</posy>
+							<width>56</width>
+							<height>56</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem2)]</texture>
+						</control>
+						<control type="image">
+							<posx>0</posx>
+							<posy>56</posy>
+							<width>56</width>
+							<height>56</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem3)]</texture>
+						</control>
+						<control type="image">
+							<posx>56</posx>
+							<posy>56</posy>
+							<width>56</width>
+							<height>56</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem4)]</texture>
+						</control>
+					</control>
+					
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>[COLOR ffffffff]PlaylistName[/COLOR] by JohnDoe</label>
+						<posx>136</posx>
+						<posy>32</posy>
+					</control>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>126 tracks, 5 hours</label>
+						<posx>136</posx>
+						<posy>64</posy>
+					</control>
+					
+					<!-- Track list header -->
+					<control type="group">
+						<posx>0</posx>
+						<posy>160</posy>
+						<include>spotymc_tracklist_wide_header</include>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1801">
+						<include>spotymc_tracklist_wide</include>
+						<description>Track list</description>
+						<posx>0</posx>
+						<posy>192</posy>
+						<width>1168</width>
+						<height>400</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5500</onleft>
+						<onright>200</onright>
+						<pagecontrol>1502</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1502">
+						<include>spotymc_scrollbar</include>
+						<posx>1176</posx>
+						<posy>192</posy>
+						<width>8</width>
+						<height>384</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>-</onright>
+					</control>
+				</control>
+				
 				<!-- Extras view -->
 				<control type="group" id="1900">
 					<description>Extras view</description>

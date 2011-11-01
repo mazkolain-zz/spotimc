@@ -433,19 +433,19 @@
 		<orientation>vertical</orientation>
 		<scrolltime tween="sine" easing="out">200</scrolltime>
 		
-		<itemlayout width="1168" height="48">
+		<itemlayout width="1168" height="32">
 			<control type="image">
 				<posx>0</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>1168</width>
-				<height>46</height>
+				<height>30</height>
 				<texture>common/item-bg.png</texture>
 			</control>
 			<control type="label">
 				<posx>48</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>400</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
@@ -454,9 +454,9 @@
 			</control>
 			<control type="label">
 				<posx>464</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>288</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
@@ -464,41 +464,41 @@
 				<info>ListItem.Artist</info>
 			</control>
 			<control type="label">
-				<posx>832</posx>
-				<posy>0</posy>
-				<width>112</width>
-				<height>46</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font20</font>
-				<align>right</align>
-				<aligny>center</aligny>
-				<info>ListItem.Duration</info>
-			</control>
-			<control type="label">
-				<posx>864</posx>
-				<posy>0</posy>
+				<posx>768</posx>
+				<posy>2</posy>
 				<width>288</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
 			</control>
+			<control type="label">
+				<posx>1056</posx>
+				<posy>2</posy>
+				<width>112</width>
+				<height>30</height>
+				<textcolor>ff969696</textcolor>
+				<font>spotymc_font20</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Duration</info>
+			</control>
 		</itemlayout>
-		<focusedlayout width="1168" height="48">
+		<focusedlayout width="1168" height="32">
 			<control type="image">
 				<posx>0</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>1168</width>
-				<height>46</height>
+				<height>30</height>
 				<texture>common/item-bg-selected.png</texture>
 			</control>
 			<control type="label">
 				<posx>48</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>400</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
@@ -507,9 +507,9 @@
 			</control>
 			<control type="label">
 				<posx>464</posx>
-				<posy>0</posy>
+				<posy>2</posy>
 				<width>288</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
@@ -517,26 +517,26 @@
 				<info>ListItem.Artist</info>
 			</control>
 			<control type="label">
-				<posx>832</posx>
-				<posy>0</posy>
-				<width>112</width>
-				<height>46</height>
-				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font20</font>
-				<align>right</align>
-				<aligny>center</aligny>
-				<info>ListItem.Duration</info>
-			</control>
-			<control type="label">
-				<posx>864</posx>
-				<posy>0</posy>
+				<posx>768</posx>
+				<posy>2</posy>
 				<width>288</width>
-				<height>46</height>
+				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
+			</control>
+			<control type="label">
+				<posx>1056</posx>
+				<posy>2</posy>
+				<width>112</width>
+				<height>30</height>
+				<textcolor>ffffffff</textcolor>
+				<font>spotymc_font20</font>
+				<align>left</align>
+				<aligny>center</aligny>
+				<info>ListItem.Duration</info>
 			</control>
 		</focusedlayout>
 	</include>
@@ -544,64 +544,60 @@
 	
 	<!-- Track list header -->
 	<include name="spotymc_tracklist_wide_header">
-		<control type="group">
-			<description>Track list header</description>
-			<defaultcontrol></defaultcontrol>
-			<visible>true</visible>
+		<description>Track list header</description>
+		<defaultcontrol></defaultcontrol>
+		<visible>true</visible>
+		
+		<control type="image">
 			<posx>0</posx>
-			<posy>80</posy>
-			
-			<control type="image">
-				<posx>0</posx>
-				<posy>0</posy>
-				<width>1168</width>
-				<height>30</height>
-				<texture>common/list-header-bg.png</texture>
-			</control>
-			<control type="label">
-				<posx>48</posx>
-				<posy>0</posy>
-				<width>400</width>
-				<height>30</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font20</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<label>Track</label>
-			</control>
-			<control type="label">
-				<posx>464</posx>
-				<posy>0</posy>
-				<width>288</width>
-				<height>30</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font20</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<label>Artist</label>
-			</control>
-			<control type="label">
-				<posx>832</posx>
-				<posy>0</posy>
-				<width>112</width>
-				<height>30</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font20</font>
-				<align>right</align>
-				<aligny>center</aligny>
-				<label>Duration</label>
-			</control>
-			<control type="label">
-				<posx>864</posx>
-				<posy>0</posy>
-				<width>288</width>
-				<height>30</height>
-				<textcolor>ff969696</textcolor>
-				<font>spotymc_font20</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<label>Album</label>
-			</control>
+			<posy>0</posy>
+			<width>1168</width>
+			<height>32</height>
+			<texture>common/list-header-bg.png</texture>
+		</control>
+		<control type="label">
+			<posx>48</posx>
+			<posy>0</posy>
+			<width>400</width>
+			<height>32</height>
+			<textcolor>ff969696</textcolor>
+			<font>spotymc_font20</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Track</label>
+		</control>
+		<control type="label">
+			<posx>464</posx>
+			<posy>0</posy>
+			<width>288</width>
+			<height>32</height>
+			<textcolor>ff969696</textcolor>
+			<font>spotymc_font20</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Artist</label>
+		</control>
+		<control type="label">
+			<posx>768</posx>
+			<posy>0</posy>
+			<width>288</width>
+			<height>32</height>
+			<textcolor>ff969696</textcolor>
+			<font>spotymc_font20</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Album</label>
+		</control>
+		<control type="label">
+			<posx>1056</posx>
+			<posy>0</posy>
+			<width>112</width>
+			<height>32</height>
+			<textcolor>ff969696</textcolor>
+			<font>spotymc_font20</font>
+			<align>left</align>
+			<aligny>center</aligny>
+			<label>Duration</label>
 		</control>
 	</include>
 	
