@@ -32,6 +32,15 @@ class PlaylistDetailView(BaseView):
         list.addItem(item)
     
     
+    def _set_playlist_properties(self, window, is_collaborative):
+        if is_collaborative:
+            window.setProperty("PlaylistDetailCollaborative", "True")
+            print "playlist set as collaborative"
+        else:
+            window.setProperty("PlaylistDetailCollaborative", "False")
+            print "playlist set as non-collaborative"
+    
+    
     def _set_playlist_image(self, window, thumbnails):
         if len(thumbnails) > 0:
             #Set cover info
@@ -82,12 +91,14 @@ class PlaylistDetailView(BaseView):
             'http://sleevage.com/wp-content/uploads/2007/08/keane_under_the_iron_sun.jpg',
             'http://images.mirror.co.uk/upl/dailyrecord3/oct2009/4/8/susan-boyle-album-cover-image-1-733838072.jpg',
             'http://musicalatinaymas.com/wp-content/uploads/2010/12/jennifer_lopez_love_album_cover_art-300x300.jpg',
-            'http://cache.coverbrowser.com/image/worst-album-covers/18-1.jpg',
+            'http://2.bp.blogspot.com/_ketX-ka6ZkU/TFX1kJoKa3I/AAAAAAAAAZI/g6ahYp9yDS8/s400/David_Guetta_-_One_Love_(Official_Album_Cover).jpg',
         ]
         
+        #Set playlist data
+        self._set_playlist_properties(window, True)
         self._set_playlist_image(window, thumbnails)
-        
         self._populate_list(window)
+        
         c = window.getControl(PlaylistDetailView.__group_id)
         c.setVisibleCondition("true")
         print "show!"
