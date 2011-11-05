@@ -26,6 +26,7 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
     
     
     def playlist_state_changed(self, playlist):
+        self.__playlist_loader.check()
         self.__playlist_loader.start_loading()
     
     
@@ -93,6 +94,12 @@ class BasePlaylistLoader:
             return True
     
     
+    def _wait_for_playlist(self):
+        if not self.__playlist.is_loaded():
+            self.__checker.add_condition(self.__playlist.is_loaded)
+            self.__checker.complete_wait(10)
+    
+    
     def _wait_for_track_metadata(self, track):
         def test_is_loaded():
             return self._track_is_fully_loaded(
@@ -127,24 +134,23 @@ class BasePlaylistLoader:
     
     
     def _load_attributes(self):
-        if self.__playlist.is_loaded():
-            #Now check for changes
-            has_changes = False
-            
-            if self.__name != self.__playlist.name():
-                self.__name = self.__playlist.name()
-                has_changes = True
-            
-            if self.__num_tracks != self.__playlist.num_tracks():
-                self.__num_tracks = self.__playlist.num_tracks()
-                has_changes = True
-            
-            if self.__is_collaborative != self.__playlist.is_collaborative():
-                self.__is_collaborative = self.__playlist.is_collaborative()
-                has_changes = True
-            
-            #If we detected something different
-            return has_changes
+        #Now check for changes
+        has_changes = False
+        
+        if self.__name != self.__playlist.name():
+            self.__name = self.__playlist.name()
+            has_changes = True
+        
+        if self.__num_tracks != self.__playlist.num_tracks():
+            self.__num_tracks = self.__playlist.num_tracks()
+            has_changes = True
+        
+        if self.__is_collaborative != self.__playlist.is_collaborative():
+            self.__is_collaborative = self.__playlist.is_collaborative()
+            has_changes = True
+        
+        #If we detected something different
+        return has_changes
     
     
     def check(self):
@@ -157,6 +163,10 @@ class BasePlaylistLoader:
     
     def is_loaded(self):
         return self.__is_loaded
+    
+    
+    def get_playlist(self):
+        return self.__playlist
     
     
     def get_thumbnails(self):
@@ -199,6 +209,10 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
     
     @run_in_thread(threads_per_class=10, single_instance=True)
     def start_loading(self):
+        #Wait for the underlying playlist object
+        self._wait_for_playlist()
+        
+        #And load the rest of the data
         has_changes = False
         
         if self._load_attributes():
