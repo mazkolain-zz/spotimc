@@ -465,6 +465,7 @@
 				<width>400</width>
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -476,6 +477,7 @@
 				<width>288</width>
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -487,6 +489,7 @@
 				<width>288</width>
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -498,6 +501,7 @@
 				<width>112</width>
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -518,6 +522,7 @@
 				<width>400</width>
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -529,6 +534,7 @@
 				<width>288</width>
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -540,6 +546,7 @@
 				<width>288</width>
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -551,6 +558,7 @@
 				<width>112</width>
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
+				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotymc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
