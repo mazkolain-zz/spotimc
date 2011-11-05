@@ -26,7 +26,7 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
     
     
     def playlist_state_changed(self, playlist):
-        self.__playlist_loader.load_playlist()
+        self.__playlist_loader.start_loading()
     
     
     def playlist_metadata_updated(self, playlist):
@@ -34,9 +34,8 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
 
 
 
-class PlaylistLoader:
+class BasePlaylistLoader:
     __session = None
-    __container_loader = None
     __playlist = None
     __checker = None
     
@@ -48,10 +47,9 @@ class PlaylistLoader:
     __is_loaded = None
     
     
-    def __init__(self, session, container_loader, playlist):
+    def __init__(self, session, playlist):
         #Initialize all instance vars
         self.__session = session
-        self.__container_loader = weakref.proxy(container_loader)
         self.__playlist = playlist
         self.__checker = BulkConditionChecker()
         self.__is_loaded = False
@@ -64,20 +62,45 @@ class PlaylistLoader:
             playlist.set_in_ram(self.__session, True)
         
         #And finish the rest in the background
-        self.load_playlist()
+        self.start_loading()
     
     
-    def _wait_for_metadata(self, track):
+    def _track_is_fully_loaded(self, track, test_album=True, test_artists=True):
         def album_is_loaded():
             album = track.album()
             return album is not None and album.is_loaded()
         
-        if not track.is_loaded():
-            self.__checker.add_condition(track.is_loaded)
-            self.__checker.complete_wait(10)
+        def artists_are_loaded():
+            for item in track.artists():
+                if item is None or not item.is_loaded():
+                    return False
+            return True
         
-        if not album_is_loaded():
-            self.__checker.add_condition(album_is_loaded)
+        #Always test for the track data
+        if not track.is_loaded():
+            return False
+        
+        #If album data was requested
+        elif test_album and not album_is_loaded():
+            return False
+        
+        #If artist data was requested
+        elif test_artists and not artists_are_loaded():
+            return False
+        
+        #Otherwise everything was ok
+        else:
+            return True
+    
+    
+    def _wait_for_track_metadata(self, track):
+        def test_is_loaded():
+            return self._track_is_fully_loaded(
+                track, test_album=True, test_artists=False
+            )
+        
+        if not test_is_loaded():
+            self.__checker.add_condition(test_is_loaded)
             self.__checker.complete_wait(10)
     
     
@@ -86,7 +109,7 @@ class PlaylistLoader:
         
         for item in self.__playlist.tracks():
             #Wait until this track is fully loaded
-            self._wait_for_metadata(item)
+            self._wait_for_track_metadata(item)
             
             #And append the cover if it's new
             cover = 'http://localhost:8080/image/%s.jpg' % item.album().cover()
@@ -95,23 +118,18 @@ class PlaylistLoader:
             
             #If we reached to the desired thumbnail count...
             if len(thumbnails) == 4:
-                return thumbnails
+                break
         
-        #Track list exhausted, return the thumbnails anyway
-        return thumbnails
+        #If the stored thumbnail data changed...
+        if self.__thumbnails != thumbnails:
+            self.__thumbnails = thumbnails
+            return True
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
-    def load_playlist(self):
+    def _load_attributes(self):
         if self.__playlist.is_loaded():
-            thumbnails = self._load_thumbnails()
-            
             #Now check for changes
             has_changes = False
-            
-            if self.__thumbnails != thumbnails:
-                self.__thumbnails = thumbnails
-                has_changes = True
             
             if self.__name != self.__playlist.name():
                 self.__name = self.__playlist.name()
@@ -125,16 +143,16 @@ class PlaylistLoader:
                 self.__is_collaborative = self.__playlist.is_collaborative()
                 has_changes = True
             
-            #Finally set it as loaded
-            self.__is_loaded = True
-            
             #If we detected something different
-            if has_changes:
-                self.__container_loader.update()
+            return has_changes
     
     
     def check(self):
         self.__checker.check_conditions()
+    
+    
+    def _set_loaded(self, status):
+        self.__is_loaded = status 
     
     
     def is_loaded(self):
@@ -153,12 +171,47 @@ class PlaylistLoader:
         return self.__num_tracks
     
     
+    def get_tracks(self):
+        self.__playlist.tracks()
+    
+    
     def get_is_collaborative(self):
         return self.__is_collaborative
     
     
+    def start_loading(self):
+        raise NotImplementedError()
+    
+    
     def __del__(self):
         print "PlaylistLoader __del__"
+
+
+
+class ContainerPlaylistLoader(BasePlaylistLoader):
+    __container_loader = None
+    
+    
+    def __init__(self, session, playlist, container_loader):
+        self.__container_loader = weakref.proxy(container_loader)
+        BasePlaylistLoader.__init__(self, session, playlist)
+    
+    
+    @run_in_thread(threads_per_class=10, single_instance=True)
+    def start_loading(self):
+        has_changes = False
+        
+        if self._load_attributes():
+            has_changes = True
+        
+        if self._load_thumbnails():
+            has_changes = True
+        
+        #Mark the playlist as loaded
+        self._set_loaded(True)
+        
+        if has_changes:
+            self.__container_loader.update()
 
 
 
@@ -205,8 +258,9 @@ class ContainerLoader:
     
     
     def add_playlist(self, playlist, position):
-        playlist_loader = PlaylistLoader(self.__session, self, playlist)
-        self.__playlists[position] = playlist_loader
+        self.__playlists[position] = ContainerPlaylistLoader(
+            self.__session, playlist, self
+        )
     
     
     def _load_container(self):
