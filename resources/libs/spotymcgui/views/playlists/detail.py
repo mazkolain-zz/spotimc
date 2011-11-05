@@ -6,22 +6,40 @@ Created on 27/10/2011
 import xbmcgui
 from spotymcgui.views import BaseView
 
+import loaders
+
+from spotify import link
+
 
 class PlaylistDetailView(BaseView):
     __group_id = 1800
     __list_id = 1801
     
     
+    __loader = None
+    __playlist = None
+    
+    
+    def __init__(self, session, playlist):
+        self.__playlist = playlist
+        self.__loader = loaders.FullPlaylistLoader(session, playlist)
+    
+    
     def click(self, view_manager, window, control_id):
-        pass
+        if control_id == PlaylistDetailView.__list_id:
+            item = self._get_list(window).getSelectedItem()
+            track = self.__playlist.track(int(item.getProperty('TrackIndex')))
+            playlist_manager = view_manager.get_var('playlist_manager')
+            playlist_manager.play(track)
     
     
     def _get_list(self, window):
         return window.getControl(PlaylistDetailView.__list_id)
     
     
-    def _add_track(self, list, title, artist, album, path, duration):
+    def _add_track(self, list, idx, title, artist, album, path, duration):
         item = xbmcgui.ListItem(path=path)
+        item.setProperty('TrackIndex', str(idx))
         item.setInfo(
             "music",
             {
@@ -35,10 +53,8 @@ class PlaylistDetailView(BaseView):
     def _set_playlist_properties(self, window, is_collaborative):
         if is_collaborative:
             window.setProperty("PlaylistDetailCollaborative", "True")
-            print "playlist set as collaborative"
         else:
             window.setProperty("PlaylistDetailCollaborative", "False")
-            print "playlist set as non-collaborative"
     
     
     def _set_playlist_image(self, window, thumbnails):
@@ -54,54 +70,58 @@ class PlaylistDetailView(BaseView):
                 window.setProperty("PlaylistDetailCoverItem%d" % (idx + 1), thumb_item)
     
     
-    def _populate_list(self, window):
+    def _populate_list(self, window, track_list):
         l = self._get_list(window)
         l.reset()
         
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 186)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 7560)
-        self._add_track(l, "A very long track name that overflows the column", "A reasonably long artist name", "A long album name that overflows the column", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
+        for idx, item in enumerate(track_list):
+            track_link = link.create_from_track(item)
+            track_id = track_link.as_string()[14:]
+            track_url = "http://localhost:8080/track/%s.wav" % track_id
+            
+            self._add_track(
+                l,
+                idx,
+                item.name(),
+                ', '.join([artist.name() for artist in item.artists()]),
+                item.album().name(),
+                track_url,
+                item.duration() / 1000
+            )
+    
+    
+    def _draw_list(self, window):
+        #Show loading animation
+        window.show_loading()
         
-        
-        #window.setProperty("AlbumCover", "http://www.me-pr.co.uk/axxis%20doom%20cover%20small.jpg")
-        #window.setProperty("AlbumName", "Album Name")
-        #window.setProperty("ArtistName", "Artist Name")
-        #img.setImage("http://www.necramonium.com/photos/KISS-Album-Covers/cover_destroyer.jpg")
-        
+        if self.__loader.is_loaded():
+            group = window.getControl(PlaylistDetailView.__group_id)
+            group.setVisibleCondition("false")
+            
+            #Draw the items on the list
+            self._populate_list(window, self.__loader.get_tracks())
+            
+            #Set the thumbnails
+            self._set_playlist_image(window, self.__loader.get_thumbnails())
+            
+            #And the properties
+            self._set_playlist_properties(window, self.__loader.get_is_collaborative())
+            
+            #Hide loading anim
+            window.hide_loading()
+            
+            #Show container
+            group.setVisibleCondition("true")
+            window.setFocusId(PlaylistDetailView.__group_id)
+    
     
     def show(self, window):
-        thumbnails = [
-            'http://sleevage.com/wp-content/uploads/2007/08/keane_under_the_iron_sun.jpg',
-            'http://images.mirror.co.uk/upl/dailyrecord3/oct2009/4/8/susan-boyle-album-cover-image-1-733838072.jpg',
-            'http://musicalatinaymas.com/wp-content/uploads/2010/12/jennifer_lopez_love_album_cover_art-300x300.jpg',
-            'http://2.bp.blogspot.com/_ketX-ka6ZkU/TFX1kJoKa3I/AAAAAAAAAZI/g6ahYp9yDS8/s400/David_Guetta_-_One_Love_(Official_Album_Cover).jpg',
-        ]
-        
-        #Set playlist data
-        self._set_playlist_properties(window, True)
-        self._set_playlist_image(window, thumbnails)
-        self._populate_list(window)
-        
-        c = window.getControl(PlaylistDetailView.__group_id)
-        c.setVisibleCondition("true")
+        self._draw_list(window)
         print "show!"
+    
+    
+    def update(self, window):
+        self._draw_list(window)
     
     
     def hide(self, window):

@@ -153,6 +153,14 @@ class BasePlaylistLoader:
         return has_changes
     
     
+    def _add_condition(self, condition):
+        self.__checker.add_condition(condition)
+   
+   
+    def _wait_for_conditions(self, timeout):
+        self.__checker.complete_wait(timeout)
+    
+    
     def check(self):
         self.__checker.check_conditions()
     
@@ -182,7 +190,7 @@ class BasePlaylistLoader:
     
     
     def get_tracks(self):
-        self.__playlist.tracks()
+        return self.__playlist.tracks()
     
     
     def get_is_collaborative(self):
@@ -227,6 +235,51 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
         if has_changes:
             self.__container_loader.update()
 
+
+
+class FullPlaylistLoader(BasePlaylistLoader):
+    def _check_track(self, track):
+        def track_is_loaded():
+            return self._track_is_fully_loaded(
+                track, test_album=True, test_artists=True
+            )
+        
+        #Add a check condition for this track if it needs one
+        if not track_is_loaded():
+            self._add_condition(track_is_loaded)
+    
+    
+    def _load_all_tracks(self):
+        #Iterate over the tracks to add conditions for them
+        for item in self.get_tracks():
+            self._check_track(item)
+        
+        #Wait until all tracks meet the conditions
+        self._wait_for_conditions(20)
+    
+    
+    @run_in_thread(threads_per_class=10, single_instance=True)
+    def start_loading(self):
+        #Wait for the underlying playlist object
+        self._wait_for_playlist()
+        
+        #Load all the tracks
+        self._load_all_tracks()
+        
+        #And load the rest of the data
+        has_changes = False
+        
+        if self._load_attributes():
+            has_changes = True
+        
+        if self._load_thumbnails():
+            has_changes = True
+        
+        #Mark the playlist as loaded
+        self._set_loaded(True)
+        
+        if has_changes:
+            xbmc.executebuiltin("Action(Noop)")
 
 
 class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):

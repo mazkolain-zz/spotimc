@@ -9,6 +9,8 @@ from spotymcgui.views import BaseView
 
 import loaders
 
+import detail
+
 
 
 class PlaylistView(BaseView):
@@ -23,15 +25,21 @@ class PlaylistView(BaseView):
     
     
     def click(self, view_manager, window, control_id):
-        pass
+        if control_id == PlaylistView.__list_id:
+            item = self._get_list(window).getSelectedItem()
+            session = view_manager.get_var('session')
+            playlist = self.__loader.playlist(int(item.getProperty('PlaylistId')))
+            v = detail.PlaylistDetailView(session, playlist.get_playlist())
+            view_manager.add_view(v)
     
     
     def _get_list(self, window):
         return window.getControl(PlaylistView.__list_id)
     
     
-    def _add_playlist(self, playlist, window):
+    def _add_playlist(self, key, playlist, window):
         item = xbmcgui.ListItem()
+        item.setProperty("PlaylistId", str(key))
         item.setProperty("PlaylistName", playlist.get_name())
         item.setProperty("PlaylistNumTracks", str(playlist.get_num_tracks()))
         
@@ -71,8 +79,8 @@ class PlaylistView(BaseView):
             l = self._get_list(window)
             l.reset()
             
-            for item in self.__loader.playlists():
-                self._add_playlist(item, window)
+            for key, item in enumerate(self.__loader.playlists()):
+                self._add_playlist(key, item, window)
             
             #Hide loading anim
             window.hide_loading()
