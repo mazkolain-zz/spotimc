@@ -12,6 +12,7 @@ import views.artist
 import views.search
 import views.nowplaying
 import views.playlists.list
+import views.playlists.detail
 import views.more
 
 import dialogs
