@@ -621,8 +621,8 @@
 						
 						<!-- Individual cover image -->
 						<control type="image">
-							<posx>4</posx>
-							<posy>4</posy>
+							<posx>8</posx>
+							<posy>8</posy>
 							<width>128</width>
 							<height>128</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one)</visible>
@@ -699,12 +699,12 @@
 					<control type="group">
 						<visible>true</visible>
 						<posx>160</posx>
-						<posy>72</posy>
+						<posy>80</posy>
 						
 						<control type="image">
 							<posx>0</posx>
 							<posy>0</posy>
-							<width>592</width>
+							<width>1008</width>
 							<height>80</height>
 							<texture>common/item-bg.png</texture>
 						</control>
