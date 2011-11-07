@@ -39,23 +39,25 @@ class NewStuffView(BaseView):
         )
         
     
-    def _show_album(self, view_manager, window):
-        pos = self._get_list(window).getSelectedPosition()
+    def _show_album(self, view_manager):
+        pos = self._get_list(view_manager).getSelectedPosition()
         v = album.AlbumTracksView(self.__session, self.__search.album(pos))
         view_manager.add_view(v)
     
     
-    def click(self, view_manager, window, control_id):
+    def click(self, view_manager, control_id):
         #If the list was clicked...
         if control_id == NewStuffView.__list_id:
-            self._show_album(view_manager, window)
+            self._show_album(view_manager)
     
     
-    def _get_list(self, window):
-        return window.getControl(NewStuffView.__list_id)
+    def _get_list(self, view_manager):
+        return view_manager.get_window().getControl(NewStuffView.__list_id)
     
     
-    def _draw_list(self, window):
+    def _draw_list(self, view_manager):
+        window = view_manager.get_window()
+        
         #Always show the loading anim at this point
         window.show_loading()
         
@@ -65,7 +67,7 @@ class NewStuffView(BaseView):
             group.setVisibleCondition("false")
             
             #Now start working on the list
-            l = self._get_list(window)
+            l = self._get_list(view_manager)
             l.reset()
             
             for album in self.__search.albums():
@@ -86,15 +88,17 @@ class NewStuffView(BaseView):
             window.setFocusId(NewStuffView.__group_id)
     
     
-    def update(self, window):
-        self._draw_list(window)
+    def update(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def show(self, window):
-        self._draw_list(window)
+    def show(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def hide(self, window):
+    def hide(self, view_manager):
+        window = view_manager.get_window()
+        
         #Keep the list position
         l = window.getControl(NewStuffView.__list_id)
         self.__list_position = l.getSelectedPosition()

@@ -24,20 +24,20 @@ class PlaylistView(BaseView):
         self.__loader = loaders.ContainerLoader(session, container)
     
     
-    def click(self, view_manager, window, control_id):
+    def click(self, view_manager, control_id):
         if control_id == PlaylistView.__list_id:
-            item = self._get_list(window).getSelectedItem()
+            item = self._get_list(view_manager).getSelectedItem()
             session = view_manager.get_var('session')
             playlist = self.__loader.playlist(int(item.getProperty('PlaylistId')))
             v = detail.PlaylistDetailView(session, playlist.get_playlist())
             view_manager.add_view(v)
     
     
-    def _get_list(self, window):
-        return window.getControl(PlaylistView.__list_id)
+    def _get_list(self, view_manager):
+        return view_manager.get_window().getControl(PlaylistView.__list_id)
     
     
-    def _add_playlist(self, key, playlist, window):
+    def _add_playlist(self, list, key, playlist):
         item = xbmcgui.ListItem()
         item.setProperty("PlaylistId", str(key))
         item.setProperty("PlaylistName", playlist.get_name())
@@ -62,11 +62,12 @@ class PlaylistView(BaseView):
             for idx, thumb_item in enumerate(thumbnails):
                 item.setProperty("CoverItem%d" % (idx + 1), thumb_item)
         
-        list = self._get_list(window)
         list.addItem(item)
     
     
-    def _draw_list(self, window):
+    def _draw_list(self, view_manager):
+        window = view_manager.get_window()
+        
         #Show loading animation
         window.show_loading()
         
@@ -76,11 +77,11 @@ class PlaylistView(BaseView):
             group.setVisibleCondition("false")
             
             #Clear the list
-            l = self._get_list(window)
-            l.reset()
+            list = self._get_list(view_manager)
+            list.reset()
             
             for key, item in enumerate(self.__loader.playlists()):
-                self._add_playlist(key, item, window)
+                self._add_playlist(list, key, item)
             
             #Hide loading anim
             window.hide_loading()
@@ -92,16 +93,15 @@ class PlaylistView(BaseView):
             window.setFocusId(PlaylistView.__group_id)
     
     
-    def show(self, window):
-        self._draw_list(window)
-        print "show!"
+    def show(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def update(self, window):
-        self._draw_list(window)
+    def update(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def hide(self, window):
+    def hide(self, view_manager):
+        window = view_manager.get_window()
         c = window.getControl(PlaylistView.__group_id)
         c.setVisibleCondition("false")
-        print "hide!"

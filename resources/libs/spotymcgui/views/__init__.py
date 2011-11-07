@@ -40,7 +40,7 @@ class ViewManager:
     
     
     def _show_view(self, view):
-        view.show(self.__window)
+        view.show(self)
         container_id = view.get_container_id()
         if container_id is not None:
             xbmc.executebuiltin("Control.SetFocus(%d)" % container_id)
@@ -53,7 +53,7 @@ class ViewManager:
         
         #If there's one active
         if self.__position != -1:
-            self.__view_list[self.__position].hide(self.__window)
+            self.__view_list[self.__position].hide(self)
         
         #Show the next one
         self.__position += 1
@@ -70,7 +70,7 @@ class ViewManager:
             raise IndexError("No previous views available")
         
         #Hide current
-        self.__view_list[self.__position].hide(self.__window)
+        self.__view_list[self.__position].hide(self)
         
         #Show previous
         self.__position -= 1
@@ -89,18 +89,18 @@ class ViewManager:
     
     
     def click(self, control_id):
-        self.__view_list[self.__position].click(self, self.__window, control_id)
+        self.__view_list[self.__position].click(self, control_id)
     
     
     def update(self):
-        self.__view_list[self.__position].update(self.__window)
+        self.__view_list[self.__position].update(self)
     
     
     def clear_views(self):
         #Fail if no previous window
         if self.has_previous():
             #Hide current
-            self.__view_list[self.__position].hide(self.__window)
+            self.__view_list[self.__position].hide(self)
             
             #Delete all views
             self.__view_list = []
@@ -115,27 +115,31 @@ class ViewManager:
     
     def get_var(self, name):
         return self.__vars[name]
+    
+    
+    def get_window(self):
+        return self.__window
 
 
 
 class BaseView:
-    def click(self, view_manager, window, control_id):
+    def click(self, view_manager, control_id):
         pass
     
     
-    def show(self, window):
+    def show(self, view_manager):
         pass
     
     
-    def hide(self, window):
+    def hide(self, view_manager):
         pass
     
     
-    def update(self, window):
+    def update(self, view_manager):
         pass
     
     
-    def back(self, window):
+    def back(self, view_manager):
         pass
     
     

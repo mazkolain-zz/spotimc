@@ -32,10 +32,8 @@ class AlbumTracksView(BaseView):
         self.__albumbrowse = albumbrowse.Albumbrowse(session, album, cb)
     
     
-    def _play_selected_track(self, view_manager, window):
-        #print 'inside play_selected track'
-        #pos = self._get_list(window).getSelectedPosition()
-        item = self._get_list(window).getSelectedItem()
+    def _play_selected_track(self, view_manager):
+        item = self._get_list(view_manager).getSelectedItem()
         pos = int(item.getProperty("real_index"))
         
         #If we have a valid index
@@ -45,13 +43,13 @@ class AlbumTracksView(BaseView):
             playlist_manager.play(self.__albumbrowse.tracks(), pos)
     
     
-    def click(self, view_manager, window, control_id):
+    def click(self, view_manager, control_id):
         if control_id == AlbumTracksView.list_id:
-            self._play_selected_track(view_manager, window)
+            self._play_selected_track(view_manager)
     
     
-    def _get_list(self, window):
-        return window.getControl(AlbumTracksView.list_id)
+    def _get_list(self, view_manager):
+        return view_manager.get_window().getControl(AlbumTracksView.list_id)
     
     
     def _have_multiple_discs(self, track_list):
@@ -92,12 +90,14 @@ class AlbumTracksView(BaseView):
         list.addItem(item)
     
     
-    def _draw_list(self, window):
+    def _draw_list(self, view_manager):
+        window = view_manager.get_window()
+        
         #Always show the loading animation
         window.show_loading()
         
         if self.__albumbrowse.is_loaded():
-            list = self._get_list(window)
+            list = self._get_list(view_manager)
             list.reset()
             
             #Set album info
@@ -128,15 +128,14 @@ class AlbumTracksView(BaseView):
             window.setFocusId(AlbumTracksView.group_id)
     
     
-    def update(self, window):
-        print "album update action called"
-        self._draw_list(window)
+    def update(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def show(self, window):
-        self._draw_list(window)
+    def show(self, view_manager):
+        self._draw_list(view_manager)
     
     
-    def hide(self, window):
-        c = window.getControl(AlbumTracksView.group_id)
+    def hide(self, view_manager):
+        c = view_manager.get_window().getControl(AlbumTracksView.group_id)
         c.setVisibleCondition("false")

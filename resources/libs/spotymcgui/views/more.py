@@ -12,12 +12,7 @@ class MoreView(BaseView):
     __list_id = 1901
     
     
-    def click(self, view_manager, window, control_id):
-        pass
-    
-    
-    def _populate_list(self, window):
-        #window.setProperty("AlbumCover", "http://www.me-pr.co.uk/axxis%20doom%20cover%20small.jpg")
+    def click(self, view_manager, control_id):
         pass
     
     
@@ -26,25 +21,22 @@ class MoreView(BaseView):
     
     
     def _draw_list(self, window):
-        l = window.getControl(MoreView.__list_id)
-        l.reset()
+        list = window.getControl(MoreView.__list_id)
+        list.reset()
         
         #Add the items
-        self._add_item(l, "Settings", "common/more-settings-icon.png")
-        self._add_item(l, "Logout", "common/more-logout-icon.png")
-        
+        self._add_item(list, "Settings", "common/more-settings-icon.png")
+        self._add_item(list, "Logout", "common/more-logout-icon.png")
         
     
-    def show(self, window):
-        #Populate the list
+    def show(self, view_manager):
+        window = view_manager.get_window()
         self._draw_list(window)
-        
         c = window.getControl(MoreView.__group_id)
         c.setVisibleCondition("true")
-        print "show!"
     
     
-    def hide(self, window):
+    def hide(self, view_manager):
+        window = view_manager.get_window()
         c = window.getControl(MoreView.__group_id)
         c.setVisibleCondition("false")
-        print "hide!"
