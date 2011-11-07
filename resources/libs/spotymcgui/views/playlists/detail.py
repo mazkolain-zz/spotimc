@@ -28,9 +28,9 @@ class PlaylistDetailView(BaseView):
     def click(self, view_manager, window, control_id):
         if control_id == PlaylistDetailView.__list_id:
             item = self._get_list(window).getSelectedItem()
-            track = self.__playlist.track(int(item.getProperty('TrackIndex')))
+            pos = int(item.getProperty('TrackIndex'))
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(track)
+            playlist_manager.play(self.__playlist.tracks(), pos)
     
     
     def _get_list(self, window):

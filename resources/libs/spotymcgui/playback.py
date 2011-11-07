@@ -20,8 +20,8 @@ class PlaylistManager:
         self.__server_info = server_info
     
     
-    def _play_first_item(self):
-        xbmc.executebuiltin('playlist.playoffset(music,0)')
+    def _play_item(self, offset):
+        xbmc.executebuiltin('playlist.playoffset(music,%d)' % offset)
     
     
     def _rebuild_playlist(self):
@@ -66,17 +66,12 @@ class PlaylistManager:
             time.sleep(0.7)
     
     
-    def play(self, track, additional_tracks=None):
+    def play(self, track_list, offset=0):
         self._stop_playback()
+        self.__secondary_queue = []
         
-        self.__secondary_queue = [track]
-        track_id = self._get_track_id(track)
-        
-        #Add the additional tracks except the one matching track param
-        if additional_tracks is not None:
-            for item in additional_tracks:
-                if self._get_track_id(item) != track_id:
-                    self.__secondary_queue.append(item)
+        for item in track_list:
+            self.__secondary_queue.append(item)
         
         self._rebuild_playlist()
-        self._play_first_item()
+        self._play_item(offset)

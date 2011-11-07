@@ -36,13 +36,13 @@ class AlbumTracksView(BaseView):
         #print 'inside play_selected track'
         #pos = self._get_list(window).getSelectedPosition()
         item = self._get_list(window).getSelectedItem()
-        pos = item.getProperty("real_index")
+        pos = int(item.getProperty("real_index"))
         
         #If we have a valid index
         if pos is not None:
-            track_item = self.__albumbrowse.track(int(pos))
+            #track_item = self.__albumbrowse.track(int(pos))
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(track_item, self.__albumbrowse.tracks())
+            playlist_manager.play(self.__albumbrowse.tracks(), pos)
     
     
     def click(self, view_manager, window, control_id):
