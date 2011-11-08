@@ -37,19 +37,27 @@ class PlaylistView(BaseView):
         return view_manager.get_window().getControl(PlaylistView.__list_id)
     
     
-    def _add_playlist(self, list, key, playlist):
+    def _add_playlist(self, list, key, loader, show_owner):
         item = xbmcgui.ListItem()
         item.setProperty("PlaylistId", str(key))
-        item.setProperty("PlaylistName", playlist.get_name())
-        item.setProperty("PlaylistNumTracks", str(playlist.get_num_tracks()))
+        item.setProperty("PlaylistName", loader.get_name())
+        item.setProperty("PlaylistNumTracks", str(loader.get_num_tracks()))
+        
+        if show_owner:
+            owner_name = loader.get_playlist().owner().canonical_name()
+            item.setProperty("PlaylistShowOwner", "True")
+            item.setProperty("PlaylistOwner", str(owner_name))
+        else:
+            item.setProperty("PlaylistShowOwner", "False")
+        
         
         #Collaborative status
-        if playlist.get_is_collaborative():
+        if loader.get_is_collaborative():
             item.setProperty("PlaylistCollaborative", "True")
         else:
             item.setProperty("PlaylistCollaborative", "False")
         
-        thumbnails = playlist.get_thumbnails()
+        thumbnails = loader.get_thumbnails()
         
         if len(thumbnails) > 0:
             #Set cover info
@@ -80,8 +88,14 @@ class PlaylistView(BaseView):
             list = self._get_list(view_manager)
             list.reset()
             
+            #Get the logged in user
+            session = view_manager.get_var('session')
+            logged_user = session.user().canonical_name()
+            
             for key, item in enumerate(self.__loader.playlists()):
-                self._add_playlist(list, key, item)
+                item_owner = item.get_playlist().owner().canonical_name()
+                show_owner = logged_user != item_owner
+                self._add_playlist(list, key, item, show_owner)
             
             #Hide loading anim
             window.hide_loading()

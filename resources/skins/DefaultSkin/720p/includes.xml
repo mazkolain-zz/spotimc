@@ -643,21 +643,41 @@
 				<height>144</height>
 				<texture>common/item-bg.png</texture>
 			</control>
+			
+			
+			<!-- Playlist name (no owner info) -->
 			<control type="label">
-				<posx>176</posx>
+				<posx>160</posx>
 				<posy>40</posy>
-				<width>576</width>
+				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font24</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Property(PlaylistName)</info>
+				<visible>!ListItem.Property(PlaylistShowOwner)</visible>
 			</control>
+			
+			<!-- Playlist name plus owner info -->
 			<control type="label">
-				<posx>176</posx>
+                <posx>160</posx>
+                <posy>40</posy>
+                <width>400</width>
+                <height>16</height>
+                <textcolor>ff969696</textcolor>
+                <font>spotymc_font24</font>
+                <align>left</align>
+                <aligny>center</aligny>
+                <label>[COLOR ffffffff]$INFO[ListItem.Property(PlaylistName)][/COLOR] by $INFO[ListItem.Property(PlaylistOwner)]</label>
+                <visible>ListItem.Property(PlaylistShowOwner)</visible>
+            </control>
+			
+			
+			<control type="label">
+				<posx>160</posx>
 				<posy>80</posy>
-				<width>576</width>
+				<width>400</width>
 				<height>16</height>
 				<textcolor>ff969696</textcolor>
 				<font>spotymc_font22</font>
@@ -738,21 +758,41 @@
 				<height>144</height>
 				<texture>common/item-bg-selected.png</texture>
 			</control>
+			
+			
+            <!-- Playlist name (no owner info) -->
+            <control type="label">
+                <posx>160</posx>
+                <posy>40</posy>
+                <width>400</width>
+                <height>16</height>
+                <textcolor>ffffffff</textcolor>
+                <font>spotymc_font24</font>
+                <align>left</align>
+                <aligny>center</aligny>
+                <info>ListItem.Property(PlaylistName)</info>
+                <visible>!ListItem.Property(PlaylistShowOwner)</visible>
+            </control>
+            
+            <!-- Playlist name plus owner info -->
+            <control type="label">
+                <posx>160</posx>
+                <posy>40</posy>
+                <width>400</width>
+                <height>16</height>
+                <textcolor>ffffffff</textcolor>
+                <font>spotymc_font24</font>
+                <align>left</align>
+                <aligny>center</aligny>
+                <label>$INFO[ListItem.Property(PlaylistName)] by $INFO[ListItem.Property(PlaylistOwner)]</label>
+                <visible>ListItem.Property(PlaylistShowOwner)</visible>
+            </control>
+			
+			
 			<control type="label">
-				<posx>176</posx>
-				<posy>40</posy>
-				<width>576</width>
-				<height>16</height>
-				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font24</font>
-				<align>left</align>
-				<aligny>center</aligny>
-				<info>ListItem.Property(PlaylistName)</info>
-			</control>
-			<control type="label">
-				<posx>176</posx>
+				<posx>160</posx>
 				<posy>80</posy>
-				<width>576</width>
+				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
 				<font>spotymc_font22</font>
