@@ -412,5 +412,9 @@ class ContainerLoader:
         return CallbackIterator(self.num_playlists, self.playlist)
     
     
+    def get_container(self):
+        return self.__container
+    
+    
     def __del__(self):
         print "ContainerLoader __del__"

@@ -89,12 +89,14 @@ class PlaylistView(BaseView):
             list.reset()
             
             #Get the logged in user
-            session = view_manager.get_var('session')
-            logged_user = session.user().canonical_name()
+            container_user = self.__loader.get_container().owner()
+            container_username = None
+            if container_user is not None:
+                container_username = container_user.canonical_name()
             
             for key, item in enumerate(self.__loader.playlists()):
-                item_owner = item.get_playlist().owner().canonical_name()
-                show_owner = logged_user != item_owner
+                playlist_username = item.get_playlist().owner().canonical_name()
+                show_owner = playlist_username != container_username
                 self._add_playlist(list, key, item, show_owner)
             
             #Hide loading anim
