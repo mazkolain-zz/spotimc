@@ -112,20 +112,29 @@ class BasePlaylistLoader:
     
     
     def _load_thumbnails(self):
-        thumbnails = []
         
-        for item in self.__playlist.tracks():
-            #Wait until this track is fully loaded
-            self._wait_for_track_metadata(item)
-            
-            #And append the cover if it's new
-            cover = 'http://localhost:8080/image/%s.jpg' % item.album().cover()
-            if cover not in thumbnails:
-                thumbnails.append(cover)
-            
-            #If we reached to the desired thumbnail count...
-            if len(thumbnails) == 4:
-                break
+        #If playlist has an image
+        playlist_image = self.__playlist.get_image()
+        if playlist_image is not None:
+            thumbnails = [
+                'http://localhost:8080/image/%s.jpg' % playlist_image
+            ]
+        
+        #Otherwise get them from the album covers
+        else:
+            thumbnails = []
+            for item in self.__playlist.tracks():
+                #Wait until this track is fully loaded
+                self._wait_for_track_metadata(item)
+                
+                #And append the cover if it's new
+                cover = 'http://localhost:8080/image/%s.jpg' % item.album().cover()
+                if cover not in thumbnails:
+                    thumbnails.append(cover)
+                
+                #If we reached to the desired thumbnail count...
+                if len(thumbnails) == 4:
+                    break
         
         #If the stored thumbnail data changed...
         if self.__thumbnails != thumbnails:
