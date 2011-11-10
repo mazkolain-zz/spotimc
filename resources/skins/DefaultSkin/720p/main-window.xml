@@ -609,20 +609,20 @@
 					<control type="group">
 						<visible>true</visible>
 						<posx>0</posx>
-						<posy>24</posy>
+						<posy>28</posy>
 						
 						<control type="image">
 							<posx>0</posx>
 							<posy>0</posy>
-							<width>144</width>
-							<height>144</height>
+							<width>136</width>
+							<height>136</height>
 							<texture>common/item-bg.png</texture>
 						</control>
 						
 						<!-- Individual cover image -->
 						<control type="image">
-							<posx>8</posx>
-							<posy>8</posy>
+							<posx>4</posx>
+							<posy>4</posy>
 							<width>128</width>
 							<height>128</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one)</visible>
@@ -633,8 +633,8 @@
 						
 						<!-- Four cover image group -->
 						<control type="image">
-							<posx>8</posx>
-							<posy>8</posy>
+							<posx>4</posx>
+							<posy>4</posy>
 							<width>64</width>
 							<height>64</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
@@ -643,8 +643,8 @@
 							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
 						</control>
 						<control type="image">
-							<posx>72</posx>
-							<posy>8</posy>
+							<posx>68</posx>
+							<posy>4</posy>
 							<width>64</width>
 							<height>64</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
@@ -653,8 +653,8 @@
 							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem2)]</texture>
 						</control>
 						<control type="image">
-							<posx>8</posx>
-							<posy>72</posy>
+							<posx>4</posx>
+							<posy>68</posy>
 							<width>64</width>
 							<height>64</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
@@ -663,8 +663,8 @@
 							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem3)]</texture>
 						</control>
 						<control type="image">
-							<posx>72</posx>
-							<posy>72</posy>
+							<posx>68</posx>
+							<posy>68</posy>
 							<width>64</width>
 							<height>64</height>
 							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
@@ -676,7 +676,7 @@
 						<!-- Collaborative status flag -->
 						<control type="image">
 							<posx>0</posx>
-							<posy>80</posy>
+							<posy>72</posy>
 							<width>64</width>
 							<height>64</height>
 							<texture>common/playlist-collaborative.png</texture>
