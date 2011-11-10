@@ -686,12 +686,24 @@
 					</control>
 					
 					
-					<!-- Main playlist detail label -->
+					<!-- Main playlist detail label (without owner info) -->
 					<control type="label">
 						<include>spotymc_title</include>
-						<label>[COLOR ffffffff]PlaylistName[/COLOR] by JohnDoe</label>
+						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR]</label>
 						<posx>160</posx>
 						<posy>32</posy>
+						<!-- WTF: Won't work referencing the property directly -->
+						<visible>!SubString(Container.Property(PlaylistDetailShowOwner),True)</visible>
+					</control>
+					
+					<!-- Main playlist detail label (without owner info) -->
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR] by $INFO[Container.Property(PlaylistDetailOwner)]</label>
+						<posx>160</posx>
+						<posy>32</posy>
+						<!-- WTF: Won't work referencing the property directly -->
+						<visible>SubString(Container.Property(PlaylistDetailShowOwner),True)</visible>
 					</control>
 					
 					
@@ -711,16 +723,17 @@
 						
 						<control type="label">
 							<include>spotymc_subtitle</include>
-							<label>126 tracks, 5 hours</label>
+							<label>$INFO[Container.Property(PlaylistDetailNumTracks)] tracks, $INFO[Container.Property(PlaylistDetailDuration)]</label>
 							<posx>16</posx>
 							<posy>16</posy>
 						</control>
 						
 						<control type="label">
 							<include>spotymc_subtitle</include>
-							<label>8 subscribers, collaborative</label>
+							<label>$INFO[Container.Property(PlaylistDetailNumSubscribers)] subscribers</label>
 							<posx>16</posx>
 							<posy>48</posy>
+							<visible>IntegerGreaterThan(Container.Property(PlaylistDetailNumSubscribers),0)</visible>
 						</control>
 					</control>
 					

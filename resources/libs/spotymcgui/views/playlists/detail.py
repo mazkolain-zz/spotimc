@@ -50,11 +50,68 @@ class PlaylistDetailView(BaseView):
         list.addItem(item)
     
     
-    def _set_playlist_properties(self, window, is_collaborative):
-        if is_collaborative:
+    def _get_playlist_length_str(self):
+        total_duration = 0
+        
+        for track in self.__playlist.tracks():
+            total_duration += track.duration() / 1000
+        
+        #Now the string ranges
+        one_minute = 60
+        one_hour = 3600
+        one_day = 3600 * 24
+        
+        if total_duration > one_day:
+            num_days = int(round(total_duration / one_day))
+            if num_days == 1:
+                return 'one day'
+            else:
+                return '%d days' % num_days
+        
+        elif total_duration > one_hour:
+            num_hours = int(round(total_duration / one_hour))
+            if num_hours == 1:
+                return 'one hour'
+            else:
+                return '%d hours' % num_hours
+        
+        else:
+            num_minutes = int(round(total_duration / one_minute))
+            if num_minutes == 1:
+                return 'one minute'
+            else:
+                return '%d minutes' % num_minutes
+    
+    
+    def _set_playlist_properties(self, view_manager):
+        window = view_manager.get_window()
+        
+        #Playlist name
+        window.setProperty("PlaylistDetailName", self.__playlist.name())
+        
+        #Owner info
+        session = view_manager.get_var('session')
+        current_username = session.user().canonical_name()
+        playlist_username = self.__playlist.owner().canonical_name()
+        
+        if current_username != playlist_username:
+            window.setProperty("PlaylistDetailShowOwner", "True")
+            window.setProperty("PlaylistDetailOwner", str(playlist_username))
+        else:
+            window.setProperty("PlaylistDetailShowOwner", "False")
+    
+        #Collaboratie status
+        if self.__playlist.is_collaborative():
             window.setProperty("PlaylistDetailCollaborative", "True")
         else:
             window.setProperty("PlaylistDetailCollaborative", "False")
+        
+        #Length data
+        window.setProperty("PlaylistDetailNumTracks", str(self.__playlist.num_tracks()))
+        window.setProperty("PlaylistDetailDuration", self._get_playlist_length_str())
+        
+        #Subscribers
+        window.setProperty("PlaylistDetailNumSubscribers", str(self.__playlist.num_subscribers()))
     
     
     def _set_playlist_image(self, window, thumbnails):
@@ -107,7 +164,7 @@ class PlaylistDetailView(BaseView):
             self._set_playlist_image(window, self.__loader.get_thumbnails())
             
             #And the properties
-            self._set_playlist_properties(window, self.__loader.get_is_collaborative())
+            self._set_playlist_properties(view_manager)
             
             #Hide loading anim
             window.hide_loading()
