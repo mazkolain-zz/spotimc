@@ -19,6 +19,8 @@ class PlaylistView(BaseView):
     
     __loader = None
     
+    __list_position = None
+    
     
     def __init__(self, session, container):
         self.__loader = loaders.ContainerLoader(session, container)
@@ -80,6 +82,8 @@ class PlaylistView(BaseView):
         window.show_loading()
         
         if self.__loader.is_loaded():
+            self._save_list_position(view_manager)
+            
             #Hide the whole group first
             group = window.getControl(PlaylistView.__group_id)
             group.setVisibleCondition("false")
@@ -99,6 +103,9 @@ class PlaylistView(BaseView):
                 show_owner = playlist_username != container_username
                 self._add_playlist(list, key, item, show_owner)
             
+            #If we have the list index at hand...
+            self._restore_list_position(view_manager)
+            
             #Hide loading anim
             window.hide_loading()
             
@@ -117,7 +124,23 @@ class PlaylistView(BaseView):
         self._draw_list(view_manager)
     
     
+    def _save_list_position(self, view_manager):
+        list = self._get_list(view_manager)
+        self.__list_position = list.getSelectedPosition()
+    
+    
+    def _restore_list_position(self, view_manager):
+        #If we have the list index at hand...
+        if self.__list_position is not None:
+            list = self._get_list(view_manager)
+            list.selectItem(self.__list_position)
+    
+    
     def hide(self, view_manager):
         window = view_manager.get_window()
+        
+        #Keep the list position
+        self._save_list_position(view_manager)
+        
         c = window.getControl(PlaylistView.__group_id)
         c.setVisibleCondition("false")
