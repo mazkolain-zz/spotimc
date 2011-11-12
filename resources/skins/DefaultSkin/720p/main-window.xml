@@ -755,7 +755,7 @@
 						<height>368</height>
 						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>5500</onleft>
+						<onleft>5800</onleft>
 						<onright>200</onright>
 						<pagecontrol>1502</pagecontrol>
 					</control>
@@ -856,7 +856,8 @@
 					<ondown></ondown>
 					<visible>
 						Control.IsVisible(1300) |
-						Control.IsVisible(1500)
+						Control.IsVisible(1500) |
+						Control.IsVisible(1800)
 					</visible>
 				</control>
 				
@@ -983,6 +984,39 @@
 						<include>spotymc_leftmenu_toggle</include>
 						<description></description>
 						<label>Duration</label>
+					</control>
+				</control>
+				
+				
+				<!-- Playlist options -->
+				<control type="grouplist" id="5800">
+					<include>spotymc_leftmenu_grouplist</include>
+					<description>Playlist detail options</description>
+					<onright>1800</onright>
+					<visible>Control.IsVisible(1800)</visible>
+					
+					<!-- Track options -->
+					<control type="label" id="5810">
+						<include>spotymc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<control type="button" id="5811">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Browse artist</label>
+					</control>
+					
+					<control type="button" id="5812">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Browse album</label>
+					</control>
+					
+					<control type="button" id="5813">
+						<include>spotymc_leftmenu_button</include>
+						<description></description>
+						<label>Toggle star</label>
 					</control>
 				</control>
 			</control>

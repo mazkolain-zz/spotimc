@@ -10,10 +10,15 @@ import loaders
 
 from spotify import link
 
+from spotymcgui.views.album import AlbumTracksView
+
+
 
 class PlaylistDetailView(BaseView):
     __group_id = 1800
     __list_id = 1801
+    
+    BrowseAlbumButton = 5812
     
     
     __loader = None
@@ -32,6 +37,13 @@ class PlaylistDetailView(BaseView):
             pos = int(item.getProperty('TrackIndex'))
             playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.play(self.__playlist.tracks(), pos)
+        
+        elif control_id == PlaylistDetailView.BrowseAlbumButton:
+            item = self._get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('TrackIndex'))
+            album = self.__playlist.track(pos).album()
+            v = AlbumTracksView(view_manager.get_var('session'), album)
+            view_manager.add_view(v)
     
     
     def _get_list(self, view_manager):
