@@ -174,29 +174,29 @@
 		<scrolltime>200</scrolltime>
 		<visible>true</visible>
 		
-		<itemlayout width="384" height="112">
+		<itemlayout width="384" height="120">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>368</width>
-				<height>96</height>
+				<height>104</height>
 				<texture>common/item-bg.png</texture>
 				<aspectratio>stretch</aspectratio>
 			</control>
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>80</width>
-				<height>80</height>
+				<width>88</width>
+				<height>88</height>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
 			<control type="label">
-				<posx>96</posx>
+				<posx>104</posx>
 				<posy>24</posy>
 				<width>256</width>
-				<height>18</height>
+				<height>16</height>
 				<font>spotymc_font22</font>
 				<aligny>center</aligny>
 				<selectedcolor>green</selectedcolor>
@@ -205,10 +205,10 @@
 				<textcolor>ffffffff</textcolor>
 			</control>
 			<control type="label">
-				<posx>96</posx>
-				<posy>56</posy>
+				<posx>104</posx>
+				<posy>64</posy>
 				<width>256</width>
-				<height>18</height>
+				<height>16</height>
 				<font>spotymc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
@@ -216,29 +216,29 @@
 				<textcolor>ff969696</textcolor>
 			</control>
 		</itemlayout>
-		<focusedlayout height="384" width="112">
+		<focusedlayout height="384" width="120">
 			<control type="image">
 				<posx>0</posx>
 				<posy>0</posy>
 				<width>368</width>
-				<height>96</height>
+				<height>104</height>
 				<texture>common/item-bg-selected.png</texture>
 				<aspectratio>stretch</aspectratio>
 			</control>
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
-				<width>80</width>
-				<height>80</height>
+				<width>88</width>
+				<height>88</height>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture background="true">$INFO[ListItem.Icon]</texture>
 			</control>
 			<control type="label">
-				<posx>96</posx>
+				<posx>104</posx>
 				<posy>24</posy>
 				<width>256</width>
-				<height>18</height>
+				<height>16</height>
 				<font>spotymc_font22</font>
 				<aligny>center</aligny>
 				<selectedcolor>green</selectedcolor>
@@ -247,10 +247,10 @@
 				<textcolor>ffffffff</textcolor>
 			</control>
 			<control type="label">
-				<posx>96</posx>
-				<posy>56</posy>
+				<posx>104</posx>
+				<posy>64</posy>
 				<width>256</width>
-				<height>18</height>
+				<height>16</height>
 				<font>spotymc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
