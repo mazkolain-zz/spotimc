@@ -4,39 +4,36 @@ Created on 20/08/2011
 @author: mikel
 '''
 import xbmcgui
-from spotymcgui.views import BaseView
+from spotymcgui.views import BaseListContainerView
 
 
-class MoreView(BaseView):
-    __group_id = 1900
-    __list_id = 1901
+class MoreView(BaseListContainerView):
+    container_id = 1900
+    list_id = 1901
     
     
     def click(self, view_manager, control_id):
         pass
     
     
+    def get_container(self, view_manager):
+        return view_manager.get_window().getControl(MoreView.container_id)
+    
+    
+    def get_list(self, view_manager):
+        return view_manager.get_window().getControl(MoreView.list_id)
+    
+    
     def _add_item(self, list, label, icon):
         list.addItem(xbmcgui.ListItem(label=label,iconImage=icon))
     
     
-    def _draw_list(self, window):
-        list = window.getControl(MoreView.__list_id)
+    def render(self, view_manager):
+        list = self.get_list(view_manager)
         list.reset()
         
         #Add the items
         self._add_item(list, "Settings", "common/more-settings-icon.png")
         self._add_item(list, "Logout", "common/more-logout-icon.png")
         
-    
-    def show(self, view_manager):
-        window = view_manager.get_window()
-        self._draw_list(window)
-        c = window.getControl(MoreView.__group_id)
-        c.setVisibleCondition("true")
-    
-    
-    def hide(self, view_manager):
-        window = view_manager.get_window()
-        c = window.getControl(MoreView.__group_id)
-        c.setVisibleCondition("false")
+        return True

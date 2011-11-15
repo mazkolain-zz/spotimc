@@ -3,14 +3,9 @@ Created on 20/08/2011
 
 @author: mikel
 '''
-import xbmcgui
-from spotymcgui.views import BaseView
-
+import xbmc, xbmcgui
+from spotymcgui.views import BaseListContainerView
 from spotify import albumbrowse, link
-
-import weakref
-
-import xbmc
 
 
 
@@ -20,8 +15,8 @@ class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
 
 
 
-class AlbumTracksView(BaseView):
-    group_id = 1300
+class AlbumTracksView(BaseListContainerView):
+    container_id = 1300
     list_id = 1303
     
     __albumbrowse = None
@@ -33,7 +28,7 @@ class AlbumTracksView(BaseView):
     
     
     def _play_selected_track(self, view_manager):
-        item = self._get_list(view_manager).getSelectedItem()
+        item = self.get_list(view_manager).getSelectedItem()
         pos = int(item.getProperty("real_index"))
         
         #If we have a valid index
@@ -48,7 +43,11 @@ class AlbumTracksView(BaseView):
             self._play_selected_track(view_manager)
     
     
-    def _get_list(self, view_manager):
+    def get_container(self, view_manager):
+        return view_manager.get_window().getControl(AlbumTracksView.container_id)
+    
+    
+    def get_list(self, view_manager):
         return view_manager.get_window().getControl(AlbumTracksView.list_id)
     
     
@@ -90,20 +89,16 @@ class AlbumTracksView(BaseView):
         list.addItem(item)
     
     
-    def _draw_list(self, view_manager):
-        window = view_manager.get_window()
-        
-        #Always show the loading animation
-        window.show_loading()
-        
+    def render(self, view_manager):
         if self.__albumbrowse.is_loaded():
-            list = self._get_list(view_manager)
+            list = self.get_list(view_manager)
             list.reset()
             
             #Set album info
             self._set_album_info(
-                window,
-                self.__albumbrowse.album(), self.__albumbrowse.artist()
+                view_manager.get_window(),
+                self.__albumbrowse.album(),
+                self.__albumbrowse.artist()
             )
             
             #For disc grouping
@@ -120,22 +115,4 @@ class AlbumTracksView(BaseView):
                 
                 self._add_track(list, item, idx)
             
-            #Hide loading forst
-            window.hide_loading()
-            
-            c = window.getControl(AlbumTracksView.group_id)
-            c.setVisibleCondition("true")
-            window.setFocusId(AlbumTracksView.group_id)
-    
-    
-    def update(self, view_manager):
-        self._draw_list(view_manager)
-    
-    
-    def show(self, view_manager):
-        self._draw_list(view_manager)
-    
-    
-    def hide(self, view_manager):
-        c = view_manager.get_window().getControl(AlbumTracksView.group_id)
-        c.setVisibleCondition("false")
+            return True

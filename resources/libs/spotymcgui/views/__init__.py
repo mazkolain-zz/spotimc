@@ -92,8 +92,8 @@ class ViewManager:
         self.__view_list[self.__position].click(self, control_id)
     
     
-    def update(self):
-        self.__view_list[self.__position].update(self)
+    def show(self):
+        self.__view_list[self.__position].show(self)
     
     
     def clear_views(self):
@@ -135,13 +135,81 @@ class BaseView:
         pass
     
     
-    def update(self, view_manager):
-        pass
-    
-    
     def back(self, view_manager):
         pass
     
     
     def get_container_id(self):
         pass
+
+
+
+class BaseContainerView(BaseView):
+    def render(self, view_manager):
+        """Tell the view to render it's content.
+        
+        The view should return True if the content was rendered successfully,
+        and False if data was not still available.
+        """
+        raise NotImplementedError()
+    
+    
+    def get_container(self, view_manager):
+        raise NotImplementedError()
+    
+    
+    def show(self, view_manager):
+        view_manager.get_window().show_loading()
+        if self.render(view_manager):
+            #Hide loading and show container
+            view_manager.get_window().hide_loading()
+            self.get_container(view_manager).setVisibleCondition('True')
+            
+            #And give it focus
+            view_manager.get_window().setFocus(
+                self.get_container(view_manager)
+            )
+    
+    
+    def hide(self, view_manager):
+        #Just hide the container
+        self.get_container(view_manager).setVisibleCondition('False')
+
+
+
+class BaseListContainerView(BaseContainerView):
+    __list_position = None
+    
+    
+    def get_list(self, view_manager):
+        raise NotImplementedError()
+    
+    
+    def show(self, view_manager):
+        view_manager.get_window().show_loading()
+        if self.render(view_manager):
+            #If we have a stored list position
+            if self.__list_position is not None:
+                self.get_list(view_manager).selectItem(self.__list_position)
+            
+            #Not list position? Set it on the start
+            else:
+                self.get_list(view_manager).selectItem(0)
+            
+            #Hide loading and show container
+            view_manager.get_window().hide_loading()
+            self.get_container(view_manager).setVisibleCondition('True')
+            
+            #And give it focus
+            view_manager.get_window().setFocus(
+                self.get_container(view_manager)
+            )
+    
+    
+    def hide(self, view_manager):
+        #Keep the list position
+        list_obj = self.get_list(view_manager)
+        self.__list_position = list_obj.getSelectedPosition()
+        
+        #And call the container stuff
+        BaseContainerView.hide(self, view_manager)

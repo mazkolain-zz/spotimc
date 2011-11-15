@@ -4,7 +4,7 @@ Created on 27/10/2011
 @author: mikel
 '''
 import xbmcgui
-from spotymcgui.views import BaseView
+from spotymcgui.views import BaseListContainerView
 
 import loaders
 
@@ -14,16 +14,14 @@ from spotymcgui.views.album import AlbumTracksView
 
 
 
-class PlaylistDetailView(BaseView):
-    __group_id = 1800
-    __list_id = 1801
+class PlaylistDetailView(BaseListContainerView):
+    container_id = 1800
+    list_id = 1801
     
     BrowseAlbumButton = 5812
     
-    
     __loader = None
     __playlist = None
-    __list_position = None
     
     
     def __init__(self, session, playlist):
@@ -32,22 +30,26 @@ class PlaylistDetailView(BaseView):
     
     
     def click(self, view_manager, control_id):
-        if control_id == PlaylistDetailView.__list_id:
-            item = self._get_list(view_manager).getSelectedItem()
+        if control_id == PlaylistDetailView.list_id:
+            item = self.get_list(view_manager).getSelectedItem()
             pos = int(item.getProperty('TrackIndex'))
             playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.play(self.__playlist.tracks(), pos)
         
         elif control_id == PlaylistDetailView.BrowseAlbumButton:
-            item = self._get_list(view_manager).getSelectedItem()
+            item = self.get_list(view_manager).getSelectedItem()
             pos = int(item.getProperty('TrackIndex'))
             album = self.__playlist.track(pos).album()
             v = AlbumTracksView(view_manager.get_var('session'), album)
             view_manager.add_view(v)
     
     
-    def _get_list(self, view_manager):
-        return view_manager.get_window().getControl(PlaylistDetailView.__list_id)
+    def get_container(self, view_manager):
+        return view_manager.get_window().getControl(PlaylistDetailView.container_id)
+    
+    
+    def get_list(self, view_manager):
+        return view_manager.get_window().getControl(PlaylistDetailView.list_id)
     
     
     def _add_track(self, list, idx, title, artist, album, path, duration):
@@ -127,8 +129,10 @@ class PlaylistDetailView(BaseView):
         window.setProperty("PlaylistDetailNumSubscribers", str(self.__playlist.num_subscribers()))
     
     
-    def _set_playlist_image(self, window, thumbnails):
+    def _set_playlist_image(self, view_manager, thumbnails):
         if len(thumbnails) > 0:
+            window = view_manager.get_window()
+            
             #Set cover info
             if len(thumbnails) < 4:
                 window.setProperty("PlaylistDetailCoverLayout", "one")
@@ -141,7 +145,7 @@ class PlaylistDetailView(BaseView):
     
     
     def _populate_list(self, view_manager, track_list):
-        list = self._get_list(view_manager)
+        list = self.get_list(view_manager)
         list.reset()
         
         for idx, item in enumerate(track_list):
@@ -160,63 +164,15 @@ class PlaylistDetailView(BaseView):
             )
     
     
-    def _draw_list(self, view_manager):
-        window = view_manager.get_window()
-        
-        #Show loading animation
-        window.show_loading()
-        
+    def render(self, view_manager):
         if self.__loader.is_loaded():
-            self._save_list_position(view_manager)
-            
-            group = window.getControl(PlaylistDetailView.__group_id)
-            group.setVisibleCondition("false")
-            
             #Draw the items on the list
             self._populate_list(view_manager, self.__loader.get_tracks())
             
             #Set the thumbnails
-            self._set_playlist_image(window, self.__loader.get_thumbnails())
+            self._set_playlist_image(view_manager, self.__loader.get_thumbnails())
             
             #And the properties
             self._set_playlist_properties(view_manager)
             
-            #If we have the list index at hand...
-            self._restore_list_position(view_manager)
-            
-            #Hide loading anim
-            window.hide_loading()
-            
-            #Show container
-            group.setVisibleCondition("true")
-            window.setFocusId(PlaylistDetailView.__group_id)
-    
-    
-    def show(self, view_manager):
-        self._draw_list(view_manager)
-    
-    
-    def update(self, view_manager):
-        self._draw_list(view_manager)
-    
-    
-    def _save_list_position(self, view_manager):
-        list = self._get_list(view_manager)
-        self.__list_position = list.getSelectedPosition()
-    
-    
-    def _restore_list_position(self, view_manager):
-        #If we have the list index at hand...
-        if self.__list_position is not None:
-            list = self._get_list(view_manager)
-            list.selectItem(self.__list_position)
-    
-    
-    def hide(self, view_manager):
-        window = view_manager.get_window()
-        
-        #Keep the list position
-        self._save_list_position(view_manager)
-        
-        c = window.getControl(PlaylistDetailView.__group_id)
-        c.setVisibleCondition("false")
+            return True
