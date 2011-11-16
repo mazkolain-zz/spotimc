@@ -91,7 +91,7 @@ class MainWindow(xbmcgui.WindowXML):
         
         #Noop action
         elif action.getId() in [0,999]:
-            self.__view_manager.update()
+            self.__view_manager.show()
     
     
     def _process_layout_click(self, control_id):
