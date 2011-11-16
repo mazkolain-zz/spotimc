@@ -110,16 +110,16 @@ class PlaylistDetailView(BaseListContainerView):
         playlist_username = self.__playlist.owner().canonical_name()
         
         if current_username != playlist_username:
-            window.setProperty("PlaylistDetailShowOwner", "True")
+            window.setProperty("PlaylistDetailShowOwner", "true")
             window.setProperty("PlaylistDetailOwner", str(playlist_username))
         else:
-            window.setProperty("PlaylistDetailShowOwner", "False")
+            window.setProperty("PlaylistDetailShowOwner", "false")
     
         #Collaboratie status
         if self.__playlist.is_collaborative():
-            window.setProperty("PlaylistDetailCollaborative", "True")
+            window.setProperty("PlaylistDetailCollaborative", "true")
         else:
-            window.setProperty("PlaylistDetailCollaborative", "False")
+            window.setProperty("PlaylistDetailCollaborative", "false")
         
         #Length data
         window.setProperty("PlaylistDetailNumTracks", str(self.__playlist.num_tracks()))

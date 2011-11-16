@@ -49,17 +49,17 @@ class PlaylistView(BaseListContainerView):
         
         if show_owner:
             owner_name = loader.get_playlist().owner().canonical_name()
-            item.setProperty("PlaylistShowOwner", "True")
+            item.setProperty("PlaylistShowOwner", "true")
             item.setProperty("PlaylistOwner", str(owner_name))
         else:
-            item.setProperty("PlaylistShowOwner", "False")
+            item.setProperty("PlaylistShowOwner", "false")
         
         
         #Collaborative status
         if loader.get_is_collaborative():
-            item.setProperty("PlaylistCollaborative", "True")
+            item.setProperty("PlaylistCollaborative", "true")
         else:
-            item.setProperty("PlaylistCollaborative", "False")
+            item.setProperty("PlaylistCollaborative", "false")
         
         thumbnails = loader.get_thumbnails()
         

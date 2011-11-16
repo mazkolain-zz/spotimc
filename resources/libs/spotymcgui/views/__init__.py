@@ -163,7 +163,7 @@ class BaseContainerView(BaseView):
         if self.render(view_manager):
             #Hide loading and show container
             view_manager.get_window().hide_loading()
-            self.get_container(view_manager).setVisibleCondition('True')
+            self.get_container(view_manager).setVisibleCondition('true')
             
             #And give it focus
             view_manager.get_window().setFocus(
@@ -173,7 +173,7 @@ class BaseContainerView(BaseView):
     
     def hide(self, view_manager):
         #Just hide the container
-        self.get_container(view_manager).setVisibleCondition('False')
+        self.get_container(view_manager).setVisibleCondition('false')
 
 
 
@@ -198,7 +198,7 @@ class BaseListContainerView(BaseContainerView):
             
             #Hide loading and show container
             view_manager.get_window().hide_loading()
-            self.get_container(view_manager).setVisibleCondition('True')
+            self.get_container(view_manager).setVisibleCondition('true')
             
             #And give it focus
             view_manager.get_window().setFocus(
