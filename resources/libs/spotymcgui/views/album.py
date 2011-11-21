@@ -84,6 +84,10 @@ class AlbumTracksView(BaseListContainerView):
             "tracknumber": track.index(),
         }
         
+        #Set rating points for this track
+        rating_points = int(round(track.popularity() * 5 / 100.0))
+        item.setProperty("rating_points", str(rating_points))
+        
         item.setProperty("real_index", str(real_index))
         item.setInfo('music', info)
         list.addItem(item)

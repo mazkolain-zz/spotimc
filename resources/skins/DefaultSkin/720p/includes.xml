@@ -332,7 +332,7 @@
 			<control type="label">
 				<posx>96</posx>
 				<posy>0</posy>
-				<width>672</width>
+				<width>512</width>
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
@@ -340,6 +340,15 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
+			</control>
+			<control type="image">
+				<posx>624</posx>
+				<posy>16</posy>
+				<width>80</width>
+				<height>16</height>
+				<colordiffuse>ff969696</colordiffuse>
+				<texture>common/rating-stars-$INFO[ListItem.Property(rating_points)].png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">
 				<posx>800</posx>
@@ -418,7 +427,7 @@
 			<control type="label">
 				<posx>96</posx>
 				<posy>0</posy>
-				<width>672</width>
+				<width>512</width>
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
@@ -427,6 +436,15 @@
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
 				<visible>true</visible>
+			</control>
+			<control type="image">
+				<posx>624</posx>
+				<posy>16</posy>
+				<width>80</width>
+				<height>16</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/rating-stars-$INFO[ListItem.Property(rating_points)].png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">
 				<posx>800</posx>
