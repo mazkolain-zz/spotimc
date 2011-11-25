@@ -64,11 +64,17 @@ class MainWindow(xbmcgui.WindowXML):
 
 
     def _login(self):
-        loginwin = dialogs.LoginWindow(
-            "login-window.xml", self.__script_path, self.__skin_dir, self.__session
-        )
-        loginwin.doModal()
-        del loginwin
+        #If we have a remembered user let's relogin
+        if self.__session.remembered_user() is not None:
+            self.__session.relogin()
+        
+        #Otherwise let's do a normal login process
+        else:
+            loginwin = dialogs.LoginWindow(
+                "login-window.xml", self.__script_path, self.__skin_dir, self.__session
+            )
+            loginwin.doModal()
+            del loginwin
 
 
     def onInit(self):

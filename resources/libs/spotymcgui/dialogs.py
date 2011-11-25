@@ -67,7 +67,10 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     
     
     def do_login(self):
-        self.__session.login(self.__username, self.__password, False)
+        remember_set = xbmc.getCondVisibility(
+            'Skin.HasSetting(spotymc_session_remember)'
+        )
+        self.__session.login(self.__username, self.__password, remember_set)
     
     
     def do_close(self):
