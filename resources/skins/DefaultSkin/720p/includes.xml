@@ -1022,8 +1022,8 @@
 		<disabledcolor>FFFFFFFF</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
-		<textoffsetx></textoffsetx>
-		<textoffsety></textoffsety>
+		<textoffsetx>-1000</textoffsetx>
+		<textoffsety>-1000</textoffsety>
 		<pulseonselect>false</pulseonselect>
 	</include>
 	

@@ -155,6 +155,7 @@
 	            <ondown>13</ondown>
 	            <onleft></onleft>
 	            <onright></onright>
+	            <label></label>
 	            <usealttexture>Skin.HasSetting(spotymc_session_remember)</usealttexture>
 	            <onclick>Skin.ToggleSetting(spotymc_session_remember)</onclick>
 	        </control>
