@@ -803,6 +803,48 @@
 						<onright>200</onright>
 					</control>
 				</control>
+				
+				<!-- New stuff container -->
+                <control type="group" id="2000">
+                    <description>Artist albums view</description>
+                    <defaultcontrol>2001</defaultcontrol>
+                    <visible>false</visible>
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    
+                    <control type="label">
+                        <include>spotymc_title</include>
+                        <label>Artist albums</label>
+                        <posx>0</posx>
+                        <posy>32</posy>
+                    </control>
+                
+                    <!-- New stuff list -->
+                    <control type="panel" id="2001">
+                        <include>spotymc_albumgrid</include>
+                        <description>Artist albums</description>
+                        <pagecontrol>2002</pagecontrol>
+                        <onup>200</onup>
+                        <ondown>-</ondown>
+                        <onleft>-</onleft>
+                        <onright>200</onright>
+                        <posx>0</posx>
+                        <posy>80</posy>
+                    </control>
+                    
+                    <!-- Scrollbar -->
+                    <control type="scrollbar" id="2002">
+                        <include>spotymc_scrollbar</include>
+                        <posx>1152</posx>
+                        <posy>80</posy>
+                        <width>8</width>
+                        <height>496</height>
+                        <onup>-</onup>
+                        <ondown>-</ondown>
+                        <onleft>-</onleft>
+                        <onright>-</onright>
+                    </control>
+                </control>
 			</control>
 	        
 	        

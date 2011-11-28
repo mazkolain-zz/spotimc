@@ -3,8 +3,9 @@ Created on 22/08/2011
 
 @author: mikel
 '''
-import xbmcgui
-from spotymcgui.views import BaseView
+import xbmc, xbmcgui
+from spotymcgui.views import BaseView, BaseListContainerView
+from spotify import artistbrowse
 
 
 class ArtistTracksView(BaseView):
@@ -69,3 +70,58 @@ class ArtistTracksView(BaseView):
         c = window.getControl(ArtistTracksView.__group_id)
         c.setVisibleCondition("false")
         print "hide!"
+
+
+
+class ArtistAlbumCallbacks(artistbrowse.ArtistbrowseCallbacks):
+    def artistbrowse_complete(self, artistbrowse):
+        xbmc.executebuiltin("Action(Noop)")
+
+
+
+class ArtistAlbumsView(BaseListContainerView):
+    container_id = 2000
+    list_id = 2001
+    
+    __artistbrowse = None
+    
+    
+    def __init__(self, session, artist):
+        cb = ArtistAlbumCallbacks()
+        self.__artistbrowse = artistbrowse.Artistbrowse(session, artist, cb)
+        
+    
+    #def _show_album(self, view_manager):
+    #    pos = self.get_list(view_manager).getSelectedPosition()
+    #    v = album.AlbumTracksView(self.__session, self.__search.album(pos))
+    #    view_manager.add_view(v)
+    
+    
+    def click(self, view_manager, control_id):
+        #If the list was clicked...
+        if control_id == ArtistAlbumsView.list_id:
+            #self._show_album(view_manager)
+            pass
+    
+    
+    def get_container(self, view_manager):
+        return view_manager.get_window().getControl(ArtistAlbumsView.container_id)
+    
+    
+    def get_list(self, view_manager):
+        return view_manager.get_window().getControl(ArtistAlbumsView.list_id)
+    
+    
+    def render(self, view_manager):
+        if self.__artistbrowse.is_loaded():
+            l = self.get_list(view_manager)
+            l.reset()
+            
+            for album in self.__artistbrowse.albums():
+                item = xbmcgui.ListItem(
+                    album.name(), str(album.year()),
+                    'http://localhost:8080/image/%s.jpg' % album.cover()
+                )
+                l.addItem(item)
+            
+            return True

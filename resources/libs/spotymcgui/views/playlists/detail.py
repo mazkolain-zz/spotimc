@@ -11,6 +11,7 @@ import loaders
 from spotify import link
 
 from spotymcgui.views.album import AlbumTracksView
+from spotymcgui.views.artist import ArtistAlbumsView
 
 
 
@@ -18,6 +19,7 @@ class PlaylistDetailView(BaseListContainerView):
     container_id = 1800
     list_id = 1801
     
+    BrowseArtistButton = 5811
     BrowseAlbumButton = 5812
     
     __loader = None
@@ -29,6 +31,23 @@ class PlaylistDetailView(BaseListContainerView):
         self.__loader = loaders.FullPlaylistLoader(session, playlist)
     
     
+    def _browse_artist(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        pos = int(item.getProperty('TrackIndex'))
+        track = self.__playlist.track(pos)
+        
+        if track.num_artists() > 1:
+            print 'More than one artist!'
+        
+        else:
+            print track.artist(0)
+            v = ArtistAlbumsView(
+                view_manager.get_var('session'), track.artist(0)
+            )
+            view_manager.add_view(v)
+            
+    
+    
     def click(self, view_manager, control_id):
         if control_id == PlaylistDetailView.list_id:
             item = self.get_list(view_manager).getSelectedItem()
@@ -36,6 +55,9 @@ class PlaylistDetailView(BaseListContainerView):
             playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.play(self.__playlist.tracks(), pos)
         
+        elif control_id == PlaylistDetailView.BrowseArtistButton:
+            self._browse_artist(view_manager)
+            
         elif control_id == PlaylistDetailView.BrowseAlbumButton:
             item = self.get_list(view_manager).getSelectedItem()
             pos = int(item.getProperty('TrackIndex'))
