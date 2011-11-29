@@ -11,7 +11,7 @@ import loaders
 from spotify import link
 
 from spotymcgui.views.album import AlbumTracksView
-from spotymcgui.views.artist import ArtistAlbumsView
+from spotymcgui.views.artists.albums import ArtistAlbumsView
 
 
 
