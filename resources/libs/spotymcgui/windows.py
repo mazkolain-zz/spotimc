@@ -8,7 +8,6 @@ import views
 #import views.home
 import views.newstuff
 import views.album
-import views.artist
 import views.search
 import views.nowplaying
 import views.playlists.list
