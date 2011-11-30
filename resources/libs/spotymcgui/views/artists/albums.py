@@ -13,10 +13,13 @@ class ArtistAlbumsView(BaseListContainerView):
     container_id = 2000
     list_id = 2001
     
+    
+    __artist = None
     __loader = None
     
     
     def __init__(self, session, artist):
+        self.__artist = artist
         self.__loader = ArtistAlbumLoader(session, artist)
         
     
@@ -52,6 +55,12 @@ class ArtistAlbumsView(BaseListContainerView):
         if self.__loader.is_loaded():
             l = self.get_list(view_manager)
             l.reset()
+            
+            
+            #Set the artist name
+            window = view_manager.get_window()
+            window.setProperty('artistbrowse_artist_name', self.__artist.name())
+            
             
             for index, album in enumerate(self.__loader.get_albums()):
                 #Discard unavailable albums

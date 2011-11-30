@@ -814,7 +814,7 @@
                     
                     <control type="label">
                         <include>spotymc_title</include>
-                        <label>Artist albums</label>
+                        <label>Albums related to [COLOR ffffffff]$INFO[Container.Property(artistbrowse_artist_name)][/COLOR]</label>
                         <posx>0</posx>
                         <posy>32</posy>
                     </control>
