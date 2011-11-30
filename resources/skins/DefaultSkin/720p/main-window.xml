@@ -826,7 +826,7 @@
                         <pagecontrol>2002</pagecontrol>
                         <onup>200</onup>
                         <ondown>-</ondown>
-                        <onleft>-</onleft>
+                        <onleft>6000</onleft>
                         <onright>200</onright>
                         <posx>0</posx>
                         <posy>80</posy>
@@ -899,7 +899,8 @@
 					<visible>
 						Control.IsVisible(1300) |
 						Control.IsVisible(1500) |
-						Control.IsVisible(1800)
+						Control.IsVisible(1800) |
+						Control.IsVisible(6000)
 					</visible>
 				</control>
 				
@@ -1059,6 +1060,53 @@
 						<include>spotymc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
+					</control>
+				</control>
+				
+				
+				<!-- Album browsing options -->
+				<control type="grouplist" id="6000">
+					<include>spotymc_leftmenu_grouplist</include>
+					<description>Album list options</description>
+					<onright>2000</onright>
+					<visible>Control.IsVisible(2000)</visible>
+					
+					
+					<!-- Album filtering -->
+					<control type="label" id="6010">
+						<include>spotymc_leftmenu_label</include>
+						<label>Album filter:</label>
+					</control>
+					
+					<control type="button" id="6011">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Albums</label>
+					</control>
+					
+					<control type="button" id="6012">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Singles</label>
+					</control>
+					
+					<control type="button" id="6013">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Compilations</label>
+					</control>
+					
+					
+					<!-- Album duplicates -->
+					<control type="label" id="6014">
+						<include>spotymc_leftmenu_label</include>
+						<label>Misc options:</label>
+					</control>
+					
+					<control type="button" id="6015">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>Hide duplicates</label>
 					</control>
 				</control>
 			</control>
