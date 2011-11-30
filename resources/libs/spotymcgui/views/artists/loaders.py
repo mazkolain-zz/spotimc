@@ -144,5 +144,9 @@ class ArtistAlbumLoader:
         return self.__album_data[index]['is_available']
     
     
+    def get_album(self, index):
+        return self.__artistbrowse.album(index)
+    
+    
     def get_albums(self):
         return self.__artistbrowse.albums()

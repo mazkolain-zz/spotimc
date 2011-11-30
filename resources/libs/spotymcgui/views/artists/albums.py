@@ -4,7 +4,7 @@ Created on 29/11/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotymcgui.views import BaseListContainerView
+from spotymcgui.views import BaseListContainerView, album
 from loaders import ArtistAlbumLoader
 
 
@@ -25,12 +25,19 @@ class ArtistAlbumsView(BaseListContainerView):
     #    v = album.AlbumTracksView(self.__session, self.__search.album(pos))
     #    view_manager.add_view(v)
     
+    def _show_album(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        real_index = int(item.getProperty('real_index'))
+        album_obj = self.__loader.get_album(real_index)
+        session = view_manager.get_var('session')
+        v = album.AlbumTracksView(session, album_obj)
+        view_manager.add_view(v)
+    
     
     def click(self, view_manager, control_id):
         #If the list was clicked...
         if control_id == ArtistAlbumsView.list_id:
-            #self._show_album(view_manager)
-            pass
+            self._show_album(view_manager)
     
     
     def get_container(self, view_manager):
