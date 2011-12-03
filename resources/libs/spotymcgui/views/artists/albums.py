@@ -5,7 +5,8 @@ Created on 29/11/2011
 '''
 import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView, album
-from loaders import ArtistAlbumLoader
+from loaders import ArtistAlbumLoader, AlbumType
+from spotymcgui.utils.settings import SkinSettings
 
 
 
@@ -14,19 +15,54 @@ class ArtistAlbumsView(BaseListContainerView):
     list_id = 2001
     
     
+    #Filtering controls
+    filter_albums_button = 6011
+    filter_singles_button = 6012
+    filter_compilations_button = 6013
+    filter_appears_in_button = 6014
+    filter_hide_similar = 6016
+    
+    
+    
     __artist = None
     __loader = None
+    __settings = SkinSettings()
     
     
     def __init__(self, session, artist):
+        self._init_config()
         self.__artist = artist
         self.__loader = ArtistAlbumLoader(session, artist)
-        
     
-    #def _show_album(self, view_manager):
-    #    pos = self.get_list(view_manager).getSelectedPosition()
-    #    v = album.AlbumTracksView(self.__session, self.__search.album(pos))
-    #    view_manager.add_view(v)
+    
+    def _init_config(self):
+        if not self.__settings.has_bool_true('spotymc_albumbrowse_album_init'):
+            print 'init config'
+            self.__settings.set_bool_true('spotymc_albumbrowse_album_init')
+            self.__settings.set_bool_true('spotymc_artistbrowse_albums_albums')
+            self.__settings.set_bool_true('spotymc_artistbrowse_albums_singles')
+            self.__settings.set_bool_true('spotymc_artistbrowse_albums_compilations')
+            self.__settings.set_bool_true('spotymc_artistbrowse_albums_appears_in')
+            self.__settings.set_bool_true('spotymc_artistbrowse_albums_hide_similar')
+    
+    
+    def _get_album_filter(self):
+        filter_types = []
+        
+        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_albums'):
+            filter_types.append(AlbumType.Album)
+        
+        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_singles'):
+            filter_types.append(AlbumType.Single)
+        
+        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_compilations'):
+            filter_types.append(AlbumType.Compilation)
+        
+        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_appears_in'):
+            filter_types.append(AlbumType.AppearsIn)
+        
+        return filter_types
+    
     
     def _show_album(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
@@ -38,9 +74,20 @@ class ArtistAlbumsView(BaseListContainerView):
     
     
     def click(self, view_manager, control_id):
+        filter_controls = [
+            ArtistAlbumsView.filter_albums_button,
+            ArtistAlbumsView.filter_singles_button,
+            ArtistAlbumsView.filter_compilations_button,
+            ArtistAlbumsView.filter_appears_in_button,
+            ArtistAlbumsView.filter_hide_similar
+        ]
+        
         #If the list was clicked...
         if control_id == ArtistAlbumsView.list_id:
             self._show_album(view_manager)
+        
+        elif control_id in filter_controls:
+            view_manager.show()
     
     
     def get_container(self, view_manager):
@@ -61,10 +108,18 @@ class ArtistAlbumsView(BaseListContainerView):
             window = view_manager.get_window()
             window.setProperty('artistbrowse_artist_name', self.__artist.name())
             
+            #Get the album types to be shown
+            filter_types = self._get_album_filter()
+            print 'album filter: %s' % filter_types
             
+            #Now loop over all the loaded albums
             for index, album in enumerate(self.__loader.get_albums()):
+                album_type = self.__loader.get_album_type(index)
+                is_in_filter = album_type in filter_types
+                is_available = self.__loader.get_album_available_tracks(index) > 0
+                
                 #Discard unavailable albums
-                if self.__loader.is_album_available(index):
+                if is_available and is_in_filter:
                     item = xbmcgui.ListItem(
                         album.name(), str(album.year()),
                         'http://localhost:8080/image/%s.jpg' % album.cover()

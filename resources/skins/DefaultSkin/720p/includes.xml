@@ -67,7 +67,6 @@
 		<textoffsetx>16</textoffsetx>
 		<textoffsety></textoffsety>
 		<pulseonselect>false</pulseonselect>
-		<onclick></onclick>
 		<onfocus></onfocus>
 		<onleft></onleft>
 		<onright></onright>

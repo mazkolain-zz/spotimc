@@ -5,8 +5,18 @@ Created on 29/11/2011
 '''
 import xbmc
 from spotify import artistbrowse, albumbrowse, BulkConditionChecker
+from spotify.album import AlbumType as SpotifyAlbumType
 from spotify.utils.decorators import run_in_thread
 import weakref
+
+
+
+
+class AlbumType:
+    Album = 0
+    Single = 1
+    Compilation = 2
+    AppearsIn = 3
 
 
 
@@ -70,13 +80,30 @@ class ArtistAlbumLoader:
             checker.complete_wait(10) #Should be enough for an album
     
     
-    def _is_album_available(self, album_info):
+    def _num_available_tracks(self, album_info):
+        count = 0
+        
         #Return true if it has at least one playable track
         for track in album_info.tracks():
             if track.is_available(self.__session):
-                return True
+                count += 1
         
-        return False
+        return count
+    
+    
+    def _get_album_type(self, album):
+        if album.type() == SpotifyAlbumType.Single:
+            return AlbumType.Single
+        
+        elif album.type() == SpotifyAlbumType.Compilation:
+            return AlbumType.Compilation
+        
+        #Sure? That will work?
+        elif album.artist().name() == 'Various Artists':
+            return AlbumType.AppearsIn
+        
+        else:
+            return AlbumType.Album
     
     
     @run_in_thread(threads_per_class=5)
@@ -89,11 +116,10 @@ class ArtistAlbumLoader:
         #Now wait until it's loaded
         self._wait_for_album_info(album_info, checker)
         
-        print 'finished loading album: %d' % index
-        
         #Populate it's data
         self.__album_data[index] = {
-            'is_available': self._is_album_available(album_info)
+            'available_tracks': self._num_available_tracks(album_info),
+            'type': self._get_album_type(album),
         }
         
         #Tell that we've done
@@ -139,9 +165,12 @@ class ArtistAlbumLoader:
         return self.__is_loaded
     
     
-    def is_album_available(self, index):
-        print 'is album available: %d' % index
-        return self.__album_data[index]['is_available']
+    def get_album_available_tracks(self, index):
+        return self.__album_data[index]['available_tracks']
+    
+    
+    def get_album_type(self, index):
+        return self.__album_data[index]['type']
     
     
     def get_album(self, index):

@@ -1078,35 +1078,51 @@
 						<label>Album filter:</label>
 					</control>
 					
-					<control type="button" id="6011">
+					<control type="togglebutton" id="6011">
 						<include>spotymc_leftmenu_toggle</include>
 						<description></description>
 						<label>Albums</label>
+						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_albums)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_albums)</onclick>
 					</control>
 					
-					<control type="button" id="6012">
+					<control type="togglebutton" id="6012">
 						<include>spotymc_leftmenu_toggle</include>
 						<description></description>
 						<label>Singles</label>
+						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_singles)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_singles)</onclick>
 					</control>
 					
-					<control type="button" id="6013">
+					<control type="togglebutton" id="6013">
 						<include>spotymc_leftmenu_toggle</include>
 						<description></description>
 						<label>Compilations</label>
+						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_compilations)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_compilations)</onclick>
+					</control>
+					
+					<control type="togglebutton" id="6014">
+						<include>spotymc_leftmenu_toggle</include>
+						<description></description>
+						<label>"Appears in"</label>
+						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_appears_in)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_appears_in)</onclick>
 					</control>
 					
 					
 					<!-- Album duplicates -->
-					<control type="label" id="6014">
+					<control type="label" id="6015">
 						<include>spotymc_leftmenu_label</include>
 						<label>Misc options:</label>
 					</control>
 					
-					<control type="button" id="6015">
+					<control type="togglebutton" id="6016">
 						<include>spotymc_leftmenu_toggle</include>
 						<description></description>
-						<label>Hide duplicates</label>
+						<label>Hide similar</label>
+						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_hide_similar)</usealttexture>
+	            		<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_hide_similar)</onclick>
 					</control>
 				</control>
 			</control>
