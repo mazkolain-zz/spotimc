@@ -4,11 +4,10 @@ Created on 29/11/2011
 @author: mikel
 '''
 import xbmc
-from spotify import artistbrowse, albumbrowse, BulkConditionChecker
+from spotify import artistbrowse, albumbrowse, BulkConditionChecker, link
 from spotify.album import AlbumType as SpotifyAlbumType
 from spotify.utils.decorators import run_in_thread
 import weakref
-
 
 
 
@@ -91,6 +90,13 @@ class ArtistAlbumLoader:
         return count
     
     
+    def _is_same_artist(self, artist1, artist2):
+        album1_str = link.create_from_artist(artist1).as_string()
+        album2_str = link.create_from_artist(artist2).as_string()
+        
+        return album1_str == album2_str
+    
+    
     def _get_album_type(self, album):
         if album.type() == SpotifyAlbumType.Single:
             return AlbumType.Single
@@ -98,8 +104,7 @@ class ArtistAlbumLoader:
         elif album.type() == SpotifyAlbumType.Compilation:
             return AlbumType.Compilation
         
-        #Sure? That will work?
-        elif album.artist().name() == 'Various Artists':
+        if not self._is_same_artist(self.__artist, album.artist()):
             return AlbumType.AppearsIn
         
         else:
