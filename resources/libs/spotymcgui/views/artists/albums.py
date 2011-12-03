@@ -87,7 +87,7 @@ class ArtistAlbumsView(BaseListContainerView):
             self._show_album(view_manager)
         
         elif control_id in filter_controls:
-            view_manager.show()
+            view_manager.show(False)
     
     
     def get_container(self, view_manager):
