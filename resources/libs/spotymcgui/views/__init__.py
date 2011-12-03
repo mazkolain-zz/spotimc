@@ -92,8 +92,8 @@ class ViewManager:
         self.__view_list[self.__position].click(self, control_id)
     
     
-    def show(self):
-        self.__view_list[self.__position].show(self)
+    def show(self, give_focus=True):
+        self.__view_list[self.__position].show(self, give_focus)
     
     
     def clear_views(self):
@@ -127,7 +127,7 @@ class BaseView:
         pass
     
     
-    def show(self, view_manager):
+    def show(self, view_manager, give_focus=True):
         pass
     
     
@@ -158,17 +158,18 @@ class BaseContainerView(BaseView):
         raise NotImplementedError()
     
     
-    def show(self, view_manager):
+    def show(self, view_manager, give_focus=True):
         view_manager.get_window().show_loading()
         if self.render(view_manager):
             #Hide loading and show container
             view_manager.get_window().hide_loading()
             self.get_container(view_manager).setVisibleCondition('true')
             
-            #And give it focus
-            view_manager.get_window().setFocus(
-                self.get_container(view_manager)
-            )
+            #And give focus if asked to do so
+            if give_focus:
+                view_manager.get_window().setFocus(
+                    self.get_container(view_manager)
+                )
     
     
     def hide(self, view_manager):
@@ -185,7 +186,7 @@ class BaseListContainerView(BaseContainerView):
         raise NotImplementedError()
     
     
-    def show(self, view_manager):
+    def show(self, view_manager, give_focus=True):
         view_manager.get_window().show_loading()
         if self.render(view_manager):
             #If we have a stored list position
@@ -200,10 +201,11 @@ class BaseListContainerView(BaseContainerView):
             view_manager.get_window().hide_loading()
             self.get_container(view_manager).setVisibleCondition('true')
             
-            #And give it focus
-            view_manager.get_window().setFocus(
-                self.get_container(view_manager)
-            )
+            #And give focus if asked to do so
+            if give_focus:
+                view_manager.get_window().setFocus(
+                    self.get_container(view_manager)
+                )
     
     
     def hide(self, view_manager):
