@@ -64,6 +64,10 @@ class ArtistAlbumsView(BaseListContainerView):
         return filter_types
     
     
+    def _get_similar_filter(self):
+        return self.__settings.has_bool_true('spotymc_artistbrowse_albums_hide_similar')
+    
+    
     def _show_album(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
         real_index = int(item.getProperty('real_index'))
@@ -103,6 +107,9 @@ class ArtistAlbumsView(BaseListContainerView):
             l = self.get_list(view_manager)
             l.reset()
             
+            #Get the non-similar list, if asked to do so
+            if self._get_similar_filter():
+                non_similar_list = self.__loader.get_non_similar_albums()
             
             #Set the artist name
             window = view_manager.get_window()
@@ -117,9 +124,10 @@ class ArtistAlbumsView(BaseListContainerView):
                 album_type = self.__loader.get_album_type(index)
                 is_in_filter = album_type in filter_types
                 is_available = self.__loader.get_album_available_tracks(index) > 0
+                is_similar = self._get_similar_filter() and index not in non_similar_list
                 
-                #Discard unavailable albums
-                if is_available and is_in_filter:
+                #Discard unavailable/non-filtered/similar albums
+                if is_available and is_in_filter and not is_similar:
                     item = xbmcgui.ListItem(
                         album.name(), str(album.year()),
                         'http://localhost:8080/image/%s.jpg' % album.cover()

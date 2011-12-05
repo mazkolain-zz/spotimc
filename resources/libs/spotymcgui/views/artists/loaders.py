@@ -182,5 +182,24 @@ class ArtistAlbumLoader:
         return self.__artistbrowse.album(index)
     
     
+    def get_non_similar_albums(self):
+        name_dict = {}
+        
+        for index, album in enumerate(self.get_albums()):
+            name = album.name()
+            available_tracks = self.get_album_available_tracks(index)
+            
+            #If that name is new to us just store it
+            if name not in name_dict:
+                name_dict[name] = (index, available_tracks)
+            
+            #If the album has more playable tracks than the stored one 
+            elif available_tracks > name_dict[name][1]:
+                name_dict[name] = (index, available_tracks)
+        
+        #Now return the list if indexes
+        return [item[0] for item in name_dict.itervalues()]
+    
+    
     def get_albums(self):
         return self.__artistbrowse.albums()
