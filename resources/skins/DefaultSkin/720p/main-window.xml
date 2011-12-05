@@ -203,7 +203,7 @@
 						<posx>1152</posx>
 						<posy>80</posy>
 						<width>8</width>
-						<height>496</height>
+						<height>464</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
@@ -258,7 +258,7 @@
 						<posx>1168</posx>
 						<posy>80</posy>
 						<width>8</width>
-						<height>496</height>
+						<height>480</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
@@ -838,7 +838,7 @@
                         <posx>1152</posx>
                         <posy>80</posy>
                         <width>8</width>
-                        <height>496</height>
+                        <height>464</height>
                         <onup>-</onup>
                         <ondown>-</ondown>
                         <onleft>-</onleft>
