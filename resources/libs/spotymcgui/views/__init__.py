@@ -159,7 +159,10 @@ class BaseContainerView(BaseView):
     
     
     def show(self, view_manager, give_focus=True):
+        #Hide container and show loading anim.
+        self.get_container(view_manager).setVisibleCondition('false')
         view_manager.get_window().show_loading()
+        
         if self.render(view_manager):
             #Hide loading and show container
             view_manager.get_window().hide_loading()
@@ -187,7 +190,10 @@ class BaseListContainerView(BaseContainerView):
     
     
     def show(self, view_manager, give_focus=True):
+        #Hide container and show loading anim.
+        self.get_container(view_manager).setVisibleCondition('false')
         view_manager.get_window().show_loading()
+        
         if self.render(view_manager):
             #If we have a stored list position
             if self.__list_position is not None:
