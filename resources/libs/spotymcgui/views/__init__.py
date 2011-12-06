@@ -97,8 +97,8 @@ class ViewManager:
     
     
     def clear_views(self):
-        #Fail if no previous window
-        if self.has_previous():
+        #Check at least if a view is visible
+        if self.__position != -1:
             #Hide current
             self.__view_list[self.__position].hide(self)
             
