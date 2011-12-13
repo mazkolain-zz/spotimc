@@ -14,8 +14,8 @@ import threading
 from appkey import appkey
 from spotify import MainLoop, ConnectionType, ConnectionRules
 from spotify.session import Session, SessionCallbacks
-from spotify.utils.httpproxy import ProxyRunner
-from spotify.utils.audio import BufferManager
+from spotifyproxy.httpproxy import ProxyRunner
+from spotifyproxy.audio import BufferManager
 
 from threading import Event
 

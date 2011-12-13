@@ -37,8 +37,9 @@ im.install_file(include_path)
 reload_skin()
 
 #Import spotify & friends
-sys.path.append(os.path.join(libs_dir, "CherryPy-3.2.0-py2.4.egg"))
-sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes-0.1-py2.4.egg"))
+sys.path.append(os.path.join(libs_dir, "CherryPy.egg"))
+sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes.egg"))
+sys.path.append(os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
 
 import gc
 import xbmc
