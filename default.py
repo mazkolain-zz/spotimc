@@ -60,8 +60,8 @@ import _spotify
 _spotify.unload_library()
 
 
-import objgraph
-objgraph.show_backrefs(gc.garbage, max_depth=10)
+#import objgraph
+#objgraph.show_backrefs(gc.garbage, max_depth=10)
 
 #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
 
