@@ -6,6 +6,8 @@ Created on 29/11/2011
 import xbmc
 from spotify import artistbrowse, albumbrowse, BulkConditionChecker, link
 from spotify.album import AlbumType as SpotifyAlbumType
+from spotify.track import TrackAvailability
+from spotify.artistbrowse import BrowseType
 from spotify.utils.decorators import run_in_thread
 import weakref
 
@@ -47,6 +49,7 @@ class ArtistCallbacks(artistbrowse.ArtistbrowseCallbacks):
 
 class ArtistAlbumLoader:
     __checker = None
+    __session = None
     __artist = None
     __album_data = None
     __artistbrowse = None
@@ -59,7 +62,9 @@ class ArtistAlbumLoader:
         self.__artist = artist
         self.__album_data = {}
         cb = ArtistCallbacks(self)
-        self.__artistbrowse = artistbrowse.Artistbrowse(session, artist, cb)
+        self.__artistbrowse = artistbrowse.Artistbrowse(
+            session, artist, BrowseType.NoTracks, cb
+        )
         self.__is_loaded = False
         
         #Avoid locking this thread and continue in another one
@@ -84,7 +89,8 @@ class ArtistAlbumLoader:
         
         #Return true if it has at least one playable track
         for track in album_info.tracks():
-            if track.is_available(self.__session):
+            track_status = track.get_availability(self.__session)
+            if track_status == TrackAvailability.Available:
                 count += 1
         
         return count
