@@ -87,8 +87,8 @@ class MainLoopRunner(threading.Thread):
 
 
 def main(addon_dir):
-    temp_dir = os.path.join(
-        xbmc.translatePath('special://temp'), 'script.audio.spotymc'
+    profile_dir = os.path.join(
+        xbmc.translatePath('special://profile/addon_data'), 'script.audio.spotymc'
     )
     
     #Initialize spotify stuff
@@ -100,8 +100,8 @@ def main(addon_dir):
         callbacks,
         app_key=appkey,
         user_agent="python ctypes bindings",
-        settings_location=os.path.join(temp_dir, 'libspotify', 'settings'),
-        cache_location=os.path.join(temp_dir, 'libspotify', 'cache'),
+        settings_location=os.path.join(profile_dir, 'libspotify'),
+        cache_location=os.path.join(profile_dir, 'libspotify'),
         initially_unload_playlists=True,
     )
     
