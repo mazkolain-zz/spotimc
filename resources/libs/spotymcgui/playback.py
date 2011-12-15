@@ -48,11 +48,17 @@ class PlaylistManager:
         track_url = "http://localhost:8080/track/%s.wav" % track_id
         
         #And generate a listitem with track metadata
-        item = xbmcgui.ListItem(path=track_url)
+        album = track.album().name()
+        cover = "http://localhost:8080/image/%s.jpg" % track.album().cover()
+        artist = ','.join([artist.name() for artist in track.artists()])
+        
+        item = xbmcgui.ListItem(path=track_url, iconImage=cover, thumbnailImage=cover)
         info = {
             "title": track.name(),
+            "album": album,
+            "artist": artist,
             "duration": track.duration() / 1000,
-            "tracknumber": track.index()
+            "tracknumber": track.index(),
         }
         item.setInfo("music", info)
         

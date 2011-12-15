@@ -91,6 +91,91 @@
 					<onright>-</onright>
 				</control>
 				
+				<control type="group">
+		        	<description>Main Menu</description>
+		            <defaultcontrol>210</defaultcontrol>
+		            <visible>Player.Playing</visible>
+		            <posx>800</posx>
+		            <posy>48</posy>
+		            <width>320</width>
+		            <height>80</height>
+		            
+		            <control type="togglebutton" id="202">
+						<posx>0</posx>
+						<posy>0</posy>
+						<height>80</height>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<texturefocus>main-menu/option-bg-focus.png</texturefocus>
+						<texturenofocus>main-menu/option-bg.png</texturenofocus>
+						<alttexturefocus>main-menu/option-bg-focus.png</alttexturefocus>
+						<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
+						<font>spotymc_font20</font>
+						<textcolor>FFFFFFFF</textcolor>
+						<disabledcolor>80FFFFFF</disabledcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textoffsetx>80</textoffsetx>
+						<textoffsety>8</textoffsety>
+						<pulseonselect>false</pulseonselect>
+						<visible>true</visible>
+						<width>320</width>
+						<label></label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),nowplaying)</usealttexture>
+					</control>
+					
+					<control type="image">
+						<description>Now playing tracks' album cover</description>
+						<posx>8</posx>
+						<posy>8</posy>
+						<width>64</width>
+						<height>64</height>
+						<visible>true</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<aspectratio>stretch</aspectratio>
+						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
+					</control>
+					
+					<control type="label">
+						<include>spotymc_nowplaying_text</include>
+						<posx>80</posx>
+						<posy>12</posy>
+						<width>224</width>
+						<info>MusicPlayer.Title</info>
+					</control>
+					
+					<control type="label">
+						<include>spotymc_nowplaying_text</include>
+						<label>by $INFO[MusicPlayer.Artist]</label>
+						<posx>80</posx>
+						<posy>32</posy>
+						<width>224</width>
+					</control>
+					
+					<control type="progress">
+						<description>My first progress control</description>
+						<posx>80</posx>
+						<posy>60</posy>
+						<width>120</width>
+						<height>8</height>
+						<visible>true</visible>
+						<reveal>true</reveal>
+						<texturebg>common/playback-bar-bg.png</texturebg>
+						<lefttexture>-</lefttexture>
+						<midtexture>common/playback-bar.png</midtexture>
+						<righttexture>-</righttexture>
+						<overlaytexture>-</overlaytexture>
+						<info>Player.Progress</info>
+					</control>
+					
+					<control type="label">
+						<include>spotymc_nowplaying_time</include>
+						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+						<posx>208</posx>
+						<posy>54</posy>
+						<width>auto</width>
+					</control>
+		        </control>
+				
 				<control type="grouplist" id="210">
 					<description>Main menu options</description>
 					<posx>32</posx>

@@ -20,6 +20,41 @@
 	</include>
 	
 	
+	<include name="spotymc_nowplaying_text">
+		<height>16</height>
+		<visible>true</visible>
+		<align>left</align>
+		<aligny>center</aligny>
+		<scroll>false</scroll>
+		<number></number>
+		<angle>0</angle>
+		<haspath>false</haspath>
+		<font>spotymc_font16</font>
+		<textcolor>ffffffff</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+		<wrapmultiline>false</wrapmultiline>
+		<scrollspeed>50</scrollspeed>
+		<scrollsuffix>-</scrollsuffix>
+	</include>
+	
+	<include name="spotymc_nowplaying_time">
+		<height>16</height>
+		<visible>true</visible>
+		<align>left</align>
+		<aligny>center</aligny>
+		<scroll>false</scroll>
+		<number></number>
+		<angle>0</angle>
+		<haspath>false</haspath>
+		<font>spotymc_font14</font>
+		<textcolor>ffffffff</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+		<wrapmultiline>false</wrapmultiline>
+		<scrollspeed>50</scrollspeed>
+		<scrollsuffix>-</scrollsuffix>
+	</include>
+	
+	
 	<!-- Left menu styles -->
 	<include name="spotymc_leftmenu_grouplist">
 		<posx>16</posx>
