@@ -37,10 +37,16 @@ class PlaylistDetailView(BaseListContainerView):
         track = self.__playlist.track(pos)
         
         if track.num_artists() > 1:
-            print 'More than one artist!'
+            d = xbmcgui.Dialog()
+            artist_list = [artist.name() for artist in track.artists()]
+            result = d.select('Choose an artist', artist_list)
+            if result != -1:
+                v = ArtistAlbumsView(
+                    view_manager.get_var('session'), track.artist(result)
+                )
+                view_manager.add_view(v)
         
         else:
-            print track.artist(0)
             v = ArtistAlbumsView(
                 view_manager.get_var('session'), track.artist(0)
             )
