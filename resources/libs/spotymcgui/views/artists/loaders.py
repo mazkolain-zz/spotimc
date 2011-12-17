@@ -54,6 +54,7 @@ class ArtistAlbumLoader:
     __album_data = None
     __artistbrowse = None
     __is_loaded = None
+    __sorted_albums = None
     
     
     def __init__(self, session, artist):
@@ -200,7 +201,7 @@ class ArtistAlbumLoader:
     def get_non_similar_albums(self):
         name_dict = {}
         
-        for index, album in enumerate(self.get_albums()):
+        for index, album in self.get_albums():
             name = album.name()
             available_tracks = self.get_album_available_tracks(index)
             
@@ -217,4 +218,23 @@ class ArtistAlbumLoader:
     
     
     def get_albums(self):
-        return self.__artistbrowse.albums()
+        def sort_func(album_index):
+            #Sort by album type and then by year (desc)
+            return (
+                self.get_album_type(album_index),
+                -self.__artistbrowse.album(album_index).year()
+            )
+        
+        #Do nothing if is loading
+        if self.is_loaded():
+            #Build the sorted album list if needed
+            if self.__sorted_albums is None:
+                album_indexes = self.__album_data.keys()
+                sorted_indexes = sorted(album_indexes, key=sort_func)
+                ab = self.__artistbrowse
+                self.__sorted_albums = [
+                    (index, ab.album(index)) for index in sorted_indexes
+                ]
+                print self.__sorted_albums
+            
+            return self.__sorted_albums

@@ -120,7 +120,7 @@ class ArtistAlbumsView(BaseListContainerView):
             print 'album filter: %s' % filter_types
             
             #Now loop over all the loaded albums
-            for index, album in enumerate(self.__loader.get_albums()):
+            for index, album in self.__loader.get_albums():
                 album_type = self.__loader.get_album_type(index)
                 is_in_filter = album_type in filter_types
                 is_available = self.__loader.get_album_available_tracks(index) > 0
