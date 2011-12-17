@@ -119,22 +119,31 @@ class ArtistAlbumLoader:
     
     @run_in_thread(threads_per_class=5)
     def load_album_info(self, index, album):
-        #A checker for a single condition? Overkill!
-        checker = BulkConditionChecker()
-        cb = AlbumCallbacks(checker)
-        album_info = albumbrowse.Albumbrowse(self.__session, album, cb)
+        #Directly discard unavailable albums
+        if not album.is_available():
+            self.__album_data[index] = {
+                'available_tracks': 0,
+                'type': self._get_album_type(album),
+            }
         
-        #Now wait until it's loaded
-        self._wait_for_album_info(album_info, checker)
-        
-        #Populate it's data
-        self.__album_data[index] = {
-            'available_tracks': self._num_available_tracks(album_info),
-            'type': self._get_album_type(album),
-        }
-        
-        #Tell that we've done
-        self.__checker.check_conditions()
+        #Otherwise load it's data
+        else:
+            #A checker for a single condition? Overkill!
+            checker = BulkConditionChecker()
+            cb = AlbumCallbacks(checker)
+            album_info = albumbrowse.Albumbrowse(self.__session, album, cb)
+            
+            #Now wait until it's loaded
+            self._wait_for_album_info(album_info, checker)
+            
+            #Populate it's data
+            self.__album_data[index] = {
+                'available_tracks': self._num_available_tracks(album_info),
+                'type': self._get_album_type(album),
+            }
+            
+            #Tell that we've done
+            self.__checker.check_conditions()
         
         
     def _wait_for_album_list(self):
