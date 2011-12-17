@@ -48,7 +48,7 @@ class SpotymcCallbacks(SessionCallbacks):
     def log_message(self, session, data):
         xbmc.log("libspotify log: %s" % data)
     
-    def streaming_error(self, error):
+    def streaming_error(self, session, error):
         xbmc.log("libspotify: streaming error: %d" % error)
     
     def end_of_track(self, session):
