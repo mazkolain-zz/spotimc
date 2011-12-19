@@ -216,7 +216,23 @@
 				<height>104</height>
 				<texture>common/item-bg.png</texture>
 				<aspectratio>stretch</aspectratio>
+				<visible>!ListItem.Property(noitems)</visible>
 			</control>
+			
+			<!-- "No items" placeholder -->
+			<control type="label">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>256</width>
+				<height>16</height>
+				<font>spotymc_font20</font>
+				<aligny>center</aligny>
+				<align>left</align>
+				<label>No albums</label>
+				<textcolor>ffffffff</textcolor>
+				<visible>ListItem.Property(noitems)</visible>
+			</control>
+			
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
@@ -250,6 +266,7 @@
 				<textcolor>ff969696</textcolor>
 			</control>
 		</itemlayout>
+		
 		<focusedlayout height="384" width="120">
 			<control type="image">
 				<posx>0</posx>
@@ -258,7 +275,23 @@
 				<height>104</height>
 				<texture>common/item-bg-selected.png</texture>
 				<aspectratio>stretch</aspectratio>
+				<visible>!ListItem.Property(noitems)</visible>
 			</control>
+			
+			<!-- "No items" placeholder -->
+			<control type="label">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>256</width>
+				<height>16</height>
+				<font>spotymc_font20</font>
+				<aligny>center</aligny>
+				<align>left</align>
+				<label>No albums</label>
+				<textcolor>ffffffff</textcolor>
+				<visible>ListItem.Property(noitems)</visible>
+			</control>
+			
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
