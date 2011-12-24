@@ -4,28 +4,16 @@ Created on 20/08/2011
 @author: mikel
 '''
 import xbmc
-from spotymcgui.views import BaseView
+from spotymcgui.views import BaseContainerView
 
 
-class NowPlayingView(BaseView):
-    __group_id = 1600
+class NowPlayingView(BaseContainerView):
+    container_id = 1600
     
     
-    def click(self, view_manager, window, control_id):
-        pass
+    def get_container(self, view_manager):
+        return view_manager.get_window().getControl(NowPlayingView.container_id)
     
     
-    def _populate_list(self, window):
-        window.setProperty("AlbumCover", "http://www.me-pr.co.uk/axxis%20doom%20cover%20small.jpg")
-        
-    
-    def show(self, window):
-        c = window.getControl(NowPlayingView.__group_id)
-        c.setVisibleCondition("true")
-        print "show!"
-    
-    
-    def hide(self, window):
-        c = window.getControl(NowPlayingView.__group_id)
-        c.setVisibleCondition("false")
-        print "hide!"
+    def render(self, view_manager):
+        return True

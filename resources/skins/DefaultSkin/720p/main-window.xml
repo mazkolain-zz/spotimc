@@ -69,38 +69,87 @@
 					<aspectratio>stretch</aspectratio>
 				</control>
 				
-				<control type="button" id="201">
-					<description>Spotify core logo</description>
+				<control type="image">
+					<description>Main menu background</description>
 					<posx>1164</posx>
 					<posy>12</posy>
 					<width>104</width>
 					<height>104</height>
 					<visible>true</visible>
 					<colordiffuse>FFFFFFFF</colordiffuse>
-					<texturefocus>main-menu/spotify-core-logo-focus.png</texturefocus>
-					<texturenofocus>main-menu/spotify-core-logo.png</texturenofocus>
-					<label></label>
-					<font>font12</font>
-					<textcolor>FFFFFFFF</textcolor>
-					<disabledcolor>80FFFFFF</disabledcolor>
-					<onclick></onclick>
-					<onfocus>-</onfocus>
-					<onup>-</onup>
-					<ondown>1000</ondown>
-					<onleft>210</onleft>
-					<onright>-</onright>
+					<texture>main-menu/spotify-core-logo.png</texture>
+					<aspectratio>stretch</aspectratio>
 				</control>
 				
-				<control type="group">
+				<control type="grouplist" id="210">
+					<description>Main menu options</description>
+					<posx>32</posx>
+					<posy>88</posy>
+					<width>1000</width>
+					<height>40</height>
+					<itemgap>8</itemgap>
+					<pagecontrol>25</pagecontrol>
+					<scrolltime tween="sine" easing="out">200</scrolltime>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>false</usecontrolcoords>
+					<visible>true</visible>
+					<onup>-</onup>
+					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>201</onright>
+					
+					<control type="togglebutton" id="212">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>152</width>
+						<label>New Stuff</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),newstuff)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="213">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>136</width>
+						<label>Playlists</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),playlists)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="214">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>120</width>
+						<label>Search</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),search)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="215">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>128</width>
+						<label>More...</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="216">
+						<include>spotymc_topmenu_option</include>
+						<visible>true</visible>
+						<width>96</width>
+						<label>Exit</label>
+						<usealttexture>true</usealttexture>
+					</control>
+				</control>
+	        
+	        	<!-- Now playing button -->
+	        	<control type="group">
 		        	<description>Main Menu</description>
-		            <defaultcontrol>210</defaultcontrol>
+		            <defaultcontrol>201</defaultcontrol>
 		            <visible>Player.Playing</visible>
-		            <posx>800</posx>
+		            <posx>816</posx>
 		            <posy>48</posy>
 		            <width>320</width>
 		            <height>80</height>
 		            
-		            <control type="togglebutton" id="202">
+		            <control type="togglebutton" id="201">
 						<posx>0</posx>
 						<posy>0</posy>
 						<height>80</height>
@@ -121,6 +170,10 @@
 						<width>320</width>
 						<label></label>
 						<usealttexture>!StringCompare(Container.Property(MainActiveTab),nowplaying)</usealttexture>
+						<onup>-</onup>
+						<ondown>1000</ondown>
+						<onleft>216</onleft>
+						<onright>-</onright>
 					</control>
 					
 					<control type="image">
@@ -174,76 +227,23 @@
 						<posy>54</posy>
 						<width>auto</width>
 					</control>
+					
+					<!-- Overlay when now playing is active -->
+					<control type="image">
+						<description>Active overlay</description>
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>320</width>
+						<height>80</height>
+						<visible>true</visible>
+						<colordiffuse>CCFFFFFF</colordiffuse>
+						<aspectratio>stretch</aspectratio>
+						<texture>common/now-playing-overlay.png</texture>
+						<visible>Control.IsVisible(1600) + !Control.HasFocus(201)</visible>
+						<aspectratio>stretch</aspectratio>
+					</control>
 		        </control>
-				
-				<control type="grouplist" id="210">
-					<description>Main menu options</description>
-					<posx>32</posx>
-					<posy>88</posy>
-					<width>1000</width>
-					<height>40</height>
-					<itemgap>8</itemgap>
-					<pagecontrol>25</pagecontrol>
-					<scrolltime tween="sine" easing="out">200</scrolltime>
-					<orientation>horizontal</orientation>
-					<usecontrolcoords>false</usecontrolcoords>
-					<visible>true</visible>
-					<onup>-</onup>
-					<ondown>1000</ondown>
-					<onleft>-</onleft>
-					<onright>201</onright>
-					
-					<!-- 
-					<control type="togglebutton" id="211">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>192</width>
-						<label>Now Playing</label>
-						<usealttexture>true</usealttexture>
-					</control>
-					 -->
-					
-					<control type="togglebutton" id="212">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>152</width>
-						<label>New Stuff</label>
-						<usealttexture>!StringCompare(Container.Property(MainActiveTab),newstuff)</usealttexture>
-					</control>
-					
-					<control type="togglebutton" id="213">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>136</width>
-						<label>Playlists</label>
-						<usealttexture>!StringCompare(Container.Property(MainActiveTab),playlists)</usealttexture>
-					</control>
-					
-					<control type="togglebutton" id="214">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>120</width>
-						<label>Search</label>
-						<usealttexture>!StringCompare(Container.Property(MainActiveTab),search)</usealttexture>
-					</control>
-					
-					<control type="togglebutton" id="215">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>128</width>
-						<label>More...</label>
-						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
-					</control>
-					
-					<control type="togglebutton" id="216">
-						<include>spotymc_topmenu_option</include>
-						<visible>true</visible>
-						<width>96</width>
-						<label>Exit</label>
-						<usealttexture>true</usealttexture>
-					</control>
-				</control>
-	        </control>
+		    </control>
 			
 			
             <!-- View Content Group -->
@@ -448,10 +448,17 @@
 				<!-- Now playing view -->
 				<control type="group" id="1600">
 					<description>Now playing view</description>
-					<defaultcontrol>1100</defaultcontrol>
+					<defaultcontrol>1601</defaultcontrol>
 					<visible>false</visible>
 					<posx>0</posx>
 					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>Now playing</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
 					
 					<!-- Album Cover -->
 					<control type="image">
@@ -460,7 +467,7 @@
 						<posy>80</posy>
 						<width>288</width>
 						<height>288</height>
-						<info>Container.Property(AlbumCover)</info>
+						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
 					</control>
 					
 					<control type="label">
@@ -485,7 +492,7 @@
 					</control>
 					
 					<control type="label">
-						<label>Artist Name - Album Name</label>
+						<label>$INFO[MusicPlayer.Artist] - $INFO[MusicPlayer.Album]</label>
 						<posx>336</posx>
 						<posy>144</posy>
 						<width>auto</width>
@@ -567,6 +574,7 @@
 					
 					<control type="grouplist" id="1601">
 						<description>Player menu</description>
+						<defaultcontrol>1603</defaultcontrol>
 						<posx>336</posx>
 						<posy>240</posy>
 						<width>1000</width>

@@ -30,7 +30,7 @@ class MainWindow(xbmcgui.WindowXML):
     
     
     #Button id constants
-    now_playing_button = 211
+    now_playing_button = 201
     new_stuff_button = 212
     playlists_button = 213
     search_button = 214
