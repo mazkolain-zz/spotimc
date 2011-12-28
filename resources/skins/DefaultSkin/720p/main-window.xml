@@ -586,13 +586,13 @@
 						<usecontrolcoords>false</usecontrolcoords>
 						<visible>true</visible>
 						<onup>200</onup>
-						<ondown>-</ondown>
+						<ondown>1610</ondown>
 						<onleft>-</onleft>
 						<onright>200</onright>
 					
 						<!-- Back button -->
 						<control type="button" id="1602">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotymc_nowplaying_player_button</include>
 							<description>Backward button</description>
 							<texturefocus>common/player-backward-focus.png</texturefocus>
 							<texturenofocus>common/player-backward.png</texturenofocus>
@@ -601,7 +601,7 @@
 						
 						<!-- Play/Pause button -->
 						<control type="togglebutton" id="1603">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotymc_nowplaying_player_button</include>
 							<description>Play/Pause button</description>
 							<texturefocus>common/player-play-focus.png</texturefocus>
 							<texturenofocus>common/player-play.png</texturenofocus>
@@ -613,7 +613,7 @@
 						
 						<!-- Forward button -->
 						<control type="button" id="1604">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotymc_nowplaying_player_button</include>
 							<description>Forward button</description>
 							<texturefocus>common/player-forward-focus.png</texturefocus>
 							<texturenofocus>common/player-forward.png</texturenofocus>
@@ -622,7 +622,7 @@
 						
 						<!-- Shuffle button -->
 						<control type="togglebutton" id="1605">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotymc_nowplaying_player_button</include>
 							<description>Shuffle button</description>
 							<texturefocus>common/player-shuffle-focus.png</texturefocus>
 							<texturenofocus>common/player-shuffle.png</texturenofocus>
@@ -634,7 +634,7 @@
 						
 						<!-- Shuffle button -->
 						<control type="togglebutton" id="1606">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotymc_nowplaying_player_button</include>
 							<description>Repeat button</description>
 							<texturefocus>common/player-repeat-focus.png</texturefocus>
 							<texturenofocus>common/player-repeat.png</texturenofocus>
@@ -643,8 +643,65 @@
 							<usealttexture>Playlist.IsRepeat</usealttexture>
 							<onclick>PlayerControl(Repeat)</onclick>
 						</control>
+						
+						<!-- Forward button -->
+						<control type="button" id="1607">
+							<include>spotymc_nowplaying_player_button</include>
+							<description>Visualization button</description>
+							<texturefocus>common/player-vis-focus.png</texturefocus>
+							<texturenofocus>common/player-vis.png</texturenofocus>
+							<onclick>ActivateWindow(visualisation)</onclick>
+						</control>
+					</control>
+					
+					<!-- Current track options -->
+					<control type="label">
+						<include>spotymc_title</include>
+						<label>Current track:</label>
+						<posx>336</posx>
+						<posy>336</posy>
+					</control>
+					
+					<control type="grouplist" id="1610">
+						<description>Player menu</description>
+						<defaultcontrol>1611</defaultcontrol>
+						<posx>336</posx>
+						<posy>368</posy>
+						<width>1000</width>
+						<height>48</height>
+						<itemgap>16</itemgap>
+						<pagecontrol></pagecontrol>
+						<scrolltime tween="sine" easing="out">200</scrolltime>
+						<orientation>horizontal</orientation>
+						<usecontrolcoords>false</usecontrolcoords>
+						<visible>true</visible>
+						<onup>1601</onup>
+						<ondown>1620</ondown>
+						<onleft>-</onleft>
+						<onright>200</onright>
+					
+						<!-- Browse artist button -->
+						<control type="button" id="1611">
+							<include>spotymc_nowplaying_button</include>
+							<description></description>
+							<texturefocus>common/nowplaying-br-artist-focus.png</texturefocus>
+							<texturenofocus>common/nowplaying-br-artist.png</texturenofocus>
+							<onclick></onclick>
+							<label>Browse artist</label>
+						</control>
+						
+						<!-- Browse album button -->
+						<control type="button" id="1612">
+							<include>spotymc_nowplaying_button</include>
+							<description></description>
+							<texturefocus>common/nowplaying-br-album-focus.png</texturefocus>
+							<texturenofocus>common/nowplaying-br-album.png</texturenofocus>
+							<onclick></onclick>
+							<label>Browse album</label>
+						</control>
 					</control>
 				</control>
+				
 				
 				<!-- Playlists view -->
 				<control type="group" id="1700">

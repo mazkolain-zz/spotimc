@@ -28,8 +28,8 @@ class PlaylistManager:
         pl = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         pl.clear()
         
-        for item in self.__secondary_queue:
-            path, info = self._prepare_track(item)
+        for idx, item in enumerate(self.__secondary_queue):
+            path, info = self._prepare_track(item, idx)
             pl.add(path, info)
     
     
@@ -42,7 +42,7 @@ class PlaylistManager:
         return track_link.as_string()[14:]
     
     
-    def _prepare_track(self, track):
+    def _prepare_track(self, track, index):
         #Get the track url first
         track_id = self._get_track_id(track)
         track_url = "http://localhost:8080/track/%s.wav" % track_id
@@ -61,6 +61,7 @@ class PlaylistManager:
             "tracknumber": track.index(),
         }
         item.setInfo("music", info)
+        item.setProperty('real_index', str(index))
         
         return track_url, item
     
@@ -81,3 +82,7 @@ class PlaylistManager:
         
         self._rebuild_playlist()
         self._play_item(offset)
+    
+    
+    def get_item(self, index):
+        return self.__secondary_queue[index]

@@ -1031,7 +1031,7 @@
 	
 	
 	<!-- Player buttons -->
-	<include name="spotymc_nowplaying_button">
+	<include name="spotymc_nowplaying_player_button">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>64</width>
@@ -1042,6 +1042,20 @@
 		<font>spotymc_font20</font>
 		<textcolor>FFFFFFFF</textcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
+	</include>
+	
+	<include name="spotymc_nowplaying_button">
+		<posx>0</posx>
+		<posy>0</posy>
+		<width>240</width>
+		<height>48</height>
+		<visible>true</visible>
+		<colordiffuse>FFFFFFFF</colordiffuse>
+		<font>spotymc_font20</font>
+		<textcolor>ff969696</textcolor>
+		<focusedcolor>ffffffff</focusedcolor>
+		<disabledcolor>80FFFFFF</disabledcolor>
+		<textoffsetx>48</textoffsetx>
 	</include>
 	
 	
