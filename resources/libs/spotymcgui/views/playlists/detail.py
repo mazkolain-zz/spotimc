@@ -11,7 +11,7 @@ import loaders
 from spotify import link
 
 from spotymcgui.views.album import AlbumTracksView
-from spotymcgui.views.artists.albums import ArtistAlbumsView
+from spotymcgui.views.artists import open_artistbrowse_albums
 
 
 
@@ -35,23 +35,8 @@ class PlaylistDetailView(BaseListContainerView):
         item = self.get_list(view_manager).getSelectedItem()
         pos = int(item.getProperty('TrackIndex'))
         track = self.__playlist.track(pos)
-        
-        if track.num_artists() > 1:
-            d = xbmcgui.Dialog()
-            artist_list = [artist.name() for artist in track.artists()]
-            result = d.select('Choose an artist', artist_list)
-            if result != -1:
-                v = ArtistAlbumsView(
-                    view_manager.get_var('session'), track.artist(result)
-                )
-                view_manager.add_view(v)
-        
-        else:
-            v = ArtistAlbumsView(
-                view_manager.get_var('session'), track.artist(0)
-            )
-            view_manager.add_view(v)
-            
+        artist_list = [artist for artist in track.artists()]
+        open_artistbrowse_albums(view_manager, artist_list)
     
     
     def click(self, view_manager, control_id):
