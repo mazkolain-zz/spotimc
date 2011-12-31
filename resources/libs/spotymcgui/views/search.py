@@ -65,6 +65,12 @@ class SearchTracksView(BaseListContainerView):
                 self._do_search(term)
                 view_manager.show()
         
+        elif control_id == SearchTracksView.list_id:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('TrackIndex'))
+            playlist_manager = view_manager.get_var('playlist_manager')
+            playlist_manager.play(self.__search.tracks(), pos)
+        
     
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(SearchTracksView.container_id)
