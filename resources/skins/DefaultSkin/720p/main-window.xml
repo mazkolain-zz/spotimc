@@ -400,7 +400,7 @@
 				<!-- Search tracks view -->
 				<control type="group" id="1500">
 					<description>Search tracks view</description>
-					<defaultcontrol>1100</defaultcontrol>
+					<defaultcontrol>1520</defaultcontrol>
 					<visible>false</visible>
 					<posx>0</posx>
 					<posy>0</posy>
@@ -410,33 +410,129 @@
 						<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
+						<visible>!SubString(Container.Property(SearchDidYouMeanStatus),true)</visible>
+					</control>
+					
+					<control type="grouplist" id="1501">
+						<description>My first group list control</description>
+						<posx>0</posx>
+						<posy>24</posy>
+						<width>960</width>
+						<height>48</height>
+						<itemgap>8</itemgap>
+						<pagecontrol>0</pagecontrol>
+						<scrolltime tween="sine" easing="out">200</scrolltime>
+						<orientation>horizontal</orientation>
+						<usecontrolcoords>false</usecontrolcoords>
+						<visible>SubString(Container.Property(SearchDidYouMeanStatus),true)</visible>
+						<onup>200</onup>
+						<ondown>1520</ondown>
+						<onleft>5500</onleft>
+						<onright>1510</onright>
+						
+						<control type="label" id="1502">
+							<include>spotymc_title_grouped</include>
+							<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR].</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+						
+						<control type="label" id="1503">
+							<include>spotymc_title_grouped</include>
+							<label>Did you mean</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+						
+						<control type="button" id="1504">
+							<description>Did you mean</description>
+							<posy>0</posy>
+							<width>192</width>
+							<height>32</height>
+							<visible>true</visible>
+							<colordiffuse>FFFFFFFF</colordiffuse>
+							<texturefocus>common/item-bg-selected.png</texturefocus>
+							<texturenofocus>common/item-bg.png</texturenofocus>
+							<!-- <label>New search</label> -->
+							<label>$INFO[Container.Property(SearchDidYouMeanString)]</label>
+							<font>spotymc_font20</font>
+							<textcolor>ff969696</textcolor>
+							<focusedcolor>ffffffff</focusedcolor>
+							<disabledcolor>80FFFFFF</disabledcolor>
+							<align></align>
+							<aligny></aligny>
+							<textoffsetx>8</textoffsetx>
+							<textoffsety></textoffsety>
+							<pulseonselect>false</pulseonselect>
+							<onclick>-</onclick>
+							<onfocus>-</onfocus>
+						</control>
+						
+						<control type="label" id="1505">
+							<include>spotymc_title_grouped</include>
+							<label>?</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+					</control>
+					
+					<control type="button" id="1510">
+						<description>New search button</description>
+						<posx>976</posx>
+						<posy>24</posy>
+						<width>192</width>
+						<height>32</height>
+						<visible>true</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<texturefocus>common/search-new-focus.png</texturefocus>
+						<texturenofocus>common/search-new.png</texturenofocus>
+						<label>New search</label>
+						<font>spotymc_font20</font>
+						<textcolor>ff969696</textcolor>
+						<focusedcolor>ffffffff</focusedcolor>
+						<disabledcolor>80FFFFFF</disabledcolor>
+						<align></align>
+						<aligny></aligny>
+						<textoffsetx>32</textoffsetx>
+						<textoffsety></textoffsety>
+						<pulseonselect>false</pulseonselect>
+						<onclick></onclick>
+						<onfocus>-</onfocus>
+						<onup>200</onup>
+						<ondown>1520</ondown>
+						<onleft>1501</onleft>
+						<onright>200</onright>
 					</control>
 					
 					<!-- Track list header -->
-					<include>spotymc_tracklist_wide_header</include>
+					<control type="group">
+						<posx>0</posx>
+						<posy>80</posy>
+						<include>spotymc_tracklist_wide_header</include>
+					</control>
 					
 					<!-- Track list -->
-					<control type="list" id="1501">
+					<control type="list" id="1520">
 						<include>spotymc_tracklist_wide</include>
 						<description>Track list</description>
 						<posx>0</posx>
 						<posy>112</posy>
 						<width>1168</width>
-						<height>464</height>
-						<onup>200</onup>
+						<height>448</height>
+						<onup>1510</onup>
 						<ondown>-</ondown>
 						<onleft>5500</onleft>
-						<onright>200</onright>
-						<pagecontrol>1502</pagecontrol>
+						<onright>1510</onright>
+						<pagecontrol>1521</pagecontrol>
 					</control>
 					
 					<!-- Scrollbar -->
-					<control type="scrollbar" id="1502">
+					<control type="scrollbar" id="1521">
 						<include>spotymc_scrollbar</include>
-						<posx>1184</posx>
-						<posy>80</posy>
+						<posx>1176</posx>
+						<posy>112</posy>
 						<width>8</width>
-						<height>496</height>
+						<height>448</height>
 						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>

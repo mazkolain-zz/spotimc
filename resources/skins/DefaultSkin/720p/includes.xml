@@ -173,6 +173,25 @@
 		<scrollsuffix>-</scrollsuffix>
 	</include>
 	
+	<!-- General text styles -->
+	<include name="spotymc_title_grouped">
+		<width min="16" max="512">auto</width>
+		<height>32</height>
+		<visible>true</visible>
+		<align>left</align>
+		<aligny>center</aligny>
+		<scroll>false</scroll>
+		<number></number>
+		<angle>0</angle>
+		<haspath>false</haspath>
+		<font>spotymc_font22</font>
+		<textcolor>ff969696</textcolor>
+		<shadowcolor>00000000</shadowcolor>
+		<wrapmultiline>false</wrapmultiline>
+		<scrollspeed>50</scrollspeed>
+		<scrollsuffix>-</scrollsuffix>
+	</include>
+	
 	<!-- Default scrollbar style -->
 	<include name="spotymc_scrollbar">
 		<visible>true</visible>
