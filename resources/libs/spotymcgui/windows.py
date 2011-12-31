@@ -119,6 +119,14 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
         
+        elif control_id == MainWindow.search_button:
+            term = views.search.ask_search_term()
+            if term:
+                self.setProperty('MainActiveTab', 'search')
+                v = views.search.SearchTracksView(self.__session, term)
+                self.__view_manager.clear_views()
+                self.__view_manager.add_view(v)
+        
         elif control_id == MainWindow.more_button:
             self.setProperty('MainActiveTab', 'more')
             v = views.more.MoreView()

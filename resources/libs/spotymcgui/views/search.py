@@ -3,8 +3,24 @@ Created on 22/08/2011
 
 @author: mikel
 '''
-import xbmcgui
+import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView
+from spotify import search, link
+
+
+
+def ask_search_term():
+    kb = xbmc.Keyboard('', 'Enter a search term')
+    kb.doModal()
+    
+    if kb.isConfirmed():
+        return kb.getText()
+
+
+
+class SearchTracksCallbacks(search.SearchCallbacks):
+    def search_complete(self, result):
+        xbmc.executebuiltin("Action(Noop)")
 
 
 
@@ -13,9 +29,42 @@ class SearchTracksView(BaseListContainerView):
     list_id = 1520
     
     
-    def click(self, view_manager, control_id):
-        pass
+    button_did_you_mean = 1504
+    button_new_search = 1510
     
+    
+    __session = None
+    __query = None
+    __search = None
+    
+    
+    def _do_search(self, query):
+        self.__query = query
+        cb = SearchTracksCallbacks()
+        self.__search = search.Search(
+            self.__session, query,
+            track_offset=0, track_count=200,
+            callbacks=cb
+        )
+    
+    
+    def __init__(self, session, query):
+        self.__session = session
+        self._do_search(query)
+    
+    
+    def click(self, view_manager, control_id):
+        if control_id == SearchTracksView.button_did_you_mean:
+            if self.__search.did_you_mean():
+                self._do_search(self.__search.did_you_mean())
+                view_manager.show()
+        
+        elif control_id == SearchTracksView.button_new_search:
+            term = ask_search_term()
+            if term:
+                self._do_search(term)
+                view_manager.show()
+        
     
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(SearchTracksView.container_id)
@@ -25,8 +74,9 @@ class SearchTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(SearchTracksView.list_id)
     
     
-    def _add_track(self, list, title, artist, album, path, duration):
+    def _add_track(self, list, idx, title, artist, album, path, duration):
         item = xbmcgui.ListItem(path=path)
+        item.setProperty('TrackIndex', str(idx))
         item.setInfo(
             "music",
             {
@@ -38,33 +88,38 @@ class SearchTracksView(BaseListContainerView):
     
     
     def render(self, view_manager):
-        window = view_manager.get_window()
-        l = self.get_list(view_manager)
-        l.reset()
-        
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 186)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 7560)
-        self._add_track(l, "A very long track name that overflows the column", "Huey Lewis and the News", "A long album name that overflows the column", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        self._add_track(l, "Track 1", "Artist1", "Album1", "", 256)
-        
-        window.setProperty("SearchQuery", "Rick Astley")
-        window.setProperty("SearchDidYouMeanStatus", "true")
-        window.setProperty("SearchDidYouMeanString", "Rickrolled")
-        
-        return True
-        #window.setProperty("AlbumCover", "http://www.me-pr.co.uk/axxis%20doom%20cover%20small.jpg")
-        #window.setProperty("AlbumName", "Album Name")
-        #window.setProperty("ArtistName", "Artist Name")
-        #img.setImage("http://www.necramonium.com/photos/KISS-Album-Covers/cover_destroyer.jpg")
+        if self.__search.is_loaded():
+            window = view_manager.get_window()
+            
+            #Some view vars
+            window.setProperty("SearchQuery", self.__query)
+            
+            did_you_mean = self.__search.did_you_mean()
+            if did_you_mean:
+                window.setProperty("SearchDidYouMeanStatus", "true")
+                window.setProperty("SearchDidYouMeanString", did_you_mean)
+            else:
+                window.setProperty("SearchDidYouMeanStatus", "false")
+            
+            
+            #Populate list
+            l = self.get_list(view_manager)
+            l.reset()
+            
+            for idx, track in enumerate(self.__search.tracks()):
+                track_link = link.create_from_track(track)
+                track_id = track_link.as_string()[14:]
+                track_url = "http://localhost:8080/track/%s.wav" % track_id
+            
+                self._add_track(
+                    l, idx,
+                    track.name(), 
+                    ', '.join([artist.name() for artist in track.artists()]),
+                    track.album().name(),
+                    track_url,
+                    track.duration() / 1000
+                )
+            
+            
+            #Tell that the list is ready to render
+            return True
