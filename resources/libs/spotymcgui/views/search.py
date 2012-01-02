@@ -6,6 +6,8 @@ Created on 22/08/2011
 import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView
 from spotify import search, link
+from spotymcgui.views.artists import open_artistbrowse_albums
+from spotymcgui.views.album import AlbumTracksView
 
 
 
@@ -31,6 +33,11 @@ class SearchTracksView(BaseListContainerView):
     
     button_did_you_mean = 1504
     button_new_search = 1510
+    
+    context_browse_artist_button = 5302
+    context_browse_album_button = 5303
+    context_browse_toggle_star = 5304
+    context_browse_add_to_playlist = 5305
     
     
     __session = None
@@ -70,6 +77,20 @@ class SearchTracksView(BaseListContainerView):
             pos = int(item.getProperty('TrackIndex'))
             playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.play(self.__search.tracks(), pos)
+        
+        elif control_id == SearchTracksView.context_browse_artist_button:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('TrackIndex'))
+            track = self.__search.track(pos)
+            artist_list = [artist for artist in track.artists()]
+            open_artistbrowse_albums(view_manager, artist_list)
+        
+        elif control_id == SearchTracksView.context_browse_album_button:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('TrackIndex'))
+            album = self.__search.track(pos).album()
+            v = AlbumTracksView(view_manager.get_var('session'), album)
+            view_manager.add_view(v)
         
     
     def get_container(self, view_manager):
