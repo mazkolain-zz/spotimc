@@ -563,6 +563,24 @@
 				<height>30</height>
 				<texture>common/item-bg.png</texture>
 			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/tracklist-wide-playing-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Playing</visible>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/tracklist-wide-paused-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Paused</visible>
+			</control>
 			<control type="label">
 				<posx>48</posx>
 				<posy>2</posy>
@@ -619,6 +637,24 @@
 				<width>1168</width>
 				<height>30</height>
 				<texture>common/item-bg-selected.png</texture>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/tracklist-wide-playing-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Playing</visible>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/tracklist-wide-paused-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Paused</visible>
 			</control>
 			<control type="label">
 				<posx>48</posx>
