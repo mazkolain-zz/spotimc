@@ -5,7 +5,7 @@ Created on 20/08/2011
 '''
 import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView
-from spotify import albumbrowse, link
+from spotify import albumbrowse, link, track
 
 
 
@@ -18,6 +18,8 @@ class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
 class AlbumTracksView(BaseListContainerView):
     container_id = 1300
     list_id = 1303
+    
+    context_toggle_star = 5307
     
     __albumbrowse = None
     
@@ -41,6 +43,21 @@ class AlbumTracksView(BaseListContainerView):
     def click(self, view_manager, control_id):
         if control_id == AlbumTracksView.list_id:
             self._play_selected_track(view_manager)
+        
+        elif control_id == AlbumTracksView.context_toggle_star:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty("real_index"))
+            
+            if pos is not None:
+                session = view_manager.get_var('session')
+                current_track = self.__albumbrowse.track(pos)
+                
+                if item.getProperty('IsStarred') == 'true':
+                    item.setProperty('IsStarred', 'false')
+                    track.set_starred(session, [current_track], False)
+                else:
+                    item.setProperty('IsStarred', 'true')
+                    track.set_starred(session, [current_track], True)
     
     
     def get_container(self, view_manager):
@@ -72,7 +89,7 @@ class AlbumTracksView(BaseListContainerView):
         list.addItem(item)
     
     
-    def _add_track(self, list, track, real_index):
+    def _add_track(self, list, track, real_index, is_starred):
         track_link = link.create_from_track(track)
         track_id = track_link.as_string()[14:]
         track_url = "http://localhost:8080/track/%s.wav" % track_id
@@ -83,6 +100,11 @@ class AlbumTracksView(BaseListContainerView):
             "duration": track.duration() / 1000,
             "tracknumber": track.index(),
         }
+        
+        if is_starred:
+            item.setProperty('IsStarred', 'true')
+        else:
+            item.setProperty('IsStarred', 'false')
         
         #Set rating points for this track
         rating_points = int(round(track.popularity() * 5 / 100.0))
@@ -95,6 +117,7 @@ class AlbumTracksView(BaseListContainerView):
     
     def render(self, view_manager):
         if self.__albumbrowse.is_loaded():
+            session = view_manager.get_var('session')
             list = self.get_list(view_manager)
             list.reset()
             
@@ -117,6 +140,7 @@ class AlbumTracksView(BaseListContainerView):
                     last_disc = item.disc()
                     self._add_disc_separator(list, last_disc)
                 
-                self._add_track(list, item, idx)
+                is_starred = item.is_starred(session)
+                self._add_track(list, item, idx, is_starred)
             
             return True

@@ -8,7 +8,7 @@ from spotymcgui.views import BaseListContainerView
 
 import loaders
 
-from spotify import link
+from spotify import link, track
 
 from spotymcgui.views.album import AlbumTracksView
 from spotymcgui.views.artists import open_artistbrowse_albums
@@ -21,6 +21,8 @@ class PlaylistDetailView(BaseListContainerView):
     
     BrowseArtistButton = 5811
     BrowseAlbumButton = 5812
+    
+    context_toggle_star = 5813
     
     __loader = None
     __playlist = None
@@ -55,6 +57,21 @@ class PlaylistDetailView(BaseListContainerView):
             album = self.__playlist.track(pos).album()
             v = AlbumTracksView(view_manager.get_var('session'), album)
             view_manager.add_view(v)
+        
+        elif control_id == PlaylistDetailView.context_toggle_star:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty("TrackIndex"))
+            
+            if pos is not None:
+                session = view_manager.get_var('session')
+                current_track = self.__playlist.track(pos)
+                
+                if item.getProperty('IsStarred') == 'true':
+                    item.setProperty('IsStarred', 'false')
+                    track.set_starred(session, [current_track], False)
+                else:
+                    item.setProperty('IsStarred', 'true')
+                    track.set_starred(session, [current_track], True)
     
     
     def get_container(self, view_manager):
@@ -65,9 +82,15 @@ class PlaylistDetailView(BaseListContainerView):
         return view_manager.get_window().getControl(PlaylistDetailView.list_id)
     
     
-    def _add_track(self, list, idx, title, artist, album, path, duration):
+    def _add_track(self, list, idx, title, artist, album, path, duration, is_starred):
         item = xbmcgui.ListItem(path=path)
         item.setProperty('TrackIndex', str(idx))
+        
+        if is_starred:
+            item.setProperty('IsStarred', 'true')
+        else:
+            item.setProperty('IsStarred', 'false')
+        
         item.setInfo(
             "music",
             {
@@ -158,6 +181,7 @@ class PlaylistDetailView(BaseListContainerView):
     
     
     def _populate_list(self, view_manager, track_list):
+        session = view_manager.get_var('session')
         list = self.get_list(view_manager)
         list.reset()
         
@@ -173,7 +197,8 @@ class PlaylistDetailView(BaseListContainerView):
                 ', '.join([artist.name() for artist in item.artists()]),
                 item.album().name(),
                 track_url,
-                item.duration() / 1000
+                item.duration() / 1000,
+                item.is_starred(session)
             )
     
     

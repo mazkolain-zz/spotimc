@@ -402,6 +402,15 @@
 				<texture>common/item-paused-icon.png</texture>
 				<visible>ListItem.IsPlaying + Player.Paused</visible>
 			</control>
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>48</width>
+				<height>48</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/track-star-big.png</texture>
+				<visible>SubString(ListItem.Property(IsStarred),true) + !ListItem.IsPlaying</visible>
+			</control>
 			<control type="label">
 				<posx>80</posx>
 				<posy>0</posy>
@@ -486,7 +495,7 @@
 				<height>32</height>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture>common/item-playing-icon.png</texture>
-				<visible>ListItem.IsPlaying + Player.Playing</visible>
+				<visible>ListItem.IsPlaying + Player.Playing + !SubString(ListItem.Property(IsStarred),true)</visible>
 			</control>
 			<control type="image">
 				<posx>12</posx>
@@ -495,7 +504,16 @@
 				<height>32</height>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture>common/item-paused-icon.png</texture>
-				<visible>ListItem.IsPlaying + Player.Paused</visible>
+				<visible>ListItem.IsPlaying + Player.Paused + !SubString(ListItem.Property(IsStarred),true)</visible>
+			</control>
+			<control type="image">
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>48</width>
+				<height>48</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/track-star-big.png</texture>
+				<visible>SubString(ListItem.Property(IsStarred),true)</visible>
 			</control>
 			<control type="label">
 				<posx>80</posx>
@@ -581,6 +599,24 @@
 				<texture>common/tracklist-wide-paused-icon.png</texture>
 				<visible>ListItem.IsPlaying + Player.Paused</visible>
 			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/tracklist-wide-paused-icon.png</texture>
+				<visible>ListItem.IsPlaying + Player.Paused</visible>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/track-star-small.png</texture>
+				<visible>SubString(ListItem.Property(IsStarred),true) + !ListItem.IsPlaying</visible>
+			</control>
 			<control type="label">
 				<posx>48</posx>
 				<posy>2</posy>
@@ -645,7 +681,7 @@
 				<height>32</height>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture>common/tracklist-wide-playing-icon.png</texture>
-				<visible>ListItem.IsPlaying + Player.Playing</visible>
+				<visible>ListItem.IsPlaying + Player.Playing + !SubString(ListItem.Property(IsStarred),true)</visible>
 			</control>
 			<control type="image">
 				<posx>8</posx>
@@ -654,7 +690,16 @@
 				<height>32</height>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture>common/tracklist-wide-paused-icon.png</texture>
-				<visible>ListItem.IsPlaying + Player.Paused</visible>
+				<visible>ListItem.IsPlaying + Player.Paused + !SubString(ListItem.Property(IsStarred),true)</visible>
+			</control>
+			<control type="image">
+				<posx>8</posx>
+				<posy>1</posy>
+				<width>32</width>
+				<height>32</height>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>common/track-star-small.png</texture>
+				<visible>SubString(ListItem.Property(IsStarred),true)</visible>
 			</control>
 			<control type="label">
 				<posx>48</posx>

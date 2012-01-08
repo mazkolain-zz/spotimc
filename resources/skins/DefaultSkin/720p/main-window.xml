@@ -1157,6 +1157,7 @@
 					<onright>1300</onright>
 					<visible>Control.IsVisible(1300)</visible>
 					
+					<!--
 					<control type="label" id="5301">
 						<include>spotymc_leftmenu_label</include>
 						<label>Album browsing:</label>
@@ -1177,12 +1178,14 @@
 						<label>Critics</label>
 						<visible>true</visible>
 					</control>
+					-->
 					
 					<control type="label" id="5304">
 						<include>spotymc_leftmenu_label</include>
 						<label>Selected track:</label>
 					</control>
 					
+					<!--
 					<control type="button" id="5305">
 						<include>spotymc_leftmenu_button</include>
 						<description></description>
@@ -1194,6 +1197,7 @@
 						<description></description>
 						<label>Add to queue</label>
 					</control>
+					-->
 					
 					<control type="button" id="5307">
 						<include>spotymc_leftmenu_button</include>

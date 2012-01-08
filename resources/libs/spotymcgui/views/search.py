@@ -5,7 +5,7 @@ Created on 22/08/2011
 '''
 import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView
-from spotify import search, link
+from spotify import search, link, track
 from spotymcgui.views.artists import open_artistbrowse_albums
 from spotymcgui.views.album import AlbumTracksView
 
@@ -36,8 +36,8 @@ class SearchTracksView(BaseListContainerView):
     
     context_browse_artist_button = 5302
     context_browse_album_button = 5303
-    context_browse_toggle_star = 5304
-    context_browse_add_to_playlist = 5305
+    context_toggle_star = 5304
+    context_add_to_playlist = 5305
     
     
     __session = None
@@ -60,6 +60,14 @@ class SearchTracksView(BaseListContainerView):
         self._do_search(query)
     
     
+    def _get_current_track(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        pos = int(item.getProperty('TrackIndex'))
+        
+        if pos is not None:
+            return self.__search.track(pos)
+    
+    
     def click(self, view_manager, control_id):
         if control_id == SearchTracksView.button_did_you_mean:
             if self.__search.did_you_mean():
@@ -79,19 +87,27 @@ class SearchTracksView(BaseListContainerView):
             playlist_manager.play(self.__search.tracks(), pos)
         
         elif control_id == SearchTracksView.context_browse_artist_button:
-            item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('TrackIndex'))
-            track = self.__search.track(pos)
-            artist_list = [artist for artist in track.artists()]
+            current_track = self._get_current_track(view_manager)
+            artist_list = [artist for artist in current_track.artists()]
             open_artistbrowse_albums(view_manager, artist_list)
         
         elif control_id == SearchTracksView.context_browse_album_button:
-            item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('TrackIndex'))
-            album = self.__search.track(pos).album()
+            album = self._get_current_track(view_manager).album()
             v = AlbumTracksView(view_manager.get_var('session'), album)
             view_manager.add_view(v)
         
+        elif control_id == SearchTracksView.context_toggle_star:
+            item = self.get_list(view_manager).getSelectedItem()
+            current_track = self._get_current_track(view_manager)
+            
+            if current_track is not None:
+                if item.getProperty('IsStarred') == 'true':
+                    item.setProperty('IsStarred', 'false')
+                    track.set_starred(self.__session, [current_track], False)
+                else:
+                    item.setProperty('IsStarred', 'true')
+                    track.set_starred(self.__session, [current_track], True)
+    
     
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(SearchTracksView.container_id)
@@ -101,9 +117,15 @@ class SearchTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(SearchTracksView.list_id)
     
     
-    def _add_track(self, list, idx, title, artist, album, path, duration):
+    def _add_track(self, list, idx, title, artist, album, path, duration, is_starred):
         item = xbmcgui.ListItem(path=path)
         item.setProperty('TrackIndex', str(idx))
+        
+        if is_starred:
+            item.setProperty('IsStarred', 'true')
+        else:
+            item.setProperty('IsStarred', 'false')
+        
         item.setInfo(
             "music",
             {
@@ -144,8 +166,12 @@ class SearchTracksView(BaseListContainerView):
                     ', '.join([artist.name() for artist in track.artists()]),
                     track.album().name(),
                     track_url,
-                    track.duration() / 1000
+                    track.duration() / 1000,
+                    track.is_starred(self.__session)
                 )
+                
+                if track.is_starred(self.__session):
+                    print "track starred: %s" % track.name()
             
             
             #Tell that the list is ready to render
