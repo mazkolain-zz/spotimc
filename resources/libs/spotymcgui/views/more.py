@@ -27,9 +27,22 @@ class MoreView(BaseListContainerView):
             view_manager.get_window().close()
     
     
+    def _handle_list_click(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        
+        if item is not None:
+            key = item.getLabel2()
+            
+            if key == 'settings':
+                pass
+            
+            elif key == 'logout':
+                self._do_logout(view_manager)
+    
+    
     def click(self, view_manager, control_id):
         if control_id == MoreView.list_id:
-            self._do_logout(view_manager)
+            self._handle_list_click(view_manager)
     
     
     def get_container(self, view_manager):
@@ -40,8 +53,10 @@ class MoreView(BaseListContainerView):
         return view_manager.get_window().getControl(MoreView.list_id)
     
     
-    def _add_item(self, list_obj, label, icon):
-        list_obj.addItem(xbmcgui.ListItem(label=label,iconImage=icon))
+    def _add_item(self, list_obj, key, label, icon):
+        list_obj.addItem(
+            xbmcgui.ListItem(label=label, label2=key, iconImage=icon)
+        )
     
     
     def render(self, view_manager):
@@ -49,7 +64,7 @@ class MoreView(BaseListContainerView):
         list_obj.reset()
         
         #Add the items
-        self._add_item(list_obj, "Settings", "common/more-settings-icon.png")
-        self._add_item(list_obj, "Logout", "common/more-logout-icon.png")
+        self._add_item(list_obj, 'settings', "Settings", "common/more-settings-icon.png")
+        self._add_item(list_obj, 'logout', "Logout", "common/more-logout-icon.png")
         
         return True
