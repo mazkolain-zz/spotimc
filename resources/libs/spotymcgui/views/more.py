@@ -3,7 +3,8 @@ Created on 20/08/2011
 
 @author: mikel
 '''
-import xbmcgui
+import xbmcgui, xbmcaddon
+from __main__ import __addon_id__
 from spotymcgui.views import BaseListContainerView
 
 
@@ -34,7 +35,8 @@ class MoreView(BaseListContainerView):
             key = item.getLabel2()
             
             if key == 'settings':
-                pass
+                addon = xbmcaddon.Addon(__addon_id__)
+                addon.openSettings()
             
             elif key == 'logout':
                 self._do_logout(view_manager)

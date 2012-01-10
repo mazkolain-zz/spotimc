@@ -3,6 +3,8 @@ Created on 13/06/2011
 
 @author: mazkolain
 '''
+__addon_id__ = 'script.audio.spotymc'
+
 
 #Gather addon information
 import os.path, xbmcaddon
