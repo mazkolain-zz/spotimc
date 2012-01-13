@@ -7,6 +7,7 @@ __all__ = ["mainwindow"]
 
 
 
+import os
 import os.path
 import xbmc
 import windows
@@ -20,6 +21,8 @@ from spotifyproxy.audio import BufferManager
 from threading import Event
 
 import weakref
+
+from settings import SettingsManager, CacheManagement, StreamQuality
 
 
 class SpotymcCallbacks(SessionCallbacks):
@@ -86,10 +89,55 @@ class MainLoopRunner(threading.Thread):
 
 
 
-def main(addon_dir):
-    profile_dir = os.path.join(
-        xbmc.translatePath('special://profile/addon_data'), 'script.audio.spotymc'
+def check_dirs():
+    addon_data_dir = os.path.join(
+        xbmc.translatePath('special://profile/addon_data'),
+        'script.audio.spotymc'
     )
+    
+    #Auto-create profile dir if it does not exist
+    if not os.path.exists(addon_data_dir):
+        os.makedirs(addon_data_dir)
+    
+    #Libspotify cache & settings
+    sp_cache_dir = os.path.join(addon_data_dir, 'libspotify/cache')
+    sp_settings_dir = os.path.join(addon_data_dir, 'libspotify/settings')
+    
+    if not os.path.exists(sp_cache_dir):
+        os.makedirs(sp_cache_dir)
+    
+    if not os.path.exists(sp_settings_dir):
+        os.makedirs(sp_settings_dir)
+    
+    return (addon_data_dir, sp_cache_dir, sp_settings_dir)
+
+
+
+def set_settings(settings_obj, session):
+    #If cache is enabled set the following one
+    if settings_obj.get_cache_status():
+        if settings_obj.get_cache_management() == CacheManagement.Manual:
+            cache_size_mb = settings_obj.get_cache_size() * 1024
+            session.set_cache_size(cache_size_mb)
+    
+    #Bitrate...
+    session.preferred_bitrate(settings_obj.get_audio_sp_bitrate())
+    
+    #And volume normalization
+    session.set_volume_normalization(settings_obj.get_audio_normalize())    
+
+
+
+def main(addon_dir):
+    #Check needed directories first
+    data_dir, cache_dir, settings_dir = check_dirs()
+    
+    #Instantiate the settings obj
+    settings_obj = settings.SettingsManager()
+    
+    #Don't set cache folder if it's disabled
+    if not settings_obj.get_cache_status():
+        cache_dir = ''
     
     #Initialize spotify stuff
     ml = MainLoop()
@@ -100,10 +148,13 @@ def main(addon_dir):
         callbacks,
         app_key=appkey,
         user_agent="python ctypes bindings",
-        settings_location=os.path.join(profile_dir, 'libspotify'),
-        cache_location=os.path.join(profile_dir, 'libspotify'),
+        settings_location=settings_dir,
+        cache_location=cache_dir,
         initially_unload_playlists=False,
     )
+    
+    #Now that we have a session, set settings
+    set_settings(settings_obj, sess)
     
     proxy_runner = ProxyRunner(sess, buf)
     

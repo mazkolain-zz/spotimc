@@ -3,9 +3,9 @@ Created on 20/08/2011
 
 @author: mikel
 '''
-import xbmcgui, xbmcaddon
-from __main__ import __addon_id__
+import xbmcgui
 from spotymcgui.views import BaseListContainerView
+from spotymcgui.settings import SettingsManager
 
 
 class MoreView(BaseListContainerView):
@@ -35,8 +35,9 @@ class MoreView(BaseListContainerView):
             key = item.getLabel2()
             
             if key == 'settings':
-                addon = xbmcaddon.Addon(__addon_id__)
-                addon.openSettings()
+                session = view_manager.get_var('session')
+                settings_obj = SettingsManager()
+                settings_obj.show_dialog(session)
             
             elif key == 'logout':
                 self._do_logout(view_manager)

@@ -2,9 +2,10 @@
 <settings>
 	<category label="Cache">
 		<setting id="general_cache_enable" type="bool" label="Enable cache" default="true" />
-		<setting id="general_cache_auto" type="enum" label="Cache management" values="Automatic|Manual" enable="eq(-1,true)" default="0" />
-		<setting id="general_cache_size" type="slider" label="Maximum cache size (GB)" range="1,100" enable="eq(-1,1) + eq(-2,true)" visible="eq(-1,1)" option="int" default="1" />
-		<setting label="A maximum of 10% of the available space will be used." type="lsep" visible="eq(-2,0)" enable="eq(-3,true)" />
+		<setting label="Cache enable/disable will take effect after restart." type="lsep" />
+		<setting id="general_cache_management" type="enum" label="Cache management" values="Automatic|Manual" enable="eq(-2,true)" default="0" />
+		<setting id="general_cache_size" type="slider" label="Maximum cache size (GB)" range="1,100" enable="eq(-1,1) + eq(-3,true)" visible="eq(-1,1)" option="int" default="1" />
+		<setting label="A maximum of 10% of the available space will be used." type="lsep" visible="eq(-2,0)" enable="eq(-4,true)" />
 	</category>
 	
 	<category label="Audio">
