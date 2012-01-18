@@ -59,6 +59,7 @@ class PlaylistManager:
             "artist": artist,
             "duration": track.duration() / 1000,
             "tracknumber": track.index(),
+            "rating": str(int(round(track.popularity() * 5 / 100))),
         }
         item.setInfo("music", info)
         item.setProperty('real_index', str(index))
