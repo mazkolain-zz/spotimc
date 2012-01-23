@@ -33,6 +33,14 @@ class PlaylistDetailView(BaseListContainerView):
         self.__loader = loaders.FullPlaylistLoader(session, playlist)
     
     
+    def _set_loader(self, loader):
+        self.__loader = loader
+    
+    
+    def _set_playlist(self, playlist):
+        self.__playlist = playlist
+    
+    
     def _browse_artist(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
         pos = int(item.getProperty('TrackIndex'))
@@ -138,7 +146,7 @@ class PlaylistDetailView(BaseListContainerView):
         window = view_manager.get_window()
         
         #Playlist name
-        window.setProperty("PlaylistDetailName", self.__playlist.name())
+        window.setProperty("PlaylistDetailName", self.__loader.get_name())
         
         #Owner info
         session = view_manager.get_var('session')
@@ -214,3 +222,12 @@ class PlaylistDetailView(BaseListContainerView):
             self._set_playlist_properties(view_manager)
             
             return True
+
+
+
+class SpecialPlaylistDetailView(PlaylistDetailView):
+    def __init__(self, session, playlist, name, thumbnails):
+        self._set_playlist(playlist)
+        self._set_loader(
+            loaders.SpecialPlaylistLoader(session, playlist, name, thumbnails)
+        )

@@ -66,6 +66,38 @@ class BasePlaylistLoader:
         self.start_loading()
     
     
+    def get_playlist(self):
+        return self.__playlist
+    
+    
+    def _set_thumbnails(self, thumbnails):
+        self.__thumbnails = thumbnails
+    
+    
+    def get_thumbnails(self):
+        return self.__thumbnails
+    
+    
+    def _set_name(self, name):
+        self.__name = name
+    
+    
+    def get_name(self):
+        return self.__name
+    
+    
+    def get_num_tracks(self):
+        return self.__num_tracks
+    
+    
+    def get_tracks(self):
+        return self.__playlist.tracks()
+    
+    
+    def get_is_collaborative(self):
+        return self.__is_collaborative
+    
+    
     def _track_is_fully_loaded(self, track, test_album=True, test_artists=True):
         def album_is_loaded():
             album = track.album()
@@ -142,20 +174,41 @@ class BasePlaylistLoader:
             return True
     
     
+    def _load_name(self):
+        if self.__name != self.__playlist.name():
+            self.__name = self.__playlist.name()
+            return True
+        else:
+            return False
+    
+    
+    def _load_num_tracks(self):
+        if self.__num_tracks != self.__playlist.num_tracks():
+            self.__num_tracks = self.__playlist.num_tracks()
+            return True
+        else:
+            return False
+    
+    
+    def _load_is_collaborative(self):
+        if self.__is_collaborative != self.__playlist.is_collaborative():
+            self.__is_collaborative = self.__playlist.is_collaborative()
+            return True
+        else:
+            return False
+    
+    
     def _load_attributes(self):
         #Now check for changes
         has_changes = False
         
-        if self.__name != self.__playlist.name():
-            self.__name = self.__playlist.name()
+        if self._load_name():
             has_changes = True
         
-        if self.__num_tracks != self.__playlist.num_tracks():
-            self.__num_tracks = self.__playlist.num_tracks()
+        if self._load_num_tracks():
             has_changes = True
         
-        if self.__is_collaborative != self.__playlist.is_collaborative():
-            self.__is_collaborative = self.__playlist.is_collaborative()
+        if self._load_is_collaborative():
             has_changes = True
         
         #If we detected something different
@@ -180,30 +233,6 @@ class BasePlaylistLoader:
     
     def is_loaded(self):
         return self.__is_loaded
-    
-    
-    def get_playlist(self):
-        return self.__playlist
-    
-    
-    def get_thumbnails(self):
-        return self.__thumbnails
-    
-    
-    def get_name(self):
-        return self.__name
-    
-    
-    def get_num_tracks(self):
-        return self.__num_tracks
-    
-    
-    def get_tracks(self):
-        return self.__playlist.tracks()
-    
-    
-    def get_is_collaborative(self):
-        return self.__is_collaborative
     
     
     def start_loading(self):
@@ -287,6 +316,32 @@ class FullPlaylistLoader(BasePlaylistLoader):
         #Mark the playlist as loaded
         self._set_loaded(True)
         
+        if has_changes:
+            xbmc.executebuiltin("Action(Noop)")
+
+
+class SpecialPlaylistLoader(BasePlaylistLoader):
+    def __init__(self, session, playlist, name, thumbnails):
+        BasePlaylistLoader.__init__(self, session, playlist)
+        self._set_name(name)
+        self._set_thumbnails(thumbnails)
+    
+    
+    @run_in_thread(threads_per_class=10, single_instance=True)
+    def start_loading(self):
+        #Wait for the underlying playlist object
+        self._wait_for_playlist()
+        
+        #And load the rest of the data
+        has_changes = False
+        
+        if self._load_num_tracks():
+            has_changes = True
+        
+        #Mark the playlist as loaded
+        self._set_loaded(True)
+        
+        #Update ui
         if has_changes:
             xbmc.executebuiltin("Action(Noop)")
 
