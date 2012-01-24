@@ -364,6 +364,12 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     def playlist_removed(self, container, playlist, position):
         self.__loader.remove_playlist(position)
+        self.__loader.update()
+    
+    
+    def playlist_moved(self, container, playlist, position, new_position):
+        self.__loader.move_playlist(position, new_position)
+        self.__loader.update()
 
 
 
@@ -373,45 +379,96 @@ class ContainerLoader:
     __playlists = None
     __checker = None
     __loading_lock = None
+    __list_lock = None
     __is_loaded = None
     
     
     def __init__(self, session, container):
         self.__session = session
         self.__container = container
-        self.__playlists = {}
+        self.__playlists = []
         self.__checker = BulkConditionChecker()
         self.__loading_lock = threading.RLock()
+        self.__list_lock = threading.RLock()
         self.__is_loaded = False
         
         #Load the rest in the background
         self._start_load()
     
     
+    def _fill_spaces(self, position):
+        try:
+            self.__list_lock.acquire()
+            
+            if position >= len(self.__playlists):
+                for idx in range(len(self.__playlists), position + 1):
+                    self.__playlists.append(None)
+        
+        finally:
+            self.__list_lock.release()
+    
+    
     def add_playlist(self, playlist, position):
-        self.__playlists[position] = ContainerPlaylistLoader(
-            self.__session, playlist, self
-        )
+        try:
+            self.__list_lock.acquire()
+            
+            #Ensure that we have a place for it
+            self._fill_spaces(position)
+            
+            #Instantiate a loader and add it
+            loader = ContainerPlaylistLoader(self.__session, playlist, self)
+            self.__playlists[position] = loader
+        
+        finally:
+            self.__list_lock.release()
+    
+    
+    def remove_playlist(self, position):
+        try:
+            self.__list_lock.acquire()
+            del self.__playlists[position]
+        
+        finally:
+            self.__list_lock.release()
+    
+    
+    def move_playlist(self, position, new_position):
+        try:
+            self.__list_lock.acquire()
+            self.__playlists.insert(new_position, self.__playlists[position])
+            
+            #Calculate new position
+            if position > new_position:
+                position += 1
+            
+            del self.__playlists[position]
+        
+        finally:
+            self.__list_lock.release()
+    
+    
+    def _add_missing_playlists(self):
+        #Ensure that the container and loader length is the same
+        self._fill_spaces(self.__container.num_playlists() - 1)
+        
+        #Iterate over the container to add the missing ones
+        for position, item in enumerate(self.__container.playlists()):
+            if self.__playlists[position] is None:
+                self.add_playlist(item, position)
     
     
     def _load_container(self):
-        
         #Wait for the container to be fully loaded
         self.__checker.add_condition(self.__container.is_loaded)
         self.__checker.complete_wait()
         
-        """
-        Ensure that we have seen all the playlists.
-        Just if the container callbacks are registered too late
-        and we missed some of them.
-        """
-        for idx, item in enumerate(self.__container.playlists()):
-            if idx not in self.__playlists:
-                self.add_playlist(item, idx)
+        #Fill the container with unseen playlists
+        self._add_missing_playlists()
         
-        #Check that all playlists have been loaded
-        for item in self.__playlists.itervalues():
-            self.__checker.add_condition(item.is_loaded)
+        #Add a load check for each playlist
+        for item in self.__playlists:
+            if not item.is_loaded():
+                self.__checker.add_condition(item.is_loaded)
         
         #Wait until all conditions became true
         self.__checker.complete_wait(self.__container.num_playlists() * 5)
