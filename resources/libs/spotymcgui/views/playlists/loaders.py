@@ -356,6 +356,7 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     def playlist_added(self, container, playlist, position):
         self.__loader.add_playlist(playlist, position)
+        print "playlist added: #%d" % position
     
     
     def container_loaded(self, container):
@@ -363,11 +364,13 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_removed(self, container, playlist, position):
+        print "playlist removed #%d" % position
         self.__loader.remove_playlist(position)
         self.__loader.update()
     
     
     def playlist_moved(self, container, playlist, position, new_position):
+        print "playlist moved %d -> %d" % (position, new_position)
         self.__loader.move_playlist(position, new_position)
         self.__loader.update()
 
@@ -417,14 +420,20 @@ class ContainerLoader:
         try:
             self.__list_lock.acquire()
             
-            #Ensure that we have a place for it
-            self._fill_spaces(position)
+            #Ensure that it gets added in the correct position
+            self._fill_spaces(position - 1)
+            
+            #Instantiate a loader if it's a real playlist
+            if self.is_playlist(position):
+                item = ContainerPlaylistLoader(self.__session, playlist, self)
             
             #Ignore if it's not a real playlist
-            if self.is_playlist(position):
-                self.__playlists[position] = ContainerPlaylistLoader(
-                    self.__session, playlist, self
-                )
+            else:
+                item = None
+            
+            #Insert the generated item
+            self.__playlists.insert(position, item)
+                
         
         finally:
             self.__list_lock.release()
