@@ -408,6 +408,11 @@ class ContainerLoader:
             self.__list_lock.release()
     
     
+    def is_playlist(self, position):
+        playlist_type = self.__container.playlist_type(position)
+        return playlist_type == playlist.PlaylistType.Playlist
+    
+    
     def add_playlist(self, playlist, position):
         try:
             self.__list_lock.acquire()
@@ -415,9 +420,11 @@ class ContainerLoader:
             #Ensure that we have a place for it
             self._fill_spaces(position)
             
-            #Instantiate a loader and add it
-            loader = ContainerPlaylistLoader(self.__session, playlist, self)
-            self.__playlists[position] = loader
+            #Ignore if it's not a real playlist
+            if self.is_playlist(position):
+                self.__playlists[position] = ContainerPlaylistLoader(
+                    self.__session, playlist, self
+                )
         
         finally:
             self.__list_lock.release()
@@ -452,9 +459,9 @@ class ContainerLoader:
         self._fill_spaces(self.__container.num_playlists() - 1)
         
         #Iterate over the container to add the missing ones
-        for position, item in enumerate(self.__container.playlists()):
-            if self.__playlists[position] is None:
-                self.add_playlist(item, position)
+        for pos, item in enumerate(self.__container.playlists()):
+            if self.is_playlist(pos) and self.__playlists[pos] is None:
+                self.add_playlist(item, pos)
     
     
     def _load_container(self):
@@ -467,7 +474,7 @@ class ContainerLoader:
         
         #Add a load check for each playlist
         for item in self.__playlists:
-            if not item.is_loaded():
+            if item is not None and not item.is_loaded():
                 self.__checker.add_condition(item.is_loaded)
         
         #Wait until all conditions became true

@@ -139,7 +139,7 @@ class PlaylistView(BaseListContainerView):
             
             #And iterate over the rest of the playlists
             for key, item in enumerate(self.__container_loader.playlists()):
-                if item.is_loaded():
+                if item is not None and item.is_loaded():
                     playlist_username = item.get_playlist().owner().canonical_name()
                     show_owner = playlist_username != container_username
                     self._add_playlist(list, key, item, show_owner)
