@@ -4,6 +4,7 @@ Created on 13/06/2011
 @author: mazkolain
 '''
 __addon_id__ = 'script.audio.spotymc'
+__addon_version__ = '0.1'
 
 
 #Gather addon information
