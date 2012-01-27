@@ -133,7 +133,7 @@ def main(addon_dir):
     data_dir, cache_dir, settings_dir = check_dirs()
     
     #Instantiate the settings obj
-    settings_obj = settings.SettingsManager()
+    settings_obj = SettingsManager()
     
     #Don't set cache folder if it's disabled
     if not settings_obj.get_cache_status():
@@ -156,15 +156,15 @@ def main(addon_dir):
     #Now that we have a session, set settings
     set_settings(settings_obj, sess)
     
-    proxy_runner = ProxyRunner(sess, buf)
-    
-    #Initialize window
-    mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin", sess)
-    
-    #Run the (libspotify) loop in a separate thread (XBMC requires this for doModal()
+    #Initialize & start proxy and mainloop runners
     ml_runner = MainLoopRunner(ml, sess)
+    proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0')
     ml_runner.start()
     proxy_runner.start()
+    
+    #Initialize window
+    mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
+    mainwin.initialize(sess, proxy_runner)
     
     #And finally the window's loop
     mainwin.doModal()

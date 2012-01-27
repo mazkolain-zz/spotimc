@@ -41,14 +41,21 @@ class MainWindow(xbmcgui.WindowXML):
     loading_image = 50
     
     
-    def __init__(self, file, script_path, skin_dir, session):
+    def __init__(self, file, script_path, skin_dir):
         self.__file = file
         self.__script_path = script_path
         self.__skin_dir = skin_dir
         self.__view_manager = views.ViewManager(self)
-        playlist_manager = playback.PlaylistManager(None)
+        
+    
+    def initialize(self, session, proxy_runner):
+        playlist_manager = playback.PlaylistManager(proxy_runner.get_port())
+        
+        #Shared vars with views
         self.__view_manager.set_var('playlist_manager', playlist_manager)
         self.__view_manager.set_var('session', weakref.proxy(session))
+        self.__view_manager.set_var('proxy_runner', weakref.proxy(proxy_runner))
+        
         self.__session = session
     
     
