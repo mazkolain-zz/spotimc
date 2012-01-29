@@ -140,9 +140,8 @@ class PlaylistManager:
             path, info = self.create_track_info(track, session, list_index)
             playlist.add(path, info)
         
-        print 'before _play_item'
         self._play_item(offset)
     
     
     def get_item(self, index):
-        return self.__track_list.append[index]
+        return self.__track_list[index]
