@@ -161,6 +161,7 @@ def main(addon_dir):
     proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0')
     ml_runner.start()
     proxy_runner.start()
+    print 'port: %s' % proxy_runner.get_port()
     
     #Initialize window
     mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")

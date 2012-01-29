@@ -30,7 +30,6 @@ class SearchTracksView(BaseListContainerView):
     container_id = 1500
     list_id = 1520
     
-    
     button_did_you_mean = 1504
     button_new_search = 1510
     
@@ -62,7 +61,7 @@ class SearchTracksView(BaseListContainerView):
     
     def _get_current_track(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
-        pos = int(item.getProperty('TrackIndex'))
+        pos = int(item.getProperty('ListIndex'))
         
         if pos is not None:
             return self.__search.track(pos)
@@ -82,9 +81,10 @@ class SearchTracksView(BaseListContainerView):
         
         elif control_id == SearchTracksView.list_id:
             item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('TrackIndex'))
+            pos = int(item.getProperty('ListIndex'))
+            session = view_manager.get_var('session')
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(self.__search.tracks(), pos)
+            playlist_manager.play(self.__search.tracks(), session, pos)
         
         elif control_id == SearchTracksView.context_browse_artist_button:
             current_track = self._get_current_track(view_manager)
@@ -93,7 +93,8 @@ class SearchTracksView(BaseListContainerView):
         
         elif control_id == SearchTracksView.context_browse_album_button:
             album = self._get_current_track(view_manager).album()
-            v = AlbumTracksView(view_manager.get_var('session'), album)
+            session = view_manager.get_var('session')
+            v = AlbumTracksView(session, album)
             view_manager.add_view(v)
         
         elif control_id == SearchTracksView.context_toggle_star:
@@ -117,62 +118,34 @@ class SearchTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(SearchTracksView.list_id)
     
     
-    def _add_track(self, list, idx, title, artist, album, path, duration, is_starred):
-        item = xbmcgui.ListItem(path=path)
-        item.setProperty('TrackIndex', str(idx))
+    def _set_search_info(self, view_manager):
+        window = view_manager.get_window()
+        window.setProperty("SearchQuery", self.__query)
         
-        if is_starred:
-            item.setProperty('IsStarred', 'true')
+        did_you_mean = self.__search.did_you_mean()
+        if did_you_mean:
+            window.setProperty("SearchDidYouMeanStatus", "true")
+            window.setProperty("SearchDidYouMeanString", did_you_mean)
         else:
-            item.setProperty('IsStarred', 'false')
-        
-        item.setInfo(
-            "music",
-            {
-             "title": title, "artist": artist, "album": album,
-             "duration": duration
-            }
-        )
-        list.addItem(item)
+            window.setProperty("SearchDidYouMeanStatus", "false")
     
     
     def render(self, view_manager):
         if self.__search.is_loaded():
-            window = view_manager.get_window()
+            session = view_manager.get_var('session')
+            pm = view_manager.get_var('playlist_manager')
             
             #Some view vars
-            window.setProperty("SearchQuery", self.__query)
+            self._set_search_info(view_manager)
             
-            did_you_mean = self.__search.did_you_mean()
-            if did_you_mean:
-                window.setProperty("SearchDidYouMeanStatus", "true")
-                window.setProperty("SearchDidYouMeanString", did_you_mean)
-            else:
-                window.setProperty("SearchDidYouMeanStatus", "false")
+            #Reset list
+            list_obj = self.get_list(view_manager)
+            list_obj.reset()
             
-            
-            #Populate list
-            l = self.get_list(view_manager)
-            l.reset()
-            
-            for idx, track in enumerate(self.__search.tracks()):
-                track_link = link.create_from_track(track)
-                track_id = track_link.as_string()[14:]
-                track_url = "http://localhost:8080/track/%s.wav" % track_id
-            
-                self._add_track(
-                    l, idx,
-                    track.name(), 
-                    ', '.join([artist.name() for artist in track.artists()]),
-                    track.album().name(),
-                    track_url,
-                    track.duration() / 1000,
-                    track.is_starred(self.__session)
-                )
-                
-                if track.is_starred(self.__session):
-                    print "track starred: %s" % track.name()
-            
+            #Iterate over the tracks
+            for list_index, track in enumerate(self.__search.tracks()):
+                url, info = pm.create_track_info(track, session, list_index)
+                list_obj.addItem(info)
             
             #Tell that the list is ready to render
             return True

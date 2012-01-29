@@ -8,6 +8,7 @@ from spotify import link
 import time
 from __main__ import __addon_version__
 import spotifyproxy
+import math
 
 
 #TODO: urllib 3.x compatibility
@@ -15,17 +16,15 @@ import urllib
 
 
 class PlaylistManager:
-    __primary_queue = None
-    __secondary_queue = None
     __server_port = None
     __user_agent = None
     __play_token = None
     __url_headers = None
+    __track_list = None
     
     
     def __init__(self, server_port):
-        self.__primary_queue = []
-        self.__secondary_queue = []
+        self.__track_list = []
         self.__server_port = server_port
     
     
@@ -48,15 +47,6 @@ class PlaylistManager:
     
     def _play_item(self, offset):
         xbmc.executebuiltin('playlist.playoffset(music,%d)' % offset)
-    
-    
-    def _rebuild_playlist(self):
-        pl = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
-        pl.clear()
-        
-        for idx, item in enumerate(self.__secondary_queue):
-            path, info = self._prepare_track(item, idx)
-            pl.add(path, info)
     
     
     def clear(self):
@@ -89,13 +79,21 @@ class PlaylistManager:
         return 'http://localhost:%s/image/%s.jpg' % (self.__server_port, image_id)
     
     
-    def _prepare_track(self, track, index):
-        #And generate a listitem with track metadata
+    def _calculate_track_rating(self, track):
+        popularity = track.popularity()
+        if popularity == 0:
+            return 0
+        else:
+            return int(math.ceil(popularity * 6 / 100.0)) - 1
+        
+    
+    def create_track_info(self, track, session, list_index = None):
         album = track.album().name()
         artist = ','.join([artist.name() for artist in track.artists()])
         image_id = track.album().cover()
         image_url = self.get_image_url(image_id)
         track_url = self.get_track_url(track)
+        rating_points = str(self._calculate_track_rating(track))
         
         item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
         info = {
@@ -104,10 +102,20 @@ class PlaylistManager:
             "artist": artist,
             "duration": track.duration() / 1000,
             "tracknumber": track.index(),
-            "rating": str(int(round(track.popularity() * 5 / 100))),
+            "rating": rating_points,
         }
         item.setInfo("music", info)
-        item.setProperty('real_index', str(index))
+        
+        if list_index is not None:
+            item.setProperty('ListIndex', str(list_index))
+        
+        if track.is_starred(session):
+            item.setProperty('IsStarred', 'true')
+        else:
+            item.setProperty('IsStarred', 'false')
+        
+        #Rating points, again as a property for the custom stars
+        item.setProperty('RatingPoints', rating_points)
         
         return track_url, item
     
@@ -119,16 +127,22 @@ class PlaylistManager:
             time.sleep(0.7)
     
     
-    def play(self, track_list, offset=0):
+    def play(self, track_list, session, offset=0):
         self._stop_playback()
-        self.__secondary_queue = []
         
-        for item in track_list:
-            self.__secondary_queue.append(item)
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        playlist.clear()
+        self.__track_list = []
         
-        self._rebuild_playlist()
+        #And iterate over the give track list
+        for list_index, track in enumerate(track_list):
+            self.__track_list.append(track)
+            path, info = self.create_track_info(track, session, list_index)
+            playlist.add(path, info)
+        
+        print 'before _play_item'
         self._play_item(offset)
     
     
     def get_item(self, index):
-        return self.__secondary_queue[index]
+        return self.__track_list.append[index]

@@ -28,9 +28,11 @@ class PlaylistDetailView(BaseListContainerView):
     __playlist = None
     
     
-    def __init__(self, session, playlist):
+    def __init__(self, session, playlist, playlist_manager):
         self.__playlist = playlist
-        self.__loader = loaders.FullPlaylistLoader(session, playlist)
+        self.__loader = loaders.FullPlaylistLoader(
+            session, playlist, playlist_manager
+        )
     
     
     def _set_loader(self, loader):
@@ -43,32 +45,35 @@ class PlaylistDetailView(BaseListContainerView):
     
     def _browse_artist(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
-        pos = int(item.getProperty('TrackIndex'))
+        pos = int(item.getProperty('ListIndex'))
         track = self.__playlist.track(pos)
         artist_list = [artist for artist in track.artists()]
         open_artistbrowse_albums(view_manager, artist_list)
     
     
     def click(self, view_manager, control_id):
+        session = view_manager.get_var('session')
+        
         if control_id == PlaylistDetailView.list_id:
             item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('TrackIndex'))
+            pos = int(item.getProperty('ListIndex'))
+            print 'clicked pos: %s' % pos
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(self.__playlist.tracks(), pos)
+            playlist_manager.play(self.__playlist.tracks(), session, pos)
         
         elif control_id == PlaylistDetailView.BrowseArtistButton:
             self._browse_artist(view_manager)
             
         elif control_id == PlaylistDetailView.BrowseAlbumButton:
             item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('TrackIndex'))
+            pos = int(item.getProperty('ListIndex'))
             album = self.__playlist.track(pos).album()
             v = AlbumTracksView(view_manager.get_var('session'), album)
             view_manager.add_view(v)
         
         elif control_id == PlaylistDetailView.context_toggle_star:
             item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty("TrackIndex"))
+            pos = int(item.getProperty("ListIndex"))
             
             if pos is not None:
                 session = view_manager.get_var('session')
@@ -88,25 +93,6 @@ class PlaylistDetailView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(PlaylistDetailView.list_id)
-    
-    
-    def _add_track(self, list, idx, title, artist, album, path, duration, is_starred):
-        item = xbmcgui.ListItem(path=path)
-        item.setProperty('TrackIndex', str(idx))
-        
-        if is_starred:
-            item.setProperty('IsStarred', 'true')
-        else:
-            item.setProperty('IsStarred', 'false')
-        
-        item.setInfo(
-            "music",
-            {
-             "title": title, "artist": artist, "album": album,
-             "duration": duration
-            }
-        )
-        list.addItem(item)
     
     
     def _get_playlist_length_str(self):
@@ -188,32 +174,11 @@ class PlaylistDetailView(BaseListContainerView):
                 window.setProperty("PlaylistDetailCoverItem%d" % (idx + 1), thumb_item)
     
     
-    def _populate_list(self, view_manager, track_list):
-        session = view_manager.get_var('session')
-        list = self.get_list(view_manager)
-        list.reset()
-        
-        for idx, item in enumerate(track_list):
-            track_link = link.create_from_track(item)
-            track_id = track_link.as_string()[14:]
-            track_url = "http://localhost:8080/track/%s.wav" % track_id
-            
-            self._add_track(
-                list,
-                idx,
-                item.name(),
-                ', '.join([artist.name() for artist in item.artists()]),
-                item.album().name(),
-                track_url,
-                item.duration() / 1000,
-                item.is_starred(session)
-            )
-    
-    
     def render(self, view_manager):
         if self.__loader.is_loaded():
-            #Draw the items on the list
-            self._populate_list(view_manager, self.__loader.get_tracks())
+            session = view_manager.get_var('session')
+            pm = view_manager.get_var('playlist_manager')
+            list_obj = self.get_list(view_manager)
             
             #Set the thumbnails
             self._set_playlist_image(view_manager, self.__loader.get_thumbnails())
@@ -221,13 +186,22 @@ class PlaylistDetailView(BaseListContainerView):
             #And the properties
             self._set_playlist_properties(view_manager)
             
+            #Clear the list
+            list_obj.reset()
+            
+            #Draw the items on the list
+            for list_index, track in enumerate(self.__loader.get_tracks()):
+                url, info = pm.create_track_info(track, session, list_index)
+                list_obj.addItem(info)
+            
             return True
 
 
 
 class SpecialPlaylistDetailView(PlaylistDetailView):
-    def __init__(self, session, playlist, name, thumbnails):
+    def __init__(self, session, playlist, playlist_manager, name, thumbnails):
         self._set_playlist(playlist)
-        self._set_loader(
-            loaders.SpecialPlaylistLoader(session, playlist, name, thumbnails)
+        loader = loaders.SpecialPlaylistLoader(
+            session, playlist, playlist_manager, name, thumbnails
         )
+        self._set_loader(loader)

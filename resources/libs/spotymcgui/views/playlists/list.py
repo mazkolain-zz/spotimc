@@ -22,22 +22,23 @@ class PlaylistView(BaseListContainerView):
     __container_loader = None
     
     
-    def __init__(self, session, container):
+    def __init__(self, session, container, playlist_manager):
         #Add the starred playlist
         self.__starred_loader = loaders.SpecialPlaylistLoader(
-            session, session.starred_create(),
+            session, session.starred_create(), playlist_manager,
             'Starred', ["common/pl-starred.png"]
         )
         
         #And the inbox one
         self.__inbox_loader = loaders.SpecialPlaylistLoader(
-            session, session.inbox_create(),
+            session, session.inbox_create(), playlist_manager,
             'Inbox', ['common/pl-inbox.png']
         )
         
         #And the rest of the playlists
-        self.__container_loader = loaders.ContainerLoader(session, container)
-        
+        self.__container_loader = loaders.ContainerLoader(
+            session, container, playlist_manager
+        )
     
     
     def click(self, view_manager, control_id):
@@ -45,25 +46,26 @@ class PlaylistView(BaseListContainerView):
             item = self.get_list(view_manager).getSelectedItem()
             playlist_id = item.getProperty('PlaylistId')
             session = view_manager.get_var('session')
+            pm = view_manager.get_var('playlist_manager')
             
             if playlist_id == 'starred':
                 loader_obj = self.__starred_loader
                 view_obj = detail.SpecialPlaylistDetailView(
-                    session, loader_obj.get_playlist(),
+                    session, loader_obj.get_playlist(), pm,
                     loader_obj.get_name(), loader_obj.get_thumbnails()
                 )
             
             elif playlist_id == 'inbox':
                 loader_obj = self.__inbox_loader
                 view_obj = detail.SpecialPlaylistDetailView(
-                    session, loader_obj.get_playlist(),
+                    session, loader_obj.get_playlist(), pm,
                     loader_obj.get_name(), loader_obj.get_thumbnails()
                 )
             
             else:
                 loader_obj = self.__container_loader.playlist(int(playlist_id))
                 view_obj = detail.PlaylistDetailView(
-                    session, loader_obj.get_playlist()
+                    session, loader_obj.get_playlist(), pm
                 )
             
             view_manager.add_view(view_obj)

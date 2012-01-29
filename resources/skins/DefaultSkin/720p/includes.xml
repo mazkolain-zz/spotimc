@@ -442,7 +442,7 @@
 				<width>80</width>
 				<height>16</height>
 				<colordiffuse>ff969696</colordiffuse>
-				<texture>common/rating-stars-$INFO[ListItem.Property(rating_points)].png</texture>
+				<texture>common/rating-stars-$INFO[ListItem.Property(RatingPoints)].png</texture>
 				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">
@@ -547,7 +547,7 @@
 				<width>80</width>
 				<height>16</height>
 				<colordiffuse>ffffffff</colordiffuse>
-				<texture>common/rating-stars-$INFO[ListItem.Property(rating_points)].png</texture>
+				<texture>common/rating-stars-$INFO[ListItem.Property(RatingPoints)].png</texture>
 				<visible>!ListItem.Property(IsDiscSeparator)</visible>
 			</control>
 			<control type="label">

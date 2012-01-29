@@ -54,15 +54,16 @@ class NewStuffView(BaseListContainerView):
     
     def render(self, view_manager):
         if self.__search.is_loaded():
-            l = self.get_list(view_manager)
-            l.reset()
+            list_obj = self.get_list(view_manager)
+            list_obj.reset()
+            playlist_manager = view_manager.get_var('playlist_manager')
             
             for album in self.__search.albums():
                 item = xbmcgui.ListItem(
                     album.name(),
                     album.artist().name(),
-                    'http://localhost:8080/image/%s.jpg' % album.cover()
+                    playlist_manager.get_image_url(album.cover())
                 )
-                l.addItem(item)
+                list_obj.addItem(item)
             
             return True

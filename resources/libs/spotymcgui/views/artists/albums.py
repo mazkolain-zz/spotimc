@@ -70,7 +70,7 @@ class ArtistAlbumsView(BaseListContainerView):
     
     def _show_album(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
-        real_index = int(item.getProperty('real_index'))
+        real_index = int(item.getProperty('ListIndex'))
         album_obj = self.__loader.get_album(real_index)
         session = view_manager.get_var('session')
         v = album.AlbumTracksView(session, album_obj)
@@ -104,6 +104,8 @@ class ArtistAlbumsView(BaseListContainerView):
     
     def render(self, view_manager):
         if self.__loader.is_loaded():
+            playlist_manager = view_manager.get_var('playlist_manager')
+            
             l = self.get_list(view_manager)
             l.reset()
             
@@ -128,11 +130,11 @@ class ArtistAlbumsView(BaseListContainerView):
                 
                 #Discard unavailable/non-filtered/similar albums
                 if is_available and is_in_filter and not is_similar:
+                    image_url = playlist_manager.get_image_url(album.cover())
                     item = xbmcgui.ListItem(
-                        album.name(), str(album.year()),
-                        'http://localhost:8080/image/%s.jpg' % album.cover()
+                        album.name(), str(album.year()), image_url
                     )
-                    item.setProperty('real_index', str(index))
+                    item.setProperty('ListIndex', str(index))
                     l.addItem(item)
             
             return True

@@ -36,8 +36,8 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
 
 
 class BasePlaylistLoader:
-    __session = None
     __playlist = None
+    __playlist_manager = None
     __checker = None
     
     #Playlist attributes
@@ -48,10 +48,10 @@ class BasePlaylistLoader:
     __is_loaded = None
     
     
-    def __init__(self, session, playlist):
+    def __init__(self, session, playlist, playlist_manager):
         #Initialize all instance vars
-        self.__session = session
         self.__playlist = playlist
+        self.__playlist_manager = playlist_manager
         self.__checker = BulkConditionChecker()
         self.__is_loaded = False
         
@@ -59,8 +59,8 @@ class BasePlaylistLoader:
         playlist.add_callbacks(PlaylistCallbacks(self))
         
         #Fire playlist loading if neccesary
-        if not playlist.is_in_ram(self.__session):
-            playlist.set_in_ram(self.__session, True)
+        if not playlist.is_in_ram(session):
+            playlist.set_in_ram(session, True)
         
         #And finish the rest in the background
         self.start_loading()
@@ -144,13 +144,12 @@ class BasePlaylistLoader:
     
     
     def _load_thumbnails(self):
+        pm = self.__playlist_manager
         
         #If playlist has an image
         playlist_image = self.__playlist.get_image()
         if playlist_image is not None:
-            thumbnails = [
-                'http://localhost:8080/image/%s.jpg' % playlist_image
-            ]
+            thumbnails = [pm.get_image_url(playlist_image)]
         
         #Otherwise get them from the album covers
         else:
@@ -160,9 +159,10 @@ class BasePlaylistLoader:
                 self._wait_for_track_metadata(item)
                 
                 #And append the cover if it's new
-                cover = 'http://localhost:8080/image/%s.jpg' % item.album().cover()
-                if cover not in thumbnails:
-                    thumbnails.append(cover)
+                image_id = item.album().cover()
+                image_url = pm.get_image_url(image_id)
+                if image_url not in thumbnails:
+                    thumbnails.append(image_url)
                 
                 #If we reached to the desired thumbnail count...
                 if len(thumbnails) == 4:
@@ -248,9 +248,9 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
     __container_loader = None
     
     
-    def __init__(self, session, playlist, container_loader):
+    def __init__(self, session, playlist, playlist_manager, container_loader):
         self.__container_loader = weakref.proxy(container_loader)
-        BasePlaylistLoader.__init__(self, session, playlist)
+        BasePlaylistLoader.__init__(self, session, playlist, playlist_manager)
     
     
     @run_in_thread(threads_per_class=10, single_instance=True)
@@ -321,8 +321,8 @@ class FullPlaylistLoader(BasePlaylistLoader):
 
 
 class SpecialPlaylistLoader(BasePlaylistLoader):
-    def __init__(self, session, playlist, name, thumbnails):
-        BasePlaylistLoader.__init__(self, session, playlist)
+    def __init__(self, session, playlist, playlist_manager, name, thumbnails):
+        BasePlaylistLoader.__init__(self, session, playlist, playlist_manager)
         self._set_name(name)
         self._set_thumbnails(thumbnails)
     
@@ -379,6 +379,7 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
 class ContainerLoader:
     __session = None
     __container = None
+    __playlist_manager = None
     __playlists = None
     __checker = None
     __loading_lock = None
@@ -386,9 +387,10 @@ class ContainerLoader:
     __is_loaded = None
     
     
-    def __init__(self, session, container):
+    def __init__(self, session, container, playlist_manager):
         self.__session = session
         self.__container = container
+        self.__playlist_manager = playlist_manager
         self.__playlists = []
         self.__checker = BulkConditionChecker()
         self.__loading_lock = threading.RLock()
@@ -425,7 +427,9 @@ class ContainerLoader:
             
             #Instantiate a loader if it's a real playlist
             if self.is_playlist(position):
-                item = ContainerPlaylistLoader(self.__session, playlist, self)
+                item = ContainerPlaylistLoader(
+                    self.__session, playlist, self.__playlist_manager, self 
+                )
             
             #Ignore if it's not a real playlist
             else:

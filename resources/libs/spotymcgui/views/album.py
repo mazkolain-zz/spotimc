@@ -5,7 +5,7 @@ Created on 20/08/2011
 '''
 import xbmc, xbmcgui
 from spotymcgui.views import BaseListContainerView
-from spotify import albumbrowse, link, track
+from spotify import albumbrowse, track
 
 
 
@@ -31,13 +31,15 @@ class AlbumTracksView(BaseListContainerView):
     
     def _play_selected_track(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
-        pos = int(item.getProperty("real_index"))
+        pos = int(item.getProperty("ListIndex"))
+        
+        print 'clicked pos: %s' % pos
         
         #If we have a valid index
         if pos is not None:
-            #track_item = self.__albumbrowse.track(int(pos))
+            session = view_manager.get_var('session')
             playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(self.__albumbrowse.tracks(), pos)
+            playlist_manager.play(self.__albumbrowse.tracks(), session, pos)
     
     
     def click(self, view_manager, control_id):
@@ -46,7 +48,7 @@ class AlbumTracksView(BaseListContainerView):
         
         elif control_id == AlbumTracksView.context_toggle_star:
             item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty("real_index"))
+            pos = int(item.getProperty("ListIndex"))
             
             if pos is not None:
                 session = view_manager.get_var('session')
@@ -68,79 +70,56 @@ class AlbumTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(AlbumTracksView.list_id)
     
     
-    def _have_multiple_discs(self, track_list):
-        for item in track_list:
+    def _have_multiple_discs(self):
+        for item in self.__albumbrowse.tracks():
             if item.disc() > 1:
                 return True
         
         return False
     
     
-    def _set_album_info(self, window, album, artist):
-        window.setProperty("AlbumCover", "http://localhost:8080/image/%s.jpg" % album.cover())
+    def _set_album_info(self, view_manager):
+        window = view_manager.get_window()
+        pm = view_manager.get_var('playlist_manager')
+        album = self.__albumbrowse.album()
+        artist = self.__albumbrowse.artist()
+        window.setProperty("AlbumCover", pm.get_image_url(album.cover()))
         window.setProperty("AlbumName", album.name())
         window.setProperty("ArtistName", artist.name())
     
     
-    def _add_disc_separator(self, list, disc_number):
+    def _add_disc_separator(self, list_obj, disc_number):
         item = xbmcgui.ListItem()
         item.setProperty("IsDiscSeparator", "true")
         item.setProperty("DiscNumber", str(disc_number))
-        list.addItem(item)
-    
-    
-    def _add_track(self, list, track, real_index, is_starred):
-        track_link = link.create_from_track(track)
-        track_id = track_link.as_string()[14:]
-        track_url = "http://localhost:8080/track/%s.wav" % track_id
-        
-        item = xbmcgui.ListItem(path=track_url)
-        info = {
-            "title": track.name(),
-            "duration": track.duration() / 1000,
-            "tracknumber": track.index(),
-        }
-        
-        if is_starred:
-            item.setProperty('IsStarred', 'true')
-        else:
-            item.setProperty('IsStarred', 'false')
-        
-        #Set rating points for this track
-        rating_points = int(round(track.popularity() * 5 / 100.0))
-        item.setProperty("rating_points", str(rating_points))
-        
-        item.setProperty("real_index", str(real_index))
-        item.setInfo('music', info)
-        list.addItem(item)
+        list_obj.addItem(item)
     
     
     def render(self, view_manager):
         if self.__albumbrowse.is_loaded():
             session = view_manager.get_var('session')
-            list = self.get_list(view_manager)
-            list.reset()
+            pm = view_manager.get_var('playlist_manager')
+            
+            #Reset list
+            list_obj = self.get_list(view_manager)
+            list_obj.reset()
             
             #Set album info
-            self._set_album_info(
-                view_manager.get_window(),
-                self.__albumbrowse.album(),
-                self.__albumbrowse.artist()
-            )
+            self._set_album_info(view_manager)
             
             #For disc grouping
             last_disc = None
-            multiple_discs = self._have_multiple_discs(
-                self.__albumbrowse.tracks()
-            )
+            multiple_discs = self._have_multiple_discs()
             
-            for idx, item in enumerate(self.__albumbrowse.tracks()):
+            #Iterate over the track list
+            for list_index, track in enumerate(self.__albumbrowse.tracks()):
                 #If disc was changed add a separator
-                if multiple_discs and last_disc != item.disc():
-                    last_disc = item.disc()
-                    self._add_disc_separator(list, last_disc)
+                if multiple_discs and last_disc != track.disc():
+                    last_disc = track.disc()
+                    self._add_disc_separator(list_obj, last_disc)
                 
-                is_starred = item.is_starred(session)
-                self._add_track(list, item, idx, is_starred)
+                #Add the track item
+                url, info = pm.create_track_info(track, session, list_index)
+                list_obj.addItem(info)
             
             return True

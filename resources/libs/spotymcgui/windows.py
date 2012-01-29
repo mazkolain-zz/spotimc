@@ -27,6 +27,7 @@ class MainWindow(xbmcgui.WindowXML):
     __skin_dir = None
     __view_manager = None
     __session = None
+    __playlist_manager = None
     
     
     #Button id constants
@@ -49,14 +50,13 @@ class MainWindow(xbmcgui.WindowXML):
         
     
     def initialize(self, session, proxy_runner):
-        playlist_manager = playback.PlaylistManager(proxy_runner.get_port())
+        self.__session = session
+        self.__playlist_manager = playback.PlaylistManager(proxy_runner.get_port())
         
         #Shared vars with views
-        self.__view_manager.set_var('playlist_manager', playlist_manager)
+        self.__view_manager.set_var('playlist_manager', self.__playlist_manager)
         self.__view_manager.set_var('session', weakref.proxy(session))
         self.__view_manager.set_var('proxy_runner', weakref.proxy(proxy_runner))
-        
-        self.__session = session
     
     
     def show_loading(self):
@@ -116,7 +116,8 @@ class MainWindow(xbmcgui.WindowXML):
         elif control_id == MainWindow.playlists_button:
             self.setProperty('MainActiveTab', 'playlists')
             c = self.__session.playlistcontainer()
-            v = views.playlists.list.PlaylistView(self.__session, c)
+            pm = self.__playlist_manager
+            v = views.playlists.list.PlaylistView(self.__session, c, pm)
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
         
