@@ -4,7 +4,7 @@ Created on 23/09/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotify import link
+from spotify import link, track
 import time
 from __main__ import __addon_version__
 import spotifyproxy
@@ -87,21 +87,21 @@ class PlaylistManager:
             return int(math.ceil(popularity * 6 / 100.0)) - 1
         
     
-    def create_track_info(self, track, session, list_index = None):
-        album = track.album().name()
-        artist = ','.join([artist.name() for artist in track.artists()])
-        image_id = track.album().cover()
+    def create_track_info(self, track_obj, session, list_index = None):
+        album = track_obj.album().name()
+        artist = ', '.join([artist.name() for artist in track_obj.artists()])
+        image_id = track_obj.album().cover()
         image_url = self.get_image_url(image_id)
-        track_url = self.get_track_url(track)
-        rating_points = str(self._calculate_track_rating(track))
+        track_url = self.get_track_url(track_obj)
+        rating_points = str(self._calculate_track_rating(track_obj))
         
         item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
         info = {
-            "title": track.name(),
+            "title": track_obj.name(),
             "album": album,
             "artist": artist,
-            "duration": track.duration() / 1000,
-            "tracknumber": track.index(),
+            "duration": track_obj.duration() / 1000,
+            "tracknumber": track_obj.index(),
             "rating": rating_points,
         }
         item.setInfo("music", info)
@@ -109,10 +109,15 @@ class PlaylistManager:
         if list_index is not None:
             item.setProperty('ListIndex', str(list_index))
         
-        if track.is_starred(session):
+        if track_obj.is_starred(session):
             item.setProperty('IsStarred', 'true')
         else:
             item.setProperty('IsStarred', 'false')
+        
+        if track_obj.get_availability(session) == track.TrackAvailability.Available:
+            item.setProperty('IsAvailable', 'true')
+        else:
+            item.setProperty('IsAvailable', 'false')
         
         #Rating points, again as a property for the custom stars
         item.setProperty('RatingPoints', rating_points)
