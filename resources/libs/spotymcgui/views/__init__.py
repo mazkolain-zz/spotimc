@@ -6,7 +6,20 @@ Created on 12/07/2011
 import xbmc
 import xbmcgui
 import weakref
+from inspect import isfunction
 
+
+def iif(cond, on_true, on_false):
+    if cond:
+        if not isfunction(on_true):
+            return on_true
+        else:
+            return on_true()
+    else:
+        if not isfunction(on_false):
+            return on_false
+        else:
+            return on_false()
 
 
 class ViewManager:
@@ -123,16 +136,27 @@ class ViewManager:
 
 
 class BaseView:
+    __is_visible = None
+    
+    
+    def __init__(self):
+        self.__is_visible = False
+    
+    
+    def is_visible(self):
+        return self.__is_visible
+    
+        
     def click(self, view_manager, control_id):
         pass
     
     
     def show(self, view_manager, give_focus=True):
-        pass
+        self.__is_visible = True
     
     
     def hide(self, view_manager):
-        pass
+        self.__is_visible = False
     
     
     def back(self, view_manager):
@@ -159,6 +183,8 @@ class BaseContainerView(BaseView):
     
     
     def show(self, view_manager, give_focus=True):
+        BaseView.show(self, view_manager, give_focus)
+        
         #Hide container and show loading anim.
         self.get_container(view_manager).setVisibleCondition('false')
         view_manager.get_window().show_loading()
@@ -176,6 +202,8 @@ class BaseContainerView(BaseView):
     
     
     def hide(self, view_manager):
+        BaseView.hide(self, view_manager)
+        
         #Just hide the container
         self.get_container(view_manager).setVisibleCondition('false')
 
@@ -190,6 +218,8 @@ class BaseListContainerView(BaseContainerView):
     
     
     def show(self, view_manager, give_focus=True):
+        BaseView.show(self, view_manager, give_focus)
+        
         #Hide container and show loading anim.
         self.get_container(view_manager).setVisibleCondition('false')
         view_manager.get_window().show_loading()
@@ -221,6 +251,8 @@ class BaseListContainerView(BaseContainerView):
     
     
     def hide(self, view_manager):
+        BaseView.hide(self, view_manager)
+        
         #Keep the list position
         list_obj = self.get_list(view_manager)
         self.__list_position = list_obj.getSelectedPosition()

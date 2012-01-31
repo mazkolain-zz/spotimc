@@ -457,6 +457,15 @@
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
 			</control>
+			<control type="image">
+				<posx>88</posx>
+				<posy>0</posy>
+				<width>520</width>
+				<height>46</height>
+				<texture>common/item-bg.png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator) + !ListItem.Property(IsAvailable)</visible>
+				<colordiffuse>d8ffffff</colordiffuse>
+			</control>
 		</itemlayout>
 		<focusedlayout width="816" height="48">
 			<control type="image">
@@ -561,6 +570,15 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+			</control>
+			<control type="image">
+				<posx>88</posx>
+				<posy>0</posy>
+				<width>520</width>
+				<height>46</height>
+				<texture>common/item-bg-selected.png</texture>
+				<visible>!ListItem.Property(IsDiscSeparator) + !ListItem.Property(IsAvailable)</visible>
+				<colordiffuse>d8ffffff</colordiffuse>
 			</control>
 		</focusedlayout>
 	</include>
