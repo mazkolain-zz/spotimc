@@ -12,6 +12,7 @@ from spotify import link, track
 
 from spotymcgui.views.album import AlbumTracksView
 from spotymcgui.views.artists import open_artistbrowse_albums
+from spotymcgui.settings import SettingsManager
 
 
 
@@ -179,6 +180,8 @@ class PlaylistDetailView(BaseListContainerView):
             session = view_manager.get_var('session')
             pm = view_manager.get_var('playlist_manager')
             list_obj = self.get_list(view_manager)
+            sm = SettingsManager()
+            hide_unplayable = sm.get_audio_hide_unplayable()
             
             #Set the thumbnails
             self._set_playlist_image(view_manager, self.__loader.get_thumbnails())
@@ -190,9 +193,11 @@ class PlaylistDetailView(BaseListContainerView):
             list_obj.reset()
             
             #Draw the items on the list
-            for list_index, track in enumerate(self.__loader.get_tracks()):
-                url, info = pm.create_track_info(track, session, list_index)
-                list_obj.addItem(info)
+            for list_index, track_obj in enumerate(self.__loader.get_tracks()):
+                is_available = track_obj.get_availability(session) == track.TrackAvailability.Available
+                if is_available or not hide_unplayable:
+                    url, info = pm.create_track_info(track_obj, session, list_index)
+                    list_obj.addItem(info)
             
             return True
 
