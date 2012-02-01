@@ -9,7 +9,7 @@ __all__ = ["mainwindow"]
 
 import os
 import os.path
-import xbmc
+import xbmc, xbmcgui
 import windows
 import threading
 from appkey import appkey
@@ -53,6 +53,11 @@ class SpotymcCallbacks(SessionCallbacks):
     
     def streaming_error(self, session, error):
         xbmc.log("libspotify: streaming error: %d" % error)
+    
+    def play_token_lost(self, session):
+        xbmc.executebuiltin('playercontrol(stop)')
+        dlg = xbmcgui.Dialog()
+        dlg.ok('Playback stopped', 'This account is in use on another device.')
     
     def end_of_track(self, session):
         self.__buf.set_track_ended()
