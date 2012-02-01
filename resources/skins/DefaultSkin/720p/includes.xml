@@ -683,6 +683,15 @@
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
 			</control>
+			<control type="image">
+				<posx>48</posx>
+				<posy>2</posy>
+				<width>416</width>
+				<height>30</height>
+				<texture>common/item-bg.png</texture>
+				<visible>!ListItem.Property(IsAvailable)</visible>
+				<colordiffuse>d8ffffff</colordiffuse>
+			</control>
 		</itemlayout>
 		<focusedlayout width="1168" height="32">
 			<control type="image">
@@ -766,6 +775,15 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+			</control>
+			<control type="image">
+				<posx>48</posx>
+				<posy>2</posy>
+				<width>416</width>
+				<height>30</height>
+				<texture>common/item-bg-selected.png</texture>
+				<visible>!ListItem.Property(IsAvailable)</visible>
+				<colordiffuse>d8ffffff</colordiffuse>
 			</control>
 		</focusedlayout>
 	</include>
