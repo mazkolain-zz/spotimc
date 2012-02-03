@@ -19,14 +19,14 @@
 		<pulseonselect>false</pulseonselect>
 	</include>
 	
-	
 	<include name="spotymc_nowplaying_text">
 		<height>16</height>
 		<visible>true</visible>
 		<align>left</align>
 		<aligny>center</aligny>
-		<scroll>false</scroll>
-		<number></number>
+		<scroll>true</scroll>
+		<scrollout>false</scrollout>
+		<pauseatend>2000</pauseatend>
 		<angle>0</angle>
 		<haspath>false</haspath>
 		<font>spotymc_font16</font>
@@ -34,7 +34,6 @@
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
 		<scrollspeed>50</scrollspeed>
-		<scrollsuffix>-</scrollsuffix>
 	</include>
 	
 	<include name="spotymc_nowplaying_time">

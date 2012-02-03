@@ -101,7 +101,7 @@
 					<control type="togglebutton" id="212">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
-						<width>152</width>
+						<width>168</width>
 						<label>New Stuff</label>
 						<usealttexture>!StringCompare(Container.Property(MainActiveTab),newstuff)</usealttexture>
 					</control>
@@ -109,7 +109,7 @@
 					<control type="togglebutton" id="213">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
-						<width>136</width>
+						<width>152</width>
 						<label>Playlists</label>
 						<usealttexture>!StringCompare(Container.Property(MainActiveTab),playlists)</usealttexture>
 					</control>
@@ -117,7 +117,7 @@
 					<control type="togglebutton" id="214">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
-						<width>120</width>
+						<width>152</width>
 						<label>Search</label>
 						<usealttexture>!StringCompare(Container.Property(MainActiveTab),search)</usealttexture>
 					</control>
@@ -125,7 +125,7 @@
 					<control type="togglebutton" id="215">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
-						<width>128</width>
+						<width>144</width>
 						<label>More...</label>
 						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
 					</control>
@@ -133,7 +133,7 @@
 					<control type="togglebutton" id="216">
 						<include>spotymc_topmenu_option</include>
 						<visible>true</visible>
-						<width>96</width>
+						<width>112</width>
 						<label>Exit</label>
 						<usealttexture>true</usealttexture>
 					</control>
@@ -143,7 +143,7 @@
 	        	<control type="group">
 		        	<description>Main Menu</description>
 		            <defaultcontrol>201</defaultcontrol>
-		            <visible>Player.Playing</visible>
+		            <visible>Player.Playing | Player.Paused</visible>
 		            <posx>816</posx>
 		            <posy>48</posy>
 		            <width>320</width>
@@ -193,12 +193,22 @@
 						<posx>80</posx>
 						<posy>12</posy>
 						<width>224</width>
-						<info>MusicPlayer.Title</info>
+						<label>Now playing:</label>
+						<visible>Player.Playing</visible>
 					</control>
 					
 					<control type="label">
 						<include>spotymc_nowplaying_text</include>
-						<label>by $INFO[MusicPlayer.Artist]</label>
+						<posx>80</posx>
+						<posy>12</posy>
+						<width>224</width>
+						<label>Paused:</label>
+						<visible>Player.Paused</visible>
+					</control>
+					
+					<control type="fadelabel">
+						<include>spotymc_nowplaying_text</include>
+						<label>$INFO[MusicPlayer.Title] by $INFO[MusicPlayer.Artist]</label>
 						<posx>80</posx>
 						<posy>32</posy>
 						<width>224</width>
