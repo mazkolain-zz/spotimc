@@ -5,7 +5,7 @@ Created on 22/08/2011
 '''
 import xbmc
 
-from spotify import playlist, playlistcontainer, BulkConditionChecker
+from spotify import playlist, playlistcontainer, BulkConditionChecker, ErrorType
 
 from spotify.utils.iterators import CallbackIterator
 
@@ -110,7 +110,7 @@ class BasePlaylistLoader:
             return True
         
         #If track has an error stop further processing
-        if track.error() != 0:
+        if track.error() not in [ErrorType.Ok, ErrorType.IsLoading]:
             return True
         
         #Always test for the track data
