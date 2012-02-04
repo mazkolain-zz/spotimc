@@ -88,41 +88,47 @@ class PlaylistManager:
         
     
     def create_track_info(self, track_obj, session, list_index = None):
-        album = track_obj.album().name()
-        artist = ', '.join([artist.name() for artist in track_obj.artists()])
-        image_id = track_obj.album().cover()
-        image_url = self.get_image_url(image_id)
-        track_url = self.get_track_url(track_obj)
-        rating_points = str(self._calculate_track_rating(track_obj))
+        #Track is ok
+        if track_obj.is_loaded() and track_obj.error() == 0:
+            album = track_obj.album().name()
+            artist = ', '.join([artist.name() for artist in track_obj.artists()])
+            image_id = track_obj.album().cover()
+            image_url = self.get_image_url(image_id)
+            track_url = self.get_track_url(track_obj)
+            rating_points = str(self._calculate_track_rating(track_obj))
+            
+            item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
+            info = {
+                "title": track_obj.name(),
+                "album": album,
+                "artist": artist,
+                "duration": track_obj.duration() / 1000,
+                "tracknumber": track_obj.index(),
+                "rating": rating_points,
+            }
+            item.setInfo("music", info)
+            
+            if list_index is not None:
+                item.setProperty('ListIndex', str(list_index))
+            
+            if track_obj.is_starred(session):
+                item.setProperty('IsStarred', 'true')
+            else:
+                item.setProperty('IsStarred', 'false')
+            
+            if track_obj.get_availability(session) == track.TrackAvailability.Available:
+                item.setProperty('IsAvailable', 'true')
+            else:
+                item.setProperty('IsAvailable', 'false')
+            
+            #Rating points, again as a property for the custom stars
+            item.setProperty('RatingPoints', rating_points)
+            
+            return track_url, item
         
-        item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
-        info = {
-            "title": track_obj.name(),
-            "album": album,
-            "artist": artist,
-            "duration": track_obj.duration() / 1000,
-            "tracknumber": track_obj.index(),
-            "rating": rating_points,
-        }
-        item.setInfo("music", info)
-        
-        if list_index is not None:
-            item.setProperty('ListIndex', str(list_index))
-        
-        if track_obj.is_starred(session):
-            item.setProperty('IsStarred', 'true')
+        #Track has errors
         else:
-            item.setProperty('IsStarred', 'false')
-        
-        if track_obj.get_availability(session) == track.TrackAvailability.Available:
-            item.setProperty('IsAvailable', 'true')
-        else:
-            item.setProperty('IsAvailable', 'false')
-        
-        #Rating points, again as a property for the custom stars
-        item.setProperty('RatingPoints', rating_points)
-        
-        return track_url, item
+            return '', xbmcgui.ListItem()
     
     
     def _stop_playback(self):
@@ -141,7 +147,7 @@ class PlaylistManager:
         
         #And iterate over the give track list
         for list_index, track in enumerate(track_list):
-            self.__track_list.append(track)
+            self.__track_list.append(track)  
             path, info = self.create_track_info(track, session, list_index)
             playlist.add(path, info)
         

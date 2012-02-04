@@ -98,7 +98,7 @@ class BasePlaylistLoader:
         return self.__is_collaborative
     
     
-    def _track_is_fully_loaded(self, track, test_album=True, test_artists=True):
+    def _track_is_ready(self, track, test_album=True, test_artists=True):
         def album_is_loaded():
             album = track.album()
             return album is not None and album.is_loaded()
@@ -107,6 +107,10 @@ class BasePlaylistLoader:
             for item in track.artists():
                 if item is None or not item.is_loaded():
                     return False
+            return True
+        
+        #If track has an error stop further processing
+        if track.error() != 0:
             return True
         
         #Always test for the track data
@@ -134,7 +138,7 @@ class BasePlaylistLoader:
     
     def _wait_for_track_metadata(self, track):
         def test_is_loaded():
-            return self._track_is_fully_loaded(
+            return self._track_is_ready(
                 track, test_album=True, test_artists=False
             )
         
@@ -158,15 +162,17 @@ class BasePlaylistLoader:
                 #Wait until this track is fully loaded
                 self._wait_for_track_metadata(item)
                 
-                #And append the cover if it's new
-                image_id = item.album().cover()
-                image_url = pm.get_image_url(image_id)
-                if image_url not in thumbnails:
-                    thumbnails.append(image_url)
-                
-                #If we reached to the desired thumbnail count...
-                if len(thumbnails) == 4:
-                    break
+                #Check if item was loaded without errors
+                if item.is_loaded() and item.error() == 0:
+                    #Append the cover if it's new
+                    image_id = item.album().cover()
+                    image_url = pm.get_image_url(image_id)
+                    if image_url not in thumbnails:
+                        thumbnails.append(image_url)
+                    
+                    #If we reached to the desired thumbnail count...
+                    if len(thumbnails) == 4:
+                        break
         
         #If the stored thumbnail data changed...
         if self.__thumbnails != thumbnails:
@@ -278,7 +284,7 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
 class FullPlaylistLoader(BasePlaylistLoader):
     def _check_track(self, track):
         def track_is_loaded():
-            return self._track_is_fully_loaded(
+            return self._track_is_ready(
                 track, test_album=True, test_artists=True
             )
         
