@@ -8,9 +8,13 @@ __addon_version__ = '0.1'
 
 
 #Gather addon information
-import os.path, xbmcaddon
+import os.path, xbmcaddon, xbmcgui
 addon_cfg = xbmcaddon.Addon("script.audio.spotymc")
 addon_dir = addon_cfg.getAddonInfo('path')
+
+#Open the loading window
+loadingwin = xbmcgui.WindowXML("loading-window.xml", addon_dir, "DefaultSkin")
+loadingwin.show()
 
 #Add the dll search path
 import envutils
@@ -74,3 +78,6 @@ _spotify.unload_library()
 #Cleanup fonts and includes
 del fm
 del im
+
+#Close the background loading window
+loadingwin.close()

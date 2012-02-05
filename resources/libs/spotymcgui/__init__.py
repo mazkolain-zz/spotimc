@@ -21,8 +21,10 @@ from spotifyproxy.audio import BufferManager
 from threading import Event
 
 import weakref
+import dialogs
 
 from settings import SettingsManager, CacheManagement, StreamQuality
+
 
 
 class SpotymcCallbacks(SessionCallbacks):
@@ -133,6 +135,21 @@ def set_settings(settings_obj, session):
 
 
 
+def do_login(session, script_path, skin_dir):
+    #If we have a remembered user let's relogin
+    if session.remembered_user() is not None:
+        session.relogin()
+        return True
+    
+    #Otherwise let's do a normal login process
+    else:
+        loginwin = dialogs.LoginWindow(
+            "login-window.xml", script_path, skin_dir, session
+        )
+        loginwin.doModal()
+        return not loginwin.is_cancelled()
+
+
 def main(addon_dir):
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
@@ -161,25 +178,30 @@ def main(addon_dir):
     #Now that we have a session, set settings
     set_settings(settings_obj, sess)
     
-    #Initialize & start proxy and mainloop runners
+    #Initialize libspotify's main loop handler on a separate thread
     ml_runner = MainLoopRunner(ml, sess)
-    proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0')
     ml_runner.start()
-    proxy_runner.start()
-    print 'port: %s' % proxy_runner.get_port()
+   
+    #If login was successful start main window
+    if do_login(sess, addon_dir, "DefaultSkin"):
+        proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0')
+        proxy_runner.start()
+        
+        print 'port: %s' % proxy_runner.get_port()
+        
+        #Start main window and enter it's main loop
+        mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
+        mainwin.initialize(sess, proxy_runner)
+        mainwin.doModal()
+        
+        #Deinit sequence
+        xbmc.executebuiltin('PlayerControl(Stop)')
+        proxy_runner.stop()
+        
+        #Logout
+        sess.logout()
+        logout_event.wait(10)
     
-    #Initialize window
-    mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
-    mainwin.initialize(sess, proxy_runner)
-    
-    #And finally the window's loop
-    mainwin.doModal()
-    
-    #Deinit sequence
-    xbmc.executebuiltin('PlayerControl(Stop)')
-    proxy_runner.stop()
+    #Stop main loop
     ml_runner.stop()
-    sess.logout()
-    logout_event.wait(10)
-    
     return sess

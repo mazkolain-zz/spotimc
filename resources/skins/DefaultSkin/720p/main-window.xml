@@ -2,7 +2,6 @@
     <defaultcontrol always="false">1000</defaultcontrol>
     <allowoverlay>yes</allowoverlay>
     <backgroundcolor>ff000000</backgroundcolor>
-    <animation effect="fade" time="300">WindowOpen</animation>
     <visible>true</visible>
     <zorder>0</zorder>
     <previouswindow></previouswindow>

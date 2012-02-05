@@ -21,14 +21,10 @@ import playback
 import weakref
 
 
-class MainWindow(xbmcgui.WindowXML): 
-    __file = None
-    __script_path = None
-    __skin_dir = None
+class MainWindow(xbmcgui.WindowXML):
     __view_manager = None
     __session = None
     __playlist_manager = None
-    
     
     #Button id constants
     now_playing_button = 201
@@ -43,9 +39,6 @@ class MainWindow(xbmcgui.WindowXML):
     
     
     def __init__(self, file, script_path, skin_dir):
-        self.__file = file
-        self.__script_path = script_path
-        self.__skin_dir = skin_dir
         self.__view_manager = views.ViewManager(self)
         
     
@@ -69,27 +62,10 @@ class MainWindow(xbmcgui.WindowXML):
         c.setVisibleCondition("False")
 
 
-    def _login(self):
-        #If we have a remembered user let's relogin
-        if self.__session.remembered_user() is not None:
-            self.__session.relogin()
-        
-        #Otherwise let's do a normal login process
-        else:
-            loginwin = dialogs.LoginWindow(
-                "login-window.xml", self.__script_path, self.__skin_dir, self.__session
-            )
-            loginwin.doModal()
-            del loginwin
-
-
     def onInit(self):
         # Check if we already added views because after
         # exiting music vis this gets called again.  
         if self.__view_manager.num_views() == 0:
-            #Blocking login operation
-            self._login()
-        
             #Start the new stuff view by default
             self.setProperty('MainActiveTab', 'newstuff')
             v = views.newstuff.NewStuffView(self.__session)
