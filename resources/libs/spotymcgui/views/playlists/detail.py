@@ -4,7 +4,7 @@ Created on 27/10/2011
 @author: mikel
 '''
 import xbmcgui
-from spotymcgui.views import BaseListContainerView
+from spotymcgui.views import BaseListContainerView, iif
 
 import loaders
 
@@ -139,18 +139,14 @@ class PlaylistDetailView(BaseListContainerView):
         session = view_manager.get_var('session')
         current_username = session.user().canonical_name()
         playlist_username = self.__playlist.owner().canonical_name()
-        
-        if current_username != playlist_username:
-            window.setProperty("PlaylistDetailShowOwner", "true")
+        show_owner = current_username != playlist_username
+        window.setProperty("PlaylistDetailShowOwner", iif(show_owner, "true", "false"))
+        if show_owner:
             window.setProperty("PlaylistDetailOwner", str(playlist_username))
-        else:
-            window.setProperty("PlaylistDetailShowOwner", "false")
     
         #Collaboratie status
-        if self.__playlist.is_collaborative():
-            window.setProperty("PlaylistDetailCollaborative", "true")
-        else:
-            window.setProperty("PlaylistDetailCollaborative", "false")
+        is_collaborative_str = iif(self.__playlist.is_collaborative(), "true", "false")
+        window.setProperty("PlaylistDetailCollaborative", is_collaborative_str)
         
         #Length data
         window.setProperty("PlaylistDetailNumTracks", str(self.__playlist.num_tracks()))
@@ -164,15 +160,17 @@ class PlaylistDetailView(BaseListContainerView):
         if len(thumbnails) > 0:
             window = view_manager.get_window()
             
-            #Set cover info
-            if len(thumbnails) < 4:
-                window.setProperty("PlaylistDetailCoverLayout", "one")
-            else:
-                window.setProperty("PlaylistDetailCoverLayout", "four")
+            #Set cover layout info
+            cover_layout_str = iif(len(thumbnails) < 4, "one", "four")
+            window.setProperty("PlaylistDetailCoverLayout", cover_layout_str)
             
             #Now loop to set all the images
             for idx, thumb_item in enumerate(thumbnails):
-                window.setProperty("PlaylistDetailCoverItem%d" % (idx + 1), thumb_item)
+                item_num = idx + 1
+                is_remote = thumb_item.startswith("http://")
+                is_remote_str = iif(is_remote, "true", "false")
+                window.setProperty("PlaylistDetailCoverItem%d" % item_num, thumb_item)
+                window.setProperty("PlaylistDetailCoverItem%dIsRemote" % item_num, is_remote_str)
     
     
     def render(self, view_manager):

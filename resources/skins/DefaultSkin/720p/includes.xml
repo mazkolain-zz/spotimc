@@ -906,16 +906,28 @@
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
 			</control>
 			
-			<!-- Individual cover image -->
+			<!-- Individual cover image (remote) -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
 				<width>128</width>
 				<height>128</height>
-				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
+				<visible>SubString(ListItem.Property(CoverLayout),one) + ListItem.Property(CoverItem1IsRemote)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
+			</control>
+			
+			<!-- Individual cover image (local) -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>128</width>
+				<height>128</height>
+				<visible>SubString(ListItem.Property(CoverLayout),one) + !ListItem.Property(CoverItem1IsRemote)</visible>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ff969696</colordiffuse>
+				<texture>$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			
 			<!-- Four cover image group -->
@@ -970,6 +982,7 @@
 				<visible>ListItem.Property(PlaylistCollaborative)</visible>
 			</control>
 		</itemlayout>
+		
 		<focusedlayout width="592" height="160">
 			<control type="image">
 				<posx>0</posx>
@@ -978,7 +991,6 @@
 				<height>144</height>
 				<texture>common/item-bg-selected.png</texture>
 			</control>
-			
 			
             <!-- Playlist name (no owner info) -->
             <control type="label">
@@ -1021,16 +1033,28 @@
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
 			</control>
 			
-			<!-- Individual cover image -->
+			<!-- Individual cover image (remote) -->
 			<control type="image">
 				<posx>8</posx>
 				<posy>8</posy>
 				<width>128</width>
 				<height>128</height>
-				<visible>SubString(ListItem.Property(CoverLayout),one)</visible>
+				<visible>SubString(ListItem.Property(CoverLayout),one) + ListItem.Property(CoverItem1IsRemote)</visible>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
 				<texture background="true">$INFO[ListItem.Property(CoverItem1)]</texture>
+			</control>
+			
+			<!-- Individual cover image (local) -->
+			<control type="image">
+				<posx>8</posx>
+				<posy>8</posy>
+				<width>128</width>
+				<height>128</height>
+				<visible>SubString(ListItem.Property(CoverLayout),one) + !ListItem.Property(CoverItem1IsRemote)</visible>
+				<aspectratio>scale</aspectratio>
+				<colordiffuse>ffffffff</colordiffuse>
+				<texture>$INFO[ListItem.Property(CoverItem1)]</texture>
 			</control>
 			
 			<!-- Four cover image group -->

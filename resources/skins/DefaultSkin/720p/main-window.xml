@@ -880,10 +880,22 @@
 							<posy>4</posy>
 							<width>128</width>
 							<height>128</height>
-							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one)</visible>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one) + Container.Property(PlaylistDetailCoverItem1IsRemote)</visible>
 							<aspectratio>scale</aspectratio>
 							<colordiffuse>ffffffff</colordiffuse>
 							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						
+						<!-- Individual cover image -->
+						<control type="image">
+							<posx>4</posx>
+							<posy>4</posy>
+							<width>128</width>
+							<height>128</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one) + !Container.Property(PlaylistDetailCoverItem1IsRemote)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture>$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
 						</control>
 						
 						<!-- Four cover image group -->

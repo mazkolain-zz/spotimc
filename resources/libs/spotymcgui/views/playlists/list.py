@@ -5,7 +5,7 @@ Created on 27/10/2011
 '''
 import xbmcgui
 
-from spotymcgui.views import BaseListContainerView
+from spotymcgui.views import BaseListContainerView, iif
 
 import loaders
 
@@ -85,32 +85,27 @@ class PlaylistView(BaseListContainerView):
         item.setProperty("PlaylistName", loader.get_name())
         item.setProperty("PlaylistNumTracks", str(loader.get_num_tracks()))
         
+        item.setProperty("PlaylistShowOwner", iif(show_owner, "true", "false"))
         if show_owner:
             owner_name = loader.get_playlist().owner().canonical_name()
-            item.setProperty("PlaylistShowOwner", "true")
             item.setProperty("PlaylistOwner", str(owner_name))
-        else:
-            item.setProperty("PlaylistShowOwner", "false")
-        
         
         #Collaborative status
-        if loader.get_is_collaborative():
-            item.setProperty("PlaylistCollaborative", "true")
-        else:
-            item.setProperty("PlaylistCollaborative", "false")
+        is_collaborative = loader.get_is_collaborative()
+        item.setProperty("PlaylistCollaborative", iif(is_collaborative, "true", "false"))
         
+        #Thumbnails
         thumbnails = loader.get_thumbnails()
-        
         if len(thumbnails) > 0:
             #Set cover info
-            if len(thumbnails) < 4:
-                item.setProperty("CoverLayout", "one")
-            else:
-                item.setProperty("CoverLayout", "four")
+            item.setProperty("CoverLayout", iif(len(thumbnails) < 4, "one", "four"))
             
             #Now loop to set all the images
             for idx, thumb_item in enumerate(thumbnails):
-                item.setProperty("CoverItem%d" % (idx + 1), thumb_item)
+                item_num = idx + 1
+                is_remote = thumb_item.startswith("http://")
+                item.setProperty("CoverItem%d" % item_num, thumb_item)
+                item.setProperty("CoverItem%dIsRemote" % item_num, iif(is_remote, "true", "false"))
         
         list.addItem(item)
     
