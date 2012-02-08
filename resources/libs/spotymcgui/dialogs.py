@@ -23,10 +23,10 @@ class LoginCallbacks(SessionCallbacks):
 
 class LoginWindow(xbmcgui.WindowXMLDialog):
     #Controld id's
-    username_input = 10
-    password_input = 11
-    login_button = 13
-    cancel_button = 14
+    username_input = 1101
+    password_input = 1102
+    login_button = 1104
+    cancel_button = 1105
     
     __file = None
     __script_path = None
@@ -79,7 +79,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     
     def do_close(self):
         self.__session.remove_callbacks(self.__callbacks)
-        c = self.getControl(1)
+        c = self.getControl(1000)
         c.setVisibleCondition("False")
         time.sleep(0.2)
         self.close()
