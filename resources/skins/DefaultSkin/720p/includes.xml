@@ -1233,7 +1233,6 @@
 		<width>416</width>
 		<height>40</height>
 		<visible>true</visible>
-		<label>johndoe</label>
 		<colordiffuse>ffffffff</colordiffuse>
 		<texturefocus>common/login-field-focus.png</texturefocus>
 		<texturenofocus>common/login-field.png</texturenofocus>

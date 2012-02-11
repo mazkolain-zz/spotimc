@@ -33,6 +33,10 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     login_button = 1104
     cancel_button = 1105
     
+    login_container = 1000
+    fields_container = 1100
+    loading_container = 1200
+    
     __file = None
     __script_path = None
     __skin_dir = None
@@ -81,7 +85,11 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
         else:
             self.setProperty('LoginErrorMessage', 'Unknown error.')
         
+        #Set error flag
         xbmc.executebuiltin('SetProperty(IsLoginError,true)')
+        
+        #Hide animation
+        self.getControl(LoginWindow.loading_container).setVisibleCondition('false')
     
     
     def _get_input_value(self, controlID):
@@ -99,12 +107,17 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
             'Skin.HasSetting(spotymc_session_remember)'
         )
         self.__session.login(self.__username, self.__password, remember_set)
+        
+        #Clear error status
         xbmc.executebuiltin('SetProperty(IsLoginError,false)')
+        
+        #SHow loading animation
+        self.getControl(LoginWindow.loading_container).setVisibleCondition('true')
     
     
     def do_close(self):
         self.__session.remove_callbacks(self.__callbacks)
-        c = self.getControl(1000)
+        c = self.getControl(LoginWindow.login_container)
         c.setVisibleCondition("False")
         time.sleep(0.2)
         self.close()
