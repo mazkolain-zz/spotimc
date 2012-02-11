@@ -6,6 +6,7 @@ Created on 25/06/2011
 import xbmc, xbmcgui
 import time
 from spotify.session import SessionCallbacks
+from spotify import ErrorType
 
 
 
@@ -18,6 +19,10 @@ class LoginCallbacks(SessionCallbacks):
     def logged_in(self, session, err):
         if err == 0:
             self.__dialog.do_close()
+        
+        else:
+            self.__dialog.set_error(err)
+
 
 
 
@@ -59,6 +64,25 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     #def onAction(self, action):
     #    pass
     
+    def set_error(self, code):
+        messages = {
+            ErrorType.ClientTooOld: 'Client is too old',
+            ErrorType.UnableToContactServer: 'Unable to contact server',
+            ErrorType.BadUsernameOrPassword: 'Bad username or password',
+            ErrorType.UserBanned: 'User is banned',
+            ErrorType.UserNeedsPremium: 'A premium account is required!',
+            ErrorType.OtherTransient: 'A transient error occurred. Try again after a few minutes.',
+            ErrorType.OtherPermanent: 'A permanent error occurred.',
+        }
+        
+        if code in messages:
+            escaped =  messages[code].replace('"', '\"')
+            xbmc.executebuiltin('SetProperty(LoginErrorMessage, "%s")' %  escaped)
+        else:
+            self.setProperty('LoginErrorMessage', 'Unknown error.')
+        
+        xbmc.executebuiltin('SetProperty(IsLoginError,true)')
+    
     
     def _get_input_value(self, controlID):
         c = self.getControl(controlID)
@@ -75,6 +99,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
             'Skin.HasSetting(spotymc_session_remember)'
         )
         self.__session.login(self.__username, self.__password, remember_set)
+        xbmc.executebuiltin('SetProperty(IsLoginError,false)')
     
     
     def do_close(self):
