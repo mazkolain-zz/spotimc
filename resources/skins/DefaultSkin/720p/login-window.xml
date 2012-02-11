@@ -242,7 +242,7 @@
 	        </control>
 	        
 	        <control type="label">
-				<width>272</width>
+				<width>256</width>
 				<height>48</height>
 				<textoffsety>0</textoffsety>
 				<font>spotymc_font18</font>
@@ -253,7 +253,7 @@
 				<aligny>center</aligny>
 				<wrapmultiline>true</wrapmultiline>
 				<info>Window.Property(LoginErrorMessage)</info>
-				<posx>24</posx>
+				<posx>32</posx>
 				<posy>20</posy>
 				<visible>true</visible>
 			</control>
