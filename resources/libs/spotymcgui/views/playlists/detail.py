@@ -196,7 +196,7 @@ class PlaylistDetailView(BaseListContainerView):
                     track_obj.error() == 0 and
                     (
                         track_obj.get_availability(session) == track.TrackAvailability.Available or
-                        sm.get_audio_hide_unplayable()
+                        not sm.get_audio_hide_unplayable()
                     )
                 )
                 
