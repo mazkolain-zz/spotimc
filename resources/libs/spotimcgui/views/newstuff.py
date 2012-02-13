@@ -4,8 +4,8 @@ Created on 05/08/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotymcgui.views import BaseListContainerView
-from spotymcgui.views import album
+from spotimcgui.views import BaseListContainerView
+from spotimcgui.views import album
 
 from spotify import search
 

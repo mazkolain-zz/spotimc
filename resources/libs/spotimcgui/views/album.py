@@ -4,7 +4,7 @@ Created on 20/08/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotymcgui.views import BaseListContainerView, iif
+from spotimcgui.views import BaseListContainerView, iif
 from spotify import albumbrowse, session, track
 
 

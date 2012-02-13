@@ -1,6 +1,6 @@
 <includes>
 	<!-- Styles for buttons in the top menu -->
-	<include name="spotymc_topmenu_option">
+	<include name="spotimc_topmenu_option">
 		<posx>0</posx>
 		<posy>0</posy>
 		<height>40</height>
@@ -9,7 +9,7 @@
 		<texturenofocus>main-menu/option-bg.png</texturenofocus>
 		<alttexturefocus>main-menu/option-bg-focus.png</alttexturefocus>
 		<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
-		<font>spotymc_font24</font>
+		<font>spotimc_font24</font>
 		<textcolor>FFFFFFFF</textcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 		<align>center</align>
@@ -19,7 +19,7 @@
 		<pulseonselect>false</pulseonselect>
 	</include>
 	
-	<include name="spotymc_nowplaying_text">
+	<include name="spotimc_nowplaying_text">
 		<height>16</height>
 		<visible>true</visible>
 		<align>left</align>
@@ -29,14 +29,14 @@
 		<pauseatend>2000</pauseatend>
 		<angle>0</angle>
 		<haspath>false</haspath>
-		<font>spotymc_font16</font>
+		<font>spotimc_font16</font>
 		<textcolor>ffffffff</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
 		<scrollspeed>50</scrollspeed>
 	</include>
 	
-	<include name="spotymc_nowplaying_time">
+	<include name="spotimc_nowplaying_time">
 		<height>16</height>
 		<visible>true</visible>
 		<align>left</align>
@@ -45,7 +45,7 @@
 		<number></number>
 		<angle>0</angle>
 		<haspath>false</haspath>
-		<font>spotymc_font14</font>
+		<font>spotimc_font14</font>
 		<textcolor>ffffffff</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
@@ -55,7 +55,7 @@
 	
 	
 	<!-- Left menu styles -->
-	<include name="spotymc_leftmenu_grouplist">
+	<include name="spotimc_leftmenu_grouplist">
 		<posx>16</posx>
 		<posy>8</posy>
 		<width>224</width>
@@ -70,12 +70,12 @@
 	</include>
 	
 	
-	<include name="spotymc_leftmenu_label">
+	<include name="spotimc_leftmenu_label">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>224</width>
 		<height>32</height>
-		<font>spotymc_font20</font>
+		<font>spotimc_font20</font>
 		<selectedcolor>ff545454</selectedcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -83,7 +83,7 @@
 		<shadowcolor>00000000</shadowcolor>
 	</include>
 	
-	<include name="spotymc_leftmenu_toggle">
+	<include name="spotimc_leftmenu_toggle">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>224</width>
@@ -93,7 +93,7 @@
 		<texturenofocus>common/left-menu-toggle-off.png</texturenofocus>
 		<alttexturefocus>common/left-menu-toggle-on-focus.png</alttexturefocus>
 		<alttexturenofocus>common/left-menu-toggle-on.png</alttexturenofocus>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
@@ -108,7 +108,7 @@
 		<ondown></ondown>
 	</include>
 	
-	<include name="spotymc_leftmenu_button">
+	<include name="spotimc_leftmenu_button">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>224</width>
@@ -117,7 +117,7 @@
 		<colordiffuse>FFFFFFFF</colordiffuse>
 		<texturefocus>common/left-menu-button-focus.png</texturefocus>
 		<texturenofocus>common/left-menu-button.png</texturenofocus>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
@@ -136,7 +136,7 @@
 	
 	
 	<!-- General text styles -->
-	<include name="spotymc_title">
+	<include name="spotimc_title">
 		<width>auto</width>
 		<height>16</height>
 		<visible>true</visible>
@@ -146,7 +146,7 @@
 		<number></number>
 		<angle>0</angle>
 		<haspath>false</haspath>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ff969696</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
@@ -154,7 +154,7 @@
 		<scrollsuffix>-</scrollsuffix>
 	</include>
 	
-	<include name="spotymc_subtitle">
+	<include name="spotimc_subtitle">
 		<width>auto</width>
 		<height>16</height>
 		<visible>true</visible>
@@ -164,7 +164,7 @@
 		<number></number>
 		<angle>0</angle>
 		<haspath>false</haspath>
-		<font>spotymc_font20</font>
+		<font>spotimc_font20</font>
 		<textcolor>ff969696</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
@@ -173,7 +173,7 @@
 	</include>
 	
 	<!-- General text styles -->
-	<include name="spotymc_title_grouped">
+	<include name="spotimc_title_grouped">
 		<width min="16" max="512">auto</width>
 		<height>32</height>
 		<visible>true</visible>
@@ -183,7 +183,7 @@
 		<number></number>
 		<angle>0</angle>
 		<haspath>false</haspath>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ff969696</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<wrapmultiline>false</wrapmultiline>
@@ -192,7 +192,7 @@
 	</include>
 	
 	<!-- Default scrollbar style -->
-	<include name="spotymc_scrollbar">
+	<include name="spotimc_scrollbar">
 		<visible>true</visible>
 		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
 		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
@@ -204,7 +204,7 @@
 		<showonepage>false</showonepage>
 	</include>
 	
-	<include name="spotymc_scrollbar_always">
+	<include name="spotimc_scrollbar_always">
 		<visible>true</visible>
 		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
 		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
@@ -218,7 +218,7 @@
 	
 	
 	<!-- Styles for album grids -->
-	<include name="spotymc_albumgrid">
+	<include name="spotimc_albumgrid">
 		<width>1152</width>
 		<height>528</height>
 		<viewtype label="list">wrap</viewtype>
@@ -243,7 +243,7 @@
 				<posy>0</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
 				<label>No albums</label>
@@ -265,7 +265,7 @@
 				<posy>24</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<aligny>center</aligny>
 				<selectedcolor>green</selectedcolor>
 				<align>left</align>
@@ -277,7 +277,7 @@
 				<posy>64</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
 				<info>ListItem.Label2</info>
@@ -302,7 +302,7 @@
 				<posy>0</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
 				<label>No albums</label>
@@ -324,7 +324,7 @@
 				<posy>24</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<aligny>center</aligny>
 				<selectedcolor>green</selectedcolor>
 				<align>left</align>
@@ -336,7 +336,7 @@
 				<posy>64</posy>
 				<width>256</width>
 				<height>16</height>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<aligny>center</aligny>
 				<align>left</align>
 				<info>ListItem.Label2</info>
@@ -347,7 +347,7 @@
 	
 	
 	<!-- General small track list (Artist tracks, Album tracks, ...) -->
-	<include name="spotymc_tracklist">
+	<include name="spotimc_tracklist">
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>
@@ -369,7 +369,7 @@
 				<height>32</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font32</font>
+				<font>spotimc_font32</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Property(DiscNumber)</info>
@@ -417,7 +417,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
@@ -430,7 +430,7 @@
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
@@ -451,7 +451,7 @@
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
@@ -482,7 +482,7 @@
 				<height>32</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font32</font>
+				<font>spotimc_font32</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Property(DiscNumber)</info>
@@ -530,7 +530,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.TrackNumber].</label>
@@ -543,7 +543,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
@@ -565,7 +565,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
@@ -584,7 +584,7 @@
 	
 	
 	<!-- Wide list (Search, playlist detail, ...) -->
-	<include name="spotymc_tracklist_wide">
+	<include name="spotimc_tracklist_wide">
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>
@@ -641,7 +641,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
@@ -653,7 +653,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
@@ -665,7 +665,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
@@ -677,7 +677,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
@@ -734,7 +734,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
@@ -746,7 +746,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
@@ -758,7 +758,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
@@ -770,7 +770,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
-				<font>spotymc_font20</font>
+				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
@@ -789,7 +789,7 @@
 	
 	
 	<!-- Track list header -->
-	<include name="spotymc_tracklist_wide_header">
+	<include name="spotimc_tracklist_wide_header">
 		<description>Track list header</description>
 		<defaultcontrol></defaultcontrol>
 		<visible>true</visible>
@@ -807,7 +807,7 @@
 			<width>400</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
-			<font>spotymc_font20</font>
+			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
 			<label>Track</label>
@@ -818,7 +818,7 @@
 			<width>288</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
-			<font>spotymc_font20</font>
+			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
 			<label>Artist</label>
@@ -829,7 +829,7 @@
 			<width>288</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
-			<font>spotymc_font20</font>
+			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
 			<label>Album</label>
@@ -840,7 +840,7 @@
 			<width>112</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
-			<font>spotymc_font20</font>
+			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
 			<label>Duration</label>
@@ -849,7 +849,7 @@
 	
 	
 	<!-- Playlist list -->
-	<include name="spotymc_playlist_list">
+	<include name="spotimc_playlist_list">
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>
@@ -872,7 +872,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font24</font>
+				<font>spotimc_font24</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Property(PlaylistName)</info>
@@ -886,7 +886,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ff969696</textcolor>
-                <font>spotymc_font24</font>
+                <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
                 <label>[COLOR ffffffff]$INFO[ListItem.Property(PlaylistName)][/COLOR] by $INFO[ListItem.Property(PlaylistOwner)]</label>
@@ -900,7 +900,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ff969696</textcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
@@ -999,7 +999,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ffffffff</textcolor>
-                <font>spotymc_font24</font>
+                <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
                 <info>ListItem.Property(PlaylistName)</info>
@@ -1013,7 +1013,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ffffffff</textcolor>
-                <font>spotymc_font24</font>
+                <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
                 <label>$INFO[ListItem.Property(PlaylistName)] by $INFO[ListItem.Property(PlaylistOwner)]</label>
@@ -1027,7 +1027,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<label>$INFO[ListItem.Property(PlaylistNumTracks)] tracks</label>
@@ -1113,7 +1113,7 @@
 	
 	
 	<!-- Playlist list -->
-	<include name="spotymc_extras_list">
+	<include name="spotimc_extras_list">
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>
@@ -1141,7 +1141,7 @@
 				<width>416</width>
 				<height>64</height>
 				<textcolor>ff969696</textcolor>
-				<font>spotymc_font60</font>
+				<font>spotimc_font60</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Label</info>
@@ -1169,7 +1169,7 @@
 				<width>416</width>
 				<height>64</height>
 				<textcolor>ffffffff</textcolor>
-				<font>spotymc_font60</font>
+				<font>spotimc_font60</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Label</info>
@@ -1179,7 +1179,7 @@
 	
 	
 	<!-- General styles for album covers -->
-	<include name="spotymc_albumcover">
+	<include name="spotimc_albumcover">
 		<visible>true</visible>
 		<colordiffuse>FFFFFFFF</colordiffuse>
 		<fadetime>200</fadetime>
@@ -1190,7 +1190,7 @@
 	
 	
 	<!-- Player buttons -->
-	<include name="spotymc_nowplaying_player_button">
+	<include name="spotimc_nowplaying_player_button">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>64</width>
@@ -1198,19 +1198,19 @@
 		<visible>true</visible>
 		<colordiffuse>FFFFFFFF</colordiffuse>
 		<label></label>
-		<font>spotymc_font20</font>
+		<font>spotimc_font20</font>
 		<textcolor>FFFFFFFF</textcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 	</include>
 	
-	<include name="spotymc_nowplaying_button">
+	<include name="spotimc_nowplaying_button">
 		<posx>0</posx>
 		<posy>0</posy>
 		<width>240</width>
 		<height>48</height>
 		<visible>true</visible>
 		<colordiffuse>FFFFFFFF</colordiffuse>
-		<font>spotymc_font20</font>
+		<font>spotimc_font20</font>
 		<textcolor>ff969696</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
@@ -1219,24 +1219,24 @@
 	
 	
 	<!-- Login form styles -->
-	<include name="spotymc_login_inputlabel">
+	<include name="spotimc_login_inputlabel">
 		<width>416</width>
 		<height>16</height>
-		<font>spotymc_font20</font>
+		<font>spotimc_font20</font>
 		<selectedcolor></selectedcolor>
 		<textcolor>ff6a1b00</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<align>left</align>
 	</include>
 	
-	<include name="spotymc_login_textinput">
+	<include name="spotimc_login_textinput">
 		<width>416</width>
 		<height>40</height>
 		<visible>true</visible>
 		<colordiffuse>ffffffff</colordiffuse>
 		<texturefocus>common/login-field-focus.png</texturefocus>
 		<texturenofocus>common/login-field.png</texturenofocus>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
@@ -1247,7 +1247,7 @@
 		<pulseonselect>False</pulseonselect>
 	</include>
 	
-	<include name="spotymc_login_toggle">
+	<include name="spotimc_login_toggle">
 		<width>32</width>
 		<height>32</height>
 		<visible>true</visible>
@@ -1266,14 +1266,14 @@
 		<pulseonselect>false</pulseonselect>
 	</include>
 	
-	<include name="spotymc_login_button">
+	<include name="spotimc_login_button">
 		<width>160</width>
 		<height>40</height>
 		<visible>true</visible>
 		<colordiffuse>ffffffff</colordiffuse>
 		<texturefocus>common/login-button-focus.png</texturefocus>
 		<texturenofocus>common/login-button.png</texturenofocus>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>center</align>
@@ -1285,7 +1285,7 @@
 	
 	
 	<!-- Common dialog styles -->
-	<include name="spotymc_dialog_border">
+	<include name="spotimc_dialog_border">
 		<visible>true</visible>
 		<colordiffuse>80ffffff</colordiffuse>
 		<fadetime></fadetime>
@@ -1293,7 +1293,7 @@
 		<aspectratio>stretch</aspectratio>
 	</include>
 	
-	<include name="spotymc_dialog_bg">
+	<include name="spotimc_dialog_bg">
 		<visible>true</visible>
 		<colordiffuse>ffffffff</colordiffuse>
 		<fadetime></fadetime>
@@ -1301,11 +1301,11 @@
 		<aspectratio>stretch</aspectratio>
 	</include>
 	
-	<include name="spotymc_dialog_title">
+	<include name="spotimc_dialog_title">
 		<posx>0</posx>
 		<posy>0</posy>
 		<height>64</height>
-		<font>spotymc_font24</font>
+		<font>spotimc_font24</font>
 		<align>left</align>
 		<aligny>center</aligny>
 		<selectedcolor></selectedcolor>
@@ -1313,14 +1313,14 @@
 		<textcolor>ff545454</textcolor>
 	</include>
 	
-	<include name="spotymc_dialog_button">
+	<include name="spotimc_dialog_button">
 		<width>144</width>
 		<height>40</height>
 		<visible>true</visible>
 		<colordiffuse>ffffffff</colordiffuse>
 		<texturefocus>common/dialog-button-focus.png</texturefocus>
 		<texturenofocus>common/dialog-button.png</texturenofocus>
-		<font>spotymc_font22</font>
+		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
@@ -1331,7 +1331,7 @@
 		<pulseonselect>False</pulseonselect>
 	</include>
 	
-	<include name="spotymc_dialog_list">
+	<include name="spotimc_dialog_list">
 		<visible>true</visible>
 		<viewtype label="3D list">list</viewtype>
 		<orientation>vertical</orientation>
@@ -1352,7 +1352,7 @@
 				<height>48</height>
 				<textcolor>ffffffff</textcolor>
 				<textoffsetx>16</textoffsetx>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Label</info>
@@ -1373,7 +1373,7 @@
 				<height>48</height>
 				<textcolor>ffffffff</textcolor>
 				<textoffsetx>16</textoffsetx>
-				<font>spotymc_font22</font>
+				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Label</info>

@@ -3,7 +3,7 @@ Created on 17/07/2011
 
 @author: mikel
 '''
-import spotymcgui.views as views
+import spotimcgui.views as views
 import xbmcgui
 
 

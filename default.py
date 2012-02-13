@@ -3,13 +3,13 @@ Created on 13/06/2011
 
 @author: mazkolain
 '''
-__addon_id__ = 'script.audio.spotymc'
+__addon_id__ = 'script.audio.spotimc'
 __addon_version__ = '0.1'
 
 
 #Gather addon information
 import os.path, xbmcaddon, xbmcgui
-addon_cfg = xbmcaddon.Addon("script.audio.spotymc")
+addon_cfg = xbmcaddon.Addon("script.audio.spotimc")
 addon_dir = addon_cfg.getAddonInfo('path')
 
 #Open the loading window
@@ -56,7 +56,7 @@ print 'gc objects: %d' % len(gc.get_objects())
 #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
 
 #Load & start the actual gui, no init code beyond this point
-from spotymcgui import main
+from spotimcgui import main
 main(addon_dir)
 
 

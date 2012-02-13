@@ -4,7 +4,7 @@ Created on 30/11/2011
 @author: mikel
 '''
 import xbmcgui
-from spotymcgui.views import BaseView
+from spotimcgui.views import BaseView
 
 
 

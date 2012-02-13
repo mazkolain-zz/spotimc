@@ -4,9 +4,9 @@ Created on 20/08/2011
 @author: mikel
 '''
 import xbmc
-from spotymcgui.views import BaseContainerView
-from spotymcgui.views.artists import open_artistbrowse_albums
-from spotymcgui.views.album import AlbumTracksView
+from spotimcgui.views import BaseContainerView
+from spotimcgui.views.artists import open_artistbrowse_albums
+from spotimcgui.views.album import AlbumTracksView
 
 
 class NowPlayingView(BaseContainerView):

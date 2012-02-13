@@ -33,7 +33,7 @@
 		    <animation effect="slide" end="0,576" time="100">WindowClose</animation>
 		    
 		    <control type="image">
-		    	<include>spotymc_dialog_border</include>
+		    	<include>spotimc_dialog_border</include>
 	            <description>Window border</description>
 	            <posx>-16</posx>
 	            <posy>-16</posy>
@@ -42,7 +42,7 @@
 	        </control>
 	        
 	        <control type="image">
-	        	<include>spotymc_dialog_bg</include>
+	        	<include>spotimc_dialog_bg</include>
 	            <description>Window background image</description>
 	            <posx>0</posx>
 	            <posy>0</posy>
@@ -53,7 +53,7 @@
 	        
 	        <!-- Dialog title -->
             <control type="label">
-            	<include>spotymc_dialog_title</include>
+            	<include>spotimc_dialog_title</include>
             	<label>Select a playlist</label>
             	<width>512</width>
 			</control>
@@ -71,7 +71,7 @@
 				
 				
 				<control type="list" id="3">
-					<include>spotymc_dialog_list</include>
+					<include>spotimc_dialog_list</include>
 					<description>List</description>
 					<posx>0</posx>
 					<posy>4</posy>
@@ -86,7 +86,7 @@
 				
 				<!-- Scrollbar -->
 				<control type="scrollbar" id="4">
-					<include>spotymc_scrollbar_always</include>
+					<include>spotimc_scrollbar_always</include>
 					<posx>496</posx>
 					<posy>8</posy>
 					<width>8</width>
@@ -111,7 +111,7 @@
 	            
 				<!-- Lower buttons -->
 				<control type="button" id="11">
-					<include>spotymc_dialog_button</include>
+					<include>spotimc_dialog_button</include>
 					<description>Done button</description>
 					<label>Done</label>
 					<posx>200</posx>
@@ -126,7 +126,7 @@
 		        
 		        <!-- Lower buttons -->
 				<control type="button" id="12">
-					<include>spotymc_dialog_button</include>
+					<include>spotimc_dialog_button</include>
 					<description>Cancel button</description>
 					<label>Cancel</label>
 					<posx>356</posx>

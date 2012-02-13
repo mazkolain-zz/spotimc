@@ -4,10 +4,10 @@ Created on 22/08/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotymcgui.views import BaseListContainerView
+from spotimcgui.views import BaseListContainerView
 from spotify import search, link, track
-from spotymcgui.views.artists import open_artistbrowse_albums
-from spotymcgui.views.album import AlbumTracksView
+from spotimcgui.views.artists import open_artistbrowse_albums
+from spotimcgui.views.album import AlbumTracksView
 
 
 

@@ -98,7 +98,7 @@
 					<onright>201</onright>
 					
 					<control type="togglebutton" id="212">
-						<include>spotymc_topmenu_option</include>
+						<include>spotimc_topmenu_option</include>
 						<visible>true</visible>
 						<width>168</width>
 						<label>New Stuff</label>
@@ -106,7 +106,7 @@
 					</control>
 					
 					<control type="togglebutton" id="213">
-						<include>spotymc_topmenu_option</include>
+						<include>spotimc_topmenu_option</include>
 						<visible>true</visible>
 						<width>152</width>
 						<label>Playlists</label>
@@ -114,7 +114,7 @@
 					</control>
 					
 					<control type="togglebutton" id="214">
-						<include>spotymc_topmenu_option</include>
+						<include>spotimc_topmenu_option</include>
 						<visible>true</visible>
 						<width>152</width>
 						<label>Search</label>
@@ -122,7 +122,7 @@
 					</control>
 					
 					<control type="togglebutton" id="215">
-						<include>spotymc_topmenu_option</include>
+						<include>spotimc_topmenu_option</include>
 						<visible>true</visible>
 						<width>144</width>
 						<label>More...</label>
@@ -130,7 +130,7 @@
 					</control>
 					
 					<control type="togglebutton" id="216">
-						<include>spotymc_topmenu_option</include>
+						<include>spotimc_topmenu_option</include>
 						<visible>true</visible>
 						<width>112</width>
 						<label>Exit</label>
@@ -157,7 +157,7 @@
 						<texturenofocus>main-menu/option-bg.png</texturenofocus>
 						<alttexturefocus>main-menu/option-bg-focus.png</alttexturefocus>
 						<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
-						<font>spotymc_font20</font>
+						<font>spotimc_font20</font>
 						<textcolor>FFFFFFFF</textcolor>
 						<disabledcolor>80FFFFFF</disabledcolor>
 						<align>left</align>
@@ -188,7 +188,7 @@
 					</control>
 					
 					<control type="label">
-						<include>spotymc_nowplaying_text</include>
+						<include>spotimc_nowplaying_text</include>
 						<posx>80</posx>
 						<posy>12</posy>
 						<width>224</width>
@@ -197,7 +197,7 @@
 					</control>
 					
 					<control type="label">
-						<include>spotymc_nowplaying_text</include>
+						<include>spotimc_nowplaying_text</include>
 						<posx>80</posx>
 						<posy>12</posy>
 						<width>224</width>
@@ -206,7 +206,7 @@
 					</control>
 					
 					<control type="fadelabel">
-						<include>spotymc_nowplaying_text</include>
+						<include>spotimc_nowplaying_text</include>
 						<label>$INFO[MusicPlayer.Title] by $INFO[MusicPlayer.Artist]</label>
 						<posx>80</posx>
 						<posy>32</posy>
@@ -230,7 +230,7 @@
 					</control>
 					
 					<control type="label">
-						<include>spotymc_nowplaying_time</include>
+						<include>spotimc_nowplaying_time</include>
 						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
 						<posx>208</posx>
 						<posy>54</posy>
@@ -272,7 +272,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>New music on Spotify</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -280,7 +280,7 @@
 				
 					<!-- New stuff list -->
 					<control type="panel" id="1201">
-						<include>spotymc_albumgrid</include>
+						<include>spotimc_albumgrid</include>
 						<description>New Stuff</description>
 						<pagecontrol>1202</pagecontrol>
 						<onup>200</onup>
@@ -293,7 +293,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1202">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>1152</posx>
 						<posy>80</posy>
 						<width>8</width>
@@ -315,7 +315,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Album [COLOR ffffffff]$INFO[Container.Property(AlbumName)][/COLOR] by $INFO[Container.Property(ArtistName)]</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -323,7 +323,7 @@
 					
 					<!-- Album Cover -->
 					<control type="image">
-						<include>spotymc_albumcover</include>
+						<include>spotimc_albumcover</include>
 						<posx>0</posx>
 						<posy>80</posy>
 						<width>288</width>
@@ -333,7 +333,7 @@
 					
 					<!-- Track list -->
 					<control type="list" id="1303">
-						<include>spotymc_tracklist</include>
+						<include>spotimc_tracklist</include>
 						<description>Track list</description>
 						<posx>336</posx>
 						<posy>80</posy>
@@ -348,7 +348,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1304">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>1168</posx>
 						<posy>80</posy>
 						<width>8</width>
@@ -370,7 +370,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Top tracks of [COLOR ffffffff]$INFO[Container.Property(ArtistName)][/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -378,7 +378,7 @@
 					
 					<!-- Track list -->
 					<control type="list" id="1401">
-						<include>spotymc_tracklist</include>
+						<include>spotimc_tracklist</include>
 						<description>Track list</description>
 						<posx>0</posx>
 						<posy>80</posy>
@@ -393,7 +393,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1402">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>832</posx>
 						<posy>80</posy>
 						<width>8</width>
@@ -415,7 +415,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -440,14 +440,14 @@
 						<onright>1510</onright>
 						
 						<control type="label" id="1502">
-							<include>spotymc_title_grouped</include>
+							<include>spotimc_title_grouped</include>
 							<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR].</label>
 							<posx>0</posx>
 							<posy>0</posy>
 						</control>
 						
 						<control type="label" id="1503">
-							<include>spotymc_title_grouped</include>
+							<include>spotimc_title_grouped</include>
 							<label>Did you mean</label>
 							<posx>0</posx>
 							<posy>0</posy>
@@ -464,7 +464,7 @@
 							<texturenofocus>common/item-bg.png</texturenofocus>
 							<!-- <label>New search</label> -->
 							<label>$INFO[Container.Property(SearchDidYouMeanString)]</label>
-							<font>spotymc_font20</font>
+							<font>spotimc_font20</font>
 							<textcolor>ff969696</textcolor>
 							<focusedcolor>ffffffff</focusedcolor>
 							<disabledcolor>80FFFFFF</disabledcolor>
@@ -478,7 +478,7 @@
 						</control>
 						
 						<control type="label" id="1505">
-							<include>spotymc_title_grouped</include>
+							<include>spotimc_title_grouped</include>
 							<label>?</label>
 							<posx>0</posx>
 							<posy>0</posy>
@@ -496,7 +496,7 @@
 						<texturefocus>common/search-new-focus.png</texturefocus>
 						<texturenofocus>common/search-new.png</texturenofocus>
 						<label>New search</label>
-						<font>spotymc_font20</font>
+						<font>spotimc_font20</font>
 						<textcolor>ff969696</textcolor>
 						<focusedcolor>ffffffff</focusedcolor>
 						<disabledcolor>80FFFFFF</disabledcolor>
@@ -517,12 +517,12 @@
 					<control type="group">
 						<posx>0</posx>
 						<posy>80</posy>
-						<include>spotymc_tracklist_wide_header</include>
+						<include>spotimc_tracklist_wide_header</include>
 					</control>
 					
 					<!-- Track list -->
 					<control type="list" id="1520">
-						<include>spotymc_tracklist_wide</include>
+						<include>spotimc_tracklist_wide</include>
 						<description>Track list</description>
 						<posx>0</posx>
 						<posy>112</posy>
@@ -537,7 +537,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1521">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>1176</posx>
 						<posy>112</posy>
 						<width>8</width>
@@ -559,7 +559,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Now playing</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -567,7 +567,7 @@
 					
 					<!-- Album Cover -->
 					<control type="image">
-						<include>spotymc_albumcover</include>
+						<include>spotimc_albumcover</include>
 						<posx>0</posx>
 						<posy>80</posy>
 						<width>288</width>
@@ -587,7 +587,7 @@
 						<number></number>
 						<angle>0</angle>
 						<haspath>false</haspath>
-						<font>spotymc_font48</font>
+						<font>spotimc_font48</font>
 						<textcolor>ffffffff</textcolor>
 						<shadowcolor>00000000</shadowcolor>
 						<wrapmultiline>false</wrapmultiline>
@@ -609,7 +609,7 @@
 						<number></number>
 						<angle>0</angle>
 						<haspath>false</haspath>
-						<font>spotymc_font24</font>
+						<font>spotimc_font24</font>
 						<textcolor>ff969696</textcolor>
 						<shadowcolor>00000000</shadowcolor>
 						<wrapmultiline>false</wrapmultiline>
@@ -631,7 +631,7 @@
 						<number></number>
 						<angle>0</angle>
 						<haspath>false</haspath>
-						<font>spotymc_font20</font>
+						<font>spotimc_font20</font>
 						<textcolor>ffffffff</textcolor>
 						<shadowcolor>00000000</shadowcolor>
 						<wrapmultiline>false</wrapmultiline>
@@ -669,7 +669,7 @@
 						<number></number>
 						<angle>0</angle>
 						<haspath>false</haspath>
-						<font>spotymc_font20</font>
+						<font>spotimc_font20</font>
 						<textcolor>ffffffff</textcolor>
 						<shadowcolor>00000000</shadowcolor>
 						<wrapmultiline>false</wrapmultiline>
@@ -697,7 +697,7 @@
 					
 						<!-- Back button -->
 						<control type="button" id="1602">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Backward button</description>
 							<texturefocus>common/player-backward-focus.png</texturefocus>
 							<texturenofocus>common/player-backward.png</texturenofocus>
@@ -706,7 +706,7 @@
 						
 						<!-- Play/Pause button -->
 						<control type="togglebutton" id="1603">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Play/Pause button</description>
 							<texturefocus>common/player-play-focus.png</texturefocus>
 							<texturenofocus>common/player-play.png</texturenofocus>
@@ -718,7 +718,7 @@
 						
 						<!-- Forward button -->
 						<control type="button" id="1604">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Forward button</description>
 							<texturefocus>common/player-forward-focus.png</texturefocus>
 							<texturenofocus>common/player-forward.png</texturenofocus>
@@ -727,7 +727,7 @@
 						
 						<!-- Shuffle button -->
 						<control type="togglebutton" id="1605">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Shuffle button</description>
 							<texturefocus>common/player-shuffle-focus.png</texturefocus>
 							<texturenofocus>common/player-shuffle.png</texturenofocus>
@@ -739,7 +739,7 @@
 						
 						<!-- Shuffle button -->
 						<control type="togglebutton" id="1606">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Repeat button</description>
 							<texturefocus>common/player-repeat-focus.png</texturefocus>
 							<texturenofocus>common/player-repeat.png</texturenofocus>
@@ -751,7 +751,7 @@
 						
 						<!-- Forward button -->
 						<control type="button" id="1607">
-							<include>spotymc_nowplaying_player_button</include>
+							<include>spotimc_nowplaying_player_button</include>
 							<description>Visualization button</description>
 							<texturefocus>common/player-vis-focus.png</texturefocus>
 							<texturenofocus>common/player-vis.png</texturenofocus>
@@ -761,7 +761,7 @@
 					
 					<!-- Current track options -->
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Current track:</label>
 						<posx>336</posx>
 						<posy>336</posy>
@@ -787,7 +787,7 @@
 					
 						<!-- Browse artist button -->
 						<control type="button" id="1611">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotimc_nowplaying_button</include>
 							<description></description>
 							<texturefocus>common/nowplaying-br-artist-focus.png</texturefocus>
 							<texturenofocus>common/nowplaying-br-artist.png</texturenofocus>
@@ -797,7 +797,7 @@
 						
 						<!-- Browse album button -->
 						<control type="button" id="1612">
-							<include>spotymc_nowplaying_button</include>
+							<include>spotimc_nowplaying_button</include>
 							<description></description>
 							<texturefocus>common/nowplaying-br-album-focus.png</texturefocus>
 							<texturenofocus>common/nowplaying-br-album.png</texturenofocus>
@@ -817,7 +817,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Showing [COLOR ffffffff]$INFO[Container(1701).NumItems] playlists[/COLOR]</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -825,7 +825,7 @@
 					
 					<!-- Track list -->
 					<control type="panel" id="1701">
-						<include>spotymc_playlist_list</include>
+						<include>spotimc_playlist_list</include>
 						<description>Playlist list</description>
 						<posx>0</posx>
 						<posy>80</posy>
@@ -840,7 +840,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1702">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>1184</posx>
 						<posy>80</posy>
 						<width>8</width>
@@ -955,7 +955,7 @@
 					
 					<!-- Main playlist detail label (without owner info) -->
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR]</label>
 						<posx>160</posx>
 						<posy>32</posy>
@@ -965,7 +965,7 @@
 					
 					<!-- Main playlist detail label (without owner info) -->
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR] by $INFO[Container.Property(PlaylistDetailOwner)]</label>
 						<posx>160</posx>
 						<posy>32</posy>
@@ -989,14 +989,14 @@
 						</control>
 						
 						<control type="label">
-							<include>spotymc_subtitle</include>
+							<include>spotimc_subtitle</include>
 							<label>$INFO[Container.Property(PlaylistDetailNumTracks)] tracks, $INFO[Container.Property(PlaylistDetailDuration)]</label>
 							<posx>16</posx>
 							<posy>16</posy>
 						</control>
 						
 						<control type="label">
-							<include>spotymc_subtitle</include>
+							<include>spotimc_subtitle</include>
 							<label>$INFO[Container.Property(PlaylistDetailNumSubscribers)] subscribers</label>
 							<posx>16</posx>
 							<posy>48</posy>
@@ -1009,12 +1009,12 @@
 					<control type="group">
 						<posx>0</posx>
 						<posy>192</posy>
-						<include>spotymc_tracklist_wide_header</include>
+						<include>spotimc_tracklist_wide_header</include>
 					</control>
 					
 					<!-- Track list -->
 					<control type="list" id="1801">
-						<include>spotymc_tracklist_wide</include>
+						<include>spotimc_tracklist_wide</include>
 						<description>Track list</description>
 						<posx>0</posx>
 						<posy>224</posy>
@@ -1029,7 +1029,7 @@
 					
 					<!-- Scrollbar -->
 					<control type="scrollbar" id="1502">
-						<include>spotymc_scrollbar</include>
+						<include>spotimc_scrollbar</include>
 						<posx>1176</posx>
 						<posy>224</posy>
 						<width>8</width>
@@ -1050,7 +1050,7 @@
 					<posy>0</posy>
 					
 					<control type="label">
-						<include>spotymc_title</include>
+						<include>spotimc_title</include>
 						<label>Extra options that do not fit on the main menu</label>
 						<posx>0</posx>
 						<posy>32</posy>
@@ -1058,7 +1058,7 @@
 					
 					<!-- Track list -->
 					<control type="panel" id="1901">
-						<include>spotymc_extras_list</include>
+						<include>spotimc_extras_list</include>
 						<description>Playlist list</description>
 						<posx>0</posx>
 						<posy>80</posy>
@@ -1080,7 +1080,7 @@
                     <posy>0</posy>
                     
                     <control type="label">
-                        <include>spotymc_title</include>
+                        <include>spotimc_title</include>
                         <label>Albums related to [COLOR ffffffff]$INFO[Container.Property(artistbrowse_artist_name)][/COLOR]</label>
                         <posx>0</posx>
                         <posy>32</posy>
@@ -1088,7 +1088,7 @@
                 
                     <!-- New stuff list -->
                     <control type="panel" id="2001">
-                        <include>spotymc_albumgrid</include>
+                        <include>spotimc_albumgrid</include>
                         <description>Artist albums</description>
                         <pagecontrol>2002</pagecontrol>
                         <onup>200</onup>
@@ -1101,7 +1101,7 @@
                     
                     <!-- Scrollbar -->
                     <control type="scrollbar" id="2002">
-                        <include>spotymc_scrollbar</include>
+                        <include>spotimc_scrollbar</include>
                         <posx>1152</posx>
                         <posy>80</posy>
                         <width>8</width>
@@ -1149,7 +1149,7 @@
 					<alttexturefocus>common/left-menu-toggler-on.png</alttexturefocus>
 					<alttexturenofocus>common/left-menu-toggler-on.png</alttexturenofocus>
 					<usealttexture>ControlGroup(5000).HasFocus()</usealttexture>
-					<font>spotymc_font22</font>
+					<font>spotimc_font22</font>
 					<textcolor>ffffffff</textcolor>
 					<disabledcolor>ffffffff</disabledcolor>
 					<align>left</align>
@@ -1173,19 +1173,19 @@
 				
 				<!-- Album tracks browsing options -->
 				<control type="grouplist" id="5300">
-					<include>spotymc_leftmenu_grouplist</include>
+					<include>spotimc_leftmenu_grouplist</include>
 					<description>Album track options</description>
 					<onright>1300</onright>
 					<visible>Control.IsVisible(1300)</visible>
 					
 					<!--
 					<control type="label" id="5301">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Album browsing:</label>
 					</control>
 					
 					<control type="togglebutton" id="5302">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description>Tracks option</description>
 						<usealttexture>True</usealttexture>
 						<label>Tracks</label>
@@ -1193,7 +1193,7 @@
 					</control>
 					
 					<control type="togglebutton" id="5303">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description>Tracks option</description>
 						<usealttexture>False</usealttexture>
 						<label>Critics</label>
@@ -1202,26 +1202,26 @@
 					-->
 					
 					<control type="label" id="5304">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Selected track:</label>
 					</control>
 					
 					<!--
 					<control type="button" id="5305">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to playlist</label>
 					</control>
 					
 					<control type="button" id="5306">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to queue</label>
 					</control>
 					-->
 					
 					<control type="button" id="5307">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
 					</control>
@@ -1229,38 +1229,38 @@
 				
 				<!-- Track search options -->
 				<control type="grouplist" id="5500">
-					<include>spotymc_leftmenu_grouplist</include>
+					<include>spotimc_leftmenu_grouplist</include>
 					<description>Album track options</description>
 					<onright>1500</onright>
 					<visible>Control.IsVisible(1500)</visible>
 					
 					<!-- Track options -->
 					<control type="label" id="5501">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Selected track:</label>
 					</control>
 					
 					<control type="button" id="5302">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse artist</label>
 					</control>
 					
 					<control type="button" id="5303">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse album</label>
 					</control>
 					
 					<control type="button" id="5304">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
 					</control>
 					
 					<!--
 					<control type="button" id="5305">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to playlist</label>
 					</control>
@@ -1269,36 +1269,36 @@
 					<!-- Sort options -->
 					<!--
 					<control type="label" id="5506">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Sort by:</label>
 					</control>
 					
 					<control type="button" id="5307">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Track Title</label>
 					</control>
 					
 					<control type="button" id="5308">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Popularity</label>
 					</control>
 					
 					<control type="button" id="5309">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Album Title</label>
 					</control>
 					
 					<control type="button" id="5310">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Artist Name</label>
 					</control>
 					
 					<control type="button" id="5311">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Duration</label>
 					</control>
@@ -1308,31 +1308,31 @@
 				
 				<!-- Playlist options -->
 				<control type="grouplist" id="5800">
-					<include>spotymc_leftmenu_grouplist</include>
+					<include>spotimc_leftmenu_grouplist</include>
 					<description>Playlist detail options</description>
 					<onright>1800</onright>
 					<visible>Control.IsVisible(1800)</visible>
 					
 					<!-- Track options -->
 					<control type="label" id="5810">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Selected track:</label>
 					</control>
 					
 					<control type="button" id="5811">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse artist</label>
 					</control>
 					
 					<control type="button" id="5812">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse album</label>
 					</control>
 					
 					<control type="button" id="5813">
-						<include>spotymc_leftmenu_button</include>
+						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
 					</control>
@@ -1341,7 +1341,7 @@
 				
 				<!-- Album browsing options -->
 				<control type="grouplist" id="6000">
-					<include>spotymc_leftmenu_grouplist</include>
+					<include>spotimc_leftmenu_grouplist</include>
 					<description>Album list options</description>
 					<onright>2000</onright>
 					<visible>Control.IsVisible(2000)</visible>
@@ -1349,55 +1349,55 @@
 					
 					<!-- Album filtering -->
 					<control type="label" id="6010">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Album filter:</label>
 					</control>
 					
 					<control type="togglebutton" id="6011">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Albums</label>
-						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_albums)</usealttexture>
-						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_albums)</onclick>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_albums)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_albums)</onclick>
 					</control>
 					
 					<control type="togglebutton" id="6012">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Singles</label>
-						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_singles)</usealttexture>
-						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_singles)</onclick>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_singles)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_singles)</onclick>
 					</control>
 					
 					<control type="togglebutton" id="6013">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Compilations</label>
-						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_compilations)</usealttexture>
-						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_compilations)</onclick>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_compilations)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_compilations)</onclick>
 					</control>
 					
 					<control type="togglebutton" id="6014">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>"Appears in"</label>
-						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_appears_in)</usealttexture>
-						<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_appears_in)</onclick>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_appears_in)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_appears_in)</onclick>
 					</control>
 					
 					
 					<!-- Album duplicates -->
 					<control type="label" id="6015">
-						<include>spotymc_leftmenu_label</include>
+						<include>spotimc_leftmenu_label</include>
 						<label>Misc options:</label>
 					</control>
 					
 					<control type="togglebutton" id="6016">
-						<include>spotymc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Hide similar</label>
-						<usealttexture>Skin.HasSetting(spotymc_artistbrowse_albums_hide_similar)</usealttexture>
-	            		<onclick>Skin.ToggleSetting(spotymc_artistbrowse_albums_hide_similar)</onclick>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_hide_similar)</usealttexture>
+	            		<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_hide_similar)</onclick>
 					</control>
 				</control>
 			</control>

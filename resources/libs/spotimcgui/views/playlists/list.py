@@ -5,7 +5,7 @@ Created on 27/10/2011
 '''
 import xbmcgui
 
-from spotymcgui.views import BaseListContainerView, iif
+from spotimcgui.views import BaseListContainerView, iif
 
 import loaders
 

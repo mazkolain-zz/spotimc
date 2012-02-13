@@ -31,7 +31,7 @@ class PlaylistManager:
     def _get_user_agent(self):
         if self.__user_agent is None:
             xbmc_build = xbmc.getInfoLabel("System.BuildVersion")
-            self.__user_agent = 'Spotymc/%s (XBMC/%s)' % (__addon_version__, xbmc_build)
+            self.__user_agent = 'Spotimc/%s (XBMC/%s)' % (__addon_version__, xbmc_build)
         
         return self.__user_agent
     

@@ -4,8 +4,8 @@ Created on 20/08/2011
 @author: mikel
 '''
 import xbmcgui
-from spotymcgui.views import BaseListContainerView
-from spotymcgui.settings import SettingsManager
+from spotimcgui.views import BaseListContainerView
+from spotimcgui.settings import SettingsManager
 
 
 class MoreView(BaseListContainerView):

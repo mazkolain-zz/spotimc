@@ -4,9 +4,9 @@ Created on 29/11/2011
 @author: mikel
 '''
 import xbmc, xbmcgui
-from spotymcgui.views import BaseListContainerView, album
+from spotimcgui.views import BaseListContainerView, album
 from loaders import ArtistAlbumLoader, AlbumType
-from spotymcgui.utils.settings import SkinSettings
+from spotimcgui.utils.settings import SkinSettings
 
 
 
@@ -36,36 +36,36 @@ class ArtistAlbumsView(BaseListContainerView):
     
     
     def _init_config(self):
-        if not self.__settings.has_bool_true('spotymc_albumbrowse_album_init'):
+        if not self.__settings.has_bool_true('spotimc_albumbrowse_album_init'):
             print 'init config'
-            self.__settings.set_bool_true('spotymc_albumbrowse_album_init')
-            self.__settings.set_bool_true('spotymc_artistbrowse_albums_albums')
-            self.__settings.set_bool_true('spotymc_artistbrowse_albums_singles')
-            self.__settings.set_bool_true('spotymc_artistbrowse_albums_compilations')
-            self.__settings.set_bool_true('spotymc_artistbrowse_albums_appears_in')
-            self.__settings.set_bool_true('spotymc_artistbrowse_albums_hide_similar')
+            self.__settings.set_bool_true('spotimc_albumbrowse_album_init')
+            self.__settings.set_bool_true('spotimc_artistbrowse_albums_albums')
+            self.__settings.set_bool_true('spotimc_artistbrowse_albums_singles')
+            self.__settings.set_bool_true('spotimc_artistbrowse_albums_compilations')
+            self.__settings.set_bool_true('spotimc_artistbrowse_albums_appears_in')
+            self.__settings.set_bool_true('spotimc_artistbrowse_albums_hide_similar')
     
     
     def _get_album_filter(self):
         filter_types = []
         
-        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_albums'):
+        if self.__settings.has_bool_true('spotimc_artistbrowse_albums_albums'):
             filter_types.append(AlbumType.Album)
         
-        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_singles'):
+        if self.__settings.has_bool_true('spotimc_artistbrowse_albums_singles'):
             filter_types.append(AlbumType.Single)
         
-        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_compilations'):
+        if self.__settings.has_bool_true('spotimc_artistbrowse_albums_compilations'):
             filter_types.append(AlbumType.Compilation)
         
-        if self.__settings.has_bool_true('spotymc_artistbrowse_albums_appears_in'):
+        if self.__settings.has_bool_true('spotimc_artistbrowse_albums_appears_in'):
             filter_types.append(AlbumType.AppearsIn)
         
         return filter_types
     
     
     def _get_similar_filter(self):
-        return self.__settings.has_bool_true('spotymc_artistbrowse_albums_hide_similar')
+        return self.__settings.has_bool_true('spotimc_artistbrowse_albums_hide_similar')
     
     
     def _show_album(self, view_manager):

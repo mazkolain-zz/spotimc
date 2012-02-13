@@ -27,7 +27,7 @@ from settings import SettingsManager, CacheManagement, StreamQuality
 
 
 
-class SpotymcCallbacks(SessionCallbacks):
+class SpotimcCallbacks(SessionCallbacks):
     __mainloop = None
     __buf = None
     __logout_event = None
@@ -99,7 +99,7 @@ class MainLoopRunner(threading.Thread):
 def check_dirs():
     addon_data_dir = os.path.join(
         xbmc.translatePath('special://profile/addon_data'),
-        'script.audio.spotymc'
+        'script.audio.spotimc'
     )
     
     #Auto-create profile dir if it does not exist
@@ -165,7 +165,7 @@ def main(addon_dir):
     ml = MainLoop()
     buf = BufferManager()
     logout_event = Event()
-    callbacks = SpotymcCallbacks(ml, buf, logout_event)
+    callbacks = SpotimcCallbacks(ml, buf, logout_event)
     sess = Session(
         callbacks,
         app_key=appkey,

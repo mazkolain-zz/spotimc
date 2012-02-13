@@ -72,7 +72,7 @@
 		    
 		    
 		    <control type="image">
-		    	<include>spotymc_dialog_border</include>
+		    	<include>spotimc_dialog_border</include>
 	            <description>Window border</description>
 	            <posx>-16</posx>
 	            <posy>-16</posy>
@@ -116,7 +116,7 @@
 				<posy>32</posy>
 				<width>416</width>
 				<height>32</height>
-				<font>spotymc_font24</font>
+				<font>spotimc_font24</font>
 				<align>center</align>
 				<aligny>center</aligny>
 				<selectedcolor></selectedcolor>
@@ -134,14 +134,14 @@
 	            <height>384</height>
 			
 				<control type="label">
-					<include>spotymc_login_inputlabel</include>
+					<include>spotimc_login_inputlabel</include>
 	                <label>Username</label>
 	                <posx>0</posx>
 	                <posy>0</posy>
 	            </control>
 	            
 				<control type="button" id="1101">
-					<include>spotymc_login_textinput</include>
+					<include>spotimc_login_textinput</include>
 					<description>Username input</description>
 					<posx>0</posx>
 					<posy>32</posy>
@@ -155,14 +155,14 @@
 	            
 	            
 	            <control type="label">
-	            	<include>spotymc_login_inputlabel</include>
+	            	<include>spotimc_login_inputlabel</include>
 	                <label>Password</label>
 	                <posx>0</posx>
 	                <posy>80</posy>
 	            </control>
 	            
 	            <control type="button" id="1102">
-	            	<include>spotymc_login_textinput</include>
+	            	<include>spotimc_login_textinput</include>
 	                <description>Password input</description>
 	                <posx>0</posx>
 	                <posy>112</posy>
@@ -176,14 +176,14 @@
 	            </control>
 	            
 	            <control type="label">
-	            	<include>spotymc_login_inputlabel</include>
+	            	<include>spotimc_login_inputlabel</include>
 	                <label>Remember me</label>
 	                <posx>40</posx>
 	                <posy>168</posy>
 	            </control>
 	            
 	            <control type="togglebutton" id="1103">
-	            	<include>spotymc_login_toggle</include>
+	            	<include>spotimc_login_toggle</include>
 		            <description>Remember me toggle</description>
 		            <posx>0</posx>
 		            <posy>168</posy>
@@ -193,12 +193,12 @@
 		            <onleft></onleft>
 		            <onright></onright>
 		            <label></label>
-		            <usealttexture>Skin.HasSetting(spotymc_session_remember)</usealttexture>
-		            <onclick>Skin.ToggleSetting(spotymc_session_remember)</onclick>
+		            <usealttexture>Skin.HasSetting(spotimc_session_remember)</usealttexture>
+		            <onclick>Skin.ToggleSetting(spotimc_session_remember)</onclick>
 		        </control>
 		        
 		        <control type="button" id="1104">
-		        	<include>spotymc_login_button</include>
+		        	<include>spotimc_login_button</include>
 			        <description>Login button</description>
 			        <label>Login</label>
 			        <posx>32</posx>
@@ -212,7 +212,7 @@
 		        </control>
 		        
 		        <control type="button" id="1105">
-		        	<include>spotymc_login_button</include>
+		        	<include>spotimc_login_button</include>
 			        <description>Cancel button</description>
 			        <label>Cancel</label>
 			        <posx>224</posx>
@@ -286,7 +286,7 @@
 				<width>256</width>
 				<height>48</height>
 				<textoffsety>0</textoffsety>
-				<font>spotymc_font18</font>
+				<font>spotimc_font18</font>
 				<selectedcolor></selectedcolor>
 				<textcolor>ffff0000</textcolor>
 				<shadowcolor>00000000</shadowcolor>
