@@ -25,6 +25,9 @@ envutils.set_library_path(dll_dir)
 libs_dir = os.path.join(addon_dir, "resources/libs")
 sys.path.append(libs_dir)
 
+#Add the skinutils module
+sys.path.append(os.path.join(libs_dir, "XbmcSkinUtils.egg"))
+
 #Load font & include stuff
 from skinutils import reload_skin
 from skinutils.fonts import FontManager
