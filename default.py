@@ -30,54 +30,63 @@ from myscript.utils import reload_skin
 from myscript.fonts import FontManager
 from myscript.includes import IncludeManager
 
-#Install custom fonts
-skin_dir = os.path.join(addon_dir, "resources/skins/DefaultSkin")
-xml_path = os.path.join(skin_dir, "720p/font.xml")
-font_dir = os.path.join(skin_dir, "fonts")
-fm = FontManager()
-fm.install_file(xml_path, font_dir)
+try:
+    #Set font & include manager vars
+    fm = None
+    im = None
+    
+    #Install custom fonts
+    fm = FontManager()
+    skin_dir = os.path.join(addon_dir, "resources/skins/DefaultSkin")
+    xml_path = os.path.join(skin_dir, "720p/font.xml")
+    font_dir = os.path.join(skin_dir, "fonts")
+    fm.install_file(xml_path, font_dir)
+    
+    #Install custom includes
+    im = IncludeManager()
+    include_path = os.path.join(addon_dir, "resources/skins/DefaultSkin/720p/includes.xml")
+    im.install_file(include_path)
+    reload_skin()
+    
+    #Import spotify & friends
+    sys.path.append(os.path.join(libs_dir, "CherryPy.egg"))
+    sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes.egg"))
+    sys.path.append(os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
+    
+    import gc
+    import xbmc
+    
+    print 'gc objects: %d' % len(gc.get_objects())
+    
+    #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
+    
+    #Load & start the actual gui, no init code beyond this point
+    from spotimcgui import main
+    main(addon_dir)
+    
+    
+    xbmc.log('garbage collection: %d objects' % gc.collect())
+    #print gc.garbage
+    
+    
+    import _spotify
+    _spotify.unload_library()
+    
+    
+    #import objgraph
+    #objgraph.show_backrefs(gc.garbage, max_depth=10)
+    
+    #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
+    
+    #print 'gc objects: %d' % len(gc.get_objects())
 
-#Install custom includes
-include_path = os.path.join(addon_dir, "resources/skins/DefaultSkin/720p/includes.xml")
-im = IncludeManager()
-im.install_file(include_path)
-reload_skin()
-
-#Import spotify & friends
-sys.path.append(os.path.join(libs_dir, "CherryPy.egg"))
-sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes.egg"))
-sys.path.append(os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
-
-import gc
-import xbmc
-
-print 'gc objects: %d' % len(gc.get_objects())
-
-#xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
-
-#Load & start the actual gui, no init code beyond this point
-from spotimcgui import main
-main(addon_dir)
-
-
-xbmc.log('garbage collection: %d objects' % gc.collect())
-#print gc.garbage
-
-
-import _spotify
-_spotify.unload_library()
-
-
-#import objgraph
-#objgraph.show_backrefs(gc.garbage, max_depth=10)
-
-#xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
-
-#print 'gc objects: %d' % len(gc.get_objects())
-
-#Cleanup fonts and includes
-del fm
-del im
-
-#Close the background loading window
-loadingwin.close()
+finally:
+    #Cleanup fonts and includes
+    if fm is not None:
+        del fm
+    
+    if im is not None:
+        del im
+    
+    #Close the background loading window
+    loadingwin.close()
