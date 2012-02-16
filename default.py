@@ -26,9 +26,9 @@ libs_dir = os.path.join(addon_dir, "resources/libs")
 sys.path.append(libs_dir)
 
 #Load font & include stuff
-from myscript.utils import reload_skin
-from myscript.fonts import FontManager
-from myscript.includes import IncludeManager
+from skinutils import reload_skin
+from skinutils.fonts import FontManager
+from skinutils.includes import IncludeManager
 
 try:
     #Set font & include manager vars
