@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon id="script.audio.spotimc" version="0.1" name="Spotimc" provider-name="Mikel Azkolain">
     <requires>
-        <import addon="xbmc.python" version="1.0"/>
+        <import addon="xbmc.python" version="2.0"/>
+        <import addon="script.module.elementtree" version="1.2.7"/>
     </requires>
     <extension point="xbmc.python.script" library="default.py">
         <provides>audio</provides>
     </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-        <summary>Spotimc is another attempt to bring the Spotify music service to the XBMC platform.</summary>
-        <description>Spotimc brings the spotify music service to the XBMC platform. All this is achieved in a pure python (almost) and self contained package, with the help of ctypes and cherrypy.</description>
+        <summary>Spotimc gives you access to the Spotify music service.</summary>
+        <description>Spotimc lets you search for music, browse your playlists and play your favourite tunes right from XBMC.[CR][CR]This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.[CR][CR]Special thanks to Seeleck for the logo and skin improvements.[CR][CR]Special thanks also for the CherryPy project, the DejaVu fonts project and the GNOME project (high contrast icons theme).</description>
+        <disclaimer>It requires a Spotify premium account.</disclaimer>
     </extension>
 </addon>
