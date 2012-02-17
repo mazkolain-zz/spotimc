@@ -80,8 +80,11 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
         pass
     
     
-    #def onAction(self, action):
-    #    pass
+    def onAction(self, action):
+        if action.getId() in [9,10,92]:
+            self.__cancelled = True
+            self.do_close()
+    
     
     def set_error(self, code):
         messages = {
