@@ -53,7 +53,7 @@ class PlaylistManager:
     
     def _get_play_token(self):
         if self.__play_token is None:
-            address = 'localhost:%s' % self.__server_port
+            address = '127.0.0.1:%s' % self.__server_port
             user_agent = self._get_user_agent()
             self.__play_token = spotifyproxy.httpproxy.get_my_token(address, user_agent)
         
@@ -87,11 +87,11 @@ class PlaylistManager:
         track_id = self._get_track_id(track)
         headers = self._get_url_headers()
         args = (self.__server_port, track_id, headers)
-        return 'http://localhost:%s/track/%s.wav|%s' % args
+        return 'http://127.0.0.1:%s/track/%s.wav|%s' % args
     
     
     def get_image_url(self, image_id):
-        return 'http://localhost:%s/image/%s.jpg' % (self.__server_port, image_id)
+        return 'http://127.0.0.1:%s/image/%s.jpg' % (self.__server_port, image_id)
     
     
     def _calculate_track_rating(self, track):
