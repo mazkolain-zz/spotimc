@@ -597,6 +597,7 @@
 				<width>1168</width>
 				<height>30</height>
 				<texture>common/item-bg.png</texture>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="image">
 				<posx>8</posx>
@@ -645,6 +646,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>464</posx>
@@ -657,6 +659,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>768</posx>
@@ -669,6 +672,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>1056</posx>
@@ -681,6 +685,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="image">
 				<posx>48</posx>
@@ -690,6 +695,7 @@
 				<texture>common/item-bg.png</texture>
 				<visible>!ListItem.Property(IsAvailable)</visible>
 				<colordiffuse>d8ffffff</colordiffuse>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 		</itemlayout>
 		<focusedlayout width="1168" height="32">
@@ -699,6 +705,7 @@
 				<width>1168</width>
 				<height>30</height>
 				<texture>common/item-bg-selected.png</texture>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="image">
 				<posx>8</posx>
@@ -738,6 +745,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>464</posx>
@@ -750,6 +758,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>768</posx>
@@ -762,6 +771,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="label">
 				<posx>1056</posx>
@@ -774,6 +784,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			<control type="image">
 				<posx>48</posx>
@@ -783,6 +794,7 @@
 				<texture>common/item-bg-selected.png</texture>
 				<visible>!ListItem.Property(IsAvailable)</visible>
 				<colordiffuse>d8ffffff</colordiffuse>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 		</focusedlayout>
 	</include>
@@ -792,7 +804,6 @@
 	<include name="spotimc_tracklist_wide_header">
 		<description>Track list header</description>
 		<defaultcontrol></defaultcontrol>
-		<visible>true</visible>
 		
 		<control type="image">
 			<posx>0</posx>

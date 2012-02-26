@@ -234,10 +234,11 @@ class BaseListContainerView(BaseContainerView):
     
     def show(self, view_manager, give_focus=True):
         BaseView.show(self, view_manager, give_focus)
+        window = view_manager.get_window()
         
         #Hide container and show loading anim.
         self.get_container(view_manager).setVisibleCondition('false')
-        view_manager.get_window().show_loading()
+        window.show_loading()
         
         if self.render(view_manager):
             #If we have a stored list position
@@ -250,12 +251,16 @@ class BaseListContainerView(BaseContainerView):
             
             #List was rendered but with no items, add a placeholder
             if self.get_list(view_manager).size() == 0:
+                window.setProperty('ListWithNoItems', 'true')
                 item = xbmcgui.ListItem()
                 item.setProperty('NoItems', 'true')
                 self.get_list(view_manager).addItem(item)
+                
+            else:
+                window.setProperty('ListWithNoItems', 'false')
             
             #Hide loading and show container
-            view_manager.get_window().hide_loading()
+            window.hide_loading()
             self.get_container(view_manager).setVisibleCondition('true')
             
             #And give focus if asked to do so

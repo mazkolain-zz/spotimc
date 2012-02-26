@@ -518,6 +518,15 @@
 						<posx>0</posx>
 						<posy>80</posy>
 						<include>spotimc_tracklist_wide_header</include>
+						<visible>SubString(Container.Property(ListWithNoItems),false)</visible>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>No results</label>
+						<posx>0</posx>
+						<posy>80</posy>
+						<visible>SubString(Container.Property(ListWithNoItems),true)</visible>
 					</control>
 					
 					<!-- Track list -->
@@ -1010,6 +1019,15 @@
 						<posx>0</posx>
 						<posy>192</posy>
 						<include>spotimc_tracklist_wide_header</include>
+						<visible>SubString(Container.Property(ListWithNoItems),false)</visible>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>No tracks</label>
+						<posx>0</posx>
+						<posy>192</posy>
+						<visible>SubString(Container.Property(ListWithNoItems),true)</visible>
 					</control>
 					
 					<!-- Track list -->
