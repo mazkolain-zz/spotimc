@@ -234,7 +234,7 @@
 				<height>104</height>
 				<texture>common/item-bg.png</texture>
 				<aspectratio>stretch</aspectratio>
-				<visible>!ListItem.Property(noitems)</visible>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			
 			<!-- "No items" placeholder -->
@@ -248,7 +248,7 @@
 				<align>left</align>
 				<label>No albums</label>
 				<textcolor>ffffffff</textcolor>
-				<visible>ListItem.Property(noitems)</visible>
+				<visible>ListItem.Property(NoItems)</visible>
 			</control>
 			
 			<control type="image">
@@ -293,7 +293,7 @@
 				<height>104</height>
 				<texture>common/item-bg-selected.png</texture>
 				<aspectratio>stretch</aspectratio>
-				<visible>!ListItem.Property(noitems)</visible>
+				<visible>!ListItem.Property(NoItems)</visible>
 			</control>
 			
 			<!-- "No items" placeholder -->
@@ -307,7 +307,7 @@
 				<align>left</align>
 				<label>No albums</label>
 				<textcolor>ffffffff</textcolor>
-				<visible>ListItem.Property(noitems)</visible>
+				<visible>ListItem.Property(NoItems)</visible>
 			</control>
 			
 			<control type="image">

@@ -251,7 +251,7 @@ class BaseListContainerView(BaseContainerView):
             #List was rendered but with no items, add a placeholder
             if self.get_list(view_manager).size() == 0:
                 item = xbmcgui.ListItem()
-                item.setProperty('noitems', 'true')
+                item.setProperty('NoItems', 'true')
                 self.get_list(view_manager).addItem(item)
             
             #Hide loading and show container
