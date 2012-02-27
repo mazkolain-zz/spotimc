@@ -69,6 +69,7 @@ class BasePlaylistLoader:
         self.__playlist_manager = playlist_manager
         self.__checker = BulkConditionChecker()
         self.__is_loaded = False
+        self.__thumbnails = []
         
         #Add the callbacks we are interested in
         playlist.add_callbacks(PlaylistCallbacks(self))
@@ -193,6 +194,11 @@ class BasePlaylistLoader:
                     #If we reached to the desired thumbnail count...
                     if len(thumbnails) == 4:
                         break
+        
+        #If the thumnbail count is still zero...
+        if len(thumbnails) == 0:
+            self.__thumbnails = ['common/pl-default.png']
+            return True
         
         #If the stored thumbnail data changed...
         if self.__thumbnails != thumbnails:
