@@ -109,6 +109,11 @@ class BasePlaylistLoader:
         return self.__playlist.tracks()
     
     
+    def get_track(self, index):
+        track_list = self.get_tracks()
+        return track_list[index]
+    
+    
     def get_is_collaborative(self):
         return self.__is_collaborative
     
@@ -365,6 +370,19 @@ class SpecialPlaylistLoader(BasePlaylistLoader):
         #Update ui
         if has_changes:
             xbmc.executebuiltin("Action(Noop)")
+    
+    
+    def get_tracks(self):
+        playlist = self.get_playlist()
+        def sort_func(track_index):
+            track = playlist.track(track_index)
+            if track.is_loaded():
+                return -playlist.track_create_time(track_index)
+        
+        track_indexes = range(playlist.num_tracks() - 1)
+        sorted_indexes = sorted(track_indexes, key=sort_func)
+        
+        return [playlist.track(index) for index in sorted_indexes]
 
 
 class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
