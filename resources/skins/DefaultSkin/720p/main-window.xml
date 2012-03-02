@@ -1372,7 +1372,7 @@
 					</control>
 					
 					<control type="togglebutton" id="6011">
-						<include>spotimc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_check</include>
 						<description></description>
 						<label>Albums</label>
 						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_albums)</usealttexture>
@@ -1380,7 +1380,7 @@
 					</control>
 					
 					<control type="togglebutton" id="6012">
-						<include>spotimc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_check</include>
 						<description></description>
 						<label>Singles</label>
 						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_singles)</usealttexture>
@@ -1388,7 +1388,7 @@
 					</control>
 					
 					<control type="togglebutton" id="6013">
-						<include>spotimc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_check</include>
 						<description></description>
 						<label>Compilations</label>
 						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_compilations)</usealttexture>
@@ -1396,7 +1396,7 @@
 					</control>
 					
 					<control type="togglebutton" id="6014">
-						<include>spotimc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_check</include>
 						<description></description>
 						<label>"Appears in"</label>
 						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_appears_in)</usealttexture>
@@ -1411,7 +1411,7 @@
 					</control>
 					
 					<control type="togglebutton" id="6016">
-						<include>spotimc_leftmenu_toggle</include>
+						<include>spotimc_leftmenu_check</include>
 						<description></description>
 						<label>Hide similar</label>
 						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_hide_similar)</usealttexture>
