@@ -83,11 +83,16 @@ class PlaylistManager:
         return self.__url_headers
     
     
-    def get_track_url(self, track):
+    def get_track_url(self, track, list_index = None):
         track_id = self._get_track_id(track)
         headers = self._get_url_headers()
-        args = (self.__server_port, track_id, headers)
-        return 'http://127.0.0.1:%s/track/%s.wav|%s' % args
+        
+        if list_index is not None:
+            args = (self.__server_port, track_id, list_index, headers)
+            return 'http://127.0.0.1:%s/track/%s.wav?idx=%d|%s' % args
+        else:
+            args = (self.__server_port, track_id, headers)
+            return 'http://127.0.0.1:%s/track/%s.wav|%s' % args
     
     
     def get_image_url(self, image_id):
@@ -109,7 +114,7 @@ class PlaylistManager:
             artist = ', '.join([artist.name() for artist in track_obj.artists()])
             image_id = track_obj.album().cover()
             image_url = self.get_image_url(image_id)
-            track_url = self.get_track_url(track_obj)
+            track_url = self.get_track_url(track_obj, list_index)
             rating_points = str(self._calculate_track_rating(track_obj))
             
             item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
