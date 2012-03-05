@@ -1,0 +1,5 @@
+/resources/dlls
+/.project
+/.pydevproject
+/resources/libs/spotimcgui/appkey.py
+/resources/libs/*.egg
