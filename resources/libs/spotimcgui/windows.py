@@ -59,7 +59,7 @@ class MainWindow(xbmcgui.WindowXML):
     
     def initialize(self, session, proxy_runner):
         self.__session = session
-        self.__playlist_manager = playback.PlaylistManager(proxy_runner.get_port())
+        self.__playlist_manager = playback.PlaylistManager(proxy_runner)
         
         #Shared vars with views
         self.__view_manager.set_var('playlist_manager', self.__playlist_manager)

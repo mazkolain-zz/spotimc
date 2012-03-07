@@ -38,9 +38,10 @@ class PlaylistManager:
     __track_list = None
     
     
-    def __init__(self, server_port):
+    def __init__(self, server):
         self.__track_list = []
-        self.__server_port = server_port
+        self.__server_port = server.get_port()
+        self.__play_token = server.get_user_token(self._get_user_agent())
     
     
     def _get_user_agent(self):
@@ -52,11 +53,6 @@ class PlaylistManager:
     
     
     def _get_play_token(self):
-        if self.__play_token is None:
-            address = '127.0.0.1:%s' % self.__server_port
-            user_agent = self._get_user_agent()
-            self.__play_token = spotifyproxy.httpproxy.get_my_token(address, user_agent)
-        
         return self.__play_token
     
     
