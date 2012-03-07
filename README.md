@@ -2,17 +2,22 @@ Spotimc
 =======
 Spotimc is an addon that gives you access to the Spotify music service. It requires a Spotify premium account.
 
-Please note that this addon is still in alpha stage, so expect things breaking here and there. There's lots of room for improvement, so contributions are very much appreciated.
+Please note that it's still in alpha stage, so expect things breaking here and there. There's lots of room for improvement, so contributions are very much appreciated.
 
 
-Installation
+Requirements
 ------------
-This addon can be installed from a zip file. Grab the latest release from the downloads, and inside XBMC go to System > Settings > Add-ons > Install from zip file.
+This addon runs on XBMC Eden. Older XBMC versions are not supported.
 
 
 Supported platforms
 -------------------
 Windows, Linux and OSX. IOS not supported (yet).
+
+
+Installation
+------------
+Grab the latest release from the downloads, and inside XBMC go to Home > System > Settings > Add-ons > Install from zip file. Once installed you can run the addon from Home > Music > Addons > Spotimc.
 
 
 Current Features
