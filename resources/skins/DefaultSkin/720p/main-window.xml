@@ -626,32 +626,10 @@
 						<scrollsuffix>-</scrollsuffix>
 					</control>
 					
-					<control type="label">
-						<label>00:00</label>
-						<info>Player.Time</info>
-						<posx>336</posx>
-						<posy>192</posy>
-						<width>80</width>
-						<height>16</height>
-						<visible>true</visible>
-						<align>left</align>
-						<aligny>center</aligny>
-						<scroll>false</scroll>
-						<number></number>
-						<angle>0</angle>
-						<haspath>false</haspath>
-						<font>spotimc_font20</font>
-						<textcolor>ffffffff</textcolor>
-						<shadowcolor>00000000</shadowcolor>
-						<wrapmultiline>false</wrapmultiline>
-						<scrollspeed>50</scrollspeed>
-						<scrollsuffix>-</scrollsuffix>
-					</control>
-					
 					<control type="progress">
 						<description>My first progress control</description>
-						<posx>416</posx>
-						<posy>192</posy>
+						<posx>336</posx>
+						<posy>194</posy>
 						<width>640</width>
 						<height>16</height>
 						<visible>true</visible>
@@ -665,11 +643,10 @@
 					</control>
 					
 					<control type="label">
-						<label>00:00</label>
-						<info>Player.Duration</info>
-						<posx>1072</posx>
+						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+						<posx>992</posx>
 						<posy>192</posy>
-						<width>80</width>
+						<width>160</width>
 						<height>16</height>
 						<visible>true</visible>
 						<align>left</align>
