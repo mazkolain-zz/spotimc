@@ -27,8 +27,8 @@ from spotimcgui.views.album import AlbumTracksView
 class NowPlayingView(BaseContainerView):
     container_id = 1600
     
-    browse_artist_button = 1611
-    browse_album_button = 1612
+    browse_artist_button = 1621
+    browse_album_button = 1622
     
     
     def _get_current_track(self, view_manager):

@@ -574,221 +574,244 @@
 						<posy>32</posy>
 					</control>
 					
-					<!-- Album Cover -->
-					<control type="image">
-						<include>spotimc_albumcover</include>
+					<control type="group" id="1601">
+						<description>Now playing container</description>
+						<defaultcontrol>1610</defaultcontrol>
+						<visible>!Player.Playing</visible>
 						<posx>0</posx>
-						<posy>80</posy>
-						<width>288</width>
-						<height>288</height>
-						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
+						<posy>0</posy>
+						
+						<control type="label">
+							<include>spotimc_title</include>
+							<label>[COLOR ffffffff]No tracks loaded[/COLOR]</label>
+							<posx>0</posx>
+							<posy>80</posy>
+						</control>
 					</control>
 					
-					<control type="label">
-						<posx>336</posx>
-						<posy>80</posy>
-						<width>auto</width>
-						<height>64</height>
-						<visible>true</visible>
-						<align>left</align>
-						<aligny>center</aligny>
-						<scroll>false</scroll>
-						<number></number>
-						<angle>0</angle>
-						<haspath>false</haspath>
-						<font>spotimc_font48</font>
-						<textcolor>ffffffff</textcolor>
-						<shadowcolor>00000000</shadowcolor>
-						<wrapmultiline>false</wrapmultiline>
-						<scrollspeed>50</scrollspeed>
-						<scrollsuffix>-</scrollsuffix>
-						<info>MusicPlayer.Title</info>
-					</control>
-					
-					<control type="label">
-						<label>$INFO[MusicPlayer.Artist] - $INFO[MusicPlayer.Album]</label>
-						<posx>336</posx>
-						<posy>144</posy>
-						<width>auto</width>
-						<height>32</height>
-						<visible>true</visible>
-						<align>left</align>
-						<aligny>center</aligny>
-						<scroll>false</scroll>
-						<number></number>
-						<angle>0</angle>
-						<haspath>false</haspath>
-						<font>spotimc_font24</font>
-						<textcolor>ff969696</textcolor>
-						<shadowcolor>00000000</shadowcolor>
-						<wrapmultiline>false</wrapmultiline>
-						<scrollspeed>50</scrollspeed>
-						<scrollsuffix>-</scrollsuffix>
-					</control>
-					
-					<control type="progress">
-						<description>My first progress control</description>
-						<posx>336</posx>
-						<posy>194</posy>
-						<width>640</width>
-						<height>16</height>
-						<visible>true</visible>
-						<reveal>false</reveal>
-						<texturebg>common/playback-bar-bg.png</texturebg>
-						<lefttexture>-</lefttexture>
-						<midtexture>common/playback-bar.png</midtexture>
-						<righttexture>-</righttexture>
-						<overlaytexture>-</overlaytexture>
-						<info>Player.Progress</info>
-					</control>
-					
-					<control type="label">
-						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
-						<posx>992</posx>
-						<posy>192</posy>
-						<width>160</width>
-						<height>16</height>
-						<visible>true</visible>
-						<align>left</align>
-						<aligny>center</aligny>
-						<scroll>false</scroll>
-						<number></number>
-						<angle>0</angle>
-						<haspath>false</haspath>
-						<font>spotimc_font20</font>
-						<textcolor>ffffffff</textcolor>
-						<shadowcolor>00000000</shadowcolor>
-						<wrapmultiline>false</wrapmultiline>
-						<scrollspeed>50</scrollspeed>
-						<scrollsuffix>-</scrollsuffix>
-					</control>
-					
-					<control type="grouplist" id="1601">
-						<description>Player menu</description>
-						<defaultcontrol>1603</defaultcontrol>
-						<posx>336</posx>
-						<posy>240</posy>
-						<width>1000</width>
-						<height>64</height>
-						<itemgap>16</itemgap>
-						<pagecontrol></pagecontrol>
-						<scrolltime tween="sine" easing="out">200</scrolltime>
-						<orientation>horizontal</orientation>
-						<usecontrolcoords>false</usecontrolcoords>
-						<visible>true</visible>
-						<onup>200</onup>
-						<ondown>1610</ondown>
-						<onleft>-</onleft>
-						<onright>200</onright>
-					
-						<!-- Back button -->
-						<control type="button" id="1602">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Backward button</description>
-							<texturefocus>common/player-backward-focus.png</texturefocus>
-							<texturenofocus>common/player-backward.png</texturenofocus>
-							<onclick>PlayerControl(Previous)</onclick>
+					<control type="group" id="1601">
+						<description>Now playing container</description>
+						<defaultcontrol>1610</defaultcontrol>
+						<visible>Player.Playing</visible>
+						<posx>0</posx>
+						<posy>0</posy>
+						
+						<!-- Album Cover -->
+						<control type="image">
+							<include>spotimc_albumcover</include>
+							<posx>0</posx>
+							<posy>80</posy>
+							<width>288</width>
+							<height>288</height>
+							<texture background="true">$INFO[MusicPlayer.Cover]</texture>
 						</control>
 						
-						<!-- Play/Pause button -->
-						<control type="togglebutton" id="1603">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Play/Pause button</description>
-							<texturefocus>common/player-play-focus.png</texturefocus>
-							<texturenofocus>common/player-play.png</texturenofocus>
-							<alttexturefocus>common/player-pause-focus.png</alttexturefocus>
-							<alttexturenofocus>common/player-pause.png</alttexturenofocus>
-							<usealttexture>Player.Paused</usealttexture>
-							<onclick>PlayerControl(Play)</onclick>
+						<control type="label">
+							<posx>336</posx>
+							<posy>80</posy>
+							<width>auto</width>
+							<height>64</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font48</font>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
+							<info>MusicPlayer.Title</info>
 						</control>
 						
-						<!-- Forward button -->
-						<control type="button" id="1604">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Forward button</description>
-							<texturefocus>common/player-forward-focus.png</texturefocus>
-							<texturenofocus>common/player-forward.png</texturenofocus>
-							<onclick>PlayerControl(Next)</onclick>
+						<control type="label">
+							<label>$INFO[MusicPlayer.Artist] - $INFO[MusicPlayer.Album]</label>
+							<posx>336</posx>
+							<posy>144</posy>
+							<width>auto</width>
+							<height>32</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font24</font>
+							<textcolor>ff969696</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
 						</control>
 						
-						<!-- Shuffle button -->
-						<control type="togglebutton" id="1605">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Shuffle button</description>
-							<texturefocus>common/player-shuffle-focus.png</texturefocus>
-							<texturenofocus>common/player-shuffle.png</texturenofocus>
-							<alttexturefocus>common/player-shuffle-on-focus.png</alttexturefocus>
-							<alttexturenofocus>common/player-shuffle-on.png</alttexturenofocus>
-							<usealttexture>Playlist.IsRandom</usealttexture>
-							<onclick>PlayerControl(Random)</onclick>
+						<control type="progress">
+							<description>My first progress control</description>
+							<posx>336</posx>
+							<posy>194</posy>
+							<width>640</width>
+							<height>16</height>
+							<visible>true</visible>
+							<reveal>false</reveal>
+							<texturebg>common/playback-bar-bg.png</texturebg>
+							<lefttexture>-</lefttexture>
+							<midtexture>common/playback-bar.png</midtexture>
+							<righttexture>-</righttexture>
+							<overlaytexture>-</overlaytexture>
+							<info>Player.Progress</info>
 						</control>
 						
-						<!-- Shuffle button -->
-						<control type="togglebutton" id="1606">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Repeat button</description>
-							<texturefocus>common/player-repeat-focus.png</texturefocus>
-							<texturenofocus>common/player-repeat.png</texturenofocus>
-							<alttexturefocus>common/player-repeat-on-focus.png</alttexturefocus>
-							<alttexturenofocus>common/player-repeat-on.png</alttexturenofocus>
-							<usealttexture>Playlist.IsRepeat</usealttexture>
-							<onclick>PlayerControl(Repeat)</onclick>
+						<control type="label">
+							<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+							<posx>992</posx>
+							<posy>192</posy>
+							<width>160</width>
+							<height>16</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font20</font>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
 						</control>
 						
-						<!-- Forward button -->
-						<control type="button" id="1607">
-							<include>spotimc_nowplaying_player_button</include>
-							<description>Visualization button</description>
-							<texturefocus>common/player-vis-focus.png</texturefocus>
-							<texturenofocus>common/player-vis.png</texturenofocus>
-							<onclick>ActivateWindow(visualisation)</onclick>
-						</control>
-					</control>
-					
-					<!-- Current track options -->
-					<control type="label">
-						<include>spotimc_title</include>
-						<label>Current track:</label>
-						<posx>336</posx>
-						<posy>336</posy>
-					</control>
-					
-					<control type="grouplist" id="1610">
-						<description>Player menu</description>
-						<defaultcontrol>1611</defaultcontrol>
-						<posx>336</posx>
-						<posy>368</posy>
-						<width>1000</width>
-						<height>48</height>
-						<itemgap>16</itemgap>
-						<pagecontrol></pagecontrol>
-						<scrolltime tween="sine" easing="out">200</scrolltime>
-						<orientation>horizontal</orientation>
-						<usecontrolcoords>false</usecontrolcoords>
-						<visible>true</visible>
-						<onup>1601</onup>
-						<ondown>1620</ondown>
-						<onleft>-</onleft>
-						<onright>200</onright>
-					
-						<!-- Browse artist button -->
-						<control type="button" id="1611">
-							<include>spotimc_nowplaying_button</include>
-							<description></description>
-							<texturefocus>common/nowplaying-br-artist-focus.png</texturefocus>
-							<texturenofocus>common/nowplaying-br-artist.png</texturenofocus>
-							<onclick></onclick>
-							<label>Browse artist</label>
+						<control type="grouplist" id="1610">
+							<description>Player menu</description>
+							<defaultcontrol>1611</defaultcontrol>
+							<posx>336</posx>
+							<posy>240</posy>
+							<width>1000</width>
+							<height>64</height>
+							<itemgap>16</itemgap>
+							<pagecontrol></pagecontrol>
+							<scrolltime tween="sine" easing="out">200</scrolltime>
+							<orientation>horizontal</orientation>
+							<usecontrolcoords>false</usecontrolcoords>
+							<visible>true</visible>
+							<onup>200</onup>
+							<ondown>1620</ondown>
+							<onleft>-</onleft>
+							<onright>200</onright>
+						
+							<!-- Back button -->
+							<control type="button" id="1611">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Backward button</description>
+								<texturefocus>common/player-backward-focus.png</texturefocus>
+								<texturenofocus>common/player-backward.png</texturenofocus>
+								<onclick>PlayerControl(Previous)</onclick>
+							</control>
+							
+							<!-- Play/Pause button -->
+							<control type="togglebutton" id="1612">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Play/Pause button</description>
+								<texturefocus>common/player-play-focus.png</texturefocus>
+								<texturenofocus>common/player-play.png</texturenofocus>
+								<alttexturefocus>common/player-pause-focus.png</alttexturefocus>
+								<alttexturenofocus>common/player-pause.png</alttexturenofocus>
+								<usealttexture>Player.Paused</usealttexture>
+								<onclick>PlayerControl(Play)</onclick>
+							</control>
+							
+							<!-- Forward button -->
+							<control type="button" id="1613">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Forward button</description>
+								<texturefocus>common/player-forward-focus.png</texturefocus>
+								<texturenofocus>common/player-forward.png</texturenofocus>
+								<onclick>PlayerControl(Next)</onclick>
+							</control>
+							
+							<!-- Shuffle button -->
+							<control type="togglebutton" id="1614">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Shuffle button</description>
+								<texturefocus>common/player-shuffle-focus.png</texturefocus>
+								<texturenofocus>common/player-shuffle.png</texturenofocus>
+								<alttexturefocus>common/player-shuffle-on-focus.png</alttexturefocus>
+								<alttexturenofocus>common/player-shuffle-on.png</alttexturenofocus>
+								<usealttexture>Playlist.IsRandom</usealttexture>
+								<onclick>PlayerControl(Random)</onclick>
+							</control>
+							
+							<!-- Shuffle button -->
+							<control type="togglebutton" id="1615">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Repeat button</description>
+								<texturefocus>common/player-repeat-focus.png</texturefocus>
+								<texturenofocus>common/player-repeat.png</texturenofocus>
+								<alttexturefocus>common/player-repeat-on-focus.png</alttexturefocus>
+								<alttexturenofocus>common/player-repeat-on.png</alttexturenofocus>
+								<usealttexture>Playlist.IsRepeat</usealttexture>
+								<onclick>PlayerControl(Repeat)</onclick>
+							</control>
+							
+							<!-- Forward button -->
+							<control type="button" id="1616">
+								<include>spotimc_nowplaying_player_button</include>
+								<description>Visualization button</description>
+								<texturefocus>common/player-vis-focus.png</texturefocus>
+								<texturenofocus>common/player-vis.png</texturenofocus>
+								<onclick>ActivateWindow(visualisation)</onclick>
+							</control>
 						</control>
 						
-						<!-- Browse album button -->
-						<control type="button" id="1612">
-							<include>spotimc_nowplaying_button</include>
-							<description></description>
-							<texturefocus>common/nowplaying-br-album-focus.png</texturefocus>
-							<texturenofocus>common/nowplaying-br-album.png</texturenofocus>
-							<onclick></onclick>
-							<label>Browse album</label>
+						<!-- Current track options -->
+						<control type="label">
+							<include>spotimc_title</include>
+							<label>Current track:</label>
+							<posx>336</posx>
+							<posy>336</posy>
+						</control>
+						
+						<control type="grouplist" id="1620">
+							<description>Player menu</description>
+							<defaultcontrol>1621</defaultcontrol>
+							<posx>336</posx>
+							<posy>368</posy>
+							<width>1000</width>
+							<height>48</height>
+							<itemgap>16</itemgap>
+							<pagecontrol></pagecontrol>
+							<scrolltime tween="sine" easing="out">200</scrolltime>
+							<orientation>horizontal</orientation>
+							<usecontrolcoords>false</usecontrolcoords>
+							<visible>true</visible>
+							<onup>1610</onup>
+							<ondown>-</ondown>
+							<onleft>-</onleft>
+							<onright>200</onright>
+						
+							<!-- Browse artist button -->
+							<control type="button" id="1621">
+								<include>spotimc_nowplaying_button</include>
+								<description></description>
+								<texturefocus>common/nowplaying-br-artist-focus.png</texturefocus>
+								<texturenofocus>common/nowplaying-br-artist.png</texturenofocus>
+								<onclick></onclick>
+								<label>Browse artist</label>
+							</control>
+							
+							<!-- Browse album button -->
+							<control type="button" id="1622">
+								<include>spotimc_nowplaying_button</include>
+								<description></description>
+								<texturefocus>common/nowplaying-br-album-focus.png</texturefocus>
+								<texturenofocus>common/nowplaying-br-album.png</texturenofocus>
+								<onclick></onclick>
+								<label>Browse album</label>
+							</control>
 						</control>
 					</control>
 				</control>
