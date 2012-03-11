@@ -592,7 +592,7 @@
 					<control type="group" id="1601">
 						<description>Now playing container</description>
 						<defaultcontrol>1610</defaultcontrol>
-						<visible>Player.Playing</visible>
+						<visible>Player.Playing | Player.Paused</visible>
 						<posx>0</posx>
 						<posy>0</posy>
 						
