@@ -1,2 +1,6 @@
-[B]Version 0.1[/B]
-- Initial release.
+[B]0.1-alpha4[/B]
+- Fix: Now playing view disappeared when playback was paused.
+- Fix: Wrong version identifier in addon.xml.
+
+[B]0.1-alpha3[/B]
+- Initial public release.
