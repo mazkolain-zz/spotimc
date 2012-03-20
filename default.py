@@ -99,12 +99,12 @@ try:
     #print 'gc objects: %d' % len(gc.get_objects())
 
 finally:
-    #Cleanup fonts and includes
-    if fm is not None:
-        del fm
-    
+    #Cleanup includes and fonts
     if im is not None:
         del im
+    
+    if fm is not None:
+        del fm
     
     #Close the background loading window
     loadingwin.close()
