@@ -11,6 +11,7 @@
 		<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
 		<font>spotimc_font24</font>
 		<textcolor>FFFFFFFF</textcolor>
+		<focusedcolor>FFFFFFFF</focusedcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 		<align>center</align>
 		<aligny>center</aligny>
@@ -95,6 +96,7 @@
 		<alttexturenofocus>common/left-menu-toggle-on.png</alttexturenofocus>
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
+		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -120,6 +122,7 @@
 		<alttexturenofocus>common/left-menu-check-on.png</alttexturenofocus>
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
+		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -144,6 +147,7 @@
 		<texturenofocus>common/left-menu-button.png</texturenofocus>
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
+		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -1251,6 +1255,7 @@
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 		<textoffsetx>48</textoffsetx>
+		<aligny>center</aligny>
 	</include>
 	
 	
