@@ -1,6 +1,6 @@
 <window id="4001" type="window">
     <defaultcontrol always="false">1000</defaultcontrol>
-    <allowoverlay>yes</allowoverlay>
+    <allowoverlay>no</allowoverlay>
     <backgroundcolor>ff000000</backgroundcolor>
     <visible>true</visible>
     <zorder>0</zorder>
