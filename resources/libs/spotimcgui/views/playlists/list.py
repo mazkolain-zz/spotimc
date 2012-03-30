@@ -127,8 +127,8 @@ class PlaylistView(BaseListContainerView):
     
     def all_loaded(self):
         return (
-            self.__starred_loader.is_loaded() and
-            self.__inbox_loader.is_loaded() and
+            (self.__starred_loader.is_loaded() or self.__starred_loader.has_errors()) and
+            (self.__inbox_loader.is_loaded() or self.__inbox_loader.has_errors()) and
             self.__container_loader.is_loaded()
         )
     
@@ -151,7 +151,13 @@ class PlaylistView(BaseListContainerView):
             
             #And iterate over the rest of the playlists
             for key, item in enumerate(self.__container_loader.playlists()):
-                if item is not None and item.is_loaded():
+                show_playlist = (
+                    item is not None and
+                    not item.has_errors() and
+                    item.is_loaded()
+                )
+                
+                if show_playlist:
                     playlist_username = item.get_playlist().owner().canonical_name()
                     show_owner = playlist_username != container_username
                     self._add_playlist(list, key, item, show_owner)

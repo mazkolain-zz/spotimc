@@ -61,6 +61,8 @@ class BasePlaylistLoader:
     __thumbnails = None
     __is_collaborative = None
     __is_loaded = None
+    __has_errors = None
+    __has_changes = None
     
     
     def __init__(self, session, playlist, playlist_manager):
@@ -69,6 +71,7 @@ class BasePlaylistLoader:
         self.__playlist_manager = playlist_manager
         self.__checker = BulkConditionChecker()
         self.__is_loaded = False
+        self.__has_errors = False
         self.__thumbnails = []
         
         #Add the callbacks we are interested in
@@ -78,8 +81,27 @@ class BasePlaylistLoader:
         if not playlist.is_in_ram(session):
             playlist.set_in_ram(session, True)
         
-        #And finish the rest in the background
-        self.start_loading()
+        #Finish the rest in the background
+        self._load_in_background()
+    
+    
+    @run_in_thread(threads_per_class=10, single_instance=True)
+    def _load_in_background(self):
+        try:
+            #Reset change flag
+            self._set_changes(False)
+            
+            #And finish the rest in the background
+            self.start_loading()
+        
+        except:
+            #Mark this playlist
+            self._set_error(True)
+        
+        finally:
+            #If changes or errors were detected
+            if self.has_changes() or self.has_errors():
+                self.end_loading()
     
     
     def get_playlist(self):
@@ -267,8 +289,28 @@ class BasePlaylistLoader:
         return self.__is_loaded
     
     
+    def _set_error(self, status):
+        self.__has_errors = status
+        
+    
+    def has_errors(self):
+        return self.__has_errors
+    
+    
+    def _set_changes(self, status):
+        self.__has_changes = status
+    
+    
+    def has_changes(self):
+        return self.__has_changes
+    
+    
     def start_loading(self):
         raise NotImplementedError()
+    
+    
+    def end_loading(self):
+        pass
     
     
     def __del__(self):
@@ -285,25 +327,22 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
         BasePlaylistLoader.__init__(self, session, playlist, playlist_manager)
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
     def start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
-        #And load the rest of the data
-        has_changes = False
-        
         if self._load_attributes():
-            has_changes = True
-        
+            self._set_changes(True)
+            
         if self._load_thumbnails():
-            has_changes = True
-        
+            self._set_changes(True)
+            
         #Mark the playlist as loaded
         self._set_loaded(True)
-        
-        if has_changes:
-            self.__container_loader.update()
+    
+    
+    def end_loading(self):
+        self.__container_loader.update()
 
 
 
@@ -328,7 +367,6 @@ class FullPlaylistLoader(BasePlaylistLoader):
         self._wait_for_conditions(20)
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
     def start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
@@ -336,20 +374,19 @@ class FullPlaylistLoader(BasePlaylistLoader):
         #Load all the tracks
         self._load_all_tracks()
         
-        #And load the rest of the data
-        has_changes = False
-        
         if self._load_attributes():
-            has_changes = True
+            self._set_changes(True)
         
         if self._load_thumbnails():
-            has_changes = True
+            self._set_changes(True)
         
         #Mark the playlist as loaded
         self._set_loaded(True)
-        
-        if has_changes:
-            xbmc.executebuiltin("Action(Noop)")
+    
+    
+    def end_loading(self):
+        xbmc.executebuiltin("Action(Noop)")
+
 
 
 class SpecialPlaylistLoader(BasePlaylistLoader):
@@ -359,23 +396,19 @@ class SpecialPlaylistLoader(BasePlaylistLoader):
         self._set_thumbnails(thumbnails)
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
     def start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
-        #And load the rest of the data
-        has_changes = False
-        
         if self._load_num_tracks():
-            has_changes = True
+            self._set_changes(True)
         
         #Mark the playlist as loaded
         self._set_loaded(True)
-        
-        #Update ui
-        if has_changes:
-            xbmc.executebuiltin("Action(Noop)")
+    
+    
+    def end_loading(self):
+        xbmc.executebuiltin("Action(Noop)")
     
     
     def get_tracks(self):
@@ -522,6 +555,19 @@ class ContainerLoader:
                 self.add_playlist(item, pos)
     
     
+    def _check_playlist(self, playlist):
+        def is_playlist_loaded():
+            #If it has errors, say yes.
+            if playlist.has_errors():
+                return True
+            
+            #And if it was loaded, say yes
+            if playlist.is_loaded():
+                return True
+        
+        self.__checker.add_condition(is_playlist_loaded)
+    
+    
     def _load_container(self):
         #Wait for the container to be fully loaded
         self.__checker.add_condition(self.__container.is_loaded)
@@ -533,13 +579,18 @@ class ContainerLoader:
         #Add a load check for each playlist
         for item in self.__playlists:
             if item is not None and not item.is_loaded():
-                self.__checker.add_condition(item.is_loaded)
+                self._check_playlist(item)
         
-        #Wait until all conditions became true
+        #Wait until all conditions become true
         self.__checker.complete_wait(self.__container.num_playlists() * 5)
         
         #Set the status of the loader
         self.__is_loaded = True
+        
+        #Check and print errors for not loaded playlists
+        for idx, item in enumerate(self.__playlists):
+            if item is not None and item.has_errors():
+                xbmc.log('Playlist #%s failed loading.' % idx, xbmc.LOGERROR)
         
         #Finally tell the gui we are done
         xbmc.executebuiltin("Action(Noop)")
