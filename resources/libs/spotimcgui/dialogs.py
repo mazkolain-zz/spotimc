@@ -176,38 +176,3 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     
     def onFocus(self, controlID):
         pass
-
-
-
-class PlaylistDialog(xbmcgui.WindowXMLDialog):
-    __file = None
-    __script_path = None
-    __skin_dir = None
-    
-    
-    def __init__(self, file, script_path, skin_dir):
-        self.__file = file
-        self.__script_path = script_path
-        self.__skin_dir = skin_dir
-
-
-    def onInit(self):
-        c = self.getControl(3)
-        c.addItem(xbmcgui.ListItem('Item #1'))
-        c.addItem(xbmcgui.ListItem('Item #2'))
-        c.addItem(xbmcgui.ListItem('Item #3'))
-        c.addItem(xbmcgui.ListItem('Item #4'))
-        c.addItem(xbmcgui.ListItem('Item #5'))
-        c.addItem(xbmcgui.ListItem('Item #6'))
-    
-    
-    def onClick(self, controlID):
-        if controlID == 12:
-            self.getControl(1).setVisibleCondition("False")
-            import time
-            time.sleep(0.2)
-            self.close()
-    
-    
-    def onFocus(self, controlID):
-        pass
