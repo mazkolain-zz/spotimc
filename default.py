@@ -19,25 +19,25 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 
 __addon_id__ = 'script.audio.spotimc'
-__addon_version__ = '0.1'
 
 
 #Gather addon information
 import os.path, xbmcaddon, xbmcgui
-addon_cfg = xbmcaddon.Addon("script.audio.spotimc")
-addon_dir = addon_cfg.getAddonInfo('path')
+addon_cfg = xbmcaddon.Addon(__addon_id__)
+__addon_path__ = addon_cfg.getAddonInfo('path')
+__addon_version__ = addon_cfg.getAddonInfo('version')
 
 #Open the loading window
-loadingwin = xbmcgui.WindowXML("loading-window.xml", addon_dir, "DefaultSkin")
+loadingwin = xbmcgui.WindowXML("loading-window.xml", __addon_path__, "DefaultSkin")
 loadingwin.show()
 
 #Add the dll search path
 import envutils
-dll_dir = os.path.join(addon_dir, "resources/dlls")
+dll_dir = os.path.join(__addon_path__, "resources/dlls")
 envutils.set_library_path(dll_dir)
 
 #Add the libraries
-libs_dir = os.path.join(addon_dir, "resources/libs")
+libs_dir = os.path.join(__addon_path__, "resources/libs")
 sys.path.append(libs_dir)
 
 #Add the skinutils module
@@ -55,14 +55,14 @@ try:
     
     #Install custom fonts
     fm = FontManager()
-    skin_dir = os.path.join(addon_dir, "resources/skins/DefaultSkin")
+    skin_dir = os.path.join(__addon_path__, "resources/skins/DefaultSkin")
     xml_path = os.path.join(skin_dir, "720p/font.xml")
     font_dir = os.path.join(skin_dir, "fonts")
     fm.install_file(xml_path, font_dir)
     
     #Install custom includes
     im = IncludeManager()
-    include_path = os.path.join(addon_dir, "resources/skins/DefaultSkin/720p/includes.xml")
+    include_path = os.path.join(__addon_path__, "resources/skins/DefaultSkin/720p/includes.xml")
     im.install_file(include_path)
     reload_skin()
     
@@ -80,7 +80,7 @@ try:
     
     #Load & start the actual gui, no init code beyond this point
     from spotimcgui import main
-    main(addon_dir)
+    main(__addon_path__)
     
     
     xbmc.log('garbage collection: %d objects' % gc.collect())
