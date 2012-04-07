@@ -40,6 +40,8 @@ import dialogs
 
 from settings import SettingsManager, CacheManagement, StreamQuality
 
+from __main__ import __addon_version__
+
 
 
 class SpotimcCallbacks(SessionCallbacks):
@@ -111,6 +113,21 @@ class MainLoopRunner(threading.Thread):
 
 
 
+def check_addon_version(settings_obj):
+    #If current version is higher than the stored one...
+    if __addon_version__ > settings_obj.get_last_run_version():
+        settings_obj.set_last_run_version(__addon_version__)
+        
+        d  = xbmcgui.Dialog()
+        l1 = 'Spotimc was updated since the last run.'
+        l2 = 'Do you want to see the changelog?'
+        
+        if d.yesno('Spotimc', l1, l2):
+            file = settings_obj.get_addon_obj().getAddonInfo('changelog')
+            changelog = open(file).read()
+            dialogs.text_viewer_dialog('ChangeLog', changelog)
+
+
 def check_dirs():
     addon_data_dir = os.path.join(
         xbmc.translatePath('special://profile/addon_data'),
@@ -171,6 +188,9 @@ def main(addon_dir):
     
     #Instantiate the settings obj
     settings_obj = SettingsManager()
+    
+    #Start checking the version
+    check_addon_version(settings_obj)
     
     #Don't set cache folder if it's disabled
     if not settings_obj.get_cache_status():

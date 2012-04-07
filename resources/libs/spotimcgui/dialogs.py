@@ -22,6 +22,7 @@ import xbmc, xbmcgui
 import time
 from spotify.session import SessionCallbacks
 from spotify import ErrorType
+from __main__ import __addon_path__
 
 
 
@@ -176,3 +177,32 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     
     def onFocus(self, controlID):
         pass
+
+
+
+class TextViewer(xbmcgui.WindowXMLDialog):
+    label_id = 1
+    textbox_id = 5
+    
+    __heading = None
+    __text = None
+    
+    
+    def onInit(self):
+        self.getControl(TextViewer.label_id).setLabel(self.__heading)
+        self.getControl(TextViewer.textbox_id).setText(self.__text)
+    
+    
+    def initialize(self, heading, text):
+        self.__heading = heading
+        self.__text = text
+
+
+def text_viewer_dialog(heading, text, modal=True):
+    tv = TextViewer('DialogTextViewer.xml', __addon_path__)
+    tv.initialize(heading, text)
+    
+    if modal:
+        tv.doModal()
+    else:
+        tv.show()

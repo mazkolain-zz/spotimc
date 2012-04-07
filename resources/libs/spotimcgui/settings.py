@@ -49,6 +49,22 @@ class SettingsManager:
         return self.__addon.getSetting(name)
     
     
+    def _set_setting(self, name, value):
+        return self.__addon.setSetting(name, value)
+    
+    
+    def get_addon_obj(self):
+        return self.__addon
+    
+    
+    def get_last_run_version(self):
+        return self._get_setting('_last_run_version')
+    
+    
+    def set_last_run_version(self, version):
+        return self._set_setting('_last_run_version', version)
+    
+    
     def get_cache_status(self):
         return self._get_setting('general_cache_enable') == 'true'
     
