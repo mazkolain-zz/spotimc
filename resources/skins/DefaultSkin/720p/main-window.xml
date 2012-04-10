@@ -176,14 +176,14 @@
 					</control>
 					
 					<control type="image">
-						<description>Now playing tracks' album cover</description>
+						<description>Now playing track's album cover</description>
 						<posx>8</posx>
 						<posy>8</posy>
 						<width>64</width>
 						<height>64</height>
 						<visible>true</visible>
 						<colordiffuse>FFFFFFFF</colordiffuse>
-						<aspectratio>stretch</aspectratio>
+						<aspectratio>scale</aspectratio>
 						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
 					</control>
 					
@@ -323,11 +323,11 @@
 					
 					<!-- Album Cover -->
 					<control type="image">
-						<include>spotimc_albumcover</include>
+						<include>spotimc_albumcover_big</include>
 						<posx>0</posx>
 						<posy>80</posy>
 						<width>288</width>
-						<height>288</height>
+						<height>576</height>
 						<texture background="true">$INFO[Container.Property(AlbumCover)]</texture>
 					</control>
 					
@@ -598,11 +598,11 @@
 						
 						<!-- Album Cover -->
 						<control type="image">
-							<include>spotimc_albumcover</include>
+							<include>spotimc_albumcover_big</include>
 							<posx>0</posx>
 							<posy>80</posy>
 							<width>288</width>
-							<height>288</height>
+							<height>576</height>
 							<texture background="true">$INFO[MusicPlayer.Cover]</texture>
 						</control>
 						

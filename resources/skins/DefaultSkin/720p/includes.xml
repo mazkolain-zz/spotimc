@@ -1219,13 +1219,13 @@
 	
 	
 	<!-- General styles for album covers -->
-	<include name="spotimc_albumcover">
+	<include name="spotimc_albumcover_big">
 		<visible>true</visible>
 		<colordiffuse>FFFFFFFF</colordiffuse>
 		<fadetime>200</fadetime>
 		<bordertexture>common/item-bg.png</bordertexture>
 		<bordersize>4</bordersize>
-		<aspectratio>stretch</aspectratio>
+		<aspectratio aligny="top">keep</aspectratio>
 	</include>
 	
 	
