@@ -1,8 +1,10 @@
 [B]0.1-alpha5[/B]
 - Fix: Crashes with reFocus and Cirrus skins during initialization.
 - Fix: UI issues with Transparency! on certain platforms.
-- Fix: Infinite need-to-restart loops.
-- Fix: Tracks ended prematurely and got skipped randomly.
+- Fix: Infinite need-to-restart loops on startup.
+- Fix: Premature end of random tracks.
+- Fix: Crash and unresponsive UI when browsing playlists.
+- Fix: Non-square album covers were scaled badly.
 
 [B]0.1-alpha4[/B]
 - Fix: Now playing view disappeared when playback was paused.
