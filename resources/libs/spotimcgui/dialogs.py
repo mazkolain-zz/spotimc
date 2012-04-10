@@ -183,14 +183,25 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
 class TextViewer(xbmcgui.WindowXMLDialog):
     label_id = 1
     textbox_id = 5
+    close_button_id = 10
     
     __heading = None
     __text = None
     
     
     def onInit(self):
-        self.getControl(TextViewer.label_id).setLabel(self.__heading)
+        #Not all skins implement the heading label...
+        try:
+            self.getControl(TextViewer.label_id).setLabel(self.__heading)
+        except:
+            pass
+        
         self.getControl(TextViewer.textbox_id).setText(self.__text)
+    
+    
+    def onClick(self, control_id):
+        if control_id == 10:
+            self.close()
     
     
     def initialize(self, heading, text):
