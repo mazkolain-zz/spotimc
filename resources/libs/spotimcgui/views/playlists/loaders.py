@@ -42,7 +42,7 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
     
     def playlist_state_changed(self, playlist):
         self.__playlist_loader.check()
-        self.__playlist_loader.start_loading()
+        self.__playlist_loader.load_in_background()
     
     
     def playlist_metadata_updated(self, playlist):
@@ -82,17 +82,17 @@ class BasePlaylistLoader:
             playlist.set_in_ram(session, True)
         
         #Finish the rest in the background
-        self._load_in_background()
+        self.load_in_background()
     
     
     @run_in_thread(threads_per_class=10, single_instance=True)
-    def _load_in_background(self):
+    def load_in_background(self):
         try:
             #Reset change flag
             self._set_changes(False)
             
-            #And finish the rest in the background
-            self.start_loading()
+            #And call the method that does the actual loading task
+            self._start_loading()
         
         except:
             #Mark this playlist
@@ -305,7 +305,7 @@ class BasePlaylistLoader:
         return self.__has_changes
     
     
-    def start_loading(self):
+    def _start_loading(self):
         raise NotImplementedError()
     
     
@@ -327,7 +327,7 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
         BasePlaylistLoader.__init__(self, session, playlist, playlist_manager)
     
     
-    def start_loading(self):
+    def _start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
@@ -367,7 +367,7 @@ class FullPlaylistLoader(BasePlaylistLoader):
         self._wait_for_conditions(20)
     
     
-    def start_loading(self):
+    def _start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
@@ -396,7 +396,7 @@ class SpecialPlaylistLoader(BasePlaylistLoader):
         self._set_thumbnails(thumbnails)
     
     
-    def start_loading(self):
+    def _start_loading(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
