@@ -327,7 +327,7 @@
 						<posx>0</posx>
 						<posy>80</posy>
 						<width>288</width>
-						<height>576</height>
+						<height>480</height>
 						<texture background="true">$INFO[Container.Property(AlbumCover)]</texture>
 					</control>
 					
@@ -602,7 +602,7 @@
 							<posx>0</posx>
 							<posy>80</posy>
 							<width>288</width>
-							<height>576</height>
+							<height>480</height>
 							<texture background="true">$INFO[MusicPlayer.Cover]</texture>
 						</control>
 						
