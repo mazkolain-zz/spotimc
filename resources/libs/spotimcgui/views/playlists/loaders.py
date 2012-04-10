@@ -93,6 +93,10 @@ class BasePlaylistLoader:
             
             #And call the method that does the actual loading task
             self._start_loading()
+            
+            #Clear previous error flags (if any)
+            if self.has_errors():
+                self._set_error(False)
         
         except:
             #Mark this playlist
