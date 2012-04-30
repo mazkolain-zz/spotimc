@@ -110,6 +110,7 @@ class MainLoopRunner(threading.Thread):
     
     def stop(self):
         self.__mainloop.quit()
+        self.join(10)
 
 
 
