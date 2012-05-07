@@ -36,10 +36,12 @@ class PlaylistManager:
     __play_token = None
     __url_headers = None
     __track_list = None
+    __track_queue = None
     
     
     def __init__(self, server):
         self.__track_list = []
+        self.__track_queue = []
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
     
@@ -61,7 +63,8 @@ class PlaylistManager:
     
     
     def clear(self):
-        pass
+        self.__track_list = []
+        xbmc.PlayList(xbmc.PLAYLIST_MUSIC).clear()
     
     
     def _get_track_id(self, track):
@@ -154,21 +157,66 @@ class PlaylistManager:
             time.sleep(0.7)
     
     
-    def play(self, track_list, session, offset=0):
-        self._stop_playback()
+    def _remove_queued_item(self, path_to_remove, session):
+        for index, item in enumerate(self.__track_queue):
+            path, info = self.create_track_info(item, session, index)
+            if path == path_to_remove:
+                del self.__track_queue[index]
+                return True
         
+        return False
+    
+    
+    def _purge_queued_items(self, session):
         playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
-        playlist.clear()
-        self.__track_list = []
         
-        #And iterate over the give track list
+        for idx in range(0, playlist.getposition() + 1):
+            self._remove_queued_item(playlist[idx].getfilename(), session)
+    
+    
+    def _add_playlist_item(self, track, session, list_index):
+        path, info = self.create_track_info(track, session, list_index)
+        xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info)
+    
+    
+    def play(self, track_list, session, offset=0):
+        #Purge past queued items first
+        self._purge_queued_items(session)
+        
+        #Stop playback and clear the list
+        self._stop_playback()
+        self.clear()
+        
+        #Add every track to the XBMC playlist
         for list_index, track in enumerate(track_list):
-            self.__track_list.append(track)  
-            path, info = self.create_track_info(track, session, list_index)
-            playlist.add(path, info)
+            self._add_playlist_item(track, session, list_index)
+            self.__track_list.append(track)
         
+        #Start playback of current item
         self._play_item(offset)
+        
+        #Re-add pending queued items
+        self.enqueue(self.__track_queue, session)
+    
+    
+    def enqueue(self, track_list, session):
+        #Purge past items first
+        self._purge_queued_items(session)
+        
+        #And add the requested items to the queue
+        for queue_index, track in enumerate(track_list):
+            index = 'q' + str(queue_index)
+            self._add_playlist_item(track, session, index)
+            self.__track_queue.append(object)
     
     
     def get_item(self, index):
-        return self.__track_list[index]
+        str_index = str(index)
+        
+        #Check if belongs to the queue
+        if str_index.startswith('q'):
+            return self.__track_queue[int(str_index[1:])]
+        
+        #Otherwise it's on the regular list
+        else:
+            return self.__track_list[int(index)]
