@@ -22,7 +22,7 @@ __addon_id__ = 'script.audio.spotimc'
 
 
 #Gather addon information
-import os.path, xbmcaddon, xbmcgui
+import os.path, xbmcaddon, xbmcgui, gc
 addon_cfg = xbmcaddon.Addon(__addon_id__)
 __addon_path__ = addon_cfg.getAddonInfo('path')
 __addon_version__ = addon_cfg.getAddonInfo('version')
@@ -71,32 +71,14 @@ try:
     sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes.egg"))
     sys.path.append(os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
     
-    import gc
-    import xbmc
-    
-    print 'gc objects: %d' % len(gc.get_objects())
-    
-    #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
-    
     #Load & start the actual gui, no init code beyond this point
     from spotimcgui import main
-    main(__addon_path__)
+    session = main(__addon_path__)
+    gc.collect()
+    session = None
     
-    
-    xbmc.log('garbage collection: %d objects' % gc.collect())
-    #print gc.garbage
-    
-    
-    import _spotify
-    _spotify.unload_library()
-    
-    
-    #import objgraph
-    #objgraph.show_backrefs(gc.garbage, max_depth=10)
-    
-    #xbmc.log('gc objects before: %d,%d,%d' % gc.get_count())
-    
-    #print 'gc objects: %d' % len(gc.get_objects())
+    from _spotify import unload_library
+    unload_library()
 
 finally:
     #Cleanup includes and fonts

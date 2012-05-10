@@ -110,6 +110,7 @@ class MainLoopRunner(threading.Thread):
     
     def stop(self):
         self.__mainloop.quit()
+        self.join(10)
 
 
 
@@ -230,7 +231,8 @@ def main(addon_dir):
         mainwin.doModal()
         
         #Deinit sequence
-        xbmc.executebuiltin('PlayerControl(Stop)')
+        player = xbmc.Player()
+        player.stop()
         proxy_runner.stop()
         
         #Logout
