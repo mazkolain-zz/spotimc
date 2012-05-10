@@ -57,7 +57,8 @@ class PlaylistManager:
     
     
     def _play_item(self, offset):
-        xbmc.executebuiltin('playlist.playoffset(music,%d)' % offset)
+        player = xbmc.Player()
+        player.playselected(offset)
     
     
     def clear(self):
@@ -148,10 +149,8 @@ class PlaylistManager:
     
     
     def _stop_playback(self):
-        if xbmc.getCondVisibility('Player.Playing'):
-            #Don't ask me why, but these ones help a lot
-            xbmc.executebuiltin('playercontrol(stop)')
-            time.sleep(0.7)
+        player = xbmc.Player()
+        player.stop()
     
     
     def play(self, track_list, session, offset=0):

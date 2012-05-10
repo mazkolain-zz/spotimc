@@ -231,7 +231,8 @@ def main(addon_dir):
         mainwin.doModal()
         
         #Deinit sequence
-        xbmc.executebuiltin('PlayerControl(Stop)')
+        player = xbmc.Player()
+        player.stop()
         proxy_runner.stop()
         
         #Logout
