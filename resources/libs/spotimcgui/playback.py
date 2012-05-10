@@ -89,7 +89,7 @@ class PlaylistManager:
         
         if list_index is not None:
             args = (self.__server_port, track_id, list_index, headers)
-            return 'http://127.0.0.1:%s/track/%s.wav?idx=%d|%s' % args
+            return 'http://127.0.0.1:%s/track/%s.wav?idx=%s|%s' % args
         else:
             args = (self.__server_port, track_id, headers)
             return 'http://127.0.0.1:%s/track/%s.wav|%s' % args
@@ -173,9 +173,13 @@ class PlaylistManager:
             self._remove_queued_item(playlist[idx].getfilename(), session)
     
     
-    def _add_playlist_item(self, track, session, list_index):
+    def _add_playlist_item(self, track, session, list_index, offset=None):
         path, info = self.create_track_info(track, session, list_index)
-        xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info)
+        
+        if offset is None:
+            xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info)
+        else:
+            xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info, offset)
     
     
     def play(self, track_list, session, offset=0):
@@ -202,11 +206,14 @@ class PlaylistManager:
         #Purge past items first
         self._purge_queued_items(session)
         
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        
         #And add the requested items to the queue
         for queue_index, track in enumerate(track_list):
-            index = 'q' + str(queue_index)
-            self._add_playlist_item(track, session, index)
-            self.__track_queue.append(object)
+            list_index = 'q' + str(queue_index)
+            offset = playlist.getposition() + len(self.__track_queue) + 1
+            self._add_playlist_item(track, session, list_index, offset)
+            self.__track_queue.append(track)
     
     
     def get_item(self, index):
