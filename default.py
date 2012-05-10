@@ -77,17 +77,6 @@ try:
     gc.collect()
     session = None
     
-    #Some debug info...
-    from _spotify import _library_refs
-    print _library_refs
-    from spotify.utils.finalize import _finalize_refs
-    print _finalize_refs
-    import threading
-    print 'threads: %d' % threading.activeCount()
-    
-    #import objgraph
-    #objgraph.show_backrefs(objs, max_depth=5)
-    
     from _spotify import unload_library
     unload_library()
 
