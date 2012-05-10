@@ -40,6 +40,7 @@ class AlbumTracksView(BaseListContainerView):
     container_id = 1300
     list_id = 1303
     
+    context_add_to_queue = 5306
     context_toggle_star = 5307
     
     __albumbrowse = None
@@ -64,9 +65,24 @@ class AlbumTracksView(BaseListContainerView):
             playlist_manager.play(self.__albumbrowse.tracks(), session, pos)
     
     
+    def _enqueue_selected_track(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        pos = int(item.getProperty("ListIndex"))
+        
+        #If we have a valid index
+        if pos is not None:
+            session = view_manager.get_var('session')
+            playlist_manager = view_manager.get_var('playlist_manager')
+            track = self.__albumbrowse.track(pos)
+            playlist_manager.enqueue([track], session)
+    
+    
     def click(self, view_manager, control_id):
         if control_id == AlbumTracksView.list_id:
             self._play_selected_track(view_manager)
+        
+        elif control_id == AlbumTracksView.context_add_to_queue:
+            self._enqueue_selected_track(view_manager)
         
         elif control_id == AlbumTracksView.context_toggle_star:
             item = self.get_list(view_manager).getSelectedItem()

@@ -38,7 +38,8 @@ class PlaylistDetailView(BaseListContainerView):
     BrowseArtistButton = 5811
     BrowseAlbumButton = 5812
     
-    context_toggle_star = 5813
+    context_add_to_queue = 5813
+    context_toggle_star = 5814
     
     __loader = None
     __playlist = None
@@ -86,6 +87,13 @@ class PlaylistDetailView(BaseListContainerView):
             album = self.__loader.get_track(pos).album()
             v = AlbumTracksView(view_manager.get_var('session'), album)
             view_manager.add_view(v)
+        
+        elif control_id == PlaylistDetailView.context_add_to_queue:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('ListIndex'))
+            track = self.__loader.get_track(pos)
+            playlist_manager = view_manager.get_var('playlist_manager')
+            playlist_manager.enqueue([track], session)
         
         elif control_id == PlaylistDetailView.context_toggle_star:
             item = self.get_list(view_manager).getSelectedItem()

@@ -1230,13 +1230,13 @@
 						<description></description>
 						<label>Add to playlist</label>
 					</control>
+					-->
 					
 					<control type="button" id="5306">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to queue</label>
 					</control>
-					-->
 					
 					<control type="button" id="5307">
 						<include>spotimc_leftmenu_button</include>
@@ -1271,6 +1271,12 @@
 					</control>
 					
 					<control type="button" id="5304">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Add to queue</label>
+					</control>
+					
+					<control type="button" id="5305">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
@@ -1350,6 +1356,12 @@
 					</control>
 					
 					<control type="button" id="5813">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Add to queue</label>
+					</control>
+					
+					<control type="button" id="5814">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>

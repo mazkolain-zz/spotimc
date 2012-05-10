@@ -50,8 +50,9 @@ class SearchTracksView(BaseListContainerView):
     
     context_browse_artist_button = 5302
     context_browse_album_button = 5303
-    context_toggle_star = 5304
-    context_add_to_playlist = 5305
+    context_add_to_queue = 5305
+    context_toggle_star = 5305
+    context_add_to_playlist = 5306
     
     
     __session = None
@@ -111,6 +112,14 @@ class SearchTracksView(BaseListContainerView):
             session = view_manager.get_var('session')
             v = AlbumTracksView(session, album)
             view_manager.add_view(v)
+        
+        elif control_id == SearchTracksView.context_add_to_queue:
+            item = self.get_list(view_manager).getSelectedItem()
+            pos = int(item.getProperty('ListIndex'))
+            track = self.__search.track(pos)
+            session = view_manager.get_var('session')
+            playlist_manager = view_manager.get_var('playlist_manager')
+            playlist_manager.enqueue([track], session)
         
         elif control_id == SearchTracksView.context_toggle_star:
             item = self.get_list(view_manager).getSelectedItem()
