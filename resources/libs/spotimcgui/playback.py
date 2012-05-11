@@ -184,6 +184,20 @@ class PlaylistManager:
             xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info, offset)
     
     
+    def _enqueue(self, track_list, session):
+        #Purge past items first
+        self._purge_queued_items(session)
+        
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        
+        #And add the requested items to the queue
+        for queue_index, track in enumerate(track_list):
+            list_index = 'q' + str(queue_index)
+            offset = playlist.getposition() + len(self.__track_queue) + 1
+            self._add_playlist_item(track, session, list_index, offset)
+            self.__track_queue.append(track)
+    
+    
     def play(self, track_list, session, offset=0):
         #Purge past queued items first
         self._purge_queued_items(session)
@@ -204,21 +218,21 @@ class PlaylistManager:
         self._play_item(offset)
         
         #Re-add pending queued items
-        self.enqueue(track_queue, session)
+        self._enqueue(track_queue, session)
     
     
     def enqueue(self, track_list, session):
-        #Purge past items first
-        self._purge_queued_items(session)
+        #Do the real queuing
+        self._enqueue(track_list, session)
         
-        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        #Now show the notifications
+        if len(track_list) > 1:
+            msg = "%d tracks added to queue." % len()
+            xbmc.executebuiltin("Notification(Queue updated, %s)" % msg)
         
-        #And add the requested items to the queue
-        for queue_index, track in enumerate(track_list):
-            list_index = 'q' + str(queue_index)
-            offset = playlist.getposition() + len(self.__track_queue) + 1
-            self._add_playlist_item(track, session, list_index, offset)
-            self.__track_queue.append(track)
+        else:
+            msg = "Track added into position #%d" % len(self.__track_queue)
+            xbmc.executebuiltin("Notification(Queue updated, %s)" % msg)
     
     
     def get_item(self, index):
