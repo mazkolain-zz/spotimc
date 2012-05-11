@@ -65,6 +65,7 @@ class PlaylistManager:
     
     def clear(self):
         self.__track_list = []
+        self.__track_queue = []
         xbmc.PlayList(xbmc.PLAYLIST_MUSIC).clear()
     
     
@@ -158,7 +159,8 @@ class PlaylistManager:
     
     def _remove_queued_item(self, path_to_remove, session):
         for index, item in enumerate(self.__track_queue):
-            path, info = self.create_track_info(item, session, index)
+            queue_index = 'q' + str(index)
+            path, info = self.create_track_info(item, session, queue_index)
             if path == path_to_remove:
                 del self.__track_queue[index]
                 return True
@@ -186,6 +188,9 @@ class PlaylistManager:
         #Purge past queued items first
         self._purge_queued_items(session)
         
+        #Keep a copy of the queued tracks
+        track_queue = self.__track_queue
+        
         #Stop playback and clear the list
         self._stop_playback()
         self.clear()
@@ -199,7 +204,7 @@ class PlaylistManager:
         self._play_item(offset)
         
         #Re-add pending queued items
-        self.enqueue(self.__track_queue, session)
+        self.enqueue(track_queue, session)
     
     
     def enqueue(self, track_list, session):
