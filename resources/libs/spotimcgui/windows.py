@@ -35,6 +35,8 @@ import playback
 
 import weakref
 
+from settings import SettingsManager, StartupScreen
+
 
 class MainWindow(xbmcgui.WindowXML):
     __view_manager = None
@@ -75,16 +77,34 @@ class MainWindow(xbmcgui.WindowXML):
     def hide_loading(self):
         c = self.getControl(MainWindow.loading_image)
         c.setVisibleCondition("False")
+    
+    
+    def _init_new_stuff(self):
+        self.setProperty('MainActiveTab', 'newstuff')
+        v = views.newstuff.NewStuffView(self.__session)
+        self.__view_manager.add_view(v)
+    
+    
+    def _init_playlists(self):
+        self.setProperty('MainActiveTab', 'playlists')
+        c = self.__session.playlistcontainer()
+        pm = self.__playlist_manager
+        v = views.playlists.list.PlaylistView(self.__session, c, pm)
+        self.__view_manager.add_view(v)
 
 
     def onInit(self):
         # Check if we already added views because after
         # exiting music vis this gets called again.  
         if self.__view_manager.num_views() == 0:
-            #Start the new stuff view by default
-            self.setProperty('MainActiveTab', 'newstuff')
-            v = views.newstuff.NewStuffView(self.__session)
-            self.__view_manager.add_view(v)
+            #Get the startup view from the settings
+            startup_screen = SettingsManager().get_misc_startup_screen()
+            if startup_screen == StartupScreen.Playlists:
+                self._init_playlists()
+            
+            #Always display new stuff as a fallback
+            else:
+                self._init_new_stuff()
     
     
     def onAction(self, action):
@@ -103,20 +123,14 @@ class MainWindow(xbmcgui.WindowXML):
             v = views.nowplaying.NowPlayingView()
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
-            
+        
         elif control_id == MainWindow.playlists_button:
-            self.setProperty('MainActiveTab', 'playlists')
-            c = self.__session.playlistcontainer()
-            pm = self.__playlist_manager
-            v = views.playlists.list.PlaylistView(self.__session, c, pm)
             self.__view_manager.clear_views()
-            self.__view_manager.add_view(v)
+            self._init_playlists()
         
         elif control_id == MainWindow.new_stuff_button:
-            self.setProperty('MainActiveTab', 'newstuff')
-            v = views.newstuff.NewStuffView(self.__session)
             self.__view_manager.clear_views()
-            self.__view_manager.add_view(v)
+            self._init_new_stuff()
         
         elif control_id == MainWindow.search_button:
             term = views.search.ask_search_term()

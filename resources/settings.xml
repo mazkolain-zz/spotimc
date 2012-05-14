@@ -16,4 +16,8 @@
 		<setting id="audio_normalize" type="bool" label="Normalize volume of tracks" default="true" />
 		<setting id="audio_quality" type="enum" label="Stream quality" values="Low (96k)|Medium (160k)|High (320k)" default="1" />
 	</category>
+	
+	<category label="Miscellaneous">
+		<setting id="misc_startup_screen" type="enum" label="Startup screen" values="New Stuff|Playlists" default="0" />
+	</category>
 </settings>

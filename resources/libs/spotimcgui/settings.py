@@ -37,6 +37,12 @@ class StreamQuality:
 
 
 
+class StartupScreen:
+    NewStuff = 0
+    Playlists = 1
+
+
+
 class SettingsManager:
     __addon = None
     
@@ -100,6 +106,10 @@ class SettingsManager:
         
         elif settings_quality == StreamQuality.High:
             return Bitrate.Rate320k
+    
+    
+    def get_misc_startup_screen(self):
+        return int(self._get_setting('misc_startup_screen'))
     
     
     def show_dialog(self, session):
