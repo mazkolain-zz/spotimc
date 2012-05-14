@@ -30,6 +30,7 @@ import math
 import urllib
 
 
+
 class PlaylistManager:
     __server_port = None
     __user_agent = None
@@ -41,7 +42,7 @@ class PlaylistManager:
     
     def __init__(self, server):
         self.__track_list = []
-        self.__track_queue = []
+        self.__track_queue = {}
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
     
@@ -65,7 +66,7 @@ class PlaylistManager:
     
     def clear(self):
         self.__track_list = []
-        self.__track_queue = []
+        self.__track_queue.clear()
         xbmc.PlayList(xbmc.PLAYLIST_MUSIC).clear()
     
     
@@ -158,7 +159,7 @@ class PlaylistManager:
     
     
     def _remove_queued_item(self, path_to_remove, session):
-        for index, item in enumerate(self.__track_queue):
+        for index, item in self.__track_queue.items():
             queue_index = 'q' + str(index)
             path, info = self.create_track_info(item, session, queue_index)
             if path == path_to_remove:
@@ -166,6 +167,13 @@ class PlaylistManager:
                 return True
         
         return False
+    
+    
+    def _get_next_queue_position(self):
+        if len(self.__track_queue):
+            return sorted(self.__track_queue.keys())[-1] + 1
+        else:
+            return 0
     
     
     def _purge_queued_items(self, session):
@@ -184,6 +192,11 @@ class PlaylistManager:
             xbmc.PlayList(xbmc.PLAYLIST_MUSIC).add(path, info, offset)
     
     
+    def get_queued_tracks(self):
+        tracks = self.__track_queue
+        return [tracks[index] for index in sorted(tracks.keys())]
+    
+    
     def _enqueue(self, track_list, session):
         #Purge past items first
         self._purge_queued_items(session)
@@ -191,11 +204,12 @@ class PlaylistManager:
         playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         
         #And add the requested items to the queue
-        for queue_index, track in enumerate(track_list):
-            list_index = 'q' + str(queue_index)
+        for track in track_list:
+            queue_index = self._get_next_queue_position()
+            str_index = 'q' + str(queue_index)
             offset = playlist.getposition() + len(self.__track_queue) + 1
-            self._add_playlist_item(track, session, list_index, offset)
-            self.__track_queue.append(track)
+            self._add_playlist_item(track, session, str_index, offset)
+            self.__track_queue[queue_index] = track
     
     
     def play(self, track_list, session, offset=0):
@@ -203,7 +217,7 @@ class PlaylistManager:
         self._purge_queued_items(session)
         
         #Keep a copy of the queued tracks
-        track_queue = self.__track_queue
+        track_queue = self.get_queued_tracks()
         
         #Stop playback and clear the list
         self._stop_playback()
@@ -227,7 +241,7 @@ class PlaylistManager:
         
         #Now show the notifications
         if len(track_list) > 1:
-            msg = "%d tracks added to queue." % len()
+            msg = "%d tracks added to queue." % len(track_list)
             xbmc.executebuiltin("Notification(Queue updated, %s)" % msg)
         
         else:
