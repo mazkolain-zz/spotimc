@@ -115,18 +115,22 @@ class MainLoopRunner(threading.Thread):
 
 
 def check_addon_version(settings_obj):
+    last_run_version = settings_obj.get_last_run_version()
+    
     #If current version is higher than the stored one...
-    if __addon_version__ > settings_obj.get_last_run_version():
+    if __addon_version__ > last_run_version:
         settings_obj.set_last_run_version(__addon_version__)
         
-        d  = xbmcgui.Dialog()
-        l1 = 'Spotimc was updated since the last run.'
-        l2 = 'Do you want to see the changelog?'
-        
-        if d.yesno('Spotimc', l1, l2):
-            file = settings_obj.get_addon_obj().getAddonInfo('changelog')
-            changelog = open(file).read()
-            dialogs.text_viewer_dialog('ChangeLog', changelog)
+        #Don't display the upgrade message if it's the first run
+        if last_run_version != '':
+            d  = xbmcgui.Dialog()
+            l1 = 'Spotimc was updated since the last run.'
+            l2 = 'Do you want to see the changelog?'
+            
+            if d.yesno('Spotimc', l1, l2):
+                file = settings_obj.get_addon_obj().getAddonInfo('changelog')
+                changelog = open(file).read()
+                dialogs.text_viewer_dialog('ChangeLog', changelog)
 
 
 def check_dirs():
