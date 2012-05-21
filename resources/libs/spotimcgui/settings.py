@@ -18,9 +18,10 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import xbmcaddon
+import xbmc, xbmcaddon
 from __main__ import __addon_id__
 from spotify import Bitrate
+import elementtree.ElementTree as ET
 
 
 
@@ -149,3 +150,39 @@ class SettingsManager:
         #Change stream quality
         if before_audio_quality != after_audio_quality:
             session.preferred_bitrate(self.get_audio_sp_bitrate())
+
+
+
+class GuiSettingsReader:
+    __guisettings_doc = None
+    
+    
+    def __init__(self):
+        settings_path = xbmc.translatePath('special://profile/guisettings.xml')
+        self.__guisettings_doc = ET.parse(settings_path)
+    
+    
+    def get_setting(self, query):
+        #Check if the argument is valid
+        if query == '':
+            raise KeyError()
+        
+        #Get the steps to the node
+        step_list = query.split('.')
+        root_tag = step_list[0]
+        
+        if len(step_list) > 1:
+            path_remainder = '/'.join(step_list[1:])
+        else:
+            path_remainder = ''
+        
+        #Fail if the first tag does not match with the root
+        if self.__guisettings_doc.getroot().tag != root_tag:
+            raise KeyError()
+        
+        #Fail also if the element is not found
+        el = self.__guisettings_doc.find(path_remainder)
+        if el is None:
+            raise KeyError()
+        
+        return el.text
