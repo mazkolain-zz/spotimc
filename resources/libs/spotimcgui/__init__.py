@@ -38,7 +38,7 @@ from threading import Event
 import weakref
 import dialogs
 
-from settings import SettingsManager, CacheManagement, StreamQuality
+from settings import SettingsManager, CacheManagement, StreamQuality, GuiSettingsReader
 
 from __main__ import __addon_version__
 
@@ -133,6 +133,25 @@ def check_addon_version(settings_obj):
                 dialogs.text_viewer_dialog('ChangeLog', changelog)
 
 
+def get_audio_buffer_size():
+    #Base buffer setting will be 10s
+    buffer_size = 10
+    
+    try:
+        reader = GuiSettingsReader()
+        value = reader.get_setting('settings.musicplayer.crossfade')
+        buffer_size += int(value)
+    
+    except:
+        xbmc.log(
+            'Failed reading crossfade setting. Using default value.',
+            xbmc.LOGERROR
+        )
+    
+    return buffer_size
+
+
+
 def check_dirs():
     addon_data_dir = os.path.join(
         xbmc.translatePath('special://profile/addon_data'),
@@ -203,7 +222,7 @@ def main(addon_dir):
     
     #Initialize spotify stuff
     ml = MainLoop()
-    buf = BufferManager()
+    buf = BufferManager(get_audio_buffer_size())
     logout_event = Event()
     callbacks = SpotimcCallbacks(ml, buf, logout_event)
     sess = Session(
