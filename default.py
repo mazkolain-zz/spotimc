@@ -38,10 +38,10 @@ envutils.set_library_path(dll_dir)
 
 #Add the libraries
 libs_dir = os.path.join(__addon_path__, "resources/libs")
-sys.path.append(libs_dir)
+sys.path.insert(0, libs_dir)
 
 #Add the skinutils module
-sys.path.append(os.path.join(libs_dir, "XbmcSkinUtils.egg"))
+sys.path.insert(0, os.path.join(libs_dir, "XbmcSkinUtils.egg"))
 
 #Load font & include stuff
 from skinutils import reload_skin
@@ -67,9 +67,9 @@ try:
     reload_skin()
     
     #Import spotify & friends
-    sys.path.append(os.path.join(libs_dir, "CherryPy.egg"))
-    sys.path.append(os.path.join(libs_dir, "PyspotifyCtypes.egg"))
-    sys.path.append(os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "CherryPy.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
     
     #Load & start the actual gui, no init code beyond this point
     from spotimcgui import main
