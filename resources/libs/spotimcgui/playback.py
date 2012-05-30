@@ -154,8 +154,6 @@ class PlaylistManager:
     
     
     def play(self, track_list, session, offset=0):
-        self._stop_playback()
-        
         playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         playlist.clear()
         self.__track_list = []
