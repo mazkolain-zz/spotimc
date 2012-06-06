@@ -31,8 +31,6 @@ import views.more
 
 import dialogs
 
-import playback
-
 import weakref
 
 from settings import SettingsManager, StartupScreen
@@ -59,12 +57,12 @@ class MainWindow(xbmcgui.WindowXML):
         self.__view_manager = views.ViewManager(self)
         
     
-    def initialize(self, session, proxy_runner):
+    def initialize(self, session, proxy_runner, playlist_manager):
         self.__session = session
-        self.__playlist_manager = playback.PlaylistManager(proxy_runner)
+        self.__playlist_manager = playlist_manager
         
         #Shared vars with views
-        self.__view_manager.set_var('playlist_manager', self.__playlist_manager)
+        self.__view_manager.set_var('playlist_manager', weakref.proxy(self.__playlist_manager))
         self.__view_manager.set_var('session', weakref.proxy(session))
         self.__view_manager.set_var('proxy_runner', weakref.proxy(proxy_runner))
     

@@ -42,6 +42,8 @@ from settings import SettingsManager, CacheManagement, StreamQuality, GuiSetting
 
 from __main__ import __addon_version__
 
+import playback
+
 
 
 class SpotimcCallbacks(SessionCallbacks):
@@ -206,6 +208,17 @@ def do_login(session, script_path, skin_dir):
         return not loginwin.is_cancelled()
 
 
+def get_preloader_callback(session, playlist_manager, buffer):
+    def preloader():
+        print "preloader callback called with args:"
+        #print session
+        #print playlist_manager.get_next_item()
+        #print buffer
+        buffer.open(session, playlist_manager.get_next_item())
+    
+    return preloader
+
+
 def main(addon_dir):
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
@@ -248,9 +261,16 @@ def main(addon_dir):
         
         print 'port: %s' % proxy_runner.get_port()
         
+        #Instantiate the playlist manager
+        playlist_manager = playback.PlaylistManager(proxy_runner)
+        
+        #Set the track preloader callback
+        preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
+        proxy_runner.on_stream_ended(preloader_cb)
+        
         #Start main window and enter it's main loop
         mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
-        mainwin.initialize(sess, proxy_runner)
+        mainwin.initialize(sess, proxy_runner, playlist_manager)
         mainwin.doModal()
         
         #Deinit sequence
