@@ -169,3 +169,15 @@ class PlaylistManager:
     
     def get_item(self, index):
         return self.__track_list[index]
+    
+    
+    def get_current_item(self):
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        return self.get_item(playlist.getposition())
+    
+    
+    def get_next_item(self):
+        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        next_index = playlist.getposition() + 1
+        if next_index < len(playlist):
+            return self.get_item(next_index) 
