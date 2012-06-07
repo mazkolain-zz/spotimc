@@ -136,8 +136,8 @@ def check_addon_version(settings_obj):
 
 
 def get_audio_buffer_size():
-    #Base buffer setting will be 10s
-    buffer_size = 10
+    #Base buffer setting will be 5s
+    buffer_size = 5
     
     try:
         reader = GuiSettingsReader()
