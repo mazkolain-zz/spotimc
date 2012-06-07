@@ -266,12 +266,15 @@ def main(addon_dir):
         
         #Set the track preloader callback
         preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
-        proxy_runner.on_stream_ended(preloader_cb)
+        proxy_runner.set_stream_end_callback(preloader_cb)
         
         #Start main window and enter it's main loop
         mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
         mainwin.initialize(sess, proxy_runner, playlist_manager)
         mainwin.doModal()
+        
+        #Remove the preloading callback
+        proxy_runner.clear_stream_end_callback()
         
         #Deinit sequence
         player = xbmc.Player()
