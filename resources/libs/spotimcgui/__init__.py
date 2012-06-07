@@ -210,10 +210,6 @@ def do_login(session, script_path, skin_dir):
 
 def get_preloader_callback(session, playlist_manager, buffer):
     def preloader():
-        print "preloader callback called with args:"
-        #print session
-        #print playlist_manager.get_next_item()
-        #print buffer
         buffer.open(session, playlist_manager.get_next_item())
     
     return preloader
