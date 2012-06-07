@@ -300,6 +300,7 @@
 				<align>left</align>
 				<info>ListItem.Label</info>
 				<textcolor>ffffffff</textcolor>
+				<scroll>false</scroll>
 			</control>
 			<control type="label">
 				<posx>104</posx>
@@ -311,6 +312,7 @@
 				<align>left</align>
 				<info>ListItem.Label2</info>
 				<textcolor>ff969696</textcolor>
+				<scroll>false</scroll>
 			</control>
 		</itemlayout>
 		
@@ -359,6 +361,7 @@
 				<align>left</align>
 				<info>ListItem.Label</info>
 				<textcolor>ffffffff</textcolor>
+				<scroll>true</scroll>
 			</control>
 			<control type="label">
 				<posx>104</posx>
@@ -370,6 +373,7 @@
 				<align>left</align>
 				<info>ListItem.Label2</info>
 				<textcolor>ffffffff</textcolor>
+				<scroll>true</scroll>
 			</control>
 		</focusedlayout>
 	</include>
@@ -463,6 +467,7 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
+				<scroll>false</scroll>
 			</control>
 			<control type="image">
 				<posx>624</posx>
@@ -484,6 +489,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+				<scroll>false</scroll>
 			</control>
 			<control type="image">
 				<posx>88</posx>
@@ -577,6 +583,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
 				<visible>true</visible>
+				<scroll>true</scroll>
 			</control>
 			<control type="image">
 				<posx>624</posx>
@@ -598,6 +605,7 @@
 				<align>right</align>
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
+				<scroll>true</scroll>
 			</control>
 			<control type="image">
 				<posx>88</posx>
@@ -676,6 +684,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>false</scroll>
 			</control>
 			<control type="label">
 				<posx>464</posx>
@@ -689,6 +698,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>false</scroll>
 			</control>
 			<control type="label">
 				<posx>768</posx>
@@ -702,6 +712,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>false</scroll>
 			</control>
 			<control type="label">
 				<posx>1056</posx>
@@ -715,6 +726,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>false</scroll>
 			</control>
 			<control type="image">
 				<posx>48</posx>
@@ -775,6 +787,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Title</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>true</scroll>
 			</control>
 			<control type="label">
 				<posx>464</posx>
@@ -788,6 +801,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Artist</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>true</scroll>
 			</control>
 			<control type="label">
 				<posx>768</posx>
@@ -801,6 +815,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Album</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>true</scroll>
 			</control>
 			<control type="label">
 				<posx>1056</posx>
@@ -814,6 +829,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Duration</info>
 				<visible>!ListItem.Property(NoItems)</visible>
+				<scroll>true</scroll>
 			</control>
 			<control type="image">
 				<posx>48</posx>
@@ -917,6 +933,7 @@
 				<aligny>center</aligny>
 				<info>ListItem.Property(PlaylistName)</info>
 				<visible>!ListItem.Property(PlaylistShowOwner)</visible>
+				<scroll>false</scroll>
 			</control>
 			
 			<!-- Playlist name plus owner info -->
@@ -931,6 +948,7 @@
                 <aligny>center</aligny>
                 <label>[COLOR ffffffff]$INFO[ListItem.Property(PlaylistName)][/COLOR] by $INFO[ListItem.Property(PlaylistOwner)]</label>
                 <visible>ListItem.Property(PlaylistShowOwner)</visible>
+                <scroll>false</scroll>
             </control>
 			
 			
@@ -1044,6 +1062,7 @@
                 <aligny>center</aligny>
                 <info>ListItem.Property(PlaylistName)</info>
                 <visible>!ListItem.Property(PlaylistShowOwner)</visible>
+                <scroll>true</scroll>
             </control>
             
             <!-- Playlist name plus owner info -->
@@ -1058,6 +1077,7 @@
                 <aligny>center</aligny>
                 <label>$INFO[ListItem.Property(PlaylistName)] by $INFO[ListItem.Property(PlaylistOwner)]</label>
                 <visible>ListItem.Property(PlaylistShowOwner)</visible>
+                <scroll>true</scroll>
             </control>
 			
 			
