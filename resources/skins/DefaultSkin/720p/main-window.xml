@@ -211,6 +211,7 @@
 						<posx>80</posx>
 						<posy>32</posy>
 						<width>224</width>
+						<textoffsetx>0</textoffsetx>
 					</control>
 					
 					<control type="progress">

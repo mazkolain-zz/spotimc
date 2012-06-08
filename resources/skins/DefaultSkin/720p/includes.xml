@@ -13,6 +13,7 @@
 		<textcolor>FFFFFFFF</textcolor>
 		<focusedcolor>FFFFFFFF</focusedcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<align>center</align>
 		<aligny>center</aligny>
 		<textoffsetx>16</textoffsetx>
@@ -98,6 +99,7 @@
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<align>left</align>
 		<aligny>center</aligny>
 		<textoffsetx>16</textoffsetx>
@@ -124,6 +126,7 @@
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<align>left</align>
 		<aligny>center</aligny>
 		<textoffsetx>16</textoffsetx>
@@ -148,6 +151,7 @@
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -277,6 +281,7 @@
 				<align>left</align>
 				<label>No albums</label>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<visible>ListItem.Property(NoItems)</visible>
 			</control>
 			
@@ -300,6 +305,7 @@
 				<align>left</align>
 				<info>ListItem.Label</info>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<scroll>false</scroll>
 			</control>
 			<control type="label">
@@ -312,6 +318,7 @@
 				<align>left</align>
 				<info>ListItem.Label2</info>
 				<textcolor>ff969696</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<scroll>false</scroll>
 			</control>
 		</itemlayout>
@@ -338,6 +345,7 @@
 				<align>left</align>
 				<label>No albums</label>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<visible>ListItem.Property(NoItems)</visible>
 			</control>
 			
@@ -361,6 +369,7 @@
 				<align>left</align>
 				<info>ListItem.Label</info>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<scroll>true</scroll>
 			</control>
 			<control type="label">
@@ -373,6 +382,7 @@
 				<align>left</align>
 				<info>ListItem.Label2</info>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<scroll>true</scroll>
 			</control>
 		</focusedlayout>
@@ -401,6 +411,7 @@
 				<width>64</width>
 				<height>32</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<selectedcolor>ffffffff</selectedcolor>
 				<font>spotimc_font32</font>
 				<align>left</align>
@@ -450,6 +461,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -463,6 +475,7 @@
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -485,6 +498,7 @@
 				<height>46</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -517,6 +531,7 @@
 				<height>32</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font32</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -565,6 +580,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -578,6 +594,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -601,6 +618,7 @@
 				<height>46</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>right</align>
 				<aligny>center</aligny>
@@ -679,6 +697,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -693,6 +712,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -707,6 +727,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -721,6 +742,7 @@
 				<height>30</height>
 				<textcolor>ff969696</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -782,6 +804,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -796,6 +819,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -810,6 +834,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -824,6 +849,7 @@
 				<height>30</height>
 				<textcolor>ffffffff</textcolor>
 				<selectedcolor>ffffffff</selectedcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font20</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -863,6 +889,7 @@
 			<width>400</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
+			<shadowcolor>00000000</shadowcolor>
 			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
@@ -874,6 +901,7 @@
 			<width>288</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
+			<shadowcolor>00000000</shadowcolor>
 			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
@@ -885,6 +913,7 @@
 			<width>288</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
+			<shadowcolor>00000000</shadowcolor>
 			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
@@ -896,6 +925,7 @@
 			<width>112</width>
 			<height>32</height>
 			<textcolor>ff969696</textcolor>
+			<shadowcolor>00000000</shadowcolor>
 			<font>spotimc_font20</font>
 			<align>left</align>
 			<aligny>center</aligny>
@@ -928,6 +958,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font24</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -943,6 +974,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ff969696</textcolor>
+                <shadowcolor>00000000</shadowcolor>
                 <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
@@ -958,6 +990,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ff969696</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -1057,6 +1090,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ffffffff</textcolor>
+                <shadowcolor>00000000</shadowcolor>
                 <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
@@ -1072,6 +1106,7 @@
                 <width>400</width>
                 <height>16</height>
                 <textcolor>ffffffff</textcolor>
+                <shadowcolor>00000000</shadowcolor>
                 <font>spotimc_font24</font>
                 <align>left</align>
                 <aligny>center</aligny>
@@ -1087,6 +1122,7 @@
 				<width>400</width>
 				<height>16</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font22</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -1201,6 +1237,7 @@
 				<width>416</width>
 				<height>64</height>
 				<textcolor>ff969696</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font60</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -1229,6 +1266,7 @@
 				<width>416</width>
 				<height>64</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<font>spotimc_font60</font>
 				<align>left</align>
 				<aligny>center</aligny>
@@ -1260,6 +1298,7 @@
 		<label></label>
 		<font>spotimc_font20</font>
 		<textcolor>FFFFFFFF</textcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 	</include>
 	
@@ -1275,6 +1314,7 @@
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>80FFFFFF</disabledcolor>
 		<textoffsetx>48</textoffsetx>
+		<shadowcolor>00000000</shadowcolor>
 		<aligny>center</aligny>
 	</include>
 	
@@ -1299,6 +1339,7 @@
 		<texturenofocus>common/login-field.png</texturenofocus>
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
@@ -1337,6 +1378,7 @@
 		<font>spotimc_font22</font>
 		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<align>center</align>
 		<aligny>center</aligny>
 		<textoffsetx>16</textoffsetx>
@@ -1372,6 +1414,7 @@
 		<selectedcolor></selectedcolor>
 		<textoffsetx>24</textoffsetx>
 		<textcolor>ff545454</textcolor>
+		<shadowcolor>00000000</shadowcolor>
 	</include>
 	
 	<include name="spotimc_dialog_button">
@@ -1385,6 +1428,7 @@
 		<textcolor>ffffffff</textcolor>
 		<focusedcolor>ffffffff</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
+		<shadowcolor>00000000</shadowcolor>
 		<align>center</align>
 		<aligny>center</aligny>
 		<textoffsetx>16</textoffsetx>
@@ -1412,6 +1456,7 @@
 				<width>464</width>
 				<height>48</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<textoffsetx>16</textoffsetx>
 				<font>spotimc_font22</font>
 				<align>left</align>
@@ -1433,6 +1478,7 @@
 				<width>464</width>
 				<height>48</height>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 				<textoffsetx>16</textoffsetx>
 				<font>spotimc_font22</font>
 				<align>left</align>

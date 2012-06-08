@@ -121,6 +121,7 @@
 				<aligny>center</aligny>
 				<selectedcolor></selectedcolor>
 				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
 			</control>
 			
 			
