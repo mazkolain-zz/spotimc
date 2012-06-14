@@ -270,13 +270,12 @@ def main(addon_dir):
         mainwin.initialize(sess, proxy_runner, playlist_manager)
         mainwin.doModal()
         
-        #Remove the preloading callback
+        #Playback and proxy deinit sequence
         proxy_runner.clear_stream_end_callback()
-        
-        #Deinit sequence
         player = xbmc.Player()
         player.stop()
         proxy_runner.stop()
+        buf.cleanup()
         
         #Logout
         sess.logout()
