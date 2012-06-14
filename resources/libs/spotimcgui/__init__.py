@@ -209,8 +209,9 @@ def do_login(session, script_path, skin_dir):
 
 
 def get_preloader_callback(session, playlist_manager, buffer):
+    sess_ref = weakref.proxy(session)
     def preloader():
-        buffer.open(session, playlist_manager.get_next_item())
+        buffer.open(sess_ref, playlist_manager.get_next_item())
     
     return preloader
 
