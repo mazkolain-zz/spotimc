@@ -116,6 +116,17 @@ class MainLoopRunner(threading.Thread):
 
 
 
+def show_legal_warning(settings_obj):
+    shown = settings_obj.get_legal_warning_shown()
+    if not shown:
+        settings_obj.set_legal_warning_shown(True)
+        d = xbmcgui.Dialog()
+        l1 = 'Spotimc uses SPOTIFY(R) CORE but is not endorsed,'
+        l2 = 'certified or otherwise approved in any way by Spotify.'
+        d.ok('Spotimc', l1, l2)
+
+
+
 def check_addon_version(settings_obj):
     last_run_version = settings_obj.get_last_run_version()
     
@@ -216,12 +227,16 @@ def get_preloader_callback(session, playlist_manager, buffer):
     return preloader
 
 
+
 def main(addon_dir):
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
     
     #Instantiate the settings obj
     settings_obj = SettingsManager()
+    
+    #Show legal warning
+    show_legal_warning(settings_obj)
     
     #Start checking the version
     check_addon_version(settings_obj)

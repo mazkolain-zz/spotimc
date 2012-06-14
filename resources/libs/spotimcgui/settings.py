@@ -64,6 +64,19 @@ class SettingsManager:
         return self.__addon
     
     
+    def get_legal_warning_shown(self):
+        return self._get_setting('_legal_warning_shown') == 'true'
+    
+    
+    def set_legal_warning_shown(self, status):
+        if status:
+            str_status = 'true'
+        else:
+            str_status = 'false'
+            
+        return self._set_setting('_legal_warning_shown', str_status)
+    
+    
     def get_last_run_version(self):
         return self._get_setting('_last_run_version')
     

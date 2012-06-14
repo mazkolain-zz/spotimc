@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
 	<!-- Some hidden settings -->
-	<setting id="_last_run_version" type="text" label="Last Run Version" option="hidden" default=""/>
+	<setting id="_legal_warning_shown" type="bool" label="Legal Warning Shown" option="hidden" default="false" />
+	<setting id="_last_run_version" type="text" label="Last Run Version" option="hidden" default="" />
 	
 	<category label="Cache">
 		<setting id="general_cache_enable" type="bool" label="Enable cache" default="true" />
