@@ -1,3 +1,13 @@
+[B]1.0-beta1[/B]
+- Fix: Login worked only for the first time on OSX and Linux.
+- Fix: Freeze on exit if playing audio.
+- Fix: Slightly faster switching of tracks.
+- Fix: Conflicts with system packages on startup.
+- Fix: Buffer underruns with crossfade enabled.
+- Fix: Issues with default layout of certain skins.
+- Fix: Tracks got skipped with certain remotes and skins.
+- New: Added a config option to choose startup screen.
+
 [B]0.1-alpha5[/B]
 - Fix: Crashes with reFocus and Cirrus skins during initialization.
 - Fix: UI issues with Transparency! on certain platforms.
