@@ -88,9 +88,6 @@ class SpotimcCallbacks(SessionCallbacks):
     
     def music_delivery(self, session, data, num_samples, sample_type, sample_rate, num_channels):
         return self.__buf.music_delivery(data, num_samples, sample_type, sample_rate, num_channels)
-    
-    def get_audio_buffer_stats(self, session):
-        return self.__buf.get_stats()
 
 
 
