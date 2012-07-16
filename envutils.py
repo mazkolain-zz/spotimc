@@ -18,29 +18,31 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import struct, os, sys
+import struct, os, sys, platform
 
 
 def get_platform_path():
-    arch = struct.calcsize("P") * 8
+	arch = struct.calcsize("P") * 8
     
-    if os.name == "nt":
-        if arch == 32:
-            return 'windows/x86'
-            
-        elif arch == 64:
-            raise OSError('Windows x86_64 is not supported.')
-    
-    elif os.name == "posix":
-        if sys.platform.startswith('linux'):
-            if arch == 32:
-                return 'linux/x86'
-            
-            elif arch == 64:
-                return 'linux/x86_64'
-        
-        elif sys.platform == 'darwin':
-            return 'osx'
+	if os.name == "nt":
+		if arch == 32:
+			return 'windows/x86'
+		
+		elif arch == 64:
+			raise OSError('Windows x86_64 is not supported.')
+	
+	elif os.name == "posix":
+		if sys.platform.startswith('linux'):
+			if arch == 32:
+				if platform.uname()[4] == 'armv6l':
+					return 'linux/armv6'
+				return 'linux/x86'
+				
+			elif arch == 64:
+				return 'linux/x86_64'
+			
+		elif sys.platform == 'darwin':
+			return 'osx'
 
 
 def set_library_path(root):
