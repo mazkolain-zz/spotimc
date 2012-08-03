@@ -36,12 +36,14 @@ class PlaylistManager:
     __play_token = None
     __url_headers = None
     __track_list = None
+    __playlist = None
     
     
     def __init__(self, server):
         self.__track_list = []
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
+        self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
     
     
     def _get_user_agent(self):
@@ -153,18 +155,38 @@ class PlaylistManager:
         player.stop()
     
     
-    def play(self, track_list, session, offset=0):
-        playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
-        playlist.clear()
-        self.__track_list = []
+    def _add_item(self, index, track, session, real_index=None):
+        if real_index is None:
+            real_index = index
         
-        #And iterate over the give track list
-        for list_index, track in enumerate(track_list):
-            self.__track_list.append(track)  
-            path, info = self.create_track_info(track, session, list_index)
-            playlist.add(path, info)
-        
-        self._play_item(offset)
+        self.__track_list.insert(index, track)
+        path, info = self.create_track_info(track, session, real_index)
+        self.__playlist.add(path, info, index)
+    
+    
+    def play(self, track_list, session, offset=None):
+        if len(track_list) > 0:
+            #Clear the old contents
+            self.__playlist.clear()
+            self.__track_list = []
+            
+            #Add the desired item
+            self._add_item(0, track_list[offset], session, offset)
+            
+            #Start playback
+            self._play_item(0)
+            
+            #If there are items left...
+            if len(track_list) > 1:
+                #Iterate over the rest of the playlist
+                for list_index, track in enumerate(track_list):
+                    #Discard the currently playing item
+                    if list_index != offset:
+                        self._add_item(list_index, track, session)
+            
+            #Set paylist's random status
+            if xbmc.getCondVisibility('Playlist.IsRandom'):
+                self.__playlist.shuffle()
     
     
     def get_item(self, index):
