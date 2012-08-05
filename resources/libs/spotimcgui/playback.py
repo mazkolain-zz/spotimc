@@ -24,10 +24,12 @@ import time
 from __main__ import __addon_version__
 import spotifyproxy
 import math
+import random
 
 
 #TODO: urllib 3.x compatibility
 import urllib
+
 
 
 class PlaylistManager:
@@ -155,37 +157,65 @@ class PlaylistManager:
         player.stop()
     
     
-    def _add_item(self, index, track, session, real_index=None):
-        if real_index is None:
-            real_index = index
-        
+    def _add_item(self, index, track, session):
         self.__track_list.insert(index, track)
-        path, info = self.create_track_info(track, session, real_index)
+        path, info = self.create_track_info(track, session, index)
         self.__playlist.add(path, info, index)
+    
+    
+    def _is_shuffle(self):
+        if len(self.__playlist) > 0:
+            return xbmc.getCondVisibility('Playlist.IsRandom')
+        
+        else:
+            #Add a dummy item to get shuffle status properly
+            self.__playlist.add('dummy', xbmcgui.ListItem(''))
+            status = xbmc.getCondVisibility('Playlist.IsRandom')
+            self.__playlist.remove('dummy')
+            return status
     
     
     def play(self, track_list, session, offset=None):
         if len(track_list) > 0:
+            #Get shuffle status
+            is_shuffle = self._is_shuffle()
+            
             #Clear the old contents
             self.__playlist.clear()
             self.__track_list = []
             
-            #Add the desired item
-            self._add_item(0, track_list[offset], session, offset)
+            #If we don't have an offset, get one
+            if offset is None:
+                if is_shuffle:
+                    offset = random.randint(0, len(track_list) - 1)
+                else:
+                    offset = 0
             
-            #Start playback
-            self._play_item(0)
+            #Add some padding dummy items (to preserve playlist position)
+            if offset > 0:
+                for index in range(offset):
+                    self.__playlist.add('dummy-%d' % index, xbmcgui.ListItem(''))
+            
+            #Add the desired item and play it
+            self._add_item(offset, track_list[offset], session)
+            self._play_item(offset)
             
             #If there are items left...
             if len(track_list) > 1:
+                
                 #Iterate over the rest of the playlist
                 for list_index, track in enumerate(track_list):
-                    #Discard the currently playing item
+                    
+                    #Ignore the item at offset, which is already added
                     if list_index != offset:
                         self._add_item(list_index, track, session)
+                    
+                    #Remove any possible padding items
+                    if list_index < offset:
+                        self.__playlist.remove('dummy-%d' % list_index)
             
-            #Set paylist's random status
-            if xbmc.getCondVisibility('Playlist.IsRandom'):
+            #Set paylist's shuffle status
+            if is_shuffle:
                 self.__playlist.shuffle()
     
     
