@@ -195,8 +195,6 @@ class PlaylistManager:
         if len(track_list) > 0:
             #Get shuffle status
             is_shuffle = self.get_shuffle_status()
-            print "shuffle status: %d" % is_shuffle
-            print 'random str: %s' % xbmc.getInfoLabel('Playlist.Random').lower()
             
             #Clear the old contents
             self.__playlist.clear()
