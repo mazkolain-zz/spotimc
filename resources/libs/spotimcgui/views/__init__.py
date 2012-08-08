@@ -120,6 +120,10 @@ class ViewManager:
         self.__view_list[self.__position].click(self, control_id)
     
     
+    def action(self, action_id):
+        self.__view_list[self.__position].action(self, action_id)
+    
+    
     def show(self, give_focus=True):
         self.__view_list[self.__position].show(self, give_focus)
     
@@ -163,6 +167,10 @@ class BaseView:
     
         
     def click(self, view_manager, control_id):
+        pass
+    
+    
+    def action(self, view_manager, action_id):
         pass
     
     
