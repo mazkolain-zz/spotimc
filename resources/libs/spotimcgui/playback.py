@@ -163,7 +163,7 @@ class PlaylistManager:
         self.__playlist.add(path, info, index)
     
     
-    def _is_shuffle(self):
+    def get_shuffle_status(self):
         if len(self.__playlist) > 0:
             return xbmc.getCondVisibility('Playlist.IsRandom')
         
@@ -178,7 +178,7 @@ class PlaylistManager:
     def play(self, track_list, session, offset=None):
         if len(track_list) > 0:
             #Get shuffle status
-            is_shuffle = self._is_shuffle()
+            is_shuffle = self.get_shuffle_status()
             
             #Clear the old contents
             self.__playlist.clear()
