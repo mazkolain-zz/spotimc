@@ -25,6 +25,7 @@ from __main__ import __addon_version__
 import spotifyproxy
 import math
 import random
+import settings
 
 
 #TODO: urllib 3.x compatibility
@@ -163,22 +164,39 @@ class PlaylistManager:
         self.__playlist.add(path, info, index)
     
     
-    def get_shuffle_status(self):
-        if len(self.__playlist) > 0:
-            return xbmc.getCondVisibility('Playlist.IsRandom')
-        
+    def is_playing(self, consider_pause=True):
+        if consider_pause:
+            return xbmc.getCondVisibility('Player.Playing | Player.Paused')
         else:
-            #Add a dummy item to get shuffle status properly
-            self.__playlist.add('dummy', xbmcgui.ListItem(''))
-            status = xbmc.getCondVisibility('Playlist.IsRandom')
-            self.__playlist.remove('dummy')
-            return status
+            return xbmc.getCondVisibility('Player.Playing')
+    
+    
+    def get_shuffle_status(self):
+        #Get it directly from a boolean tag (if possible)
+        if self.is_playing() and len(self.__playlist) > 0:
+            return xbmc.getCondVisibility('Playlist.IsRandom')
+    
+        #Otherwise read it from guisettings.xml
+        else:
+            try:
+                reader = settings.GuiSettingsReader()
+                value = reader.get_setting('settings.mymusic.playlist.shuffle')
+                return value == 'true'
+            
+            except:
+                xbmc.log(
+                    'Failed reading shuffle setting.',
+                    xbmc.LOGERROR
+                )
+                return false
     
     
     def play(self, track_list, session, offset=None):
         if len(track_list) > 0:
             #Get shuffle status
             is_shuffle = self.get_shuffle_status()
+            print "shuffle status: %d" % is_shuffle
+            print 'random str: %s' % xbmc.getInfoLabel('Playlist.Random').lower()
             
             #Clear the old contents
             self.__playlist.clear()
