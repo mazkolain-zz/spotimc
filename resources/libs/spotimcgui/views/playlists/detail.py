@@ -67,15 +67,17 @@ class PlaylistDetailView(BaseListContainerView):
         open_artistbrowse_albums(view_manager, artist_list)
     
     
-    def click(self, view_manager, control_id):
+    def _play_selected_track(self, view_manager):
         session = view_manager.get_var('session')
-        
+        item = self.get_list(view_manager).getSelectedItem()
+        pos = int(item.getProperty('ListIndex'))
+        playlist_manager = view_manager.get_var('playlist_manager')
+        playlist_manager.play(self.__loader.get_tracks(), session, pos)
+    
+    
+    def click(self, view_manager, control_id):
         if control_id == PlaylistDetailView.list_id:
-            item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('ListIndex'))
-            print 'clicked pos: %s' % pos
-            playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(self.__loader.get_tracks(), session, pos)
+            self._play_selected_track(view_manager)
         
         elif control_id == PlaylistDetailView.BrowseArtistButton:
             self._browse_artist(view_manager)
@@ -101,6 +103,15 @@ class PlaylistDetailView(BaseListContainerView):
                 else:
                     item.setProperty('IsStarred', 'true')
                     track.set_starred(session, [current_track], True)
+    
+    
+    def action(self, view_manager, action_id):
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            if action_id == 79:
+                self._play_selected_track(view_manager)
     
     
     def get_container(self, view_manager):

@@ -82,6 +82,14 @@ class SearchTracksView(BaseListContainerView):
             return self.__search.track(pos)
     
     
+    def _play_selected_track(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        pos = int(item.getProperty('ListIndex'))
+        session = view_manager.get_var('session')
+        playlist_manager = view_manager.get_var('playlist_manager')
+        playlist_manager.play(self.__search.tracks(), session, pos)
+    
+    
     def click(self, view_manager, control_id):
         if control_id == SearchTracksView.button_did_you_mean:
             if self.__search.did_you_mean():
@@ -95,11 +103,7 @@ class SearchTracksView(BaseListContainerView):
                 view_manager.show()
         
         elif control_id == SearchTracksView.list_id:
-            item = self.get_list(view_manager).getSelectedItem()
-            pos = int(item.getProperty('ListIndex'))
-            session = view_manager.get_var('session')
-            playlist_manager = view_manager.get_var('playlist_manager')
-            playlist_manager.play(self.__search.tracks(), session, pos)
+            self._play_selected_track(view_manager)
         
         elif control_id == SearchTracksView.context_browse_artist_button:
             current_track = self._get_current_track(view_manager)
@@ -123,6 +127,15 @@ class SearchTracksView(BaseListContainerView):
                 else:
                     item.setProperty('IsStarred', 'true')
                     track.set_starred(self.__session, [current_track], True)
+    
+    
+    def action(self, view_manager, action_id):
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            if action_id == 79:
+                self._play_selected_track(view_manager)
     
     
     def get_container(self, view_manager):

@@ -84,6 +84,15 @@ class AlbumTracksView(BaseListContainerView):
                     track.set_starred(session, [current_track], True)
     
     
+    def action(self, view_manager, action_id):
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            if action_id == 79:
+                self._play_selected_track(view_manager)
+    
+    
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(AlbumTracksView.container_id)
     

@@ -109,6 +109,29 @@ class ArtistAlbumsView(BaseListContainerView):
             view_manager.show(False)
     
     
+    def action(self, view_manager, action_id):
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            if action_id == 79:
+                xbmc.executebuiltin('ActivateWindow(busydialog)')
+                item = self.get_list(view_manager).getSelectedItem()
+                real_index = int(item.getProperty('ListIndex'))
+                
+                try:
+                    track_list = self.__loader.get_album_info(real_index).tracks()
+                    session = view_manager.get_var('session')
+                    playlist_manager.play(track_list, session)
+                    
+                except:
+                    d = xbmcgui.Dialog()
+                    d.ok('Error', 'Unable to load album info')
+                
+                finally:
+                    xbmc.executebuiltin('Dialog.Close(busydialog)')
+    
+    
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(ArtistAlbumsView.container_id)
     

@@ -86,6 +86,31 @@ class PlaylistView(BaseListContainerView):
             view_manager.add_view(view_obj)
     
     
+    def action(self, view_manager, action_id):
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            if action_id == 79:
+                item = self.get_list(view_manager).getSelectedItem()
+                playlist_id = item.getProperty('PlaylistId')
+                
+                #Get the playlist's tracks
+                if playlist_id == 'starred':
+                    track_list = self.__starred_loader.get_tracks()
+                
+                elif playlist_id == 'inbox':
+                    track_list = self.__inbox_loader.get_tracks()
+                
+                else:
+                    index = int(playlist_id)
+                    loader_obj = self.__container_loader.playlist(index)
+                    track_list = loader_obj.get_tracks()
+                
+                session = view_manager.get_var('session')
+                playlist_manager.play(track_list, session)
+    
+    
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(PlaylistView.container_id)
     

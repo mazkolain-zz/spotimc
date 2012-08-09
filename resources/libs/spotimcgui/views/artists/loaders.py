@@ -133,6 +133,18 @@ class ArtistAlbumLoader:
             return AlbumType.Album
     
     
+    def get_album_info(self, index):
+        album = self.__artistbrowse.album(index)
+        checker = BulkConditionChecker()
+        cb = AlbumCallbacks(checker)
+        album_info = albumbrowse.Albumbrowse(self.__session, album, cb)
+        
+        #Wait until it's loaded
+        self._wait_for_album_info(album_info, checker)
+        
+        return album_info
+    
+    
     @run_in_thread(threads_per_class=5)
     def load_album_info(self, index, album):
         #Directly discard unavailable albums
