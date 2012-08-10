@@ -60,6 +60,7 @@ class SpotimcCallbacks(SessionCallbacks):
         xbmc.log("libspotify: logged in: %d" % error)
     
     def logged_out(self, session):
+        print "logout event"
         xbmc.log("libspotify: logged out")
         self.__logout_event.set()
             
@@ -281,6 +282,7 @@ def main(addon_dir):
         mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
         mainwin.initialize(sess, proxy_runner, playlist_manager)
         mainwin.doModal()
+        mainwin = None
         
         #Playback and proxy deinit sequence
         proxy_runner.clear_stream_end_callback()
