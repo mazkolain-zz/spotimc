@@ -22,6 +22,7 @@ import xbmc, xbmcgui
 from spotimcgui.views import BaseListContainerView, album
 from loaders import ArtistAlbumLoader, AlbumType
 from spotimcgui.utils.settings import SkinSettings
+from spotify.utils.loaders import load_albumbrowse
 
 
 
@@ -109,27 +110,37 @@ class ArtistAlbumsView(BaseListContainerView):
             view_manager.show(False)
     
     
-    def action(self, view_manager, action_id):
+    def _start_album_playback(self, view_manager):
+        def show_busy_dialog():
+            xbmc.executebuiltin('ActivateWindow(busydialog)')
+        
         playlist_manager = view_manager.get_var('playlist_manager')
         
         #Do nothing if playing, as it may result counterproductive
         if not playlist_manager.is_playing():
-            if action_id == 79:
-                xbmc.executebuiltin('ActivateWindow(busydialog)')
-                item = self.get_list(view_manager).getSelectedItem()
-                real_index = int(item.getProperty('ListIndex'))
+            item = self.get_list(view_manager).getSelectedItem()
+            real_index = int(item.getProperty('ListIndex'))
+            album = self.__loader.get_album(real_index)
+            session = view_manager.get_var('session')
+            
+            try:
+                albumbrowse = load_albumbrowse(
+                    session, album, ondelay=show_busy_dialog
+                )
+                playlist_manager.play(albumbrowse.tracks(), session)
                 
-                try:
-                    track_list = self.__loader.get_album_info(real_index).tracks()
-                    session = view_manager.get_var('session')
-                    playlist_manager.play(track_list, session)
-                    
-                except:
-                    d = xbmcgui.Dialog()
-                    d.ok('Error', 'Unable to load album info')
-                
-                finally:
+            except:
+                d = xbmcgui.Dialog()
+                d.ok('Error', 'Unable to load album info')
+            
+            finally:
+                if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
                     xbmc.executebuiltin('Dialog.Close(busydialog)')
+    
+    
+    def action(self, view_manager, action_id):
+        if action_id == 79:
+            self._start_album_playback(view_manager)
     
     
     def get_container(self, view_manager):
