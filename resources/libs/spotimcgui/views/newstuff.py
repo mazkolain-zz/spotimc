@@ -23,6 +23,7 @@ from spotimcgui.views import BaseListContainerView
 from spotimcgui.views import album
 
 from spotify import search
+from spotify.utils.loaders import load_albumbrowse
 
 
 class NewStuffCallbacks(search.SearchCallbacks):
@@ -57,6 +58,38 @@ class NewStuffView(BaseListContainerView):
         #If the list was clicked...
         if control_id == NewStuffView.list_id:
             self._show_album(view_manager)
+    
+    
+    def _start_album_playback(self, view_manager):
+        def show_busy_dialog():
+            xbmc.executebuiltin('ActivateWindow(busydialog)')
+        
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if not playlist_manager.is_playing():
+            index = self.get_list(view_manager).getSelectedPosition()
+            album = self.__search.album(index)
+            session = view_manager.get_var('session')
+            
+            try:
+                albumbrowse = load_albumbrowse(
+                    session, album, ondelay=show_busy_dialog
+                )
+                playlist_manager.play(albumbrowse.tracks(), session)
+                
+            except:
+                d = xbmcgui.Dialog()
+                d.ok('Error', 'Unable to load album info')
+            
+            finally:
+                if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
+                    xbmc.executebuiltin('Dialog.Close(busydialog)')
+    
+    
+    def action(self, view_manager, action_id):
+        if action_id == 79:
+            self._start_album_playback(view_manager)
     
     
     def get_container(self, view_manager):
