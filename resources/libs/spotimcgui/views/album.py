@@ -85,6 +85,9 @@ class AlbumTracksView(BaseListContainerView):
     
     
     def action(self, view_manager, action_id):
+        #Run parent implementation's actions
+        BaseListContainerView.action(self, view_manager, action_id)
+        
         playlist_manager = view_manager.get_var('playlist_manager')
         
         #Do nothing if playing, as it may result counterproductive
@@ -99,6 +102,10 @@ class AlbumTracksView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(AlbumTracksView.list_id)
+    
+    
+    def has_context_menu(self):
+        return True
     
     
     def _have_multiple_discs(self):

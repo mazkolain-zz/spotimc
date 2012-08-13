@@ -130,6 +130,9 @@ class SearchTracksView(BaseListContainerView):
     
     
     def action(self, view_manager, action_id):
+        #Run parent implementation's actions
+        BaseListContainerView.action(self, view_manager, action_id)
+        
         playlist_manager = view_manager.get_var('playlist_manager')
         
         #Do nothing if playing, as it may result counterproductive
@@ -144,6 +147,10 @@ class SearchTracksView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(SearchTracksView.list_id)
+    
+    
+    def has_context_menu(self):
+        return True
     
     
     def _set_search_info(self, view_manager):

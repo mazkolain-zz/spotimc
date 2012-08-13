@@ -240,6 +240,21 @@ class BaseListContainerView(BaseContainerView):
         raise NotImplementedError()
     
     
+    def has_context_menu(self):
+        return False
+    
+    
+    def action(self, view_manager, action_id):
+        if action_id in [117] and self.has_context_menu():
+            #if the context menu is active...
+            if not xbmc.getCondVisibility('ControlGroup(5000).HasFocus()'):
+                view_manager.get_window().setFocus(self.get_list(view_manager))
+                xbmc.executebuiltin('Action(left)')
+                print "should pop the list"
+            else:
+                xbmc.executebuiltin('Action(right)')
+    
+    
     def show(self, view_manager, give_focus=True):
         BaseView.show(self, view_manager, give_focus)
         window = view_manager.get_window()

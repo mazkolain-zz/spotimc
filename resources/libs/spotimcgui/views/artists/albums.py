@@ -139,6 +139,9 @@ class ArtistAlbumsView(BaseListContainerView):
     
     
     def action(self, view_manager, action_id):
+        #Run parent implementation's actions
+        BaseListContainerView.action(self, view_manager, action_id)
+        
         if action_id == 79:
             self._start_album_playback(view_manager)
     
@@ -149,6 +152,10 @@ class ArtistAlbumsView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(ArtistAlbumsView.list_id)
+    
+    
+    def has_context_menu(self):
+        return True
     
     
     def render(self, view_manager):
