@@ -1144,19 +1144,6 @@
 				<width>280</width>
 				<height>720</height>
 				
-				<control type="image">
-					<description>Left menu background</description>
-					<posx>0</posx>
-					<posy>0</posy>
-					<width>256</width>
-					<height>720</height>
-					<visible>true</visible>
-					<colordiffuse>FFFFFFFF</colordiffuse>
-					<fadetime>200</fadetime>
-					<texture>common/left-menu-bg.png</texture>
-					<aspectratio>stretch</aspectratio>
-				</control>
-				
 				<control type="togglebutton" id="5001">
 					<posx>256</posx>
 					<posy>320</posy>
@@ -1188,6 +1175,41 @@
 						Control.IsVisible(1800) |
 						Control.IsVisible(6000)
 					</visible>
+				</control>
+				
+				<!--
+				<control type="image">
+					<description>Left menu background</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>720</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<fadetime>200</fadetime>
+					<texture></texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				-->
+				
+				<control type="button" id="5002">
+					<description>Left menu background (Button)</description>
+					<description></description>
+					<label></label>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>720</height>
+					<visible>true</visible>
+					<texturefocus>common/left-menu-bg.png</texturefocus>
+					<texturenofocus>common/left-menu-bg.png</texturenofocus>
+					<pulseonselect>False</pulseonselect>
+					<onclick></onclick>
+					<onfocus></onfocus>
+					<onleft></onleft>
+					<onright>1000</onright>
+					<onup></onup>
+					<ondown></ondown>
 				</control>
 				
 				<!-- Album tracks browsing options -->
