@@ -26,10 +26,12 @@ import spotifyproxy
 import math
 import random
 import settings
+from spotify.utils.decorators import run_in_thread
 
 
 #TODO: urllib 3.x compatibility
 import urllib
+        
 
 
 
@@ -40,6 +42,7 @@ class PlaylistManager:
     __url_headers = None
     __track_list = None
     __playlist = None
+    __cancel_set_tracks = None
     
     
     def __init__(self, server):
@@ -191,8 +194,45 @@ class PlaylistManager:
                 return false
     
     
+    @run_in_thread(single_instance=True)
+    def _set_tracks(self, track_list, session, omit_offset):
+        #Reset the cancel flag
+        self.__cancel_set_tracks = False
+        
+        #Clear playlist if no offset is given to omit
+        if omit_offset is None:
+            self.__playlist.clear()
+            self.__track_list = []
+        
+        #Iterate over the rest of the playlist
+        for list_index, track in enumerate(track_list):
+            #If a cancel was requested
+            if self.__cancel_set_tracks:
+                return
+            
+            #Ignore the item at offset, which is already added
+            if list_index != omit_offset:
+                self._add_item(list_index, track, session)
+            
+            #Deal with any potential dummy items
+            if omit_offset is not None and list_index < omit_offset:
+                self.__playlist.remove('dummy-%d' % list_index)
+            
+        #Set paylist's shuffle status
+        if self.get_shuffle_status():
+            self.__playlist.shuffle()
+    
+    
+    def set_tracks(self, track_list, session, omit_offset=None):
+        self.__cancel_set_tracks = True
+        self._set_tracks(track_list, session, omit_offset)
+    
+    
     def play(self, track_list, session, offset=None):
         if len(track_list) > 0:
+            #Cancel any possible set_tracks() loop
+            self.__cancel_set_tracks = True
+            
             #Get shuffle status
             is_shuffle = self.get_shuffle_status()
             
@@ -218,21 +258,7 @@ class PlaylistManager:
             
             #If there are items left...
             if len(track_list) > 1:
-                
-                #Iterate over the rest of the playlist
-                for list_index, track in enumerate(track_list):
-                    
-                    #Ignore the item at offset, which is already added
-                    if list_index != offset:
-                        self._add_item(list_index, track, session)
-                    
-                    #Remove any possible padding items
-                    if list_index < offset:
-                        self.__playlist.remove('dummy-%d' % list_index)
-            
-            #Set paylist's shuffle status
-            if is_shuffle:
-                self.__playlist.shuffle()
+                self.set_tracks(track_list, session, offset)
     
     
     def get_item(self, index):
@@ -248,4 +274,9 @@ class PlaylistManager:
         playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         next_index = playlist.getposition() + 1
         if next_index < len(playlist):
-            return self.get_item(next_index) 
+            return self.get_item(next_index)
+    
+    
+    def __del__(self):
+        #Cancel the set_tracks() loop at exit
+        self.__cancel_set_tracks = True
