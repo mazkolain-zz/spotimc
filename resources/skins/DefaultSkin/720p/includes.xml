@@ -144,7 +144,6 @@
 		<posy>0</posy>
 		<width>224</width>
 		<height>40</height>
-		<visible>true</visible>
 		<colordiffuse>FFFFFFFF</colordiffuse>
 		<texturefocus>common/left-menu-button-focus.png</texturefocus>
 		<texturenofocus>common/left-menu-button.png</texturenofocus>

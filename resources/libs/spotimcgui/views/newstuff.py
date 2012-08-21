@@ -36,6 +36,9 @@ class NewStuffView(BaseListContainerView):
     container_id = 1200
     list_id = 1201
     
+    context_play_album = 5202
+    context_set_current = 5203
+    
     __session = None
     __search = None
     
@@ -58,6 +61,12 @@ class NewStuffView(BaseListContainerView):
         #If the list was clicked...
         if control_id == NewStuffView.list_id:
             self._show_album(view_manager)
+        
+        elif control_id == NewStuffView.context_play_album:
+            self._start_album_playback(view_manager)
+        
+        elif control_id == NewStuffView.context_set_current:
+            self._set_current_album(view_manager)
     
     
     def _start_album_playback(self, view_manager):
@@ -87,7 +96,34 @@ class NewStuffView(BaseListContainerView):
                     xbmc.executebuiltin('Dialog.Close(busydialog)')
     
     
+    def _set_current_album(self, view_manager):
+        def show_busy_dialog():
+            xbmc.executebuiltin('ActivateWindow(busydialog)')
+        
+        playlist_manager = view_manager.get_var('playlist_manager')
+        index = self.get_list(view_manager).getSelectedPosition()
+        album = self.__search.album(index)
+        session = view_manager.get_var('session')
+        
+        try:
+            albumbrowse = load_albumbrowse(
+                session, album, ondelay=show_busy_dialog
+            )
+            playlist_manager.set_tracks(albumbrowse.tracks(), session)
+            
+        except:
+            d = xbmcgui.Dialog()
+            d.ok('Error', 'Unable to load album info')
+        
+        finally:
+            if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
+                xbmc.executebuiltin('Dialog.Close(busydialog)')
+    
+    
     def action(self, view_manager, action_id):
+        #Run parent implementation's actions
+        BaseListContainerView.action(self, view_manager, action_id)
+        
         if action_id == 79:
             self._start_album_playback(view_manager)
     
@@ -98,6 +134,10 @@ class NewStuffView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(NewStuffView.list_id)
+    
+    
+    def has_context_menu(self):
+        return True
     
     
     def render(self, view_manager):

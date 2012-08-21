@@ -286,7 +286,7 @@
 						<pagecontrol>1202</pagecontrol>
 						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
+						<onleft>5200</onleft>
 						<onright>200</onright>
 						<posx>0</posx>
 						<posy>80</posy>
@@ -1170,6 +1170,7 @@
 					<onup></onup>
 					<ondown></ondown>
 					<visible>
+						Control.IsVisible(1200) |
 						Control.IsVisible(1300) |
 						Control.IsVisible(1500) |
 						Control.IsVisible(1800) |
@@ -1213,6 +1214,33 @@
 				</control>
 				
 				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5200">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Album options</description>
+					<onright>1200</onright>
+					<visible>Control.IsVisible(1200)</visible>
+					
+					<control type="label" id="5201">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected album:</label>
+					</control>
+					
+					<control type="button" id="5202">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5203">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
+				</control>
+				
+				<!-- Album tracks browsing options -->
 				<control type="grouplist" id="5300">
 					<include>spotimc_leftmenu_grouplist</include>
 					<description>Album track options</description>
@@ -1252,12 +1280,14 @@
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to playlist</label>
+						<visible>True</visible>
 					</control>
 					
 					<control type="button" id="5306">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to queue</label>
+						<visible>True</visible>
 					</control>
 					-->
 					
@@ -1265,6 +1295,7 @@
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
+						<visible>True</visible>
 					</control>
 				</control>
 				
@@ -1285,18 +1316,21 @@
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse artist</label>
+						<visible>True</visible>
 					</control>
 					
 					<control type="button" id="5303">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse album</label>
+						<visible>True</visible>
 					</control>
 					
 					<control type="button" id="5304">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
+						<visible>True</visible>
 					</control>
 					
 					<!--
@@ -1304,6 +1338,7 @@
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to playlist</label>
+						<visible>True</visible>
 					</control>
 					-->
 					
@@ -1364,18 +1399,21 @@
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse artist</label>
+						<visible>True</visible>
 					</control>
 					
 					<control type="button" id="5812">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse album</label>
+						<visible>True</visible>
 					</control>
 					
 					<control type="button" id="5813">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
+						<visible>True</visible>
 					</control>
 				</control>
 				
