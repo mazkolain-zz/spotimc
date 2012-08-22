@@ -48,10 +48,11 @@ class SearchTracksView(BaseListContainerView):
     button_did_you_mean = 1504
     button_new_search = 1510
     
-    context_browse_artist_button = 5302
-    context_browse_album_button = 5303
-    context_toggle_star = 5304
-    context_add_to_playlist = 5305
+    context_menu_id = 5500
+    context_browse_artist_button = 5502
+    context_browse_album_button = 5503
+    context_toggle_star = 5504
+    context_add_to_playlist = 5505
     
     
     __session = None
@@ -149,8 +150,8 @@ class SearchTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(SearchTracksView.list_id)
     
     
-    def has_context_menu(self):
-        return True
+    def get_context_menu_id(self):
+        return SearchTracksView.context_menu_id
     
     
     def _set_search_info(self, view_manager):

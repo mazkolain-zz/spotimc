@@ -36,6 +36,7 @@ class NewStuffView(BaseListContainerView):
     container_id = 1200
     list_id = 1201
     
+    context_menu_id = 5200
     context_play_album = 5202
     context_set_current = 5203
     
@@ -136,8 +137,8 @@ class NewStuffView(BaseListContainerView):
         return view_manager.get_window().getControl(NewStuffView.list_id)
     
     
-    def has_context_menu(self):
-        return True
+    def get_context_menu_id(self):
+        return NewStuffView.context_menu_id
     
     
     def render(self, view_manager):

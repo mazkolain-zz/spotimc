@@ -38,6 +38,7 @@ class PlaylistDetailView(BaseListContainerView):
     BrowseArtistButton = 5811
     BrowseAlbumButton = 5812
     
+    context_menu_id = 5800
     context_toggle_star = 5813
     
     __loader = None
@@ -125,8 +126,8 @@ class PlaylistDetailView(BaseListContainerView):
         return view_manager.get_window().getControl(PlaylistDetailView.list_id)
     
     
-    def has_context_menu(self):
-        return True
+    def get_context_menu_id(self):
+        return PlaylistDetailView.context_menu_id
     
     
     def _get_playlist_length_str(self):

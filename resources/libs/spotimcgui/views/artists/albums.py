@@ -32,6 +32,7 @@ class ArtistAlbumsView(BaseListContainerView):
     
     
     #Filtering controls
+    context_menu_id = 6000
     filter_albums_button = 6011
     filter_singles_button = 6012
     filter_compilations_button = 6013
@@ -154,8 +155,8 @@ class ArtistAlbumsView(BaseListContainerView):
         return view_manager.get_window().getControl(ArtistAlbumsView.list_id)
     
     
-    def has_context_menu(self):
-        return True
+    def get_context_menu_id(self):
+        return ArtistAlbumsView.context_menu_id
     
     
     def render(self, view_manager):

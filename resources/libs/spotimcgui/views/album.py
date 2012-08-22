@@ -40,6 +40,7 @@ class AlbumTracksView(BaseListContainerView):
     container_id = 1300
     list_id = 1303
     
+    context_menu_id = 5300
     context_toggle_star = 5307
     
     __albumbrowse = None
@@ -104,8 +105,8 @@ class AlbumTracksView(BaseListContainerView):
         return view_manager.get_window().getControl(AlbumTracksView.list_id)
     
     
-    def has_context_menu(self):
-        return True
+    def get_context_menu_id(self):
+        return AlbumTracksView.context_menu_id
     
     
     def _have_multiple_discs(self):
