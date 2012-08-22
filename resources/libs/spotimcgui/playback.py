@@ -70,7 +70,9 @@ class PlaylistManager:
     
     
     def clear(self):
-        pass
+        self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        self.__playlist.clear()
+        self.__track_list = []
     
     
     def _get_track_id(self, track):
@@ -201,8 +203,7 @@ class PlaylistManager:
         
         #Clear playlist if no offset is given to omit
         if omit_offset is None:
-            self.__playlist.clear()
-            self.__track_list = []
+            self.clear()
         
         #Iterate over the rest of the playlist
         for list_index, track in enumerate(track_list):
@@ -237,8 +238,7 @@ class PlaylistManager:
             is_shuffle = self.get_shuffle_status()
             
             #Clear the old contents
-            self.__playlist.clear()
-            self.__track_list = []
+            self.clear()
             
             #If we don't have an offset, get one
             if offset is None:
