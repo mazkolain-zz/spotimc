@@ -40,21 +40,20 @@ class NewStuffView(BaseListContainerView):
     context_play_album = 5202
     context_set_current = 5203
     
-    __session = None
     __search = None
     
     
     def __init__(self, session):
-        self.__session = session
         cb = NewStuffCallbacks()
         self.__search = search.Search(
-            self.__session, 'tag:new', album_count=60, callbacks=cb
+            session, 'tag:new', album_count=60, callbacks=cb
         )
         
     
     def _show_album(self, view_manager):
         pos = self.get_list(view_manager).getSelectedPosition()
-        v = album.AlbumTracksView(self.__session, self.__search.album(pos))
+        session = view_manager.get_var('session')
+        v = album.AlbumTracksView(session, self.__search.album(pos))
         view_manager.add_view(v)
     
     
