@@ -32,6 +32,10 @@ class PlaylistView(BaseListContainerView):
     container_id = 1700
     list_id = 1701
     
+    context_menu_id = 5700
+    context_play_playlist = 5702
+    context_set_current = 5703
+    
     __starred_loader = None
     __inbox_loader = None
     __container_loader = None
@@ -56,59 +60,80 @@ class PlaylistView(BaseListContainerView):
         )
     
     
+    def _get_playlist_loader(self, playlist_id):
+        if playlist_id == 'starred':
+            return self.__starred_loader
+        
+        elif playlist_id == 'inbox':
+            return self.__inbox_loader
+            
+        else:
+            return self.__container_loader.playlist(int(playlist_id))
+    
+    
+    def _show_selected_playlist(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        playlist_id = item.getProperty('PlaylistId')
+        session = view_manager.get_var('session')
+        pm = view_manager.get_var('playlist_manager')
+        loader_obj = self._get_playlist_loader(playlist_id)
+        
+        #Special treatment for starred & inbox
+        if playlist_id in ['starred', 'inbox']:
+            loader_obj = self.__starred_loader
+            view_obj = detail.SpecialPlaylistDetailView(
+                session, loader_obj.get_playlist(), pm,
+                loader_obj.get_name(), loader_obj.get_thumbnails()
+            )
+        
+        else:
+            view_obj = detail.PlaylistDetailView(
+                session, loader_obj.get_playlist(), pm
+            )
+        
+        view_manager.add_view(view_obj)
+    
+    
+    def _start_playlist_playback(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        playlist_id = item.getProperty('PlaylistId')
+        track_list = self._get_playlist_loader(playlist_id).get_tracks()
+        session = view_manager.get_var('session')
+        playlist_manager = view_manager.get_var('playlist_manager')
+        playlist_manager.play(track_list, session)
+    
+    
+    def _set_current_playlist(self, view_manager):
+        item = self.get_list(view_manager).getSelectedItem()
+        playlist_id = item.getProperty('PlaylistId')
+        track_list = self._get_playlist_loader(playlist_id).get_tracks()
+        playlist_manager = view_manager.get_var('playlist_manager')
+        session = view_manager.get_var('session')
+        playlist_manager.set_tracks(track_list, session)
+    
+    
     def click(self, view_manager, control_id):
         if control_id == PlaylistView.list_id:
-            item = self.get_list(view_manager).getSelectedItem()
-            playlist_id = item.getProperty('PlaylistId')
-            session = view_manager.get_var('session')
-            pm = view_manager.get_var('playlist_manager')
-            
-            if playlist_id == 'starred':
-                loader_obj = self.__starred_loader
-                view_obj = detail.SpecialPlaylistDetailView(
-                    session, loader_obj.get_playlist(), pm,
-                    loader_obj.get_name(), loader_obj.get_thumbnails()
-                )
-            
-            elif playlist_id == 'inbox':
-                loader_obj = self.__inbox_loader
-                view_obj = detail.SpecialPlaylistDetailView(
-                    session, loader_obj.get_playlist(), pm,
-                    loader_obj.get_name(), loader_obj.get_thumbnails()
-                )
-            
-            else:
-                loader_obj = self.__container_loader.playlist(int(playlist_id))
-                view_obj = detail.PlaylistDetailView(
-                    session, loader_obj.get_playlist(), pm
-                )
-            
-            view_manager.add_view(view_obj)
+            self._show_selected_playlist(view_manager)
+        
+        elif control_id == PlaylistView.context_play_playlist:
+            self._start_playlist_playback(view_manager)
+            view_manager.get_window().setFocus(self.get_container(view_manager))
+        
+        elif control_id == PlaylistView.context_set_current:
+            self._set_current_playlist(view_manager)
+            view_manager.get_window().setFocus(self.get_container(view_manager))
     
     
     def action(self, view_manager, action_id):
+        #Run parent implementation's actions
+        BaseListContainerView.action(self, view_manager, action_id)
+        
         playlist_manager = view_manager.get_var('playlist_manager')
         
         #Do nothing if playing, as it may result counterproductive
-        if not playlist_manager.is_playing():
-            if action_id == 79:
-                item = self.get_list(view_manager).getSelectedItem()
-                playlist_id = item.getProperty('PlaylistId')
-                
-                #Get the playlist's tracks
-                if playlist_id == 'starred':
-                    track_list = self.__starred_loader.get_tracks()
-                
-                elif playlist_id == 'inbox':
-                    track_list = self.__inbox_loader.get_tracks()
-                
-                else:
-                    index = int(playlist_id)
-                    loader_obj = self.__container_loader.playlist(index)
-                    track_list = loader_obj.get_tracks()
-                
-                session = view_manager.get_var('session')
-                playlist_manager.play(track_list, session)
+        if action_id == 79 and not playlist_manager.is_playing():
+            self._start_playlist_playback(view_manager)
     
     
     def get_container(self, view_manager):
@@ -117,6 +142,10 @@ class PlaylistView(BaseListContainerView):
     
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(PlaylistView.list_id)
+    
+    
+    def get_context_menu_id(self):
+        return PlaylistView.context_menu_id
     
     
     def _add_playlist(self, list, key, loader, show_owner):

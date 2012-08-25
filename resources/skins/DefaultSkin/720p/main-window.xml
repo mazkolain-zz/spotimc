@@ -1173,6 +1173,7 @@
 						Control.IsVisible(1200) |
 						Control.IsVisible(1300) |
 						Control.IsVisible(1500) |
+						Control.IsVisible(1700) |
 						Control.IsVisible(1800) |
 						Control.IsVisible(6000)
 					</visible>
@@ -1379,6 +1380,34 @@
 						<label>Duration</label>
 					</control>
 					-->
+				</control>
+				
+				
+				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5700">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Playlist options</description>
+					<onright>1700</onright>
+					<visible>Control.IsVisible(1700)</visible>
+					
+					<control type="label" id="5701">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected playlist:</label>
+					</control>
+					
+					<control type="button" id="5702">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5703">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
 				</control>
 				
 				
