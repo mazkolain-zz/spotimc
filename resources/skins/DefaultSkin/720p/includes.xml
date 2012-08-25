@@ -255,7 +255,7 @@
 		<height>528</height>
 		<viewtype label="list">wrap</viewtype>
 		<orientation>vertical</orientation>
-		<scrolltime>200</scrolltime>
+		<scrolltime tween="sine" easing="out">200</scrolltime>
 		<visible>true</visible>
 		
 		<itemlayout width="384" height="120">
