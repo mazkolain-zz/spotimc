@@ -58,43 +58,28 @@ class NewStuffView(BaseListContainerView):
         view_manager.add_view(v)
     
     
-    def click(self, view_manager, control_id):
-        #If the list was clicked...
-        if control_id == NewStuffView.list_id:
-            self._show_album(view_manager)
-        
-        elif control_id == NewStuffView.context_play_album:
-            self._start_album_playback(view_manager)
-        
-        elif control_id == NewStuffView.context_set_current:
-            self._set_current_album(view_manager)
-    
-    
     def _start_album_playback(self, view_manager):
         def show_busy_dialog():
             xbmc.executebuiltin('ActivateWindow(busydialog)')
         
         playlist_manager = view_manager.get_var('playlist_manager')
+        index = self.get_list(view_manager).getSelectedPosition()
+        album = self.__search.album(index)
+        session = view_manager.get_var('session')
         
-        #Do nothing if playing, as it may result counterproductive
-        if not playlist_manager.is_playing():
-            index = self.get_list(view_manager).getSelectedPosition()
-            album = self.__search.album(index)
-            session = view_manager.get_var('session')
+        try:
+            albumbrowse = load_albumbrowse(
+                session, album, ondelay=show_busy_dialog
+            )
+            playlist_manager.play(albumbrowse.tracks(), session)
             
-            try:
-                albumbrowse = load_albumbrowse(
-                    session, album, ondelay=show_busy_dialog
-                )
-                playlist_manager.play(albumbrowse.tracks(), session)
-                
-            except:
-                d = xbmcgui.Dialog()
-                d.ok('Error', 'Unable to load album info')
-            
-            finally:
-                if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
-                    xbmc.executebuiltin('Dialog.Close(busydialog)')
+        except:
+            d = xbmcgui.Dialog()
+            d.ok('Error', 'Unable to load album info')
+        
+        finally:
+            if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
+                xbmc.executebuiltin('Dialog.Close(busydialog)')
     
     
     def _set_current_album(self, view_manager):
@@ -121,11 +106,28 @@ class NewStuffView(BaseListContainerView):
                 xbmc.executebuiltin('Dialog.Close(busydialog)')
     
     
+    def click(self, view_manager, control_id):
+        #If the list was clicked...
+        if control_id == NewStuffView.list_id:
+            self._show_album(view_manager)
+        
+        elif control_id == NewStuffView.context_play_album:
+            self._start_album_playback(view_manager)
+            view_manager.get_window().setFocus(self.get_container(view_manager))
+        
+        elif control_id == NewStuffView.context_set_current:
+            self._set_current_album(view_manager)
+            view_manager.get_window().setFocus(self.get_container(view_manager))
+    
+    
     def action(self, view_manager, action_id):
         #Run parent implementation's actions
         BaseListContainerView.action(self, view_manager, action_id)
         
-        if action_id == 79:
+        playlist_manager = view_manager.get_var('playlist_manager')
+        
+        #Do nothing if playing, as it may result counterproductive
+        if action_id == 79 and not playlist_manager.is_playing():
             self._start_album_playback(view_manager)
     
     
