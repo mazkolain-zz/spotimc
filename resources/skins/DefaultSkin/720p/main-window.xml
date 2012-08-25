@@ -1426,6 +1426,27 @@
 					<visible>Control.IsVisible(2000)</visible>
 					
 					
+					<!-- Album options -->
+					<control type="label" id="6001">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected album:</label>
+					</control>
+					
+					<control type="button" id="6002">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="6003">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
+					
+					
 					<!-- Album filtering -->
 					<control type="label" id="6010">
 						<include>spotimc_leftmenu_label</include>
