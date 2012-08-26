@@ -71,11 +71,15 @@ class PlaylistView(BaseListContainerView):
             return self.__container_loader.playlist(int(playlist_id))
     
     
-    def _show_selected_playlist(self, view_manager):
+    def _get_selected_playlist(self, view_manager):
         item = self.get_list(view_manager).getSelectedItem()
-        playlist_id = item.getProperty('PlaylistId')
-        session = view_manager.get_var('session')
+        return item.getProperty('PlaylistId')
+    
+    
+    def _show_selected_playlist(self, view_manager):
         pm = view_manager.get_var('playlist_manager')
+        session = view_manager.get_var('session')
+        playlist_id = self._get_selected_playlist(view_manager)
         loader_obj = self._get_playlist_loader(playlist_id)
         
         #Special treatment for starred & inbox
@@ -95,8 +99,7 @@ class PlaylistView(BaseListContainerView):
     
     
     def _start_playlist_playback(self, view_manager):
-        item = self.get_list(view_manager).getSelectedItem()
-        playlist_id = item.getProperty('PlaylistId')
+        playlist_id = self._get_selected_playlist(view_manager)
         track_list = self._get_playlist_loader(playlist_id).get_tracks()
         session = view_manager.get_var('session')
         playlist_manager = view_manager.get_var('playlist_manager')
@@ -104,8 +107,7 @@ class PlaylistView(BaseListContainerView):
     
     
     def _set_current_playlist(self, view_manager):
-        item = self.get_list(view_manager).getSelectedItem()
-        playlist_id = item.getProperty('PlaylistId')
+        playlist_id = self._get_selected_playlist(view_manager)
         track_list = self._get_playlist_loader(playlist_id).get_tracks()
         playlist_manager = view_manager.get_var('playlist_manager')
         session = view_manager.get_var('session')

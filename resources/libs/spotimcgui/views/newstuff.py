@@ -21,9 +21,8 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 import xbmc, xbmcgui
 from spotimcgui.views import BaseListContainerView
 from spotimcgui.views import album
-
+from spotimcgui.utils.loaders import load_albumbrowse
 from spotify import search
-from spotify.utils.loaders import load_albumbrowse
 
 
 class NewStuffCallbacks(search.SearchCallbacks):
@@ -48,61 +47,37 @@ class NewStuffView(BaseListContainerView):
         self.__search = search.Search(
             session, 'tag:new', album_count=60, callbacks=cb
         )
-        
+    
+    
+    def _get_selected_album(self, view_manager):
+        pos = self.get_list(view_manager).getSelectedPosition()
+        return self.__search.album(pos)
+    
     
     def _show_album(self, view_manager):
-        pos = self.get_list(view_manager).getSelectedPosition()
         session = view_manager.get_var('session')
-        v = album.AlbumTracksView(session, self.__search.album(pos))
-        view_manager.add_view(v)
+        album_obj = self._get_selected_album(view_manager)
+        view_manager.add_view(album.AlbumTracksView(session, album_obj))
     
     
     def _start_album_playback(self, view_manager):
-        def show_busy_dialog():
-            xbmc.executebuiltin('ActivateWindow(busydialog)')
-        
-        playlist_manager = view_manager.get_var('playlist_manager')
-        index = self.get_list(view_manager).getSelectedPosition()
-        album = self.__search.album(index)
         session = view_manager.get_var('session')
+        album_obj = self._get_selected_album(view_manager)
+        albumbrowse = load_albumbrowse(session, album_obj)
         
-        try:
-            albumbrowse = load_albumbrowse(
-                session, album, ondelay=show_busy_dialog
-            )
+        if albumbrowse is not None:
+            playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.play(albumbrowse.tracks(), session)
-            
-        except:
-            d = xbmcgui.Dialog()
-            d.ok('Error', 'Unable to load album info')
-        
-        finally:
-            if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
-                xbmc.executebuiltin('Dialog.Close(busydialog)')
     
     
     def _set_current_album(self, view_manager):
-        def show_busy_dialog():
-            xbmc.executebuiltin('ActivateWindow(busydialog)')
-        
-        playlist_manager = view_manager.get_var('playlist_manager')
-        index = self.get_list(view_manager).getSelectedPosition()
-        album = self.__search.album(index)
         session = view_manager.get_var('session')
+        album_obj = self._get_selected_album(view_manager)
+        albumbrowse = load_albumbrowse(session, album_obj)
         
-        try:
-            albumbrowse = load_albumbrowse(
-                session, album, ondelay=show_busy_dialog
-            )
+        if albumbrowse is not None:
+            playlist_manager = view_manager.get_var('playlist_manager')
             playlist_manager.set_tracks(albumbrowse.tracks(), session)
-            
-        except:
-            d = xbmcgui.Dialog()
-            d.ok('Error', 'Unable to load album info')
-        
-        finally:
-            if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
-                xbmc.executebuiltin('Dialog.Close(busydialog)')
     
     
     def click(self, view_manager, control_id):
