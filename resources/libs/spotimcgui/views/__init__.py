@@ -258,7 +258,16 @@ class BaseListContainerView(BaseContainerView):
     
     
     def show(self, view_manager, give_focus=True):
-        BaseView.show(self, view_manager, give_focus)
+        #Keep the list position when updating
+        if self.is_visible():
+            list_obj = self.get_list(view_manager)
+            self.__list_position = list_obj.getSelectedPosition()
+        
+        #Reset it if it has items, avoiding the unwanted "memory" effect
+        elif self.get_list(view_manager).size() > 0:
+            self.get_list(view_manager).selectItem(0)
+        
+        BaseContainerView.show(self, view_manager, give_focus)
         window = view_manager.get_window()
         
         #Hide container and show loading anim.
@@ -270,7 +279,7 @@ class BaseListContainerView(BaseContainerView):
             if self.__list_position is not None:
                 self.get_list(view_manager).selectItem(self.__list_position)
             
-            #Not list position? Set it on the start
+            #No list position? Set it on the start
             else:
                 self.get_list(view_manager).selectItem(0)
             
@@ -296,8 +305,6 @@ class BaseListContainerView(BaseContainerView):
     
     
     def hide(self, view_manager):
-        BaseView.hide(self, view_manager)
-        
         #Keep the list position
         list_obj = self.get_list(view_manager)
         self.__list_position = list_obj.getSelectedPosition()
