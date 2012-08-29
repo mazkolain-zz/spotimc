@@ -287,7 +287,7 @@
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5200</onleft>
-						<onright>200</onright>
+						<onright>1202</onright>
 						<posx>0</posx>
 						<posy>80</posy>
 					</control>
@@ -299,10 +299,10 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>464</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1201</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 				
@@ -343,7 +343,7 @@
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5300</onleft>
-						<onright>200</onright>
+						<onright>1304</onright>
 						<pagecontrol>1304</pagecontrol>
 					</control>
 					
@@ -354,10 +354,10 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>480</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1303</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 				
@@ -388,7 +388,7 @@
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>-</onleft>
-						<onright>200</onright>
+						<onright>1402</onright>
 						<pagecontrol>1402</pagecontrol>
 					</control>
 					
@@ -399,10 +399,10 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>496</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1401</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 				
@@ -541,7 +541,7 @@
 						<onup>1510</onup>
 						<ondown>-</ondown>
 						<onleft>5500</onleft>
-						<onright>1510</onright>
+						<onright>1521</onright>
 						<pagecontrol>1521</pagecontrol>
 					</control>
 					
@@ -552,10 +552,10 @@
 						<posy>112</posy>
 						<width>8</width>
 						<height>448</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1520</onleft>
+						<onright>1510</onright>
 					</control>
 				</control>
 				
@@ -844,7 +844,7 @@
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5700</onleft>
-						<onright>200</onright>
+						<onright>1702</onright>
 						<pagecontrol>1702</pagecontrol>
 					</control>
 					
@@ -855,10 +855,10 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>464</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1701</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 				
@@ -1042,21 +1042,21 @@
 						<onup>200</onup>
 						<ondown>-</ondown>
 						<onleft>5800</onleft>
-						<onright>200</onright>
-						<pagecontrol>1502</pagecontrol>
+						<onright>1802</onright>
+						<pagecontrol>1802</pagecontrol>
 					</control>
 					
 					<!-- Scrollbar -->
-					<control type="scrollbar" id="1502">
+					<control type="scrollbar" id="1802">
 						<include>spotimc_scrollbar</include>
 						<posx>1176</posx>
 						<posy>224</posy>
 						<width>8</width>
 						<height>352</height>
-						<onup>-</onup>
+						<onup>200</onup>
 						<ondown>-</ondown>
-						<onleft>-</onleft>
-						<onright>-</onright>
+						<onleft>1801</onleft>
+						<onright>200</onright>
 					</control>
 				</control>
 				
@@ -1113,7 +1113,7 @@
                         <onup>200</onup>
                         <ondown>-</ondown>
                         <onleft>6000</onleft>
-                        <onright>200</onright>
+                        <onright>2002</onright>
                         <posx>0</posx>
                         <posy>80</posy>
                     </control>
@@ -1125,10 +1125,10 @@
                         <posy>80</posy>
                         <width>8</width>
                         <height>464</height>
-                        <onup>-</onup>
+                        <onup>200</onup>
                         <ondown>-</ondown>
-                        <onleft>-</onleft>
-                        <onright>-</onright>
+                        <onleft>2001</onleft>
+                        <onright>200</onright>
                     </control>
                 </control>
 			</control>

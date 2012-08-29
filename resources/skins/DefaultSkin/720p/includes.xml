@@ -228,7 +228,7 @@
 		<visible>true</visible>
 		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
 		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
-		<texturesliderbarfocus>common/scrollbar-slider.png</texturesliderbarfocus>
+		<texturesliderbarfocus>common/scrollbar-slider-focus.png</texturesliderbarfocus>
 		<textureslidernib></textureslidernib>
 		<textureslidernibfocus></textureslidernibfocus>
 		<pulseonselect></pulseonselect>
@@ -240,7 +240,7 @@
 		<visible>true</visible>
 		<texturesliderbackground>common/scrollbar-bg.png</texturesliderbackground>
 		<texturesliderbar>common/scrollbar-slider.png</texturesliderbar>
-		<texturesliderbarfocus>common/scrollbar-slider.png</texturesliderbarfocus>
+		<texturesliderbarfocus>common/scrollbar-slider-focus.png</texturesliderbarfocus>
 		<textureslidernib></textureslidernib>
 		<textureslidernibfocus></textureslidernibfocus>
 		<pulseonselect></pulseonselect>
