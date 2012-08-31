@@ -299,10 +299,13 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>464</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1201</onleft>
 						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -354,10 +357,13 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>480</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1303</onleft>
 						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -399,10 +405,13 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>496</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1401</onleft>
 						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -552,10 +561,13 @@
 						<posy>112</posy>
 						<width>8</width>
 						<height>448</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1520</onleft>
 						<onright>1510</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -855,10 +867,13 @@
 						<posy>80</posy>
 						<width>8</width>
 						<height>464</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1701</onleft>
 						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -1053,10 +1068,13 @@
 						<posy>224</posy>
 						<width>8</width>
 						<height>352</height>
-						<onup>200</onup>
+						<onup>-</onup>
 						<ondown>-</ondown>
 						<onleft>1801</onleft>
 						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
 					</control>
 				</control>
 				
@@ -1125,10 +1143,13 @@
                         <posy>80</posy>
                         <width>8</width>
                         <height>464</height>
-                        <onup>200</onup>
+                        <onup>-</onup>
                         <ondown>-</ondown>
                         <onleft>2001</onleft>
                         <onright>200</onright>
+                        
+                        <!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
                     </control>
                 </control>
 			</control>
