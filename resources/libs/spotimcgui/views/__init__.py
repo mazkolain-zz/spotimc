@@ -174,7 +174,7 @@ class BaseView:
         pass
     
     
-    def show(self, view_manager, give_focus=True):
+    def show(self, view_manager, set_focus=True):
         self.__is_visible = True
     
     
@@ -205,8 +205,13 @@ class BaseContainerView(BaseView):
         raise NotImplementedError()
     
     
-    def show(self, view_manager, give_focus=True):
-        BaseView.show(self, view_manager, give_focus)
+    def set_focus(self, view_manager):
+        container = self.get_container(view_manager)
+        view_manager.get_window().setFocus(container)
+    
+    
+    def show(self, view_manager, set_focus=True):
+        BaseView.show(self, view_manager, set_focus)
         
         #Hide container and show loading anim.
         self.get_container(view_manager).setVisibleCondition('false')
@@ -218,10 +223,8 @@ class BaseContainerView(BaseView):
             self.get_container(view_manager).setVisibleCondition('true')
             
             #And give focus if asked to do so
-            if give_focus:
-                view_manager.get_window().setFocus(
-                    self.get_container(view_manager)
-                )
+            if set_focus:
+                self.set_focus(view_manager)
     
     
     def hide(self, view_manager):
@@ -257,7 +260,12 @@ class BaseListContainerView(BaseContainerView):
                 xbmc.executebuiltin('Action(right)')
     
     
-    def show(self, view_manager, give_focus=True):
+    def set_focus(self, view_manager):
+        list_obj = self.get_list(view_manager)
+        view_manager.get_window().setFocus(list_obj)
+    
+    
+    def show(self, view_manager, set_focus=True):
         #Keep the list position when updating
         if self.is_visible():
             list_obj = self.get_list(view_manager)
@@ -267,7 +275,7 @@ class BaseListContainerView(BaseContainerView):
         elif self.get_list(view_manager).size() > 0:
             self.get_list(view_manager).selectItem(0)
         
-        BaseContainerView.show(self, view_manager, give_focus)
+        BaseContainerView.show(self, view_manager, set_focus)
         window = view_manager.get_window()
         
         #Hide container and show loading anim.
@@ -298,10 +306,8 @@ class BaseListContainerView(BaseContainerView):
             self.get_container(view_manager).setVisibleCondition('true')
             
             #And give focus if asked to do so
-            if give_focus:
-                view_manager.get_window().setFocus(
-                    self.get_container(view_manager)
-                )
+            if set_focus:
+                self.set_focus(view_manager)
     
     
     def hide(self, view_manager):
