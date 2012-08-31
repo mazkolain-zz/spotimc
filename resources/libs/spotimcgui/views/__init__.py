@@ -250,14 +250,14 @@ class BaseListContainerView(BaseContainerView):
     def action(self, view_manager, action_id):
         context_id = self.get_context_menu_id()
         if action_id in [117] and self.get_context_menu_id():
+            
             #if the context menu is active...
             if not xbmc.getCondVisibility('ControlGroup(5000).HasFocus()'):
                 xbmc.executebuiltin('SetFocus(%d)' % context_id)
-                #view_manager.get_window().setFocus(self.get_list(view_manager))
-                #xbmc.executebuiltin('Action(left)')
-                #print "should pop the list"
+            
+            #Give focus to the container
             else:
-                xbmc.executebuiltin('Action(right)')
+                self.set_focus(view_manager)
     
     
     def set_focus(self, view_manager):
