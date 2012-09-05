@@ -1334,21 +1334,21 @@
 						<label>Selected track:</label>
 					</control>
 					
-					<control type="button" id="5302">
+					<control type="button" id="5502">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse artist</label>
 						<visible>True</visible>
 					</control>
 					
-					<control type="button" id="5303">
+					<control type="button" id="5503">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Browse album</label>
 						<visible>True</visible>
 					</control>
 					
-					<control type="button" id="5304">
+					<control type="button" id="5504">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Toggle star</label>
@@ -1356,7 +1356,7 @@
 					</control>
 					
 					<!--
-					<control type="button" id="5305">
+					<control type="button" id="5505">
 						<include>spotimc_leftmenu_button</include>
 						<description></description>
 						<label>Add to playlist</label>
@@ -1371,31 +1371,31 @@
 						<label>Sort by:</label>
 					</control>
 					
-					<control type="button" id="5307">
+					<control type="button" id="5507">
 						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Track Title</label>
 					</control>
 					
-					<control type="button" id="5308">
+					<control type="button" id="5508">
 						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Popularity</label>
 					</control>
 					
-					<control type="button" id="5309">
+					<control type="button" id="5509">
 						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Album Title</label>
 					</control>
 					
-					<control type="button" id="5310">
+					<control type="button" id="5510">
 						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Artist Name</label>
 					</control>
 					
-					<control type="button" id="5311">
+					<control type="button" id="5511">
 						<include>spotimc_leftmenu_toggle</include>
 						<description></description>
 						<label>Duration</label>
