@@ -32,7 +32,7 @@ class MoreView(BaseListContainerView):
         #Ask the user first
         dlg = xbmcgui.Dialog()
         response = dlg.yesno(
-            'Logout',
+            'Sign Off',
             'This will forget the remembered user and exit.',
             'Are you sure?'
         )
@@ -54,7 +54,7 @@ class MoreView(BaseListContainerView):
                 settings_obj = SettingsManager()
                 settings_obj.show_dialog(session)
             
-            elif key == 'logout':
+            elif key == 'sign-off':
                 self._do_logout(view_manager)
     
     
@@ -83,6 +83,6 @@ class MoreView(BaseListContainerView):
         
         #Add the items
         self._add_item(list_obj, 'settings', "Settings", "common/more-settings-icon.png")
-        self._add_item(list_obj, 'logout', "Logout", "common/more-logout-icon.png")
+        self._add_item(list_obj, 'sign-off', "Sign Off", "common/more-logout-icon.png")
         
         return True
