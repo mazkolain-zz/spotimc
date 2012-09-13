@@ -84,7 +84,6 @@ class PlaylistView(BaseListContainerView):
         
         #Special treatment for starred & inbox
         if playlist_id in ['starred', 'inbox']:
-            loader_obj = self.__starred_loader
             view_obj = detail.SpecialPlaylistDetailView(
                 session, loader_obj.get_playlist(), pm,
                 loader_obj.get_name(), loader_obj.get_thumbnails()
