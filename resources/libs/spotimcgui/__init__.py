@@ -27,6 +27,7 @@ import os.path
 import xbmc, xbmcgui
 import windows
 import threading
+import gc
 from appkey import appkey
 from spotify import MainLoop, ConnectionType, ConnectionRules
 from spotify.session import Session, SessionCallbacks
@@ -282,7 +283,6 @@ def main(addon_dir):
         mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
         mainwin.initialize(sess, proxy_runner, playlist_manager)
         mainwin.doModal()
-        mainwin = None
         
         #Playback and proxy deinit sequence
         proxy_runner.clear_stream_end_callback()
@@ -291,10 +291,24 @@ def main(addon_dir):
         proxy_runner.stop()
         buf.cleanup()
         
+        #Clear some vars and collect garbage
+        proxy_runner = None
+        preloader_cb = None
+        playlist_manager = None
+        mainwin = None
+        gc.collect()
+        
+        #from _spotify.utils.moduletracker import _tracked_modules
+        #print "tracked modules after: %d" % len(_tracked_modules)
+        
+        #import objgraph
+        #objgraph.show_backrefs(_tracked_modules, max_depth=10)
+        
         #Logout
         sess.logout()
-        logout_event.wait(10)
+        logout_event.wait(15)
     
     #Stop main loop
     ml_runner.stop()
+    
     return sess
