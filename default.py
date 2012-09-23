@@ -22,7 +22,7 @@ __addon_id__ = 'script.audio.spotimc'
 
 
 #Gather addon information
-import os.path, xbmcaddon, xbmcgui, gc
+import os.path, xbmcaddon, xbmcgui
 addon_cfg = xbmcaddon.Addon(__addon_id__)
 __addon_path__ = addon_cfg.getAddonInfo('path')
 __addon_version__ = addon_cfg.getAddonInfo('version')
@@ -73,9 +73,7 @@ try:
     
     #Load & start the actual gui, no init code beyond this point
     from spotimcgui import main
-    session = main(__addon_path__)
-    gc.collect()
-    session = None
+    main(__addon_path__)
     
     from _spotify import unload_library
     unload_library()

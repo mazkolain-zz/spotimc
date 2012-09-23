@@ -306,9 +306,7 @@ def main(addon_dir):
         
         #Logout
         sess.logout()
-        logout_event.wait(15)
+        logout_event.wait(10)
     
     #Stop main loop
     ml_runner.stop()
-    
-    return sess
