@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="script.audio.spotimc" version="1.0-beta1" name="Spotimc" provider-name="Mikel Azkolain">
+<addon id="script.audio.spotimc" version="1.0-beta2" name="Spotimc" provider-name="Mikel Azkolain">
     <requires>
         <import addon="xbmc.python" version="2.0"/>
         <import addon="script.module.elementtree" version="1.2.7"/>
