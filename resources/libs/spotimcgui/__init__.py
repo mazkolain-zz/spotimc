@@ -212,8 +212,9 @@ def do_login(session, script_path, skin_dir):
     #Otherwise let's do a normal login process
     else:
         loginwin = dialogs.LoginWindow(
-            "login-window.xml", script_path, skin_dir, session
+            "login-window.xml", script_path, skin_dir
         )
+        loginwin.initialize(session)
         loginwin.doModal()
         return not loginwin.is_cancelled()
 

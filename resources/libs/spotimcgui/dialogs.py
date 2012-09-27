@@ -67,14 +67,17 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     __cancelled = None 
     
     
-    def __init__(self, file, script_path, skin_dir, session):
+    def __init__(self, file, script_path, skin_dir):
         self.__file = file
         self.__script_path = script_path
         self.__skin_dir = skin_dir
+        self.__cancelled = False
+    
+    
+    def initialize(self, session):
         self.__session = session
         self.__callbacks = LoginCallbacks(self)
         self.__session.add_callbacks(self.__callbacks)
-        self.__cancelled = False
 
 
     def onInit(self):
