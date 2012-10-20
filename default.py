@@ -32,9 +32,10 @@ loadingwin = xbmcgui.WindowXML("loading-window.xml", __addon_path__, "DefaultSki
 loadingwin.show()
 
 #Add the dll search path
-import envutils
-dll_dir = os.path.join(__addon_path__, "resources/dlls")
-envutils.set_library_path(dll_dir)
+from envutils import set_library_paths
+set_library_paths('resources/dlls')
+#dll_dir = os.path.join(__addon_path__, "resources/dlls")
+#envutils.set_library_path(dll_dir)
 
 #Add the libraries
 libs_dir = os.path.join(__addon_path__, "resources/libs")
