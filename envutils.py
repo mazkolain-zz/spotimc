@@ -45,6 +45,9 @@ def get_architecture():
 		#Some filtering...
 		if machine.startswith('armv6'):
 			return 'armv6'
+		
+		elif machine.startswith('i686'):
+			return 'x86'
 	
 	except:
 		return None
