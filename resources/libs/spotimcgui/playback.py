@@ -193,7 +193,7 @@ class PlaylistManager:
                     'Failed reading shuffle setting.',
                     xbmc.LOGERROR
                 )
-                return false
+                return False
     
     
     @run_in_thread(single_instance=True)
