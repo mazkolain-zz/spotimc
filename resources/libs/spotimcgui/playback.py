@@ -43,6 +43,7 @@ class PlaylistManager:
     __track_list = None
     __playlist = None
     __cancel_set_tracks = None
+    __a6df109_fix = None
     
     
     def __init__(self, server):
@@ -50,6 +51,7 @@ class PlaylistManager:
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        self.__a6df109_fix = 'a6df109' in xbmc.getInfoLabel('System.BuildVersion')
     
     
     def _get_user_agent(self):
@@ -166,7 +168,11 @@ class PlaylistManager:
     def _add_item(self, index, track, session):
         self.__track_list.insert(index, track)
         path, info = self.create_track_info(track, session, index)
-        self.__playlist.add(path, info, index)
+        
+        if self.__a6df109_fix:
+            self.__playlist.add(path, info)
+        else:
+            self.__playlist.add(path, info, index)
     
     
     def is_playing(self, consider_pause=True):
