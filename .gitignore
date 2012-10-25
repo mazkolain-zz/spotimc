@@ -4,3 +4,4 @@
 /resources/libs/spotimcgui/appkey.py
 /resources/libs/*.egg
 *.zip
+/build
