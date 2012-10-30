@@ -2,7 +2,6 @@
 <addon id="script.audio.spotimc" version="1.0-beta2" name="Spotimc" provider-name="Mikel Azkolain">
     <requires>
         <import addon="xbmc.python" version="2.0"/>
-        <import addon="script.module.elementtree" version="1.2.7"/>
     </requires>
     <extension point="xbmc.python.script" library="default.py">
         <provides>audio</provides>

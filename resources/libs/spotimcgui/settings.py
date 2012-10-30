@@ -21,7 +21,7 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 import xbmc, xbmcaddon
 from __main__ import __addon_id__
 from spotify import Bitrate
-import elementtree.ElementTree as ET
+import xml.etree.ElementTree as ET
 
 
 
