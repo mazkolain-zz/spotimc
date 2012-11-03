@@ -262,7 +262,7 @@ def do_login(session, script_path, skin_dir, app):
         loginwin = dialogs.LoginWindow(
             "login-window.xml", script_path, skin_dir
         )
-        loginwin.initialize(session)
+        loginwin.initialize(session, app)
         loginwin.doModal()
         return not loginwin.is_cancelled()
 

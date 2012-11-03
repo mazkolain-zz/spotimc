@@ -58,6 +58,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
     __skin_dir = None
     __session = None
     __callbacks = None
+    __app = None
     
     
     __username = None
@@ -74,14 +75,26 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
         self.__cancelled = False
     
     
-    def initialize(self, session):
+    def initialize(self, session, app):
         self.__session = session
         self.__callbacks = LoginCallbacks(self)
         self.__session.add_callbacks(self.__callbacks)
+        self.__app = app
 
 
     def onInit(self):
-        pass
+        #If there is a remembered user, show it's login name
+        username = self.__session.remembered_user()
+        if username is not None:
+            self._set_input_value(self.username_input, username)
+        
+        #Show useful info if previous errors are present
+        if self.__app.has_var('login_last_error'):
+            
+            #Wait for the appear animation to complete
+            time.sleep(0.2)
+            
+            self.set_error(self.__app.get_var('login_last_error'))
     
     
     def onAction(self, action):
@@ -96,7 +109,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
             ErrorType.UnableToContactServer: 'Unable to contact server',
             ErrorType.BadUsernameOrPassword: 'Bad username or password',
             ErrorType.UserBanned: 'User is banned',
-            ErrorType.UserNeedsPremium: 'A premium account is required!',
+            ErrorType.UserNeedsPremium: 'A premium account is required',
             ErrorType.OtherTransient: 'A transient error occurred. Try again after a few minutes.',
             ErrorType.OtherPermanent: 'A permanent error occurred.',
         }
