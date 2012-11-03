@@ -33,7 +33,7 @@ class MoreView(BaseListContainerView):
         dlg = xbmcgui.Dialog()
         response = dlg.yesno(
             'Sign Off',
-            'This will forget the remembered user and exit.',
+            'This will forget the remembered user.',
             'Are you sure?'
         )
         
