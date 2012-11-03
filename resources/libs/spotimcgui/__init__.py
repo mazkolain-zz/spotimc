@@ -29,7 +29,7 @@ import windows
 import threading
 import gc
 from appkey import appkey
-from spotify import MainLoop, ConnectionType, ConnectionRules
+from spotify import MainLoop, ConnectionType, ConnectionRules, ErrorType
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
@@ -65,6 +65,10 @@ class Application:
     
     def get_var(self, name):
         return self.__vars[name]
+    
+    
+    def remove_var(self, name):
+        del self.__vars[name]
 
 
 
@@ -80,8 +84,24 @@ class SpotimcCallbacks(SessionCallbacks):
         self.__audio_buffer = audio_buffer
         self.__app = app
     
-    def logged_in(self, session, error):
-        xbmc.log("libspotify: logged in: %d" % error)
+    def logged_in(self, session, error_num):
+        #Log this event
+        xbmc.log("libspotify: logged in: %d" % error_num)
+        
+        #Store last error code
+        self.__app.set_var('login_last_error', error_num)
+        
+        #Close main window (if any) on the following error types
+        fatal_errors = [
+            ErrorType.UserBanned,
+            ErrorType.UnableToContactServer,
+            ErrorType.OtherPermanent,
+            ErrorType.UserNeedsPremium,
+        ]
+        if error_num in fatal_errors:
+            if self.__app.has_var('main_window'):
+                self.__app.get_var('main_window').close()
+        
     
     def logged_out(self, session):
         xbmc.log("libspotify: logged out")
@@ -225,9 +245,15 @@ def set_settings(settings_obj, session):
 
 
 
-def do_login(session, script_path, skin_dir):
-    #If we have a remembered user let's relogin
-    if session.remembered_user() is not None:
+def do_login(session, script_path, skin_dir, app):
+    #Get the last error if we have one
+    if app.has_var('login_last_error'):
+        prev_error = app.get_var('login_last_error')
+    else:
+        prev_error = 0
+    
+    #If no previous errors and we have a remembered user
+    if prev_error == 0 and session.remembered_user() is not None:
         session.relogin()
         return True
     
@@ -239,6 +265,7 @@ def do_login(session, script_path, skin_dir):
         loginwin.initialize(session)
         loginwin.doModal()
         return not loginwin.is_cancelled()
+
 
 
 def get_preloader_callback(session, playlist_manager, buffer):
@@ -255,6 +282,7 @@ def main(addon_dir):
     app = Application()
     logout_event = Event()
     app.set_var('logout_event', logout_event)
+    app.set_var('exit_requested', False)
     
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
@@ -293,47 +321,51 @@ def main(addon_dir):
     ml_runner.start()
    
     #If login was successful start main window
-    if do_login(sess, addon_dir, "DefaultSkin"):
-        proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1')
-        proxy_runner.start()
+    while not app.get_var('exit_requested'):
         
-        print 'port: %s' % proxy_runner.get_port()
+        #Set the exit flag if login was cancelled
+        if not do_login(sess, addon_dir, "DefaultSkin", app):
+            app.set_var('exit_requested', True)
         
-        #Instantiate the playlist manager
-        playlist_manager = playback.PlaylistManager(proxy_runner)
-        
-        #Set the track preloader callback
-        preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
-        proxy_runner.set_stream_end_callback(preloader_cb)
-        
-        #Start main window and enter it's main loop
-        mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
-        mainwin.initialize(sess, proxy_runner, playlist_manager)
-        mainwin.doModal()
-        
-        #Playback and proxy deinit sequence
-        proxy_runner.clear_stream_end_callback()
-        player = xbmc.Player()
-        player.stop()
-        proxy_runner.stop()
-        buf.cleanup()
-        
-        #Clear some vars and collect garbage
-        proxy_runner = None
-        preloader_cb = None
-        playlist_manager = None
-        mainwin = None
-        gc.collect()
-        
-        #from _spotify.utils.moduletracker import _tracked_modules
-        #print "tracked modules after: %d" % len(_tracked_modules)
-        
-        #import objgraph
-        #objgraph.show_backrefs(_tracked_modules, max_depth=10)
-        
-        #Logout
-        sess.logout()
-        logout_event.wait(10)
+        #Otherwise continue normal operation
+        else:
+            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1')
+            proxy_runner.start()
+            
+            print 'port: %s' % proxy_runner.get_port()
+            
+            #Instantiate the playlist manager
+            playlist_manager = playback.PlaylistManager(proxy_runner)
+            
+            #Set the track preloader callback
+            preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
+            proxy_runner.set_stream_end_callback(preloader_cb)
+            
+            #Start main window and enter it's main loop
+            mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
+            mainwin.initialize(sess, proxy_runner, playlist_manager, app)
+            app.set_var('main_window', mainwin)
+            mainwin.doModal()
+            
+            #Playback and proxy deinit sequence
+            proxy_runner.clear_stream_end_callback()
+            player = xbmc.Player()
+            player.stop()
+            proxy_runner.stop()
+            buf.cleanup()
+            
+            #Clear some vars and collect garbage
+            proxy_runner = None
+            preloader_cb = None
+            playlist_manager = None
+            mainwin = None
+            app.remove_var('main_window')
+            gc.collect()
+            
+            #Logout
+            if sess.user() is not None:
+                sess.logout()
+                logout_event.wait(10)
     
     #Stop main loop
     ml_runner.stop()

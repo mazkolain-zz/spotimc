@@ -40,6 +40,7 @@ class MainWindow(xbmcgui.WindowXML):
     __view_manager = None
     __session = None
     __playlist_manager = None
+    __application = None
     
     #Button id constants
     now_playing_button = 201
@@ -57,9 +58,10 @@ class MainWindow(xbmcgui.WindowXML):
         self.__view_manager = views.ViewManager(self)
         
     
-    def initialize(self, session, proxy_runner, playlist_manager):
+    def initialize(self, session, proxy_runner, playlist_manager, application):
         self.__session = session
         self.__playlist_manager = playlist_manager
+        self.__application = application
         
         #Shared vars with views
         self.__view_manager.set_var('playlist_manager', weakref.proxy(self.__playlist_manager))
@@ -148,6 +150,7 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.add_view(v)
         
         elif control_id == MainWindow.exit_button:
+            self.__application.set_var('exit_requested', True)
             self.close()
     
     
