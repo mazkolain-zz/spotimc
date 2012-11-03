@@ -47,23 +47,45 @@ import playback
 
 
 
+class Application:
+    __vars = None
+    
+    
+    def __init__(self):
+        self.__vars = {}
+    
+    
+    def set_var(self, name, value):
+        self.__vars[name] = value
+    
+    
+    def has_var(self, name):
+        return name in self.__vars
+    
+    
+    def get_var(self, name):
+        return self.__vars[name]
+
+
+
 class SpotimcCallbacks(SessionCallbacks):
     __mainloop = None
-    __buf = None
+    __audio_buffer = None
     __logout_event = None
+    __app = None
     
-    def __init__(self, mainloop, buf, event):
+    
+    def __init__(self, mainloop, audio_buffer, app):
         self.__mainloop = mainloop
-        self.__buf = buf
-        self.__logout_event = event
+        self.__audio_buffer = audio_buffer
+        self.__app = app
     
     def logged_in(self, session, error):
         xbmc.log("libspotify: logged in: %d" % error)
     
     def logged_out(self, session):
-        print "logout event"
         xbmc.log("libspotify: logged out")
-        self.__logout_event.set()
+        self.__app.get_var('logout_event').set()
             
     def connection_error(self, session, error):
         xbmc.log("libspotify: conn error: %d" % error)
@@ -83,13 +105,13 @@ class SpotimcCallbacks(SessionCallbacks):
         dlg.ok('Playback stopped', 'This account is in use on another device.')
     
     def end_of_track(self, session):
-        self.__buf.set_track_ended()
+        self.__audio_buffer.set_track_ended()
         
     def notify_main_thread(self, session):
         self.__mainloop.notify()
     
     def music_delivery(self, session, data, num_samples, sample_type, sample_rate, num_channels):
-        return self.__buf.music_delivery(data, num_samples, sample_type, sample_rate, num_channels)
+        return self.__audio_buffer.music_delivery(data, num_samples, sample_type, sample_rate, num_channels)
 
 
 
@@ -229,6 +251,11 @@ def get_preloader_callback(session, playlist_manager, buffer):
 
 
 def main(addon_dir):
+    #Initialize app var storage
+    app = Application()
+    logout_event = Event()
+    app.set_var('logout_event', logout_event)
+    
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
     
@@ -248,8 +275,7 @@ def main(addon_dir):
     #Initialize spotify stuff
     ml = MainLoop()
     buf = BufferManager(get_audio_buffer_size())
-    logout_event = Event()
-    callbacks = SpotimcCallbacks(ml, buf, logout_event)
+    callbacks = SpotimcCallbacks(ml, buf, app)
     sess = Session(
         callbacks,
         app_key=appkey,
