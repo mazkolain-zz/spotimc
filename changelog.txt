@@ -1,3 +1,9 @@
+[B]1.0-beta3[/B]
+- Fix: Initialization errors on Linux x86.
+- Fix: crashes when starting playback.
+- Fix: Expired premium accounts were not correctly handled.
+- Fix: Album covers were not displayed on remote apps.
+
 [B]1.0-beta2[/B]
 - New: Updated libspotify to v12.
 - New: Handle play and context menu buttons from remotes.
