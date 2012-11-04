@@ -91,10 +91,13 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
         #Show useful info if previous errors are present
         if self.__app.has_var('login_last_error'):
             
-            #Wait for the appear animation to complete
-            time.sleep(0.2)
-            
-            self.set_error(self.__app.get_var('login_last_error'))
+            #If the error number was relevant...
+            login_last_error = self.__app.get_var('login_last_error')
+            if login_last_error != 0:
+                #Wait for the appear animation to complete
+                time.sleep(0.2)
+                
+                self.set_error(self.__app.get_var('login_last_error'), True)
     
     
     def onAction(self, action):
@@ -103,7 +106,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
             self.do_close()
     
     
-    def set_error(self, code):
+    def set_error(self, code, short_animation=False):
         messages = {
             ErrorType.ClientTooOld: 'Client is too old',
             ErrorType.UnableToContactServer: 'Unable to contact server',
@@ -118,10 +121,17 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
             escaped =  messages[code].replace('"', '\"')
             xbmc.executebuiltin('SetProperty(LoginErrorMessage, "%s")' %  escaped)
         else:
-            self.setProperty('LoginErrorMessage', 'Unknown error.')
+            xbmc.executebuiltin('SetProperty(LoginErrorMessage, "Unknown error.")')
+            #self.setProperty('LoginErrorMessage', 'Unknown error.')
         
         #Set error flag
         xbmc.executebuiltin('SetProperty(IsLoginError,true)')
+        
+        #Animation type
+        if short_animation:
+            xbmc.executebuiltin('SetProperty(ShortErrorAnimation,true)')
+        else:
+            xbmc.executebuiltin('SetProperty(ShortErrorAnimation,false)')
         
         #Hide animation
         self.getControl(LoginWindow.loading_container).setVisibleCondition('false')

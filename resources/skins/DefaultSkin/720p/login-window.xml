@@ -60,7 +60,7 @@
 		    	<effect type="slide" tween="cubic" easing="in" center="640,360" time="200" start="0,0" end="0,600" />
 		    </animation>
 		    
-		    <animation type="Conditional" condition="SubString(Window.Property(IsLoginError),true)" reversible="false">
+		    <animation type="Conditional" condition="SubString(Window.Property(IsLoginError),true) + SubString(Window.Property(ShortErrorAnimation),false)" reversible="false">
 				<effect type="slide" tween="cubic" easing="inout" center="640,360" time="200" start="0,0" end="100,0" />
 				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="200" time="200" start="100,0" end="-100,0" />
 				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="400" time="200" start="-100,0" end="100,0" />
@@ -260,10 +260,17 @@
             <posy>24</posy>
             <width>322</width>
             <height>121</height>
-            	
-            <animation type="Visible" reversible="false">
+            
+            <!-- Animation with delayed start -->
+            <animation type="Visible" reversible="false" condition="SubString(Window.Property(ShortErrorAnimation),false)">
         		<effect type="slide" tween="elastic" easing="out" center="auto" delay="1300" time="1000" start="0,128" end="0,0" />
         		<effect type="fade" tween="circle" easing="out" center="auto" delay="1300" time="1000" start="0" end="100" />
+        	</animation>
+        	
+        	<!-- Animation with immediate start -->
+            <animation type="Visible" reversible="false" condition="SubString(Window.Property(ShortErrorAnimation),true)">
+        		<effect type="slide" tween="elastic" easing="out" center="auto" delay="0" time="1000" start="0,128" end="0,0" />
+        		<effect type="fade" tween="circle" easing="out" center="auto" delay="0" time="1000" start="0" end="100" />
         	</animation>
             
             <animation type="Hidden" reversible="false">
