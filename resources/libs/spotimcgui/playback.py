@@ -44,6 +44,7 @@ class PlaylistManager:
     __playlist = None
     __cancel_set_tracks = None
     __a6df109_fix = None
+    __server_ip = None
     
     
     def __init__(self, server):
@@ -52,6 +53,14 @@ class PlaylistManager:
         self.__play_token = server.get_user_token(self._get_user_agent())
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         self.__a6df109_fix = 'a6df109' in xbmc.getInfoLabel('System.BuildVersion')
+        
+        #Get the system ip
+        system_ip = xbmc.getInfoLabel('Network.IPAddress')
+        if system_ip is not None:
+            self.__server_ip = system_ip
+        else:
+            self.__server_ip = '127.0.0.1'
+        
     
     
     def _get_user_agent(self):
@@ -97,15 +106,19 @@ class PlaylistManager:
         headers = self._get_url_headers()
         
         if list_index is not None:
-            args = (self.__server_port, track_id, list_index, headers)
-            return 'http://127.0.0.1:%s/track/%s.wav?idx=%d|%s' % args
+            args = (
+                self.__server_ip, self.__server_port,
+                track_id, list_index, headers
+            )
+            return 'http://%s:%s/track/%s.wav?idx=%d|%s' % args
         else:
-            args = (self.__server_port, track_id, headers)
-            return 'http://127.0.0.1:%s/track/%s.wav|%s' % args
+            args = (self.__server_ip, self.__server_port, track_id, headers)
+            return 'http://%:%s/track/%s.wav|%s' % args
     
     
     def get_image_url(self, image_id):
-        return 'http://127.0.0.1:%s/image/%s.jpg' % (self.__server_port, image_id)
+        args = (self.__server_ip, self.__server_port, image_id)
+        return 'http://%s:%s/image/%s.jpg' % args
     
     
     def _calculate_track_rating(self, track):

@@ -329,7 +329,7 @@ def main(addon_dir):
         
         #Otherwise continue normal operation
         else:
-            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1')
+            proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0')
             proxy_runner.start()
             
             print 'port: %s' % proxy_runner.get_port()
