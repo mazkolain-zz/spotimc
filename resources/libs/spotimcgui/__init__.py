@@ -320,7 +320,7 @@ def main(addon_dir):
     ml_runner = MainLoopRunner(ml, sess)
     ml_runner.start()
    
-    #If login was successful start main window
+    #Stay on the application until told to do so
     while not app.get_var('exit_requested'):
         
         #Set the exit flag if login was cancelled
