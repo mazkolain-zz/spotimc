@@ -330,8 +330,8 @@ def main(addon_dir):
         #Otherwise continue normal operation
         else:
             #TODO: Wrap this inside a function
-            allowed_ips = xbmc.getInfoLabel('Network.IPAddress')
-            proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0', allowed_ips)
+            ip_list = ['127.0.0.1', xbmc.getInfoLabel('Network.IPAddress')]
+            proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0', allowed_ips=ip_list)
             proxy_runner.start()
             
             print 'port: %s' % proxy_runner.get_port()
