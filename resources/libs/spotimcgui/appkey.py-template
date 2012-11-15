@@ -18,5 +18,14 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-#Paste key here
+"""
+You must provide a key issued by Spotify:
+https://developer.spotify.com/technologies/libspotify/keys/
+
+Once you get the key, export it as "C-Code" and paste just the hex data.
+
+Example:
+
+appkey = [0x01, 0x02, 0x03, ... ]
+"""
 appkey = []
