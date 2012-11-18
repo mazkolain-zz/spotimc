@@ -86,7 +86,7 @@ try:
     #objgraph.show_backrefs(_tracked_modules, max_depth=5)
     
     from _spotify import unload_library
-    unload_library()
+    unload_library("libspotify")
 
 finally:
     #Cleanup includes and fonts
