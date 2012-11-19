@@ -18,13 +18,15 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import xbmcgui
+import xbmc, xbmcgui
 
 from spotimcgui.views import BaseListContainerView, iif
 
 import loaders
 
 import detail
+
+from spotify.utils.decorators import run_in_thread
 
 
 
@@ -40,8 +42,12 @@ class PlaylistView(BaseListContainerView):
     __inbox_loader = None
     __container_loader = None
     
+    __initialized = None
     
-    def __init__(self, session, container, playlist_manager):
+    
+    
+    @run_in_thread
+    def _initialize(self, session, container, playlist_manager):
         #Add the starred playlist
         self.__starred_loader = loaders.SpecialPlaylistLoader(
             session, session.starred_create(), playlist_manager,
@@ -58,6 +64,15 @@ class PlaylistView(BaseListContainerView):
         self.__container_loader = loaders.ContainerLoader(
             session, container, playlist_manager
         )
+        
+        self.__initialized = True
+        
+        #FIXME: Poor man's way of dealing with race conditions (resend notifications)
+        xbmc.executebuiltin("Action(Noop)")
+    
+    
+    def __init__(self, session, container, playlist_manager):
+        self._initialize(session, container, playlist_manager)
     
     
     def _get_playlist_loader(self, playlist_id):
@@ -114,6 +129,10 @@ class PlaylistView(BaseListContainerView):
     
     
     def click(self, view_manager, control_id):
+        #Silently ignore events when not intialized
+        if not self.__initialized:
+            return
+        
         if control_id == PlaylistView.list_id:
             self._show_selected_playlist(view_manager)
         
@@ -127,6 +146,10 @@ class PlaylistView(BaseListContainerView):
     
     
     def action(self, view_manager, action_id):
+        #Silently ignore events when not intialized
+        if not self.__initialized:
+            return
+        
         #Run parent implementation's actions
         BaseListContainerView.action(self, view_manager, action_id)
         
@@ -189,32 +212,37 @@ class PlaylistView(BaseListContainerView):
     
     
     def render(self, view_manager):
-        if self.all_loaded():
-            #Clear the list
-            list = self.get_list(view_manager)
-            list.reset()
+        if not self.__initialized:
+            return False
+        
+        if not self.all_loaded():
+            return False
+        
+        #Clear the list
+        list = self.get_list(view_manager)
+        list.reset()
+        
+        #Get the logged in user
+        container_user = self.__container_loader.get_container().owner()
+        container_username = None
+        if container_user is not None:
+            container_username = container_user.canonical_name()
+        
+        #Add the starred and inbox playlists
+        self._add_playlist(list, 'starred', self.__starred_loader, False)
+        self._add_playlist(list, 'inbox', self.__inbox_loader, False)
+        
+        #And iterate over the rest of the playlists
+        for key, item in enumerate(self.__container_loader.playlists()):
+            show_playlist = (
+                item is not None and
+                not item.has_errors() and
+                item.is_loaded()
+            )
             
-            #Get the logged in user
-            container_user = self.__container_loader.get_container().owner()
-            container_username = None
-            if container_user is not None:
-                container_username = container_user.canonical_name()
-            
-            #Add the starred and inbox playlists
-            self._add_playlist(list, 'starred', self.__starred_loader, False)
-            self._add_playlist(list, 'inbox', self.__inbox_loader, False)
-            
-            #And iterate over the rest of the playlists
-            for key, item in enumerate(self.__container_loader.playlists()):
-                show_playlist = (
-                    item is not None and
-                    not item.has_errors() and
-                    item.is_loaded()
-                )
-                
-                if show_playlist:
-                    playlist_username = item.get_playlist().owner().canonical_name()
-                    show_owner = playlist_username != container_username
-                    self._add_playlist(list, key, item, show_owner)
-            
-            return True
+            if show_playlist:
+                playlist_username = item.get_playlist().owner().canonical_name()
+                show_owner = playlist_username != container_username
+                self._add_playlist(list, key, item, show_owner)
+        
+        return True
