@@ -204,8 +204,14 @@ class BaseContainerView(BaseView):
     
     
     def set_focus(self, view_manager):
-        container = self.get_container(view_manager)
-        view_manager.get_window().setFocus(container)
+        #Focus the container if it's visible
+        if self.is_visible(view_manager):
+            container = self.get_container(view_manager)
+            view_manager.get_window().setFocus(container)
+        
+        #Otherwise focus the main menu
+        else:
+            view_manager.get_window().setFocusId(200)
     
     
     def show(self, view_manager, set_focus=True):
@@ -220,9 +226,9 @@ class BaseContainerView(BaseView):
             view_manager.get_window().hide_loading()
             self.get_container(view_manager).setVisibleCondition('true')
             
-            #And give focus if asked to do so
-            if set_focus:
-                self.set_focus(view_manager)
+        #And give focus if asked to do so
+        if set_focus:
+            self.set_focus(view_manager)
     
     
     def hide(self, view_manager):
