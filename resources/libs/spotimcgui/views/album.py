@@ -157,7 +157,7 @@ class AlbumTracksView(BaseListContainerView):
             session.add_callbacks(self.__metadata_callbacks)
         
         
-        if not self.is_visible() or not self.__list_rendered:
+        if not self.is_visible(view_manager) or not self.__list_rendered:
             BaseListContainerView.show(self, view_manager, give_focus)
         elif self.__list_rendered:
             self._update_metadata(view_manager)

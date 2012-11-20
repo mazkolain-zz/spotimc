@@ -155,15 +155,8 @@ class ViewManager:
 
 
 class BaseView:
-    __is_visible = None
-    
-    
-    def __init__(self):
-        self.__is_visible = False
-    
-    
-    def is_visible(self):
-        return self.__is_visible
+    def is_visible(self, view_manager):
+        pass
     
         
     def click(self, view_manager, control_id):
@@ -175,11 +168,11 @@ class BaseView:
     
     
     def show(self, view_manager, set_focus=True):
-        self.__is_visible = True
+        pass
     
     
     def hide(self, view_manager):
-        self.__is_visible = False
+        pass
     
     
     def back(self, view_manager):
@@ -199,6 +192,11 @@ class BaseContainerView(BaseView):
         and False if data was not still available.
         """
         raise NotImplementedError()
+    
+    
+    def is_visible(self, view_manager):
+        container_id = self.get_container(view_manager).getId()
+        return xbmc.getCondVisibility('Control.IsVisible(%d)' % container_id)
     
     
     def get_container(self, view_manager):
@@ -267,7 +265,7 @@ class BaseListContainerView(BaseContainerView):
     
     def show(self, view_manager, set_focus=True):
         #Keep the list position when updating
-        if self.is_visible():
+        if self.is_visible(view_manager):
             list_obj = self.get_list(view_manager)
             self.__list_position = list_obj.getSelectedPosition()
         
@@ -280,7 +278,7 @@ class BaseListContainerView(BaseContainerView):
         window = view_manager.get_window()
         
         #If the list was rendered
-        if self.is_visible():
+        if self.is_visible(view_manager):
             
             #Restore the list position, if we have one
             if self.__list_position is not None:
