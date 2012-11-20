@@ -255,7 +255,7 @@ class BaseListContainerView(BaseContainerView):
         context_id = self.get_context_menu_id()
         if action_id in [117] and self.get_context_menu_id():
             
-            #if the context menu is active...
+            #if the context menu is not active...
             if not xbmc.getCondVisibility('ControlGroup(5000).HasFocus()'):
                 xbmc.executebuiltin('SetFocus(%d)' % context_id)
             
