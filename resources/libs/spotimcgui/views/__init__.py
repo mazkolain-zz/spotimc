@@ -258,11 +258,6 @@ class BaseListContainerView(BaseContainerView):
                 self.set_focus(view_manager)
     
     
-    def set_focus(self, view_manager):
-        list_obj = self.get_list(view_manager)
-        view_manager.get_window().setFocus(list_obj)
-    
-    
     def show(self, view_manager, set_focus=True):
         #Keep the list position when updating
         if self.is_visible(view_manager):
