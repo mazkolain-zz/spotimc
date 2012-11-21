@@ -3,6 +3,7 @@
 - Fix: crashes when starting playback.
 - Fix: Expired premium accounts were not correctly handled.
 - Fix: Album covers were not displayed on remote apps.
+- Fix: Locked gui if connection failed on startup.
 
 [B]1.0-beta2[/B]
 - New: Updated libspotify to v12.
