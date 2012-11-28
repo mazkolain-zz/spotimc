@@ -22,7 +22,7 @@
 	</include>
 	
 	<include name="spotimc_nowplaying_text">
-		<height>16</height>
+		<height>20</height>
 		<visible>true</visible>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -39,7 +39,7 @@
 	</include>
 	
 	<include name="spotimc_nowplaying_time">
-		<height>16</height>
+		<height>20</height>
 		<visible>true</visible>
 		<align>left</align>
 		<aligny>center</aligny>

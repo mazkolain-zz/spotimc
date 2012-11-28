@@ -190,7 +190,7 @@
 					<control type="label">
 						<include>spotimc_nowplaying_text</include>
 						<posx>80</posx>
-						<posy>12</posy>
+						<posy>8</posy>
 						<width>224</width>
 						<label>Now playing:</label>
 						<visible>Player.Playing</visible>
@@ -199,7 +199,7 @@
 					<control type="label">
 						<include>spotimc_nowplaying_text</include>
 						<posx>80</posx>
-						<posy>12</posy>
+						<posy>8</posy>
 						<width>224</width>
 						<label>Paused:</label>
 						<visible>Player.Paused</visible>
@@ -209,7 +209,7 @@
 						<include>spotimc_nowplaying_text</include>
 						<label>$INFO[MusicPlayer.Title] by $INFO[MusicPlayer.Artist]</label>
 						<posx>80</posx>
-						<posy>32</posy>
+						<posy>30</posy>
 						<width>224</width>
 						<textoffsetx>0</textoffsetx>
 					</control>
@@ -234,8 +234,8 @@
 						<include>spotimc_nowplaying_time</include>
 						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
 						<posx>208</posx>
-						<posy>54</posy>
-						<width>auto</width>
+						<posy>52</posy>
+						<width>112</width>
 					</control>
 					
 					<!-- Overlay when now playing is active -->
