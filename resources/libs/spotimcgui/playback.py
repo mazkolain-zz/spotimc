@@ -19,7 +19,7 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 
 import xbmc, xbmcgui
-from spotify import link, track
+from spotify import link, track, image
 import time
 from __main__ import __addon_version__
 import spotifyproxy
@@ -134,16 +134,21 @@ class PlaylistManager:
         if track_obj.is_loaded() and track_obj.error() == 0:
             album = track_obj.album().name()
             artist = ', '.join([artist.name() for artist in track_obj.artists()])
-            image_id = track_obj.album().cover()
-            image_url = self.get_image_url(image_id)
+            
+            #Get album images
+            normal_image_id = track_obj.album().cover()
+            normal_image_url = self.get_image_url(normal_image_id)
+            large_image_id = track_obj.album().cover(image.ImageSize.Large)
+            large_image_url = self.get_image_url(large_image_id)
+            
             track_url = self.get_track_url(track_obj, list_index)
             rating_points = str(self._calculate_track_rating(track_obj))
             
             item = xbmcgui.ListItem(
                 track_obj.name(),
                 path=track_url,
-                iconImage=image_url,
-                thumbnailImage=image_url
+                iconImage=normal_image_url,
+                thumbnailImage=large_image_url
             )
             info = {
                 "title": track_obj.name(),
