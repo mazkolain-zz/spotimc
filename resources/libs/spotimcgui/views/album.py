@@ -20,7 +20,7 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 import xbmc, xbmcgui
 from spotimcgui.views import BaseListContainerView, iif
-from spotify import albumbrowse, session, track
+from spotify import albumbrowse, session, track, image
 
 
 
@@ -122,7 +122,8 @@ class AlbumTracksView(BaseListContainerView):
         pm = view_manager.get_var('playlist_manager')
         album = self.__albumbrowse.album()
         artist = self.__albumbrowse.artist()
-        window.setProperty("AlbumCover", pm.get_image_url(album.cover()))
+        image_id = album.cover(image.ImageSize.Large)
+        window.setProperty("AlbumCover", pm.get_image_url(image_id))
         window.setProperty("AlbumName", album.name())
         window.setProperty("ArtistName", artist.name())
     
