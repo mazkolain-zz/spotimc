@@ -139,7 +139,12 @@ class PlaylistManager:
             track_url = self.get_track_url(track_obj, list_index)
             rating_points = str(self._calculate_track_rating(track_obj))
             
-            item = xbmcgui.ListItem(path=track_url, iconImage=image_url, thumbnailImage=image_url)
+            item = xbmcgui.ListItem(
+                track_obj.name(),
+                path=track_url,
+                iconImage=image_url,
+                thumbnailImage=image_url
+            )
             info = {
                 "title": track_obj.name(),
                 "album": album,
