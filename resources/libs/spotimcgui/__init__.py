@@ -29,7 +29,7 @@ import windows
 import threading
 import gc
 from appkey import appkey
-from spotify import MainLoop, ConnectionType, ConnectionRules, ErrorType
+from spotify import MainLoop, ConnectionType, ConnectionRules, ErrorType, track as _track
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
@@ -269,9 +269,13 @@ def do_login(session, script_path, skin_dir, app):
 
 
 def get_preloader_callback(session, playlist_manager, buffer):
-    sess_ref = weakref.proxy(session)
+    session = weakref.proxy(session)
     def preloader():
-        buffer.open(sess_ref, playlist_manager.get_next_item())
+        next_track = playlist_manager.get_next_item()
+        if next_track is not None:
+            ta = next_track.get_availability(session)
+            if ta == _track.TrackAvailability.Available:
+                buffer.open(session, next_track)
     
     return preloader
 
