@@ -45,6 +45,7 @@ class PlaylistManager:
     __cancel_set_tracks = None
     __a6df109_fix = None
     __server_ip = None
+    __player = None
     
     
     def __init__(self, server):
@@ -52,6 +53,7 @@ class PlaylistManager:
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
+        self.__player = xbmc.Player()
         self.__a6df109_fix = 'a6df109' in xbmc.getInfoLabel('System.BuildVersion')
         
         #Get the system ip
@@ -76,8 +78,7 @@ class PlaylistManager:
     
     
     def _play_item(self, offset):
-        player = xbmc.Player()
-        player.playselected(offset)
+        self.__player.playselected(offset)
     
     
     def clear(self):
@@ -188,8 +189,7 @@ class PlaylistManager:
     
     
     def _stop_playback(self):
-        player = xbmc.Player()
-        player.stop()
+        self.__player.stop()
     
     
     def _add_item(self, index, track, session):
