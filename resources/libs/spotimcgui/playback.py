@@ -127,7 +127,11 @@ class PlaylistManager:
             return 0
         else:
             return int(math.ceil(popularity * 6 / 100.0)) - 1
-        
+    
+    
+    def _item_is_playable(self, session, track_obj):
+        return track_obj.get_availability(session) == track.TrackAvailability.Available
+    
     
     def create_track_info(self, track_obj, session, list_index = None):
         #Track is ok
@@ -168,7 +172,7 @@ class PlaylistManager:
             else:
                 item.setProperty('IsStarred', 'false')
             
-            if track_obj.get_availability(session) == track.TrackAvailability.Available:
+            if self._item_is_playable(session, track_obj):
                 item.setProperty('IsAvailable', 'true')
             else:
                 item.setProperty('IsAvailable', 'false')
@@ -272,22 +276,31 @@ class PlaylistManager:
             #If we don't have an offset, get one
             if offset is None:
                 if is_shuffle:
+                    #TODO: Should loop for a playable item
                     offset = random.randint(0, len(track_list) - 1)
                 else:
                     offset = 0
             
-            #Add some padding dummy items (to preserve playlist position)
-            if offset > 0:
-                for index in range(offset):
-                    self.__playlist.add('dummy-%d' % index, xbmcgui.ListItem(''))
+            #Check if the selected item is playable
+            if not self._item_is_playable(session, track_list[offset]):
+                d = xbmcgui.Dialog()
+                d.ok('Spotimc', 'The selected track is not playable')
             
-            #Add the desired item and play it
-            self._add_item(offset, track_list[offset], session)
-            self._play_item(offset)
+            #Continue normally
+            else:
             
-            #If there are items left...
-            if len(track_list) > 1:
-                self.set_tracks(track_list, session, offset)
+                #Add some padding dummy items (to preserve playlist position)
+                if offset > 0:
+                    for index in range(offset):
+                        self.__playlist.add('dummy-%d' % index, xbmcgui.ListItem(''))
+                
+                #Add the desired item and play it
+                self._add_item(offset, track_list[offset], session)
+                self._play_item(offset)
+                
+                #If there are items left...
+                if len(track_list) > 1:
+                    self.set_tracks(track_list, session, offset)
     
     
     def get_item(self, index):
