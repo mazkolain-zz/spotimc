@@ -71,6 +71,7 @@ def set_library_paths(base_dir):
 			add_library_path(os.path.join(base_dir, 'linux/x86_64'))
 		
 		if arch_str in(None, 'armv6'):
+			add_library_path(os.path.join(base_dir, 'linux/armv6hf'))
 			add_library_path(os.path.join(base_dir, 'linux/armv6'))
 	
 	elif platform_str == 'windows':
