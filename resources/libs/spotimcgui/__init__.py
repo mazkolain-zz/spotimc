@@ -355,7 +355,6 @@ def main(addon_dir):
             
             #Playback and proxy deinit sequence
             proxy_runner.clear_stream_end_callback()
-            player = xbmc.Player()
             playlist_manager.stop()
             proxy_runner.stop()
             buf.cleanup()
