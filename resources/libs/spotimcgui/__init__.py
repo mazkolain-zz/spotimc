@@ -28,8 +28,9 @@ import xbmc, xbmcgui
 import windows
 import threading
 import gc
+import time
 from appkey import appkey
-from spotify import MainLoop, ConnectionType, ConnectionRules, ErrorType, track as _track
+from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, ErrorType, track as _track
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
@@ -132,6 +133,9 @@ class SpotimcCallbacks(SessionCallbacks):
     
     def music_delivery(self, session, data, num_samples, sample_type, sample_rate, num_channels):
         return self.__audio_buffer.music_delivery(data, num_samples, sample_type, sample_rate, num_channels)
+    
+    def connectionstate_changed(self, session):
+        self.__app.get_var('connstate_event').set()
 
 
 
@@ -255,7 +259,7 @@ def do_login(session, script_path, skin_dir, app):
     #If no previous errors and we have a remembered user
     if prev_error == 0 and session.remembered_user() is not None:
         session.relogin()
-        return True
+        status = True
     
     #Otherwise let's do a normal login process
     else:
@@ -264,8 +268,22 @@ def do_login(session, script_path, skin_dir, app):
         )
         loginwin.initialize(session, app)
         loginwin.doModal()
-        return not loginwin.is_cancelled()
+        status = not loginwin.is_cancelled()
+    
+    #Wait until the user gets populated
+    while session.user() is None:
+        time.sleep(.1)
+    
+    return status
 
+
+def wait_for_connstate(session, app, state):
+    cs = app.get_var('connstate_event')
+    while not app.get_var('exit_requested') and session.connectionstate() != state:
+        cs.wait(5)
+        cs.clear()
+    
+    return session.connectionstate() == state
 
 
 def get_preloader_callback(session, playlist_manager, buffer):
@@ -285,7 +303,9 @@ def main(addon_dir):
     #Initialize app var storage
     app = Application()
     logout_event = Event()
+    connstate_event = Event()
     app.set_var('logout_event', logout_event)
+    app.set_var('connstate_event', connstate_event)
     app.set_var('exit_requested', False)
     
     #Check needed directories first
@@ -332,7 +352,7 @@ def main(addon_dir):
             app.set_var('exit_requested', True)
         
         #Otherwise continue normal operation
-        else:
+        elif wait_for_connstate(sess, app, ConnectionState.LoggedIn):
             #TODO: Wrap this inside a function
             ip_list = ['127.0.0.1', xbmc.getInfoLabel('Network.IPAddress')]
             proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0', allowed_ips=ip_list)
