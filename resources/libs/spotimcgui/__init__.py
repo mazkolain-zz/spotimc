@@ -28,7 +28,6 @@ import xbmc, xbmcgui
 import windows
 import threading
 import gc
-import time
 from appkey import appkey
 from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, ErrorType, track as _track
 from spotify.session import Session, SessionCallbacks
@@ -269,10 +268,6 @@ def do_login(session, script_path, skin_dir, app):
         loginwin.initialize(session, app)
         loginwin.doModal()
         status = not loginwin.is_cancelled()
-    
-    #Wait until the user gets populated
-    while session.user() is None:
-        time.sleep(.1)
     
     return status
 
