@@ -235,7 +235,7 @@
 						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
 						<posx>208</posx>
 						<posy>52</posy>
-						<width>112</width>
+						<width max="112">auto</width>
 					</control>
 					
 					<!-- Overlay when now playing is active -->
@@ -662,13 +662,12 @@
 						</control>
 						
 						<control type="progress">
-							<description>My first progress control</description>
 							<posx>336</posx>
 							<posy>194</posy>
 							<width>640</width>
 							<height>16</height>
 							<visible>true</visible>
-							<reveal>false</reveal>
+							<reveal>true</reveal>
 							<texturebg>common/playback-bar-bg.png</texturebg>
 							<lefttexture>-</lefttexture>
 							<midtexture>common/playback-bar.png</midtexture>
