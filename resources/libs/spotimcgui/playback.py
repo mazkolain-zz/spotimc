@@ -270,6 +270,7 @@ class PlaylistManager:
     
     def play(self, track_list, session, offset=None):
         if len(track_list) > 0:
+            
             #Cancel any possible set_tracks() loop
             self.__cancel_set_tracks = True
             
@@ -294,6 +295,10 @@ class PlaylistManager:
             
             #Continue normally
             else:
+                
+                #Stop playback if neededed
+                if self.is_playing():
+                    self.stop()
             
                 #Add some padding dummy items (to preserve playlist position)
                 if offset > 0:
