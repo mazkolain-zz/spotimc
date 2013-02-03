@@ -41,6 +41,7 @@ class MainWindow(xbmcgui.WindowXML):
     __session = None
     __playlist_manager = None
     __application = None
+    __active_tab = None
     
     #Button id constants
     now_playing_button = 201
@@ -79,14 +80,26 @@ class MainWindow(xbmcgui.WindowXML):
         c.setVisibleCondition("False")
     
     
+    def _set_active_tab(self, tab=None):
+        
+        #Update the variable and the infolabel
+        if tab is not None:
+            self.__active_tab = tab
+            self.setProperty('MainActiveTab', tab)
+        
+        #Otherwise update again the current tab
+        elif self.__active_tab is not None: 
+            self.setProperty('MainActiveTab', self.__active_tab)
+    
+    
     def _init_new_stuff(self):
-        self.setProperty('MainActiveTab', 'newstuff')
+        self._set_active_tab('newstuff')
         v = views.newstuff.NewStuffView(self.__session)
         self.__view_manager.add_view(v)
     
     
     def _init_playlists(self):
-        self.setProperty('MainActiveTab', 'playlists')
+        self._set_active_tab('playlists')
         c = self.__session.playlistcontainer()
         pm = self.__playlist_manager
         v = views.playlists.list.PlaylistView(self.__session, c, pm)
@@ -105,6 +118,11 @@ class MainWindow(xbmcgui.WindowXML):
             #Always display new stuff as a fallback
             else:
                 self._init_new_stuff()
+        
+        #Otherwise show the current view
+        else:
+            self._set_active_tab()
+            self.__view_manager.show()
     
     
     def onAction(self, action):
@@ -122,7 +140,7 @@ class MainWindow(xbmcgui.WindowXML):
     
     def _process_layout_click(self, control_id):
         if control_id == MainWindow.now_playing_button:
-            self.setProperty('MainActiveTab', 'nowplaying')
+            self._set_active_tab('nowplaying')
             v = views.nowplaying.NowPlayingView()
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
@@ -138,13 +156,13 @@ class MainWindow(xbmcgui.WindowXML):
         elif control_id == MainWindow.search_button:
             term = views.search.ask_search_term()
             if term:
-                self.setProperty('MainActiveTab', 'search')
+                self._set_active_tab('search')
                 v = views.search.SearchTracksView(self.__session, term)
                 self.__view_manager.clear_views()
                 self.__view_manager.add_view(v)
         
         elif control_id == MainWindow.more_button:
-            self.setProperty('MainActiveTab', 'more')
+            self._set_active_tab('more')
             v = views.more.MoreView()
             self.__view_manager.clear_views()
             self.__view_manager.add_view(v)
