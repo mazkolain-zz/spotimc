@@ -18,11 +18,11 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-__addon_id__ = 'script.audio.spotimc'
-
-
-#Gather addon information
 import os.path, xbmcaddon, xbmcgui, gc
+
+
+#Set global addon information first
+__addon_id__ = 'script.audio.spotimc'
 addon_cfg = xbmcaddon.Addon(__addon_id__)
 __addon_path__ = addon_cfg.getAddonInfo('path')
 __addon_version__ = addon_cfg.getAddonInfo('version')
@@ -31,28 +31,31 @@ __addon_version__ = addon_cfg.getAddonInfo('version')
 loadingwin = xbmcgui.WindowXML("loading-window.xml", __addon_path__, "DefaultSkin")
 loadingwin.show()
 
-#Add the dll search path
-from envutils import set_library_paths
-set_library_paths('resources/dlls')
-#dll_dir = os.path.join(__addon_path__, "resources/dlls")
-#envutils.set_library_path(dll_dir)
-
-#Add the libraries
-libs_dir = os.path.join(__addon_path__, "resources/libs")
-sys.path.insert(0, libs_dir)
-
-#Add the skinutils module
-sys.path.insert(0, os.path.join(libs_dir, "XbmcSkinUtils.egg"))
-
-#Load font & include stuff
-from skinutils import reload_skin
-from skinutils.fonts import FontManager
-from skinutils.includes import IncludeManager
-
+#Surround the rest of the init process
 try:
+    
     #Set font & include manager vars
     fm = None
     im = None
+    
+    #Set local library paths
+    libs_dir = os.path.join(__addon_path__, "resources/libs")
+    sys.path.insert(0, libs_dir)
+    sys.path.insert(0, os.path.join(libs_dir, "XbmcSkinUtils.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "CherryPy.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
+    
+    #And perform the rest of the import statements
+    from envutils import set_library_paths
+    from skinutils import reload_skin
+    from skinutils.fonts import FontManager
+    from skinutils.includes import IncludeManager
+    from spotimcgui import main
+    from _spotify import unload_library
+    
+    #Add the system specific library path
+    set_library_paths('resources/dlls')
     
     #Install custom fonts
     fm = FontManager()
@@ -67,13 +70,7 @@ try:
     im.install_file(include_path)
     reload_skin()
     
-    #Import spotify & friends
-    sys.path.insert(0, os.path.join(libs_dir, "CherryPy.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
-    
     #Load & start the actual gui, no init code beyond this point
-    from spotimcgui import main
     main(__addon_path__)
     
     #Do a final garbage collection after main
@@ -84,11 +81,17 @@ try:
     
     #import objgraph
     #objgraph.show_backrefs(_tracked_modules, max_depth=5)
-    
-    from _spotify import unload_library
-    unload_library("libspotify")
+
+except (SystemExit, Exception) as ex:
+    if ex.message != '':
+        dlg = xbmcgui.Dialog()
+        dlg.ok(ex.__class__.__name__, ex.message)
+
 
 finally:
+    
+    unload_library("libspotify")
+    
     #Cleanup includes and fonts
     if im is not None:
         del im
