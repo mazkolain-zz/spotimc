@@ -83,9 +83,9 @@ try:
     #objgraph.show_backrefs(_tracked_modules, max_depth=5)
 
 except (SystemExit, Exception) as ex:
-    if ex.message != '':
+    if str(ex) != '':
         dlg = xbmcgui.Dialog()
-        dlg.ok(ex.__class__.__name__, ex.message)
+        dlg.ok(ex.__class__.__name__, str(ex))
 
 
 finally:
