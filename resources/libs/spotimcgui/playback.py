@@ -295,10 +295,6 @@ class PlaylistManager:
             
             #Continue normally
             else:
-                
-                #Stop playback if neededed
-                if self.is_playing():
-                    self.stop()
             
                 #Add some padding dummy items (to preserve playlist position)
                 if offset > 0:
