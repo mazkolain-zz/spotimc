@@ -188,10 +188,10 @@ class PlaylistManager:
             return '', xbmcgui.ListItem()
     
     
-    def stop(self):
+    def stop(self, block=True):
         #Stop the stream and wait until it really got stopped
         self.__player.stop()
-        while self.__player.isPlaying():
+        while block and self.__player.isPlaying():
             time.sleep(.1)
     
     
