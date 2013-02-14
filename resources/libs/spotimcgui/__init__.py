@@ -33,6 +33,7 @@ from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, 
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
+from spotify.utils.decorators import run_in_thread
 
 from threading import Event
 
@@ -119,8 +120,15 @@ class SpotimcCallbacks(SessionCallbacks):
     def streaming_error(self, session, error):
         xbmc.log("libspotify: streaming error: %d" % error)
     
+    @run_in_thread
     def play_token_lost(self, session):
-        xbmc.executebuiltin('playercontrol(stop)')
+        
+        #Cancel the current buffer
+        self.__audio_buffer.stop()
+        
+        if self.__app.has_var('playlist_manager'):
+            self.__app.get_var('playlist_manager').stop(False)
+        
         dlg = xbmcgui.Dialog()
         dlg.ok('Playback stopped', 'This account is in use on another device.')
     
@@ -357,6 +365,7 @@ def main(addon_dir):
             
             #Instantiate the playlist manager
             playlist_manager = playback.PlaylistManager(proxy_runner)
+            app.set_var('playlist_manager', playlist_manager)
             
             #Set the track preloader callback
             preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
@@ -380,6 +389,7 @@ def main(addon_dir):
             playlist_manager = None
             mainwin = None
             app.remove_var('main_window')
+            app.remove_var('playlist_manager')
             gc.collect()
             
             #Logout
