@@ -92,18 +92,17 @@ class SpotimcCallbacks(SessionCallbacks):
         #Store last error code
         self.__app.set_var('login_last_error', error_num)
         
-        #Close main window (if any) on the following error types
-        fatal_errors = [
-            ErrorType.UserBanned,
-            ErrorType.UnableToContactServer,
-            ErrorType.OtherPermanent,
-            ErrorType.UserNeedsPremium,
-        ]
-        if error_num in fatal_errors:
+        #Take action if error status is not ok
+        if error_num != ErrorType.Ok:
+            
+            #Close the main window if it's running
             if self.__app.has_var('main_window'):
                 self.__app.get_var('main_window').close()
+            
+            #Otherwise, set the connstate event
+            else:
+                self.__app.get_var('connstate_event').set()
         
-    
     def logged_out(self, session):
         xbmc.log("libspotify: logged out")
         self.__app.get_var('logout_event').set()
@@ -142,6 +141,8 @@ class SpotimcCallbacks(SessionCallbacks):
         return self.__audio_buffer.music_delivery(data, num_samples, sample_type, sample_rate, num_channels)
     
     def connectionstate_changed(self, session):
+        
+        #Set the apropiate event flag, if available
         self.__app.get_var('connstate_event').set()
 
 
@@ -280,9 +281,41 @@ def do_login(session, script_path, skin_dir, app):
     return status
 
 
+def login_get_last_error(app):
+    if app.has_var('login_last_error'):
+        return app.get_var('login_last_error')
+    else:
+        return 0
+
+
 def wait_for_connstate(session, app, state):
+    
+    #Store the previous login error number
+    last_login_error = login_get_last_error(app)
+    
+    #Add a shortcut to the connstate event
     cs = app.get_var('connstate_event')
-    while not app.get_var('exit_requested') and session.connectionstate() != state:
+    
+    #Wrap all the tests for the following loop
+    def continue_loop():
+        
+        #Get the current login error
+        cur_login_error = login_get_last_error(app)
+        
+        #Continue the loop while these conditions are met:
+        #  * An exit was not requested
+        #  * Connection state was not the desired one
+        #  * No login errors where detected
+        return (
+            not app.get_var('exit_requested') and
+            session.connectionstate() != state and (
+                last_login_error == cur_login_error or
+                cur_login_error == ErrorType.Ok
+            )
+        )
+    
+    #Keep testing until conditions are met
+    while continue_loop():
         cs.wait(5)
         cs.clear()
     
@@ -308,6 +341,7 @@ def main(addon_dir):
     logout_event = Event()
     connstate_event = Event()
     app.set_var('logout_event', logout_event)
+    app.set_var('login_last_error', ErrorType.Ok)
     app.set_var('connstate_event', connstate_event)
     app.set_var('exit_requested', False)
     
@@ -354,8 +388,9 @@ def main(addon_dir):
         if not do_login(sess, addon_dir, "DefaultSkin", app):
             app.set_var('exit_requested', True)
         
-        #Otherwise continue normal operation
+        #Otherwise block until state is sane, and continue
         elif wait_for_connstate(sess, app, ConnectionState.LoggedIn):
+            
             #TODO: Wrap this inside a function
             ip_list = ['127.0.0.1', xbmc.getInfoLabel('Network.IPAddress')]
             proxy_runner = ProxyRunner(sess, buf, host='0.0.0.0', allowed_ips=ip_list)
