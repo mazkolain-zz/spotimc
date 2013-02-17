@@ -18,7 +18,7 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import os.path, xbmcaddon, xbmcgui, gc
+import os.path, xbmcaddon, xbmcgui, gc, traceback
 
 
 #Set global addon information first
@@ -86,6 +86,7 @@ except (SystemExit, Exception) as ex:
     if str(ex) != '':
         dlg = xbmcgui.Dialog()
         dlg.ok(ex.__class__.__name__, str(ex))
+        traceback.print_exc()
 
 
 finally:
