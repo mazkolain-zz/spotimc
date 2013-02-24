@@ -37,8 +37,11 @@ except ImportError:
     from urllib.parse import urlparse
 
 
-#TODO: urllib 3.x compatibility
-import urllib
+#Cross python version import of urlencode
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 
 
@@ -101,7 +104,7 @@ class PlaylistManager:
             str_agent = self._get_user_agent()
             str_token = self._get_play_token()
             header_dict = {'User-Agent': str_agent, 'X-Spotify-Token': str_token}
-            self.__url_headers = urllib.urlencode(header_dict)
+            self.__url_headers = urlencode(header_dict)
         
         return self.__url_headers
     
