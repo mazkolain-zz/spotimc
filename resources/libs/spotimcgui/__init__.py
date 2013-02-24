@@ -325,7 +325,7 @@ def wait_for_connstate(session, app, state):
 def get_preloader_callback(session, playlist_manager, buffer):
     session = weakref.proxy(session)
     def preloader():
-        next_track = playlist_manager.get_next_item()
+        next_track = playlist_manager.get_next_item(session)
         if next_track is not None:
             ta = next_track.get_availability(session)
             if ta == _track.TrackAvailability.Available:

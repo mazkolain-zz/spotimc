@@ -33,8 +33,8 @@ class NowPlayingView(BaseContainerView):
     
     def _get_current_track(self, view_manager):
         playlist_manager = view_manager.get_var('playlist_manager')
-        index = int(xbmc.getInfoLabel('MusicPlayer.Property(ListIndex)'))
-        return playlist_manager.get_item(index)
+        session = view_manager.get_var('session')
+        return playlist_manager.get_current_item(session)
     
     
     def _do_browse_artist(self, view_manager):

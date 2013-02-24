@@ -27,11 +27,18 @@ import math
 import random
 import settings
 from spotify.utils.decorators import run_in_thread
+from spotimcgui.utils.loaders import load_track 
+import re
+
+#Cross python version import of urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 
 #TODO: urllib 3.x compatibility
 import urllib
-        
 
 
 
@@ -40,7 +47,6 @@ class PlaylistManager:
     __user_agent = None
     __play_token = None
     __url_headers = None
-    __track_list = None
     __playlist = None
     __cancel_set_tracks = None
     __a6df109_fix = None
@@ -49,7 +55,6 @@ class PlaylistManager:
     
     
     def __init__(self, server):
-        self.__track_list = []
         self.__server_port = server.get_port()
         self.__play_token = server.get_user_token(self._get_user_agent())
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
@@ -84,7 +89,6 @@ class PlaylistManager:
     def clear(self):
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         self.__playlist.clear()
-        self.__track_list = []
     
     
     def _get_track_id(self, track):
@@ -196,7 +200,6 @@ class PlaylistManager:
     
     
     def _add_item(self, index, track, session):
-        self.__track_list.insert(index, track)
         path, info = self.create_track_info(track, session, index)
         
         if self.__a6df109_fix:
@@ -310,18 +313,34 @@ class PlaylistManager:
                     self.set_tracks(track_list, session, offset)
     
     
-    def get_item(self, index):
-        return self.__track_list[index]
+    def _get_track_from_url(self, sess_obj, url):
+        
+        #Get the clean track if from the url
+        path = urlparse(url).path
+        r = re.compile('/track/([a-z0-9]{22})(?:\.wav)?$', re.IGNORECASE)
+        mo = r.match(path)
+        
+        #If we succeed, create the object
+        if mo is not None:
+            print mo.group(1)
+            return load_track(sess_obj, mo.group(1))
     
     
-    def get_current_item(self):
-        return self.get_item(self.__playlist.getposition())
+    def get_item(self, sess_obj, index):
+        item = self.__playlist[index]
+        return self._get_track_from_url(sess_obj, item.getfilename())
     
     
-    def get_next_item(self):
+    def get_current_item(self, sess_obj):
+        return self._get_track_from_url(
+            sess_obj, xbmc.getInfoLabel('Player.Filenameandpath')
+        )
+    
+    
+    def get_next_item(self, sess_obj):
         next_index = self.__playlist.getposition() + 1
         if next_index < len(self.__playlist):
-            return self.get_item(next_index)
+            return self.get_item(sess_obj, next_index)
     
     
     def __del__(self):
