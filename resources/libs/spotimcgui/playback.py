@@ -63,14 +63,7 @@ class PlaylistManager:
         self.__playlist = xbmc.PlayList(xbmc.PLAYLIST_MUSIC)
         self.__player = xbmc.Player()
         self.__a6df109_fix = 'a6df109' in xbmc.getInfoLabel('System.BuildVersion')
-        
-        #Get the system ip
-        system_ip = xbmc.getInfoLabel('Network.IPAddress')
-        if system_ip is not None:
-            self.__server_ip = system_ip
-        else:
-            self.__server_ip = '127.0.0.1'
-        
+        self.__server_ip = server.get_host()
     
     
     def _get_user_agent(self):
