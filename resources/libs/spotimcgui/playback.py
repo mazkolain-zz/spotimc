@@ -252,11 +252,11 @@ class PlaylistManager:
                 #Ignore the item at offset, which is already added
                 if list_index != omit_offset:
                     self._add_item(list_index, track, session)
-                
-                #Deal with any potential dummy items
-                if omit_offset is not None and list_index < omit_offset:
-                    self.__playlist.remove('dummy-%d' % list_index)
             
+            #Deal with any potential dummy items
+            if omit_offset is not None and list_index < omit_offset:
+                self.__playlist.remove('dummy-%d' % list_index)
+        
         #Set paylist's shuffle status
         if self.get_shuffle_status():
             self.__playlist.shuffle()
