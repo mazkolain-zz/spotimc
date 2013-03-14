@@ -1,3 +1,13 @@
+[B]1.0-beta4[/B]
+- Fix: Album covers were not displayed on remote apps (again).
+- Fix: Crash when startup view was set to playlists.
+- Fix: Freeze/skip effect when attempting to play unavailable tracks.
+- Fix: Incomplete gui state when returning from music vis.
+- Fix: Wrong reporting of current track on some situations.
+- Fix: Freezes when starting playback from another device. 
+- New: Added hard float armv6 lib.
+- New: Use hi-res album cover art.
+
 [B]1.0-beta3[/B]
 - Fix: Initialization errors on Linux x86.
 - Fix: crashes when starting playback.
