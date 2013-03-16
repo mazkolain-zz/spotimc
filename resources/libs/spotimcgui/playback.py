@@ -26,7 +26,7 @@ import spotifyproxy
 import math
 import random
 import settings
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 from spotimcgui.utils.loaders import load_track 
 import re
 

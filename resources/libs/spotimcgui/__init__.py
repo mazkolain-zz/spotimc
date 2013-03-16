@@ -33,7 +33,7 @@ from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, 
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 
 from threading import Event
 

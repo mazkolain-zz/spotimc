@@ -23,7 +23,7 @@ from spotify import artistbrowse, albumbrowse, BulkConditionChecker, link
 from spotify.album import AlbumType as SpotifyAlbumType
 from spotify.track import TrackAvailability
 from spotify.artistbrowse import BrowseType
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 import weakref
 
 

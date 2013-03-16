@@ -26,7 +26,7 @@ import loaders
 
 import detail
 
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 
 
 

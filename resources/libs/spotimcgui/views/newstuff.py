@@ -23,7 +23,7 @@ from spotimcgui.views import BaseListContainerView
 from spotimcgui.views import album
 from spotimcgui.utils.loaders import load_albumbrowse
 from spotify import search
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 
 
 

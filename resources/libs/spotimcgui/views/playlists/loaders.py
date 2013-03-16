@@ -24,7 +24,7 @@ from spotify import playlist, playlistcontainer, BulkConditionChecker, ErrorType
 
 from spotify.utils.iterators import CallbackIterator
 
-from spotify.utils.decorators import run_in_thread
+from taskutils.decorators import run_in_thread
 
 import weakref
 

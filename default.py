@@ -43,6 +43,7 @@ try:
     sys.path.insert(0, libs_dir)
     sys.path.insert(0, os.path.join(libs_dir, "XbmcSkinUtils.egg"))
     sys.path.insert(0, os.path.join(libs_dir, "CherryPy.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "TaskUtils.egg"))
     sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
     sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
     
