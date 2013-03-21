@@ -134,26 +134,35 @@ class PlaylistManager:
         return track_obj.get_availability(session) == track.TrackAvailability.Available
     
     
+    def _get_track_images(self, track_obj, session):
+        
+        #If it's local, let's get the images from the autolinked one
+        if track_obj.is_local(session):
+            track_obj = track_obj.get_playable(session)
+        
+        return(
+            self.get_image_url(track_obj.album().cover()),
+            self.get_image_url(track_obj.album().cover(image.ImageSize.Large))
+        )
+    
+    
     def create_track_info(self, track_obj, session, list_index = None):
+        
         #Track is ok
         if track_obj.is_loaded() and track_obj.error() == 0:
+            
+            #Get track attributes
             album = track_obj.album().name()
             artist = ', '.join([artist.name() for artist in track_obj.artists()])
-            
-            #Get album images
-            normal_image_id = track_obj.album().cover()
-            normal_image_url = self.get_image_url(normal_image_id)
-            large_image_id = track_obj.album().cover(image.ImageSize.Large)
-            large_image_url = self.get_image_url(large_image_id)
-            
+            normal_image, large_image = self._get_track_images(track_obj, session)
             track_url = self.get_track_url(track_obj, list_index)
             rating_points = str(self._calculate_track_rating(track_obj))
             
             item = xbmcgui.ListItem(
                 track_obj.name(),
                 path=track_url,
-                iconImage=normal_image_url,
-                thumbnailImage=large_image_url
+                iconImage=normal_image,
+                thumbnailImage=large_image
             )
             info = {
                 "title": track_obj.name(),
@@ -313,13 +322,24 @@ class PlaylistManager:
         
         #Get the clean track if from the url
         path = urlparse(url).path
-        r = re.compile('/track/([a-z0-9]{22})(?:\.wav)?$', re.IGNORECASE)
+        r = re.compile('^/track/(.+?)(?:\.wav)?$', re.IGNORECASE)
         mo = r.match(path)
         
         #If we succeed, create the object
         if mo is not None:
-            print mo.group(1)
-            return load_track(sess_obj, mo.group(1))
+            
+            #Try loading it as a spotify track
+            link_obj = link.create_from_string("spotify:track:%s" % mo.group(1))
+            if link_obj is not None:
+                return load_track(sess_obj, link_obj.as_track())
+        
+            #Try to parse as a local track
+            link_obj = link.create_from_string("spotify:local:%s" % mo.group(1))
+            if link_obj is not None:
+                
+                #return the autolinked one, instead of the local track
+                local_track = link_obj.as_track()
+                return load_track(sess_obj, local_track.get_playable(sess_obj))
     
     
     def get_item(self, sess_obj, index):

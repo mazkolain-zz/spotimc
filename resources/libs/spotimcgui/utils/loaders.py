@@ -66,12 +66,9 @@ class TrackLoadCallback(session.SessionCallbacks):
 
 
 
-def load_track(sess_obj, track_id):
+def load_track(sess_obj, track_obj):
     
     #FIXME: Doing all these things is just overkill!
-    full_id = "spotify:track:%s" % track_id
-    track_obj = link.create_from_string(full_id).as_track()
-    
     if not track_obj.is_loaded():
     
         #Set callbacks for loading the track
