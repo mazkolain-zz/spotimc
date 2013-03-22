@@ -1288,8 +1288,6 @@
 	
 	<!-- Player buttons -->
 	<include name="spotimc_nowplaying_player_button">
-		<posx>0</posx>
-		<posy>0</posy>
 		<width>64</width>
 		<height>64</height>
 		<visible>true</visible>

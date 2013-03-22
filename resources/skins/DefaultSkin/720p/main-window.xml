@@ -697,27 +697,23 @@
 							<scrollsuffix>-</scrollsuffix>
 						</control>
 						
-						<control type="grouplist" id="1610">
-							<description>Player menu</description>
+						<!-- Player commands -->
+						<control type="group" id="1610">
+							<description>Now playing container</description>
 							<defaultcontrol>1611</defaultcontrol>
+							<visible>Player.Playing | Player.Paused</visible>
 							<posx>336</posx>
 							<posy>240</posy>
-							<width>1000</width>
-							<height>64</height>
-							<itemgap>16</itemgap>
-							<pagecontrol></pagecontrol>
-							<scrolltime tween="sine" easing="out">200</scrolltime>
-							<orientation>horizontal</orientation>
-							<usecontrolcoords>false</usecontrolcoords>
-							<visible>true</visible>
-							<onup>200</onup>
-							<ondown>1620</ondown>
-							<onleft>-</onleft>
-							<onright>200</onright>
-						
+							
 							<!-- Back button -->
 							<control type="button" id="1611">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>0</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>-</onleft>
+								<onright>1612</onright>
 								<description>Backward button</description>
 								<texturefocus>common/player-backward-focus.png</texturefocus>
 								<texturenofocus>common/player-backward.png</texturenofocus>
@@ -727,6 +723,12 @@
 							<!-- Play/Pause button -->
 							<control type="togglebutton" id="1612">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>80</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1611</onleft>
+								<onright>1613</onright>
 								<description>Play/Pause button</description>
 								<texturefocus>common/player-play-focus.png</texturefocus>
 								<texturenofocus>common/player-play.png</texturenofocus>
@@ -739,6 +741,12 @@
 							<!-- Forward button -->
 							<control type="button" id="1613">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>160</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1612</onleft>
+								<onright>1614</onright>
 								<description>Forward button</description>
 								<texturefocus>common/player-forward-focus.png</texturefocus>
 								<texturenofocus>common/player-forward.png</texturenofocus>
@@ -748,6 +756,12 @@
 							<!-- Shuffle button -->
 							<control type="togglebutton" id="1614">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>240</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1613</onleft>
+								<onright>1615</onright>
 								<description>Shuffle button</description>
 								<texturefocus>common/player-shuffle-focus.png</texturefocus>
 								<texturenofocus>common/player-shuffle.png</texturenofocus>
@@ -757,21 +771,66 @@
 								<onclick>PlayerControl(Random)</onclick>
 							</control>
 							
-							<!-- Shuffle button -->
-							<control type="togglebutton" id="1615">
+							<!-- Repeat button -->
+							<control type="button" id="1615">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>320</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1614</onleft>
+								<onright>1616</onright>
 								<description>Repeat button</description>
 								<texturefocus>common/player-repeat-focus.png</texturefocus>
 								<texturenofocus>common/player-repeat.png</texturenofocus>
-								<alttexturefocus>common/player-repeat-on-focus.png</alttexturefocus>
-								<alttexturenofocus>common/player-repeat-on.png</alttexturenofocus>
-								<usealttexture>Playlist.IsRepeat</usealttexture>
 								<onclick>PlayerControl(Repeat)</onclick>
 							</control>
 							
-							<!-- Forward button -->
+							<!--  Repeat one status image -->
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on.png</texture>
+								<visible>Playlist.IsRepeatOne + !Control.HasFocus(1615)</visible>
+							</control>
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-focus.png</texture>
+								<visible>Playlist.IsRepeatOne + Control.HasFocus(1615)</visible>
+							</control>
+							
+							<!--  Repeat all status image -->
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-all.png</texture>
+								<visible>Playlist.IsRepeat + !Control.HasFocus(1615)</visible>
+							</control>
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-all-focus.png</texture>
+								<visible>Playlist.IsRepeat + Control.HasFocus(1615)</visible>
+							</control>
+							
+							<!-- Vis button -->
 							<control type="button" id="1616">
 								<include>spotimc_nowplaying_player_button</include>
+								<posx>400</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1615</onleft>
+								<onright>-</onright>
 								<description>Visualization button</description>
 								<texturefocus>common/player-vis-focus.png</texturefocus>
 								<texturenofocus>common/player-vis.png</texturenofocus>
