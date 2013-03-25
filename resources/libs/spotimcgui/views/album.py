@@ -20,7 +20,9 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 import xbmc, xbmcgui
 from spotimcgui.views import BaseListContainerView, iif
-from spotify import albumbrowse, session, track, image
+from spotify import albumbrowse, session, track as _track, image
+from taskutils.decorators import run_in_thread
+import threading
 
 
 
@@ -31,8 +33,14 @@ class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
 
 
 class MetadataUpdateCallbacks(session.SessionCallbacks):
+    
+    __event = None
+    
+    def __init__(self, event):
+        self.__event = event
+    
     def metadata_updated(self, session):
-        xbmc.executebuiltin("Action(Noop)")
+        self.__event.set()
 
 
 
@@ -44,12 +52,14 @@ class AlbumTracksView(BaseListContainerView):
     context_toggle_star = 5307
     
     __albumbrowse = None
-    __metadata_callbacks = None
     __list_rendered = None
+    __update_lock = None
+    __update_unavailable = None
     
     
     def __init__(self, session, album):
         self.__list_rendered = False
+        self.__update_lock = threading.Lock()
         cb = AlbumCallbacks()
         self.__albumbrowse = albumbrowse.Albumbrowse(session, album, cb)
     
@@ -79,10 +89,10 @@ class AlbumTracksView(BaseListContainerView):
                 
                 if item.getProperty('IsStarred') == 'true':
                     item.setProperty('IsStarred', 'false')
-                    track.set_starred(session, [current_track], False)
+                    _track.set_starred(session, [current_track], False)
                 else:
                     item.setProperty('IsStarred', 'true')
-                    track.set_starred(session, [current_track], True)
+                    _track.set_starred(session, [current_track], True)
     
     
     def action(self, view_manager, action_id):
@@ -147,49 +157,73 @@ class AlbumTracksView(BaseListContainerView):
     
     
     def _track_available(self, session, track_obj):
-        return track_obj.get_availability(session) == track.TrackAvailability.Available
-    
-    
-    def show(self, view_manager, give_focus=True):
-        #Register the metadata callbacks if needed
-        if self.__metadata_callbacks is None:
-            self.__metadata_callbacks = MetadataUpdateCallbacks()
-            session = view_manager.get_var('session')
-            session.add_callbacks(self.__metadata_callbacks)
-        
-        
-        if not self.is_visible(view_manager) or not self.__list_rendered:
-            BaseListContainerView.show(self, view_manager, give_focus)
-        elif self.__list_rendered:
-            self._update_metadata(view_manager)
+        return track_obj.get_availability(session) == _track.TrackAvailability.Available
     
     
     def hide(self, view_manager):
-        #Unregister callbacks if needed
-        if self.__metadata_callbacks is not None:
-            session = view_manager.get_var('session')
-            session.remove_callbacks(self.__metadata_callbacks)
-            self.__metadata_callbacks = None
         
         BaseListContainerView.hide(self, view_manager)
+        
+        #Cancel any potential update loop
+        self.__update_unavailable = False
     
     
     def _update_metadata(self, view_manager):
         list_obj = self.get_list(view_manager)
         session = view_manager.get_var('session')
+        num_unavailable = 0
+        
         for index, track_obj in enumerate(self.__albumbrowse.tracks()):
             item_obj = self._get_list_item(list_obj, index)
-            item_available_status = self._item_available(item_obj)
-            track_available_status = self._track_available(session, track_obj)
-            if item_available_status != track_available_status:
-                status_str = iif(track_available_status, 'true', 'false')
+            item_available = self._item_available(item_obj)
+            track_available = self._track_available(session, track_obj)
+            
+            #Increment the counter if it's unavailable
+            if not track_available:
+                num_unavailable += 1
+            
+            #If status changed, update it
+            if item_available != track_available:
+                status_str = iif(track_available, 'true', 'false')
                 item_obj.setProperty('IsAvailable', status_str)
+        
+        return num_unavailable
+    
+    
+    @run_in_thread(single_instance=True)
+    def update_unavailable_tracks(self, view_manager):
+        
+        #Try acquiring the update lock
+        if self.__update_lock.acquire(False):
+            
+            try:
+                
+                wait_time = 10
+                event = threading.Event()
+                session = view_manager.get_var('session')
+                m_cb = MetadataUpdateCallbacks(event)
+                session.add_callbacks(m_cb)
+                self.__update_unavailable = True
+                
+                while self.__update_unavailable:
+                    wait_time -= 1
+                    event.wait(1)
+                    event.clear()
+                    if self._update_metadata(view_manager) == 0:
+                        self.__update_unavailable = False
+            
+            finally:
+                session.remove_callbacks(m_cb)
+                self.__update_lock.release()
+            
+            print "track list update finished!"
     
     
     def render(self, view_manager):
         if self.__albumbrowse.is_loaded():
             session = view_manager.get_var('session')
             pm = view_manager.get_var('playlist_manager')
+            has_unavailable = False
             
             #Reset list
             list_obj = self.get_list(view_manager)
@@ -203,15 +237,23 @@ class AlbumTracksView(BaseListContainerView):
             multiple_discs = self._have_multiple_discs()
             
             #Iterate over the track list
-            for list_index, track in enumerate(self.__albumbrowse.tracks()):
+            for list_index, track_obj in enumerate(self.__albumbrowse.tracks()):
                 #If disc was changed add a separator
-                if multiple_discs and last_disc != track.disc():
-                    last_disc = track.disc()
+                if multiple_discs and last_disc != track_obj.disc():
+                    last_disc = track_obj.disc()
                     self._add_disc_separator(list_obj, last_disc)
                 
                 #Add the track item
-                url, info = pm.create_track_info(track, session, list_index)
+                url, info = pm.create_track_info(track_obj, session, list_index)
                 list_obj.addItem(info)
+                
+                #If the track is unavailable, add it to the list
+                track_available = track_obj.get_availability(session)
+                av_status = _track.TrackAvailability.Available
+                if track_available != av_status and not has_unavailable:
+                    has_unavailable = True
+            
+            self.update_unavailable_tracks(view_manager)
             
             self.__list_rendered = True
             
