@@ -205,7 +205,7 @@ class AlbumTracksView(BaseListContainerView):
                 session.add_callbacks(m_cb)
                 self.__update_unavailable = True
                 
-                while self.__update_unavailable:
+                while self.__update_unavailable and wait_time > 0:
                     wait_time -= 1
                     event.wait(1)
                     event.clear()
@@ -215,8 +215,6 @@ class AlbumTracksView(BaseListContainerView):
             finally:
                 session.remove_callbacks(m_cb)
                 self.__update_lock.release()
-            
-            print "track list update finished!"
     
     
     def render(self, view_manager):
