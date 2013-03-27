@@ -391,7 +391,7 @@ def main(addon_dir):
         #Otherwise block until state is sane, and continue
         elif wait_for_connstate(sess, app, ConnectionState.LoggedIn):
             
-            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1')
+            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1', allow_ranges=False)
             proxy_runner.start()
             
             print 'port: %s' % proxy_runner.get_port()
