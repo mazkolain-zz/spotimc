@@ -26,7 +26,7 @@ import windows
 import threading
 import gc
 from appkey import appkey
-from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, ErrorType, track as _track
+from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, ErrorType, track as _track, Bitrate
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
@@ -238,7 +238,6 @@ def check_dirs():
     return (addon_data_dir, sp_cache_dir, sp_settings_dir)
 
 
-
 def set_settings(settings_obj, session):
     #If cache is enabled set the following one
     if settings_obj.get_cache_status():
@@ -246,8 +245,13 @@ def set_settings(settings_obj, session):
             cache_size_mb = settings_obj.get_cache_size() * 1024
             session.set_cache_size(cache_size_mb)
     
-    #Bitrate...
-    session.preferred_bitrate(settings_obj.get_audio_sp_bitrate())
+    #Bitrate config
+    br_map = {
+        StreamQuality.Low: Bitrate.Rate96k,
+        StreamQuality.Medium: Bitrate.Rate160k,
+        StreamQuality.High: Bitrate.Rate320k,
+    }
+    session.preferred_bitrate(br_map[settings_obj.get_audio_quality()])
     
     #And volume normalization
     session.set_volume_normalization(settings_obj.get_audio_normalize())    

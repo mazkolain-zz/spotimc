@@ -18,9 +18,8 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import xbmc, xbmcaddon
+import xbmc, xbmcaddon, xbmcgui
 from __main__ import __addon_id__
-from spotify import Bitrate
 import xml.etree.ElementTree as ET
 
 
@@ -109,60 +108,14 @@ class SettingsManager:
         return int(self._get_setting('audio_quality'))
     
     
-    def get_audio_sp_bitrate(self):
-        settings_quality = self.get_audio_quality()
-        
-        if settings_quality == StreamQuality.Low:
-            return Bitrate.Rate96k
-        
-        elif settings_quality == StreamQuality.Medium:
-            return Bitrate.Rate160k
-        
-        elif settings_quality == StreamQuality.High:
-            return Bitrate.Rate320k
-    
-    
     def get_misc_startup_screen(self):
         return int(self._get_setting('misc_startup_screen'))
     
     
-    def show_dialog(self, session):
-        #Store current values beore they change
-        before_cache_status = self.get_cache_status()
-        before_cache_management = self.get_cache_management()
-        before_cache_size = self.get_cache_size()
-        before_audio_normalize = self.get_audio_normalize()
-        before_audio_quality = self.get_audio_quality()
+    def show_dialog(self):
         
         #Show the dialog
         self.__addon.openSettings()
-        
-        after_cache_status = self.get_cache_status()
-        after_cache_management = self.get_cache_management()
-        after_cache_size = self.get_cache_size()
-        after_audio_normalize = self.get_audio_normalize()
-        after_audio_quality = self.get_audio_quality()
-        
-        #Change these only if cache was and is enabled
-        if before_cache_status and after_cache_status:
-            #If cache management changed
-            if before_cache_management != after_cache_management:
-                if after_cache_management == CacheManagement.Automatic:
-                    session.set_cache_size(0)
-                elif after_cache_management == CacheManagement.Manual:
-                    session.set_cache_size(after_cache_size * 1024)
-            
-            #If manual size changed
-            if after_cache_management == CacheManagement.Manual and before_cache_size != after_cache_size:
-                session.set_cache_size(after_cache_size * 1024)
-        
-        #Change volume normalization
-        if before_audio_normalize != after_audio_normalize:
-            session.set_volume_normalization(after_audio_normalize)
-        
-        #Change stream quality
-        if before_audio_quality != after_audio_quality:
-            session.preferred_bitrate(self.get_audio_sp_bitrate())
 
 
 
