@@ -52,7 +52,7 @@ try:
     from skinutils import reload_skin
     from skinutils.fonts import FontManager
     from skinutils.includes import IncludeManager
-    from spotimcgui import main
+    from spotimcgui.main import main
     from _spotify import unload_library
     
     #Add the system specific library path
