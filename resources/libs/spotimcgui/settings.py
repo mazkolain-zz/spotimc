@@ -152,3 +152,31 @@ class GuiSettingsReader:
             raise KeyError()
         
         return el.text
+
+
+
+class InfoValueManager:
+    __infolabels = None
+    
+    
+    def __init__(self):
+        self.__infolabels = []
+    
+    
+    def _get_main_window(self):
+        return xbmcgui.Window(10000)
+    
+    
+    def set_infolabel(self, name, value):
+        self._get_main_window().setProperty(name, str(value))
+        self.__infolabels.append(name)
+    
+    
+    def get_infolabel(self, name):
+        return self._get_main_window().getProperty(name)
+    
+    
+    def deinit(self):
+        window = self._get_main_window()
+        for item in self.__infolabels:
+            window.clearProperty(item)
