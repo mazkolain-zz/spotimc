@@ -18,7 +18,7 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import xbmcgui
+import xbmc, xbmcgui
 import views
 #import views.home
 import views.newstuff
@@ -123,6 +123,10 @@ class MainWindow(xbmcgui.WindowXML):
         else:
             self._set_active_tab()
             self.__view_manager.show()
+        
+        #Store current window id
+        manager = self.__application.get_var('info_value_manager')
+        manager.set_infolabel('spotimc_window_id', xbmcgui.getCurrentWindowId())
     
     
     def onAction(self, action):
@@ -168,8 +172,16 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.add_view(v)
         
         elif control_id == MainWindow.exit_button:
-            self.__application.set_var('exit_requested', True)
-            self.close()
+            pm = self.__application.get_var('playlist_manager')
+            
+            #Close as usual if not playing anything
+            if not pm.is_playing():
+                self.__application.set_var('exit_requested', True)
+                self.close()
+            
+            #Activate the home window
+            else:
+                xbmc.executebuiltin("XBMC.ActivateWindow(0)")
     
     
     def onClick(self, control_id):

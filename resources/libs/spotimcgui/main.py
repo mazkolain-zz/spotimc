@@ -37,7 +37,7 @@ from threading import Event
 import weakref
 import dialogs
 
-from settings import SettingsManager, CacheManagement, StreamQuality, GuiSettingsReader
+from settings import SettingsManager, CacheManagement, StreamQuality, GuiSettingsReader, InfoValueManager
 
 from __main__ import __addon_version__
 
@@ -341,10 +341,12 @@ def main(addon_dir):
     app = Application()
     logout_event = Event()
     connstate_event = Event()
+    info_value_manager = InfoValueManager()
     app.set_var('logout_event', logout_event)
     app.set_var('login_last_error', ErrorType.Ok)
     app.set_var('connstate_event', connstate_event)
     app.set_var('exit_requested', False)
+    app.set_var('info_value_manager', info_value_manager)
     
     #Check needed directories first
     data_dir, cache_dir, settings_dir = check_dirs()
@@ -433,3 +435,6 @@ def main(addon_dir):
     
     #Stop main loop
     ml_runner.stop()
+    
+    #Some deinitializations
+    info_value_manager.deinit()
