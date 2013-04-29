@@ -145,7 +145,7 @@ class ArtistAlbumLoader:
         return album_info
     
     
-    @run_in_thread(threads_per_class=5)
+    @run_in_thread(group='load_artist_albums', max_concurrency=5)
     def load_album_info(self, index, album):
         #Directly discard unavailable albums
         if not album.is_available():
@@ -188,7 +188,7 @@ class ArtistAlbumLoader:
             self.__checker.add_condition(album_is_processed)
     
     
-    @run_in_thread(threads_per_class=1)
+    @run_in_thread(group='load_artist_albums',max_concurrency=1)
     def continue_in_background(self):
         #Wait until the album list got loaded
         self._wait_for_album_list()

@@ -240,7 +240,7 @@ class PlaylistManager:
                 return False
     
     
-    @run_in_thread(single_instance=True)
+    @run_in_thread(max_concurrency=1)
     def _set_tracks(self, track_list, session, omit_offset):
         #Reset the cancel flag
         self.__cancel_set_tracks = False

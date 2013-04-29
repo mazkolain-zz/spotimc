@@ -85,7 +85,7 @@ class BasePlaylistLoader:
         self.load_in_background()
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
+    @run_in_thread(group='load_playlists', max_concurrency=10)
     def load_in_background(self):
         try:
             #Reset change flag
