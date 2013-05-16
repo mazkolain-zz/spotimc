@@ -116,7 +116,8 @@ class BasePlaylistLoader:
             
             finally:
                 
-                #Release the lock
+                #Release and clear everything
+                self.__loader_task = None
                 self.__loader_lock.release()
                 
                 #If changes or errors were detected...
@@ -649,6 +650,9 @@ class ContainerLoader:
                 self._load_container()
             
             finally:
+                
+                #Release and clear everything
+                self.__loader_task = None
                 self.__loader_lock.release()
     
     
