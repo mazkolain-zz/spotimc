@@ -34,6 +34,7 @@ from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
 from taskutils.decorators import run_in_thread
+from taskutils.threads import TaskManager
 
 from threading import Event
 
@@ -415,6 +416,10 @@ def main(addon_dir):
             playlist_manager.stop()
             proxy_runner.stop()
             buf.cleanup()
+    
+            #Join all the running tasks
+            tm = TaskManager()
+            tm.cancel_all()
             
             #Clear some vars and collect garbage
             proxy_runner = None
