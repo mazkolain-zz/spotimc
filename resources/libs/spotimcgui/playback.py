@@ -28,7 +28,7 @@ import random
 import settings
 from taskutils.decorators import run_in_thread
 from taskutils.threads import current_task
-from spotimcgui.utils.loaders import load_track 
+from spotify.utils.loaders import load_track 
 import re
 
 #Cross python version import of urlparse
