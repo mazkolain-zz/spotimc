@@ -309,7 +309,10 @@ class BasePlaylistLoader:
         
         #Otherwise notify the task
         else:
-            self.__loader_task.notify()
+            try:
+                self.__loader_task.notify()
+            except:
+                pass
     
     
     def _set_loaded(self, status):
@@ -588,6 +591,10 @@ class ContainerLoader:
         
         #Iterate over the container to add the missing ones
         for pos, item in enumerate(self.__container.playlists()):
+            
+            #Check if we should continue
+            current_task().check_status()
+            
             if self.is_playlist(pos) and self.__playlists[pos] is None:
                 self.add_playlist(item, pos)
     
@@ -667,7 +674,10 @@ class ContainerLoader:
         
         #Otherwise notify the task
         else:
-            self.__loader_task.notify()
+            try:
+                self.__loader_task.notify()
+            except:
+                pass
     
     
     def is_loaded(self):
