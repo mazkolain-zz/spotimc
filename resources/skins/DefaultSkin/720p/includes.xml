@@ -291,8 +291,10 @@
 				<height>88</height>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ff969696</colordiffuse>
-				<texture background="true">$INFO[ListItem.Icon]</texture>
+				<texture fallback="common/disc-placeholder-albumgrid.png" background="true">$INFO[ListItem.Icon]</texture>
+				<fadetime>200</fadetime>
 			</control>
+			
 			<control type="label">
 				<posx>104</posx>
 				<posy>24</posy>
@@ -355,7 +357,8 @@
 				<height>88</height>
 				<aspectratio>scale</aspectratio>
 				<colordiffuse>ffffffff</colordiffuse>
-				<texture background="true">$INFO[ListItem.Icon]</texture>
+				<texture fallback="common/disc-placeholder-albumgrid.png" background="true">$INFO[ListItem.Icon]</texture>
+				<fadetime>200</fadetime>
 			</control>
 			<control type="label">
 				<posx>104</posx>

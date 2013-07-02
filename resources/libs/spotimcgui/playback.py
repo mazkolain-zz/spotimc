@@ -119,8 +119,11 @@ class PlaylistManager:
     
     
     def get_image_url(self, image_id):
-        args = (self.__server_ip, self.__server_port, image_id)
-        return 'http://%s:%s/image/%s.jpg' % args
+        if image_id is not None:
+            args = (self.__server_ip, self.__server_port, image_id)
+            return 'http://%s:%s/image/%s.jpg' % args
+        else:
+            return ''
     
     
     def _calculate_track_rating(self, track):
