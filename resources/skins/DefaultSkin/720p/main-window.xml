@@ -199,7 +199,7 @@
 						<colordiffuse>FFFFFFFF</colordiffuse>
 						<aspectratio>scale</aspectratio>
 						<fadetime>200</fadetime>
-						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
+						<texture background="true">$INFO[Player.Art(thumb)]</texture>
 					</control>
 					
 					<control type="label">
@@ -631,7 +631,7 @@
 							<posy>80</posy>
 							<width>288</width>
 							<height>480</height>
-							<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[MusicPlayer.Cover]</texture>
+							<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[Player.Art(thumb)]</texture>
 						</control>
 						
 						<control type="label">
