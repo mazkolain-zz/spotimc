@@ -175,6 +175,7 @@
 						<onright>-</onright>
 					</control>
 					
+					<!-- Placeholder image -->
 					<control type="image">
 						<description>Now playing track's album cover</description>
 						<posx>8</posx>
@@ -184,7 +185,21 @@
 						<visible>true</visible>
 						<colordiffuse>FFFFFFFF</colordiffuse>
 						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[MusicPlayer.Cover]</texture>
+						<texture>common/disc-placeholder-nowplaying.png</texture>
+					</control>
+					
+					<!-- Real image -->
+					<control type="image">
+						<description>Now playing track's album cover</description>
+						<posx>8</posx>
+						<posy>8</posy>
+						<width>64</width>
+						<height>64</height>
+						<visible>!IsEmpty(Player.Art(thumb))</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<aspectratio>scale</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$INFO[Player.Art(thumb)]</texture>
 					</control>
 					
 					<control type="label">
@@ -332,7 +347,7 @@
 						<posy>80</posy>
 						<width>288</width>
 						<height>480</height>
-						<texture background="true">$INFO[Container.Property(AlbumCover)]</texture>
+						<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[Container.Property(AlbumCover)]</texture>
 					</control>
 					
 					<!-- Track list -->
@@ -616,7 +631,7 @@
 							<posy>80</posy>
 							<width>288</width>
 							<height>480</height>
-							<texture background="true">$INFO[MusicPlayer.Cover]</texture>
+							<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[Player.Art(thumb)]</texture>
 						</control>
 						
 						<control type="label">

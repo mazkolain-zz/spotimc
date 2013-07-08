@@ -190,7 +190,7 @@ class AlbumTracksView(BaseListContainerView):
         return num_unavailable
     
     
-    @run_in_thread(single_instance=True)
+    @run_in_thread(max_concurrency=1)
     def update_unavailable_tracks(self, view_manager):
         
         #Try acquiring the update lock

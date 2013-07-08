@@ -19,11 +19,13 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 
 import xbmc
-from spotify import artistbrowse, albumbrowse, BulkConditionChecker, link
+from spotify import artistbrowse, albumbrowse, link
 from spotify.album import AlbumType as SpotifyAlbumType
 from spotify.track import TrackAvailability
 from spotify.artistbrowse import BrowseType
 from taskutils.decorators import run_in_thread
+from taskutils.threads import current_task
+from taskutils.utils import ConditionList
 import weakref
 
 
@@ -37,15 +39,15 @@ class AlbumType:
 
 
 class AlbumCallbacks(albumbrowse.AlbumbrowseCallbacks):
-    __checker = None
+    __task = None
     
     
-    def __init__(self, checker):
-        self.__checker = checker
+    def __init__(self, task):
+        self.__task = task
     
     
     def albumbrowse_complete(self, albumbrowse):
-        self.__checker.check_conditions()
+        self.__task.notify()
 
 
 
@@ -63,41 +65,38 @@ class ArtistCallbacks(artistbrowse.ArtistbrowseCallbacks):
 
 
 class ArtistAlbumLoader:
-    __checker = None
+    __condition_list = None
     __session = None
     __artist = None
     __album_data = None
     __artistbrowse = None
     __is_loaded = None
     __sorted_albums = None
+    __loader_task = None
     
     
     def __init__(self, session, artist):
-        self.__checker = BulkConditionChecker()
+        self.__condition_list = ConditionList()
         self.__session = session
         self.__artist = artist
         self.__album_data = {}
-        cb = ArtistCallbacks(self)
-        self.__artistbrowse = artistbrowse.Artistbrowse(
-            session, artist, BrowseType.NoTracks, cb
-        )
         self.__is_loaded = False
+        self.__loader_task = None
         
         #Avoid locking this thread and continue in another one
         self.continue_in_background()
     
     
     def check(self):
-        self.__checker.check_conditions()
+        self.__loader_task.notify()
     
     
-    def _wait_for_album_info(self, album_info, checker):
+    def _wait_for_album_info(self, album_info):
         def info_is_loaded():
             return album_info.is_loaded()
         
         if not info_is_loaded():
-            checker.add_condition(info_is_loaded)
-            checker.complete_wait(10) #Should be enough for an album
+            current_task().condition_wait(info_is_loaded, 10)
     
     
     def _num_available_tracks(self, album_info):
@@ -133,20 +132,9 @@ class ArtistAlbumLoader:
             return AlbumType.Album
     
     
-    def get_album_info(self, index):
-        album = self.__artistbrowse.album(index)
-        checker = BulkConditionChecker()
-        cb = AlbumCallbacks(checker)
-        album_info = albumbrowse.Albumbrowse(self.__session, album, cb)
-        
-        #Wait until it's loaded
-        self._wait_for_album_info(album_info, checker)
-        
-        return album_info
-    
-    
-    @run_in_thread(threads_per_class=5)
+    @run_in_thread(group='load_artist_albums', max_concurrency=5)
     def load_album_info(self, index, album):
+        
         #Directly discard unavailable albums
         if not album.is_available():
             self.__album_data[index] = {
@@ -156,13 +144,11 @@ class ArtistAlbumLoader:
         
         #Otherwise load it's data
         else:
-            #A checker for a single condition? Overkill!
-            checker = BulkConditionChecker()
-            cb = AlbumCallbacks(checker)
+            cb = AlbumCallbacks(current_task())
             album_info = albumbrowse.Albumbrowse(self.__session, album, cb)
             
             #Now wait until it's loaded
-            self._wait_for_album_info(album_info, checker)
+            self._wait_for_album_info(album_info)
             
             #Populate it's data
             self.__album_data[index] = {
@@ -171,13 +157,21 @@ class ArtistAlbumLoader:
             }
             
             #Tell that we've done
-            self.__checker.check_conditions()
+            self.check()
         
         
     def _wait_for_album_list(self):
+        
+        #Add the artistbrowse callbacks
+        self.__artistbrowse = artistbrowse.Artistbrowse(
+            self.__session, self.__artist,
+            BrowseType.NoTracks, ArtistCallbacks(self)
+        )
+        
         if not self.__artistbrowse.is_loaded():
-            self.__checker.add_condition(self.__artistbrowse.is_loaded)
-            self.__checker.complete_wait(60) #Should be enough?
+            current_task().condition_wait(
+                self.__artistbrowse.is_loaded, 60 #Should be enough?
+            )
     
     
     def _add_album_processed_check(self, index):
@@ -185,16 +179,21 @@ class ArtistAlbumLoader:
             return index in self.__album_data
         
         if not album_is_processed():
-            self.__checker.add_condition(album_is_processed)
+            self.__condition_list.add_condition(album_is_processed)
     
     
-    @run_in_thread(threads_per_class=1)
+    @run_in_thread(group='load_artist_albums',max_concurrency=1)
     def continue_in_background(self):
+        
+        #Set the reference to the current task
+        self.__loader_task = current_task()
+        
         #Wait until the album list got loaded
         self._wait_for_album_list()
         
         #Now load albumbrowse data from each one
         for index, album in enumerate(self.__artistbrowse.albums()):
+            
             #Add a condition for the next wait
             self._add_album_processed_check(index)
             
@@ -202,7 +201,7 @@ class ArtistAlbumLoader:
             self.load_album_info(index, album)
         
         #Now wait until all info gets loaded
-        self.__checker.complete_wait(60)
+        current_task().condition_wait(self.__condition_list, 60)
         
         #Final steps...
         self.__is_loaded = True

@@ -31,6 +31,8 @@ from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
 from taskutils.decorators import run_in_thread
+from taskutils.threads import TaskManager
+
 
 from threading import Event
 
@@ -394,7 +396,7 @@ def main(addon_dir):
         #Otherwise block until state is sane, and continue
         elif wait_for_connstate(sess, app, ConnectionState.LoggedIn):
             
-            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1', allow_ranges=False)
+            proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1', allow_ranges=True)
             proxy_runner.start()
             
             print 'port: %s' % proxy_runner.get_port()
@@ -418,6 +420,10 @@ def main(addon_dir):
             playlist_manager.stop()
             proxy_runner.stop()
             buf.cleanup()
+            
+            #Join all the running tasks
+            tm = TaskManager()
+            tm.cancel_all()
             
             #Clear some vars and collect garbage
             proxy_runner = None

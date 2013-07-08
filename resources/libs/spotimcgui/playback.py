@@ -27,7 +27,8 @@ import math
 import random
 import settings
 from taskutils.decorators import run_in_thread
-from spotimcgui.utils.loaders import load_track 
+from taskutils.threads import current_task
+from spotify.utils.loaders import load_track 
 import re
 
 #Cross python version import of urlparse
@@ -51,10 +52,10 @@ class PlaylistManager:
     __play_token = None
     __url_headers = None
     __playlist = None
-    __cancel_set_tracks = None
     __a6df109_fix = None
     __server_ip = None
     __player = None
+    __loop_task = None
     
     
     def __init__(self, server):
@@ -118,8 +119,11 @@ class PlaylistManager:
     
     
     def get_image_url(self, image_id):
-        args = (self.__server_ip, self.__server_port, image_id)
-        return 'http://%s:%s/image/%s.jpg' % args
+        if image_id is not None:
+            args = (self.__server_ip, self.__server_port, image_id)
+            return 'http://%s:%s/image/%s.jpg' % args
+        else:
+            return ''
     
     
     def _calculate_track_rating(self, track):
@@ -240,10 +244,11 @@ class PlaylistManager:
                 return False
     
     
-    @run_in_thread(single_instance=True)
+    @run_in_thread(max_concurrency=1)
     def _set_tracks(self, track_list, session, omit_offset):
-        #Reset the cancel flag
-        self.__cancel_set_tracks = False
+        
+        #Set the reference to the loop task
+        self.__loop_task = current_task()
         
         #Clear playlist if no offset is given to omit
         if omit_offset is None:
@@ -251,9 +256,9 @@ class PlaylistManager:
         
         #Iterate over the rest of the playlist
         for list_index, track in enumerate(track_list):
-            #If a cancel was requested
-            if self.__cancel_set_tracks:
-                return
+            
+            #Check if we should continue
+            self.__loop_task.check_status()
             
             #Don't add unplayable items to the playlist
             if self._item_is_playable(session, track):
@@ -269,10 +274,21 @@ class PlaylistManager:
         #Set paylist's shuffle status
         if self.get_shuffle_status():
             self.__playlist.shuffle()
+        
+        #Clear the reference to the task
+        self.__loop_task= None
+    
+    
+    def _cancel_loop(self):
+        if self.__loop_task is not None:
+            try:
+                self.__loop_task.cancel()
+            except:
+                pass
     
     
     def set_tracks(self, track_list, session, omit_offset=None):
-        self.__cancel_set_tracks = True
+        self._cancel_loop()
         self._set_tracks(track_list, session, omit_offset)
     
     
@@ -280,7 +296,7 @@ class PlaylistManager:
         if len(track_list) > 0:
             
             #Cancel any possible set_tracks() loop
-            self.__cancel_set_tracks = True
+            self._cancel_loop()
             
             #Get shuffle status
             is_shuffle = self.get_shuffle_status()

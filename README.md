@@ -2,22 +2,22 @@ Spotimc
 =======
 Spotimc is an addon that gives you access to the Spotify music service. It requires a Spotify premium account.
 
-Please note that it's still in alpha stage, so expect things breaking here and there. There's lots of room for improvement, so contributions are very much appreciated.
+Please note that it's still in beta stage, so expect some minor issues here and there. There's lots of room for improvement, so contributions are very much appreciated.
 
 
-Requirements
-------------
-This addon runs on XBMC Eden. Older XBMC versions are not supported.
-
-
-Supported platforms
+Compatibility
 -------------------
-Windows, Linux and OSX. IOS not supported (yet).
+Windows, Linux and OSX. IOS and Android not supported (yet). Requires at least XBMC Eden (v11.0) to run.
+
+
+Download
+--------
+Latest release: [1.0-beta4](http://azkotoki.org/downloads/script-audio-spotimc-1-0-beta4/).
 
 
 Installation
 ------------
-Grab the latest release from the downloads, and inside XBMC go to Home > System > Settings > Add-ons > Install from zip file. Once installed you can run the addon from Home > Music > Addons > Spotimc.
+Grab the latest installation zip file, and inside XBMC go to Home > System > Settings > Add-ons > Install from zip file, and select the file you just downloaded. Once installed you can run the addon from Home > Music > Addons > Spotimc.
 
 
 Current Features
@@ -42,10 +42,12 @@ Missing Features
 
 Known Issues
 ------------
-* From time to time, some tracks end prematurely
-* It may crash during shutdown
-* On some platforms a restart is required after shutdown
-* Occasionally tracks take too long to start
+* ~~From time to time, some tracks end prematurely~~
+* ~~On some platforms a restart is required after shutdown~~
+* ~~Occasionally tracks take too long to start~~
+* It may crash during shutdown on certain situations
+* It's currently slow on the Raspberry Pi, but this will probably improve in the future
+* It's not possible to run the addon in the background at this moment
 
 
 Legal

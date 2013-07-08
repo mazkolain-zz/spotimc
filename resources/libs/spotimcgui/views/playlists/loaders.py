@@ -20,15 +20,18 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 import xbmc
 
-from spotify import playlist, playlistcontainer, BulkConditionChecker, ErrorType
+from spotify import playlist, playlistcontainer, ErrorType
 
 from spotify.utils.iterators import CallbackIterator
 
 from taskutils.decorators import run_in_thread
+from taskutils.threads import current_task
 
 import weakref
 
 import threading
+
+from taskutils.utils import ConditionList
 
 
 
@@ -42,7 +45,6 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
     
     def playlist_state_changed(self, playlist):
         self.__playlist_loader.check()
-        self.__playlist_loader.load_in_background()
     
     
     def playlist_metadata_updated(self, playlist):
@@ -53,7 +55,10 @@ class PlaylistCallbacks(playlist.PlaylistCallbacks):
 class BasePlaylistLoader:
     __playlist = None
     __playlist_manager = None
-    __checker = None
+    __conditions = None
+    __loader_task = None
+    __loader_lock = None
+    
     
     #Playlist attributes
     __name = None
@@ -66,46 +71,58 @@ class BasePlaylistLoader:
     
     
     def __init__(self, session, playlist, playlist_manager):
+        
         #Initialize all instance vars
         self.__playlist = playlist
         self.__playlist_manager = playlist_manager
-        self.__checker = BulkConditionChecker()
+        self.__conditions = ConditionList()
+        self.__loader_lock = threading.Lock()
         self.__is_loaded = False
         self.__has_errors = False
         self.__thumbnails = []
-        
-        #Add the callbacks we are interested in
-        playlist.add_callbacks(PlaylistCallbacks(self))
         
         #Fire playlist loading if neccesary
         if not playlist.is_in_ram(session):
             playlist.set_in_ram(session, True)
         
+        #Add the playlist callbacks
+        self.__playlist.add_callbacks(PlaylistCallbacks(self))
+        
         #Finish the rest in the background
         self.load_in_background()
     
     
-    @run_in_thread(threads_per_class=10, single_instance=True)
+    @run_in_thread(group='load_playlists', max_concurrency=10)
     def load_in_background(self):
-        try:
-            #Reset change flag
-            self._set_changes(False)
-            
-            #And call the method that does the actual loading task
-            self._start_loading()
-            
-            #Clear previous error flags (if any)
-            if self.has_errors():
+        
+        #Avoid entering this loop multiple times
+        if self.__loader_lock.acquire(False):
+            try:
+                
+                #Set the current task object
+                self.__loader_task = current_task()
+                
+                #Reset everyting
+                self._set_changes(False)
                 self._set_error(False)
-        
-        except:
-            #Mark this playlist
-            self._set_error(True)
-        
-        finally:
-            #If changes or errors were detected
-            if self.has_changes() or self.has_errors():
-                self.end_loading()
+                
+                #And call the method that does the actual loading task
+                self._load()
+            
+            except:
+                
+                #Set the playlist's error flag
+                self._set_error(True)
+            
+            finally:
+                
+                #Release and clear everything
+                self.__loader_task = None
+                self.__loader_lock.release()
+                
+                #If changes or errors were detected...
+                if self.has_changes() or self.has_errors():
+                    self.end_loading()
     
     
     def get_playlist(self):
@@ -179,8 +196,8 @@ class BasePlaylistLoader:
     
     def _wait_for_playlist(self):
         if not self.__playlist.is_loaded():
-            self.__checker.add_condition(self.__playlist.is_loaded)
-            self.__checker.complete_wait(10)
+            self.__conditions.add_condition(self.__playlist.is_loaded)
+            current_task.condition_wait(self.__conditions, 10)
     
     
     def _wait_for_track_metadata(self, track):
@@ -190,8 +207,8 @@ class BasePlaylistLoader:
             )
         
         if not test_is_loaded():
-            self.__checker.add_condition(test_is_loaded)
-            self.__checker.complete_wait(10)
+            self.__conditions.add_condition(test_is_loaded)
+            current_task.condition_wait(self.__conditions, 10)
     
     
     def _load_thumbnails(self):
@@ -274,15 +291,28 @@ class BasePlaylistLoader:
     
     
     def _add_condition(self, condition):
-        self.__checker.add_condition(condition)
+        self.__conditions.add_condition(condition)
    
    
     def _wait_for_conditions(self, timeout):
-        self.__checker.complete_wait(timeout)
+        current_task().condition_wait(self.__conditions, timeout)
     
     
     def check(self):
-        self.__checker.check_conditions()
+        
+        #If a loading process was not active, start a new one
+        if self.__loader_lock.acquire(False):
+            try:
+                self.load_in_background()
+            finally:
+                self.__loader_lock.release()
+        
+        #Otherwise notify the task
+        else:
+            try:
+                self.__loader_task.notify()
+            except:
+                pass
     
     
     def _set_loaded(self, status):
@@ -309,7 +339,7 @@ class BasePlaylistLoader:
         return self.__has_changes
     
     
-    def _start_loading(self):
+    def _load(self):
         raise NotImplementedError()
     
     
@@ -331,7 +361,7 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
         BasePlaylistLoader.__init__(self, session, playlist, playlist_manager)
     
     
-    def _start_loading(self):
+    def _load(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
@@ -346,7 +376,7 @@ class ContainerPlaylistLoader(BasePlaylistLoader):
     
     
     def end_loading(self):
-        self.__container_loader.update()
+        self.__container_loader.check()
 
 
 
@@ -371,7 +401,7 @@ class FullPlaylistLoader(BasePlaylistLoader):
         self._wait_for_conditions(20)
     
     
-    def _start_loading(self):
+    def _load(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
@@ -400,7 +430,7 @@ class SpecialPlaylistLoader(BasePlaylistLoader):
         self._set_thumbnails(thumbnails)
     
     
-    def _start_loading(self):
+    def _load(self):
         #Wait for the underlying playlist object
         self._wait_for_playlist()
         
@@ -437,24 +467,25 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_added(self, container, playlist, position):
-        self.__loader.add_playlist(playlist, position)
         print "playlist added: #%d" % position
+        self.__loader.add_playlist(playlist, position)
+        self.__loader.check()
     
     
     def container_loaded(self, container):
-        self.__loader.update()
+        self.__loader.check()
     
     
     def playlist_removed(self, container, playlist, position):
         print "playlist removed #%d" % position
         self.__loader.remove_playlist(position)
-        self.__loader.update()
+        self.__loader.check()
     
     
     def playlist_moved(self, container, playlist, position, new_position):
         print "playlist moved %d -> %d" % (position, new_position)
         self.__loader.move_playlist(position, new_position)
-        self.__loader.update()
+        self.__loader.check()
 
 
 
@@ -464,7 +495,8 @@ class ContainerLoader:
     __playlist_manager = None
     __playlists = None
     __checker = None
-    __loading_lock = None
+    __loader_task = None
+    __loader_lock = None
     __list_lock = None
     __is_loaded = None
     
@@ -474,13 +506,16 @@ class ContainerLoader:
         self.__container = container
         self.__playlist_manager = playlist_manager
         self.__playlists = []
-        self.__checker = BulkConditionChecker()
-        self.__loading_lock = threading.RLock()
+        self.__conditions = ConditionList()
+        self.__loader_lock = threading.RLock()
         self.__list_lock = threading.RLock()
         self.__is_loaded = False
         
+        #Register the callbacks
+        self.__container.add_callbacks(ContainerCallbacks(self))
+        
         #Load the rest in the background
-        self._start_load()
+        self.load_in_background()
     
     
     def _fill_spaces(self, position):
@@ -550,11 +585,16 @@ class ContainerLoader:
     
     
     def _add_missing_playlists(self):
+        
         #Ensure that the container and loader length is the same
         self._fill_spaces(self.__container.num_playlists() - 1)
         
         #Iterate over the container to add the missing ones
         for pos, item in enumerate(self.__container.playlists()):
+            
+            #Check if we should continue
+            current_task().check_status()
+            
             if self.is_playlist(pos) and self.__playlists[pos] is None:
                 self.add_playlist(item, pos)
     
@@ -569,13 +609,14 @@ class ContainerLoader:
             if playlist.is_loaded():
                 return True
         
-        self.__checker.add_condition(is_playlist_loaded)
+        self.__conditions.add_condition(is_playlist_loaded)
     
     
     def _load_container(self):
+        
         #Wait for the container to be fully loaded
-        self.__checker.add_condition(self.__container.is_loaded)
-        self.__checker.complete_wait()
+        self.__conditions.add_condition(self.__container.is_loaded)
+        current_task().condition_wait(self.__conditions)
         
         #Fill the container with unseen playlists
         self._add_missing_playlists()
@@ -586,7 +627,9 @@ class ContainerLoader:
                 self._check_playlist(item)
         
         #Wait until all conditions become true
-        self.__checker.complete_wait(self.__container.num_playlists() * 5)
+        current_task().condition_wait(
+            self.__conditions, self.__container.num_playlists() * 5
+        )
         
         #Set the status of the loader
         self.__is_loaded = True
@@ -600,41 +643,41 @@ class ContainerLoader:
         xbmc.executebuiltin("Action(Noop)")
     
     
-    @run_in_thread
-    def _start_update(self):
-        """
-        Try gaining a lock.
-        If we can't get one, another update is running, so do nothing.
-        """
-        if self.__loading_lock.acquire(False):
+    @run_in_thread(group='load_playlists', max_concurrency=10)
+    def load_in_background(self):
+        
+        #Avoid entering here multiple times
+        if self.__loader_lock.acquire(False):
             try:
+                
+                #Set the current task object
+                self.__loader_task = current_task()
+                
+                #And take care of the rest
                 self._load_container()
             
             finally:
-                self.__loading_lock.release()
+                
+                #Release and clear everything
+                self.__loader_task = None
+                self.__loader_lock.release()
     
     
-    @run_in_thread
-    def _start_load(self):
-        self.__loading_lock.acquire()
+    def check(self):
         
-        try:
-            """
-            Register container callbacks so they start loading after
-            this point. Too bad if they reach before.
-            """
-            self.__container.add_callbacks(ContainerCallbacks(self))
-            
-            #And take care of the rest
-            self._load_container()
+        #If a loading process was not active, start a new one
+        if self.__loader_lock.acquire(False):
+            try:
+                self.load_in_background()
+            finally:
+                self.__loader_lock.release()
         
-        finally:
-            self.__loading_lock.release()
-    
-    
-    def update(self):
-        self.__checker.check_conditions()
-        self._start_update()
+        #Otherwise notify the task
+        else:
+            try:
+                self.__loader_task.notify()
+            except:
+                pass
     
     
     def is_loaded(self):
