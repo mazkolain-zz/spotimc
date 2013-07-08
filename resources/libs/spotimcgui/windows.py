@@ -172,16 +172,8 @@ class MainWindow(xbmcgui.WindowXML):
             self.__view_manager.add_view(v)
         
         elif control_id == MainWindow.exit_button:
-            pm = self.__application.get_var('playlist_manager')
-            
-            #Close as usual if not playing anything
-            if not pm.is_playing():
-                self.__application.set_var('exit_requested', True)
-                self.close()
-            
-            #Activate the home window
-            else:
-                xbmc.executebuiltin("XBMC.ActivateWindow(0)")
+            self.__application.set_var('exit_requested', True)
+            self.close()
     
     
     def onClick(self, control_id):
