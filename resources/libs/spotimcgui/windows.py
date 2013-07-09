@@ -133,6 +133,8 @@ class MainWindow(xbmcgui.WindowXML):
         if action.getId() in [9,10,92]:
             if self.__view_manager.position() > 0:
                 self.__view_manager.previous()
+            else:
+                xbmc.executebuiltin("XBMC.ActivateWindow(0)")
         
         #Noop action
         elif action.getId() in [0,999]:
