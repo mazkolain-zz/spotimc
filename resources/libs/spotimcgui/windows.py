@@ -134,6 +134,8 @@ class MainWindow(xbmcgui.WindowXML):
             if self.__view_manager.position() > 0:
                 self.__view_manager.previous()
             else:
+                #Flush caches before minimizing
+                self.__session.flush_caches()
                 xbmc.executebuiltin("XBMC.ActivateWindow(0)")
         
         #Noop action
