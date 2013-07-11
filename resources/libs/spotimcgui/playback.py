@@ -194,6 +194,9 @@ class PlaylistManager:
             #Rating points, again as a property for the custom stars
             item.setProperty('RatingPoints', rating_points)
             
+            #Tell that analyzing the stream data is discouraged
+            item.setProperty('DoNotAnalyze', 'true')
+            
             return track_url, item
         
         #Track has errors
