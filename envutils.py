@@ -68,5 +68,8 @@ def set_library_paths(base_dir):
 	elif xbmc.getCondVisibility('System.Platform.OSX'):
 		add_library_path(os.path.join(base_dir, 'osx'))
 	
+	elif xbmc.getCondVisibility('System.Platform.Android'):
+		add_library_path(os.path.join(base_dir, 'android'))
+	
 	else:
 		raise OSError('Sorry, this platform is not supported.')

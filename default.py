@@ -25,18 +25,31 @@ import xbmc, os.path, xbmcaddon
 __addon_id__ = 'script.audio.spotimc'
 addon_cfg = xbmcaddon.Addon(__addon_id__)
 __addon_path__ = addon_cfg.getAddonInfo('path')
+__addon_version__ = addon_cfg.getAddonInfo('version')
 
 #Make spotimcgui available
 sys.path.insert(0, os.path.join(__addon_path__, "resources/libs"))         
-from spotimcgui.settings import InfoValueManager
+from spotimcgui.utils import platform
 
-#Print the spotimc window property
-manager = InfoValueManager()
-spotimc_window_id = manager.get_infolabel('spotimc_window_id')
 
-if spotimc_window_id != '':
-    xbmc.executebuiltin('ActivateWindow(%s)' % spotimc_window_id)
+if platform.has_background_support():
+    
+    #Some specific imports for this condition
+    from spotimcgui.settings import InfoValueManager
+    
+    manager = InfoValueManager()
+    spotimc_window_id = manager.get_infolabel('spotimc_window_id')
+    
+    if spotimc_window_id != '':
+        xbmc.executebuiltin('ActivateWindow(%s)' % spotimc_window_id)
+    else:
+        spotimc_path = os.path.join(__addon_path__, 'spotimc.py')
+        xbmc.executebuiltin('RunScript("%s")' % spotimc_path)
+
 else:
-    #print __addon_path__
-    spotimc_path = os.path.join(__addon_path__, 'spotimc.py')
-    xbmc.executebuiltin('RunScript("%s")' % spotimc_path)
+    #Prepare the environment...
+    from spotimcgui.utils.environment import set_lib_paths
+    set_lib_paths()
+    
+    from spotimcgui.main import main
+    main()

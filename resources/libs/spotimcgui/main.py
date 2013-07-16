@@ -21,10 +21,11 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
 import os.path
-import xbmc, xbmcgui
+import xbmc, xbmcgui, xbmcaddon
 import windows
 import threading
 import gc
+import traceback
 from appkey import appkey
 from spotify import MainLoop, ConnectionType, ConnectionRules, ConnectionState, ErrorType, track as _track, Bitrate
 from spotify.session import Session, SessionCallbacks
@@ -41,7 +42,7 @@ import dialogs
 
 from settings import SettingsManager, CacheManagement, StreamQuality, GuiSettingsReader, InfoValueManager
 
-from __main__ import __addon_version__
+from __main__ import __addon_version__, __addon_path__
 
 import playback
 
@@ -338,7 +339,7 @@ def get_preloader_callback(session, playlist_manager, buffer):
 
 
 
-def main(addon_dir):
+def gui_main(addon_dir):
     #Initialize app var storage
     app = Application()
     logout_event = Event()
@@ -444,3 +445,74 @@ def main(addon_dir):
     
     #Some deinitializations
     info_value_manager.deinit()
+
+
+
+def main():
+    #Open the loading window
+    loadingwin = xbmcgui.WindowXML("loading-window.xml", __addon_path__, "DefaultSkin")
+    loadingwin.show()
+    
+    #Surround the rest of the init process
+    try:
+        
+        #Set font & include manager vars
+        fm = None
+        im = None
+        
+        #And perform the rest of the import statements
+        from envutils import set_library_paths
+        from skinutils import reload_skin
+        from skinutils.fonts import FontManager
+        from skinutils.includes import IncludeManager
+        from spotimcgui.main import main
+        from _spotify import unload_library
+        
+        #Add the system specific library path
+        set_library_paths('resources/dlls')
+        
+        #Install custom fonts
+        fm = FontManager()
+        skin_dir = os.path.join(__addon_path__, "resources/skins/DefaultSkin")
+        xml_path = os.path.join(skin_dir, "720p/font.xml")
+        font_dir = os.path.join(skin_dir, "fonts")
+        fm.install_file(xml_path, font_dir)
+        
+        #Install custom includes
+        im = IncludeManager()
+        include_path = os.path.join(__addon_path__, "resources/skins/DefaultSkin/720p/includes.xml")
+        im.install_file(include_path)
+        reload_skin()
+        
+        #Load & start the actual gui, no init code beyond this point
+        gui_main(__addon_path__)
+        
+        #Do a final garbage collection after main
+        gc.collect()
+        
+        #from _spotify.utils.moduletracker import _tracked_modules
+        #print "tracked modules after: %d" % len(_tracked_modules)
+        
+        #import objgraph
+        #objgraph.show_backrefs(_tracked_modules, max_depth=5)
+    
+    except (SystemExit, Exception) as ex:
+        if str(ex) != '':
+            dlg = xbmcgui.Dialog()
+            dlg.ok(ex.__class__.__name__, str(ex))
+            traceback.print_exc()
+    
+    
+    finally:
+        
+        unload_library("libspotify")
+        
+        #Cleanup includes and fonts
+        if im is not None:
+            del im
+        
+        if fm is not None:
+            del fm
+        
+        #Close the background loading window
+        loadingwin.close()
