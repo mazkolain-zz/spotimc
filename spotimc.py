@@ -32,8 +32,8 @@ __addon_version__ = addon_cfg.getAddonInfo('version')
 sys.path.insert(0, os.path.join(__addon_path__, "resources/libs")) 
 
 #Prepare the environment...
-from spotimcgui.utils.environment import set_lib_paths
-set_lib_paths()
+from spotimcgui.utils.environment import set_library_paths
+set_library_paths()
 
 from spotimcgui.main import main
 main()

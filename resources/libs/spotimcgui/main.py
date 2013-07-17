@@ -461,7 +461,7 @@ def main():
         im = None
         
         #And perform the rest of the import statements
-        from utils.environment import set_library_paths
+        from utils.environment import set_dll_paths
         from skinutils import reload_skin
         from skinutils.fonts import FontManager
         from skinutils.includes import IncludeManager
@@ -469,7 +469,7 @@ def main():
         from _spotify import unload_library
         
         #Add the system specific library path
-        set_library_paths('resources/dlls')
+        set_dll_paths('resources/dlls')
         
         #Install custom fonts
         fm = FontManager()

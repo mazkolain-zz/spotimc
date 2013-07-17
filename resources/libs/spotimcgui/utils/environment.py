@@ -25,7 +25,7 @@ import xbmc
 
 
 
-def set_lib_paths():
+def set_library_paths():
     #Set local library paths
     libs_dir = os.path.join(__addon_path__, "resources/libs")
     sys.path.insert(0, libs_dir)
@@ -55,37 +55,37 @@ def get_architecture():
         return None
 
 
-def add_library_path(path):
+def add_dll_path(path):
     #Build the full path and publish it
     full_path = os.path.join(__addon_path__, path)
     sys.path.append(full_path)
 
 
-def set_library_paths(base_dir):
+def set_dll_paths(base_dir):
     arch_str = get_architecture()
     
     if xbmc.getCondVisibility('System.Platform.Linux'):
         if arch_str in(None, 'x86'):
-            add_library_path(os.path.join(base_dir, 'linux/x86'))
+            add_dll_path(os.path.join(base_dir, 'linux/x86'))
         
         if arch_str in(None, 'x86_64'):
-            add_library_path(os.path.join(base_dir, 'linux/x86_64'))
+            add_dll_path(os.path.join(base_dir, 'linux/x86_64'))
         
         if arch_str in(None, 'armv6'):
-            add_library_path(os.path.join(base_dir, 'linux/armv6hf'))
-            add_library_path(os.path.join(base_dir, 'linux/armv6'))
+            add_dll_path(os.path.join(base_dir, 'linux/armv6hf'))
+            add_dll_path(os.path.join(base_dir, 'linux/armv6'))
     
     elif xbmc.getCondVisibility('System.Platform.Windows'):
         if arch_str in(None, 'x86'):
-            add_library_path(os.path.join(base_dir, 'windows/x86'))
+            add_dll_path(os.path.join(base_dir, 'windows/x86'))
         else:
             raise OSError('Sorry, only 32bit Windows is supported.')
     
     elif xbmc.getCondVisibility('System.Platform.OSX'):
-        add_library_path(os.path.join(base_dir, 'osx'))
+        add_dll_path(os.path.join(base_dir, 'osx'))
     
     elif xbmc.getCondVisibility('System.Platform.Android'):
-        add_library_path(os.path.join(base_dir, 'android'))
+        add_dll_path(os.path.join(base_dir, 'android'))
     
     else:
         raise OSError('Sorry, this platform is not supported.')

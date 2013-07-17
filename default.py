@@ -48,8 +48,8 @@ if environment.has_background_support():
 
 else:
     #Prepare the environment...
-    from spotimcgui.utils.environment import set_lib_paths
-    set_lib_paths()
+    from spotimcgui.utils.environment import set_library_paths
+    set_library_paths()
     
     from spotimcgui.main import main
     main()
