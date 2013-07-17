@@ -29,10 +29,10 @@ __addon_version__ = addon_cfg.getAddonInfo('version')
 
 #Make spotimcgui available
 sys.path.insert(0, os.path.join(__addon_path__, "resources/libs"))         
-from spotimcgui.utils import platform
+from spotimcgui.utils import environment
 
 
-if platform.has_background_support():
+if environment.has_background_support():
     
     #Some specific imports for this condition
     from spotimcgui.settings import InfoValueManager

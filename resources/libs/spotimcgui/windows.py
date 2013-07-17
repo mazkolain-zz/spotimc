@@ -34,7 +34,7 @@ import dialogs
 import weakref
 
 from settings import SettingsManager, StartupScreen
-from utils import platform
+from utils import environment
 
 
 class MainWindow(xbmcgui.WindowXML):
@@ -134,7 +134,7 @@ class MainWindow(xbmcgui.WindowXML):
         if action.getId() in [9,10,92]:
             if self.__view_manager.position() > 0:
                 self.__view_manager.previous()
-            elif platform.has_background_support():
+            elif environment.has_background_support():
                 #Flush caches before minimizing
                 self.__session.flush_caches()
                 xbmc.executebuiltin("XBMC.ActivateWindow(0)")

@@ -33,3 +33,7 @@ def set_lib_paths():
     sys.path.insert(0, os.path.join(libs_dir, "TaskUtils.egg"))
     sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
     sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
+
+
+def has_background_support():
+    return True
