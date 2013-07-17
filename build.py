@@ -33,7 +33,6 @@ include_files = [
     'addon.xml',
     'changelog.txt',
     'default.py',
-    'envutils.py',
     'icon.png',
     'LICENSE.txt',
     'README.md',

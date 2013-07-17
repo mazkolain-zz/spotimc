@@ -20,7 +20,8 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 
 
 from __main__ import __addon_path__
-import sys, os.path
+import sys, os.path, platform
+import xbmc
 
 
 
@@ -37,3 +38,54 @@ def set_lib_paths():
 
 def has_background_support():
     return True
+
+
+def get_architecture():
+    try:
+        machine = platform.machine()
+        
+        #Some filtering...
+        if machine.startswith('armv6'):
+            return 'armv6'
+        
+        elif machine.startswith('i686'):
+            return 'x86'
+    
+    except:
+        return None
+
+
+def add_library_path(path):
+    #Build the full path and publish it
+    full_path = os.path.join(__addon_path__, path)
+    sys.path.append(full_path)
+
+
+def set_library_paths(base_dir):
+    arch_str = get_architecture()
+    
+    if xbmc.getCondVisibility('System.Platform.Linux'):
+        if arch_str in(None, 'x86'):
+            add_library_path(os.path.join(base_dir, 'linux/x86'))
+        
+        if arch_str in(None, 'x86_64'):
+            add_library_path(os.path.join(base_dir, 'linux/x86_64'))
+        
+        if arch_str in(None, 'armv6'):
+            add_library_path(os.path.join(base_dir, 'linux/armv6hf'))
+            add_library_path(os.path.join(base_dir, 'linux/armv6'))
+    
+    elif xbmc.getCondVisibility('System.Platform.Windows'):
+        if arch_str in(None, 'x86'):
+            add_library_path(os.path.join(base_dir, 'windows/x86'))
+        else:
+            raise OSError('Sorry, only 32bit Windows is supported.')
+    
+    elif xbmc.getCondVisibility('System.Platform.OSX'):
+        add_library_path(os.path.join(base_dir, 'osx'))
+    
+    elif xbmc.getCondVisibility('System.Platform.Android'):
+        add_library_path(os.path.join(base_dir, 'android'))
+    
+    else:
+        raise OSError('Sorry, this platform is not supported.')

@@ -461,7 +461,7 @@ def main():
         im = None
         
         #And perform the rest of the import statements
-        from envutils import set_library_paths
+        from utils.environment import set_library_paths
         from skinutils import reload_skin
         from skinutils.fonts import FontManager
         from skinutils.includes import IncludeManager
