@@ -33,6 +33,7 @@ include_files = [
     'addon.xml',
     'changelog.txt',
     'default.py',
+    'spotimc.py',
     'icon.png',
     'LICENSE.txt',
     'README.md',
