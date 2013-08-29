@@ -29,11 +29,11 @@ def set_library_paths():
     #Set local library paths
     libs_dir = os.path.join(__addon_path__, "resources/libs")
     sys.path.insert(0, libs_dir)
-    sys.path.insert(0, os.path.join(libs_dir, "XbmcSkinUtils.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "CherryPy.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "TaskUtils.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypes.egg"))
-    sys.path.insert(0, os.path.join(libs_dir, "PyspotifyCtypesProxy.egg"))
+    sys.path.insert(0, os.path.join(libs_dir, "xbmc-skinutils/src"))
+    sys.path.insert(0, os.path.join(libs_dir, "cherrypy"))
+    sys.path.insert(0, os.path.join(libs_dir, "taskutils/src"))
+    sys.path.insert(0, os.path.join(libs_dir, "pyspotify-ctypes/src"))
+    sys.path.insert(0, os.path.join(libs_dir, "pyspotify-ctypes-proxy/src"))
 
 
 def has_background_support():

@@ -1,0 +1,15 @@
+[submodule "resources/libs/cherrypy"]
+	path = resources/libs/cherrypy
+	url = https://github.com/mazkolain/cherrypy.git
+[submodule "resources/libs/xbmc-skinutils"]
+	path = resources/libs/xbmc-skinutils
+	url = https://github.com/mazkolain/xbmc-skinutils.git
+[submodule "resources/libs/pyspotify-ctypes"]
+	path = resources/libs/pyspotify-ctypes
+	url = https://github.com/mazkolain/pyspotify-ctypes.git
+[submodule "resources/libs/pyspotify-ctypes-proxy"]
+	path = resources/libs/pyspotify-ctypes-proxy
+	url = https://github.com/mazkolain/pyspotify-ctypes-proxy.git
+[submodule "resources/libs/taskutils"]
+	path = resources/libs/taskutils
+	url = https://github.com/mazkolain/taskutils.git
