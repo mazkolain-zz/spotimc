@@ -66,13 +66,25 @@ def is_included(path):
         #Or if the path is part of a pattern
         elif item.startswith(path):
             return True
+    
+    return False
 
 
 def is_excluded(path):
-    for item in exclude_files:
-        #Try fnmatching agains the exclude entry
-        if fnmatch.fnmatch(path, item):
-            return True
+    
+    #Exclude hidden files and folders
+    if os.path.basename(path).startswith('.'):
+        return True
+    
+    #Iterate over the exclude patterns
+    else:
+    
+        for item in exclude_files:
+            #Try fnmatching agains the exclude entry
+            if fnmatch.fnmatch(path, item):
+                return True
+    
+        return False
 
 
 def generate_file_list(path):
