@@ -338,6 +338,15 @@ def get_preloader_callback(session, playlist_manager, buffer):
     return preloader
 
 
+def show_busy_dialog():
+    #if not xbmc.getCondVisibility('Window.IsActive(busydialog)'):
+        xbmc.executebuiltin('ActivateWindow(busydialog)')
+
+
+def hide_busy_dialog():
+    #if xbmc.getCondVisibility('Window.IsActive(busydialog)'):
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
+
 
 def gui_main(addon_dir):
     #Initialize app var storage
@@ -410,11 +419,12 @@ def gui_main(addon_dir):
             preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
             proxy_runner.set_stream_end_callback(preloader_cb)
             
-            #Start main window and enter it's main loop
+            hide_busy_dialog()
             mainwin = windows.MainWindow("main-window.xml", addon_dir, "DefaultSkin")
             mainwin.initialize(sess, proxy_runner, playlist_manager, app)
             app.set_var('main_window', mainwin)
             mainwin.doModal()
+            show_busy_dialog()
             
             #Playback and proxy deinit sequence
             proxy_runner.clear_stream_end_callback()
@@ -449,9 +459,8 @@ def gui_main(addon_dir):
 
 
 def main():
-    #Open the loading window
-    loadingwin = xbmcgui.WindowXML("loading-window.xml", __addon_path__, "DefaultSkin")
-    loadingwin.show()
+    #Look busy while everything gets initialized
+    show_busy_dialog()
     
     #Surround the rest of the init process
     try:
@@ -484,8 +493,13 @@ def main():
         im.install_file(include_path)
         reload_skin()
         
+        #Show the busy dialog again after reload_skin(), as it may go away
+        show_busy_dialog()
+        
         #Load & start the actual gui, no init code beyond this point
         gui_main(__addon_path__)
+        
+        show_busy_dialog()
         
         #Do a final garbage collection after main
         gc.collect()
@@ -515,4 +529,5 @@ def main():
             del fm
         
         #Close the background loading window
-        loadingwin.close()
+        #loadingwin.close()
+        hide_busy_dialog()
