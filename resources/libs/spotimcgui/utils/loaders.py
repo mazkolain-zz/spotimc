@@ -17,37 +17,35 @@ You should have received a copy of the GNU General Public License
 along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import xbmc, xbmcgui
-import threading
+import xbmc
+import xbmcgui
 from spotify.utils.loaders import load_albumbrowse as _load_albumbrowse
-from spotify import session, link
-
 
 
 def load_albumbrowse(session, album):
     def show_busy_dialog():
         xbmc.executebuiltin('ActivateWindow(busydialog)')
-    
+
     load_failed = False
-    
+
     #start loading loading the album
     try:
         albumbrowse = _load_albumbrowse(
             session, album, ondelay=show_busy_dialog
         )
-    
+
     #Set the pertinent flags if a timeout is reached
     except:
         load_failed = True
-    
+
     #Ensure that the busy dialog gets closed
     finally:
         if xbmc.getCondVisibility('Window.IsVisible(busydialog)'):
             xbmc.executebuiltin('Dialog.Close(busydialog)')
-    
+
     if load_failed:
         d = xbmcgui.Dialog()
         d.ok('Error', 'Unable to load album info')
-    
+
     else:
         return albumbrowse

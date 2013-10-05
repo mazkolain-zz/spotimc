@@ -17,27 +17,21 @@ You should have received a copy of the GNU General Public License
 along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 import xbmc
-
 
 
 class SkinSettings:
     def has_bool_true(self, name):
-        return xbmc.getCondVisibility('Skin.HasSetting(%s)' % name)
-    
-    
+        return xbmc.getCondVisibility('Skin.HasSetting({})'.format(name))
+
     def set_bool_true(self, name):
-        xbmc.executebuiltin('Skin.SetBool(%s)' % name)
-    
-    
+        xbmc.executebuiltin('Skin.SetBool({})'.format(name))
+
     def toggle_bool(self, name):
-        xbmc.executebuiltin('Skin.ToggleSetting(%s)' % name)
-    
-    
+        xbmc.executebuiltin('Skin.ToggleSetting({})'.format(name))
+
     def get_value(self, name):
-        return xbmc.getInfoLabel('Skin.String(%s)' % name)
-    
-    
+        return xbmc.getInfoLabel('Skin.String({})'.format(name))
+
     def set_value(self, name, value):
-        xbmc.executebuiltin('Skin.SetString(%s,%s)' % (name, value))
+        xbmc.executebuiltin('Skin.SetString({},{})'.format(name, value))

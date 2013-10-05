@@ -4,7 +4,7 @@
 - Fix: Freeze/skip effect when attempting to play unavailable tracks.
 - Fix: Incomplete gui state when returning from music vis.
 - Fix: Wrong reporting of current track on some situations.
-- Fix: Freezes when starting playback from another device. 
+- Fix: Freezes when starting playback from another device.
 - Fix: Playback issues on XBMC 12.1.
 - Fix: Tracks got silenced/skipped sporadically on the first seconds.
 - New: Added hard float armv6 lib.

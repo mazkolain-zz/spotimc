@@ -18,8 +18,9 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import os.path, xbmcaddon, xbmcgui, gc, traceback
-
+import os.path
+import xbmcaddon
+import sys
 
 
 #Set global addon information first
@@ -29,7 +30,7 @@ __addon_path__ = addon_cfg.getAddonInfo('path')
 __addon_version__ = addon_cfg.getAddonInfo('version')
 
 #Make spotimcgui available
-sys.path.insert(0, os.path.join(__addon_path__, "resources/libs")) 
+sys.path.insert(0, os.path.join(__addon_path__, "resources/libs"))
 
 #Prepare the environment...
 from spotimcgui.utils.environment import set_library_paths
