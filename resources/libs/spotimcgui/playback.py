@@ -115,7 +115,7 @@ class PlaylistManager:
             return 'http://%s:%s/track/%s.wav?idx=%d|%s' % args
         else:
             args = (self.__server_ip, self.__server_port, track_id, headers)
-            return 'http://%:%s/track/%s.wav|%s' % args
+            return 'http://%s:%s/track/%s.wav|%s' % args
     
     
     def get_image_url(self, image_id):
