@@ -46,6 +46,8 @@ from __main__ import __addon_version__, __addon_path__
 
 import playback
 
+from utils.logs import get_logger, setup_logging
+import re
 
 
 class Application:
@@ -78,16 +80,20 @@ class SpotimcCallbacks(SessionCallbacks):
     __audio_buffer = None
     __logout_event = None
     __app = None
+    __logger = None
+    __log_regex = None
     
     
     def __init__(self, mainloop, audio_buffer, app):
         self.__mainloop = mainloop
         self.__audio_buffer = audio_buffer
         self.__app = app
+        self.__logger = get_logger()
+        self.__log_regex = re.compile('[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}\s(W|I|E)\s')
     
     def logged_in(self, session, error_num):
         #Log this event
-        xbmc.log("libspotify: logged in: %d" % error_num)
+        self.__logger.debug('logged in: %d' % error_num)
         
         #Store last error code
         self.__app.set_var('login_last_error', error_num)
@@ -104,20 +110,31 @@ class SpotimcCallbacks(SessionCallbacks):
                 self.__app.get_var('connstate_event').set()
         
     def logged_out(self, session):
-        xbmc.log("libspotify: logged out")
+        self.__logger.debug('logged out')
         self.__app.get_var('logout_event').set()
             
     def connection_error(self, session, error):
-        xbmc.log("libspotify: conn error: %d" % error)
+        self.__logger.error('connection error: %d' % error)
         
     def message_to_user(self, session, data):
-        xbmc.log("libspotify: msg: %s" % data)
+        self.__logger.info('message to user: %s' % data)
+    
+    def _get_log_message_level(self, message):
+        matches = self.__log_regex.match(message)
+        if matches:
+            return matches.group(1)
     
     def log_message(self, session, data):
-        xbmc.log("libspotify log: %s" % data)
+        message_level = self._get_log_message_level(data)
+        if message_level == 'I':
+            self.__logger.info(data)
+        elif message_level == 'W':
+            self.__logger.warning(data)
+        else:
+            self.__logger.error(data)
     
     def streaming_error(self, session, error):
-        xbmc.log("libspotify: streaming error: %d" % error)
+        self.__logger.info('streaming error: %d' % error)
     
     @run_in_thread
     def play_token_lost(self, session):
@@ -257,7 +274,7 @@ def set_settings(settings_obj, session):
     session.preferred_bitrate(br_map[settings_obj.get_audio_quality()])
     
     #And volume normalization
-    session.set_volume_normalization(settings_obj.get_audio_normalize())    
+    session.set_volume_normalization(settings_obj.get_audio_normalize())
 
 
 
@@ -409,7 +426,7 @@ def gui_main(addon_dir):
             proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1', allow_ranges=True)
             proxy_runner.start()
             
-            print 'port: %s' % proxy_runner.get_port()
+            get_logger().info('starting proxy at port %s' % proxy_runner.get_port())
             
             #Instantiate the playlist manager
             playlist_manager = playback.PlaylistManager(proxy_runner)
@@ -459,6 +476,9 @@ def gui_main(addon_dir):
 
 
 def main():
+    
+    setup_logging()
+    
     #Look busy while everything gets initialized
     show_busy_dialog()
     
