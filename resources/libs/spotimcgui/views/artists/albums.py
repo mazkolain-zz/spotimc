@@ -23,6 +23,7 @@ from spotimcgui.views import BaseListContainerView, album
 from loaders import ArtistAlbumLoader, AlbumType
 from spotimcgui.utils.settings import SkinSettings
 from spotimcgui.utils.loaders import load_albumbrowse
+from spotimcgui.utils.logs import get_logger
 
 
 
@@ -56,7 +57,6 @@ class ArtistAlbumsView(BaseListContainerView):
     
     def _init_config(self):
         if not self.__settings.has_bool_true('spotimc_albumbrowse_album_init'):
-            print 'init config'
             self.__settings.set_bool_true('spotimc_albumbrowse_album_init')
             self.__settings.set_bool_true('spotimc_artistbrowse_albums_albums')
             self.__settings.set_bool_true('spotimc_artistbrowse_albums_singles')
@@ -184,7 +184,6 @@ class ArtistAlbumsView(BaseListContainerView):
             
             #Get the album types to be shown
             filter_types = self._get_album_filter()
-            print 'album filter: %s' % filter_types
             
             #Now loop over all the loaded albums
             for index, album in self.__loader.get_albums():

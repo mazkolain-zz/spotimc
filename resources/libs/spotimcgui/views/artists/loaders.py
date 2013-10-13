@@ -261,6 +261,5 @@ class ArtistAlbumLoader:
                 self.__sorted_albums = [
                     (index, ab.album(index)) for index in sorted_indexes
                 ]
-                print self.__sorted_albums
             
             return self.__sorted_albums

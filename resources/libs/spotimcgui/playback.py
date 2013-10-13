@@ -200,7 +200,10 @@ class PlaylistManager:
 
     def stop(self, block=True):
         #Stop the stream and wait until it really got stopped
-        self.__player.stop()
+        #self.__player.stop()
+
+        xbmc.executebuiltin('PlayerControl(stop)')
+
         while block and self.__player.isPlaying():
             time.sleep(.1)
 

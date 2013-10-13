@@ -32,6 +32,7 @@ import weakref
 import threading
 
 from taskutils.utils import ConditionList
+from spotimcgui.utils.logs import get_logger
 
 
 
@@ -345,10 +346,6 @@ class BasePlaylistLoader:
     
     def end_loading(self):
         pass
-    
-    
-    def __del__(self):
-        print "PlaylistLoader __del__"
 
 
 
@@ -467,7 +464,6 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_added(self, container, playlist, position):
-        print "playlist added: #%d" % position
         self.__loader.add_playlist(playlist, position)
         self.__loader.check()
     
@@ -477,13 +473,11 @@ class ContainerCallbacks(playlistcontainer.PlaylistContainerCallbacks):
     
     
     def playlist_removed(self, container, playlist, position):
-        print "playlist removed #%d" % position
         self.__loader.remove_playlist(position)
         self.__loader.check()
     
     
     def playlist_moved(self, container, playlist, position, new_position):
-        print "playlist moved %d -> %d" % (position, new_position)
         self.__loader.move_playlist(position, new_position)
         self.__loader.check()
 
@@ -634,10 +628,10 @@ class ContainerLoader:
         #Set the status of the loader
         self.__is_loaded = True
         
-        #Check and print errors for not loaded playlists
+        #Check and log errors for not loaded playlists
         for idx, item in enumerate(self.__playlists):
             if item is not None and item.has_errors():
-                xbmc.log('Playlist #%s failed loading.' % idx, xbmc.LOGERROR)
+                get_logger().error('Playlist #%s failed loading.' % idx)
         
         #Finally tell the gui we are done
         xbmc.executebuiltin("Action(Noop)")
@@ -698,7 +692,3 @@ class ContainerLoader:
     
     def get_container(self):
         return self.__container
-    
-    
-    def __del__(self):
-        print "ContainerLoader __del__"

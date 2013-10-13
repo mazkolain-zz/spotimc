@@ -48,6 +48,9 @@ from __main__ import __addon_version__, __addon_path__
 
 import playback
 
+from utils.logs import get_logger, setup_logging
+import re
+
 
 class Application:
     __vars = None
@@ -73,15 +76,20 @@ class SpotimcCallbacks(SessionCallbacks):
     __audio_buffer = None
     __logout_event = None
     __app = None
+    __logger = None
+    __log_regex = None
 
     def __init__(self, mainloop, audio_buffer, app):
         self.__mainloop = mainloop
         self.__audio_buffer = audio_buffer
         self.__app = app
+        self.__logger = get_logger()
+        self.__log_regex = re.compile('[0-9]{2}:[0-9]{2}:[0-9]{2}'
+                                      '\.[0-9]{3}\s(W|I|E)\s')
 
     def logged_in(self, session, error_num):
         #Log this event
-        xbmc.log("libspotify: logged in: %d" % error_num)
+        self.__logger.debug('logged in: {:d}'.format(error_num))
 
         #Store last error code
         self.__app.set_var('login_last_error', error_num)
@@ -98,20 +106,31 @@ class SpotimcCallbacks(SessionCallbacks):
                 self.__app.get_var('connstate_event').set()
 
     def logged_out(self, session):
-        xbmc.log("libspotify: logged out")
+        self.__logger.debug('logged out')
         self.__app.get_var('logout_event').set()
 
     def connection_error(self, session, error):
-        xbmc.log("libspotify: conn error: %d" % error)
+        self.__logger.error('connection error: {:d}'.format(error))
 
     def message_to_user(self, session, data):
-        xbmc.log("libspotify: msg: %s" % data)
+        self.__logger.info('message to user: {}'.format(data))
+
+    def _get_log_message_level(self, message):
+        matches = self.__log_regex.match(message)
+        if matches:
+            return matches.group(1)
 
     def log_message(self, session, data):
-        xbmc.log("libspotify log: %s" % data)
+        message_level = self._get_log_message_level(data)
+        if message_level == 'I':
+            self.__logger.info(data)
+        elif message_level == 'W':
+            self.__logger.warning(data)
+        else:
+            self.__logger.error(data)
 
     def streaming_error(self, session, error):
-        xbmc.log("libspotify: streaming error: %d" % error)
+        self.__logger.info('streaming error: {:d}'.format(error))
 
     @run_in_thread
     def play_token_lost(self, session):
@@ -190,8 +209,8 @@ def check_addon_version(settings_obj):
 
 
 def get_audio_buffer_size():
-    #Base buffer setting will be 5s
-    buffer_size = 5
+    #Base buffer setting will be 10s
+    buffer_size = 10
 
     try:
         reader = GuiSettingsReader()
@@ -244,6 +263,9 @@ def set_settings(settings_obj, session):
         StreamQuality.High: Bitrate.Rate320k,
     }
     session.preferred_bitrate(br_map[settings_obj.get_audio_quality()])
+
+    #And volume normalization
+    session.set_volume_normalization(settings_obj.get_audio_normalize())
 
     #And volume normalization
     session.set_volume_normalization(settings_obj.get_audio_normalize())
@@ -327,6 +349,16 @@ def get_preloader_callback(session, playlist_manager, buffer):
     return preloader
 
 
+def show_busy_dialog():
+    #if not xbmc.getCondVisibility('Window.IsActive(busydialog)'):
+        xbmc.executebuiltin('ActivateWindow(busydialog)')
+
+
+def hide_busy_dialog():
+    #if xbmc.getCondVisibility('Window.IsActive(busydialog)'):
+        xbmc.executebuiltin('Dialog.Close(busydialog)')
+
+
 def gui_main(addon_dir):
     #Initialize app var storage
     app = Application()
@@ -388,8 +420,9 @@ def gui_main(addon_dir):
             proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1',
                                        allow_ranges=True)
             proxy_runner.start()
-
-            print 'port: %s' % proxy_runner.get_port()
+            log_str = 'starting proxy at port {}'.format(
+                proxy_runner.get_port())
+            get_logger().info(log_str)
 
             #Instantiate the playlist manager
             playlist_manager = playback.PlaylistManager(proxy_runner)
@@ -399,13 +432,14 @@ def gui_main(addon_dir):
             preloader_cb = get_preloader_callback(sess, playlist_manager, buf)
             proxy_runner.set_stream_end_callback(preloader_cb)
 
-            #Start main window and enter it's main loop
+            hide_busy_dialog()
             mainwin = windows.MainWindow("main-window.xml",
                                          addon_dir,
                                          "DefaultSkin")
             mainwin.initialize(sess, proxy_runner, playlist_manager, app)
             app.set_var('main_window', mainwin)
             mainwin.doModal()
+            show_busy_dialog()
 
             #Playback and proxy deinit sequence
             proxy_runner.clear_stream_end_callback()
@@ -439,11 +473,11 @@ def gui_main(addon_dir):
 
 
 def main():
-    #Open the loading window
-    loadingwin = xbmcgui.WindowXML("loading-window.xml",
-                                   __addon_path__,
-                                   "DefaultSkin")
-    loadingwin.show()
+
+    setup_logging()
+
+    #Look busy while everything gets initialized
+    show_busy_dialog()
 
     #Surround the rest of the init process
     try:
@@ -471,13 +505,17 @@ def main():
 
         #Install custom includes
         im = IncludeManager()
-        include_path = os.path.join(__addon_path__,
-                                    "resources/skins/DefaultSkin/720p/includes.xml")
+        include_path = os.path.join(skin_dir, "720p/includes.xml")
         im.install_file(include_path)
         reload_skin()
 
+        #Show the busy dialog again after reload_skin(), as it may go away
+        show_busy_dialog()
+
         #Load & start the actual gui, no init code beyond this point
         gui_main(__addon_path__)
+
+        show_busy_dialog()
 
         #Do a final garbage collection after main
         gc.collect()
@@ -506,4 +544,5 @@ def main():
             del fm
 
         #Close the background loading window
-        loadingwin.close()
+        #loadingwin.close()
+        hide_busy_dialog()
