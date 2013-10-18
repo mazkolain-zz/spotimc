@@ -44,6 +44,12 @@ exclude_files = [
     '*.pyo',
     '*/Thumbs.db',
     'resources/libs/spotimcgui/appkey.py-template',
+    'resources/libs/pyspotify-ctypes/tmp',
+    'resources/libs/pyspotify-ctypes/dlls',
+    'resources/libs/pyspotify-ctypes/libs',
+    'resources/libs/pyspotify-ctypes-proxy/tmp',
+    'resources/libs/pyspotify-ctypes-proxy/dlls',
+    'resources/libs/pyspotify-ctypes-proxy/libs',
 ]
 
 
