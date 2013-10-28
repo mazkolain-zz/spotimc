@@ -26,30 +26,23 @@ import windows
 import threading
 import gc
 import traceback
+import weakref
+import dialogs
+import playback
+import re
 from appkey import appkey
 from spotify import MainLoop, ConnectionState, ErrorType, Bitrate
-from spotiy import track as _track
+from spotify import track as _track
 from spotify.session import Session, SessionCallbacks
 from spotifyproxy.httpproxy import ProxyRunner
 from spotifyproxy.audio import BufferManager
 from taskutils.decorators import run_in_thread
 from taskutils.threads import TaskManager
-
-
 from threading import Event
-
-import weakref
-import dialogs
-
 from settings import SettingsManager, CacheManagement, StreamQuality, \
     GuiSettingsReader, InfoValueManager
-
 from __main__ import __addon_version__, __addon_path__
-
-import playback
-
 from utils.logs import get_logger, setup_logging
-import re
 
 
 class Application:
