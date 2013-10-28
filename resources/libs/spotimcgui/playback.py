@@ -316,9 +316,8 @@ class PlaylistManager:
                 #Add some padding dummy items (to preserve playlist position)
                 if offset > 0:
                     for index in range(offset):
-                        # TODO: Two parameters, but only one variable?
-                        tmpStr = 'dummy-{}'.format(index, xbmcgui.ListItem(''))
-                        self.__playlist.add(tmpStr)
+                        tmpStr = 'dummy-{}'.format(index)
+                        self.__playlist.add(tmpStr, xbmcgui.ListItem(''))
 
                 #Add the desired item and play it
                 self._add_item(offset, track_list[offset], session)
