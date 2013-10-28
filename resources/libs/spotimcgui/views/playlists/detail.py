@@ -106,7 +106,8 @@ class PlaylistDetailView(BaseListContainerView):
                 self._play_selected_track(view_manager)
 
     def get_container(self, view_manager):
-        return view_manager.get_window().getControl(PlaylistDetailView.container_id)
+        return view_manager.get_window().getControl(
+            PlaylistDetailView.container_id)
 
     def get_list(self, view_manager):
         return view_manager.get_window().getControl(PlaylistDetailView.list_id)
@@ -190,9 +191,9 @@ class PlaylistDetailView(BaseListContainerView):
                 item_num = idx + 1
                 is_remote = thumb_item.startswith("http://")
                 is_remote_str = iif(is_remote, "true", "false")
-                prop = "PlaylistDetailCoverItem{:d}".format(item_num)
+                prop = "PlaylistDetailCoverItem{0:d}".format(item_num)
                 window.setProperty(prop, thumb_item)
-                prop = "PlaylistDetailCoverItem{:d}IsRemote".format(item_num)
+                prop = "PlaylistDetailCoverItem{0:d}IsRemote".format(item_num)
                 window.setProperty(prop, is_remote_str)
 
     def render(self, view_manager):
@@ -203,7 +204,8 @@ class PlaylistDetailView(BaseListContainerView):
             sm = SettingsManager()
 
             #Set the thumbnails
-            self._set_playlist_image(view_manager, self.__loader.get_thumbnails())
+            self._set_playlist_image(view_manager,
+                                     self.__loader.get_thumbnails())
 
             #And the properties
             self._set_playlist_properties(view_manager)

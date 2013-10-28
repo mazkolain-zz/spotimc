@@ -68,7 +68,7 @@ class PlaylistManager:
     def _get_user_agent(self):
         if self.__user_agent is None:
             xbmc_build = xbmc.getInfoLabel("System.BuildVersion")
-            self.__user_agent = 'Spotimc/{} (XBMC/{})'.format(
+            self.__user_agent = 'Spotimc/{0:d} (XBMC/{0:d})'.format(
                 __addon_version__, xbmc_build)
 
         return self.__user_agent
@@ -109,15 +109,15 @@ class PlaylistManager:
                 self.__server_ip, self.__server_port,
                 track_id, list_index, headers
             )
-            return 'http://{}:{}/track/{}.wav?idx={:d}|{}'.format(args)
+            return 'http://{0}:{1:d}/track/{2:d}.wav?idx={3:d}|{4}'.format(args)
         else:
             args = (self.__server_ip, self.__server_port, track_id, headers)
-            return 'http://{}:{}/track/{}.wav|{}'.format(args)
+            return 'http://{0}:{1:d}/track/{2:d}.wav|{3}'.format(args)
 
     def get_image_url(self, image_id):
         if image_id is not None:
             args = (self.__server_ip, self.__server_port, image_id)
-            return 'http://{}:{}/image/{}.jpg'.format(args)
+            return 'http://{0}:{1:d}/image/{2:d}.jpg'.format(args)
         else:
             return ''
 
@@ -265,7 +265,7 @@ class PlaylistManager:
 
             #Deal with any potential dummy items
             if omit_offset is not None and list_index < omit_offset:
-                self.__playlist.remove('dummy-{}'.format(list_index))
+                self.__playlist.remove('dummy-{0:d}'.format(list_index))
 
         #Set paylist's shuffle status
         if self.get_shuffle_status():
@@ -316,7 +316,7 @@ class PlaylistManager:
                 #Add some padding dummy items (to preserve playlist position)
                 if offset > 0:
                     for index in range(offset):
-                        tmpStr = 'dummy-{}'.format(index)
+                        tmpStr = 'dummy-{0:d}'.format(index)
                         self.__playlist.add(tmpStr, xbmcgui.ListItem(''))
 
                 #Add the desired item and play it
@@ -338,13 +338,13 @@ class PlaylistManager:
         if mo is not None:
 
             #Try loading it as a spotify track
-            link_obj = link.create_from_string("spotify:track:{}".format(
+            link_obj = link.create_from_string("spotify:track:{0}".format(
                 mo.group(1)))
             if link_obj is not None:
                 return load_track(sess_obj, link_obj.as_track())
 
             #Try to parse as a local track
-            tmpStr = "spotify:local:{}".format(mo.group(1))
+            tmpStr = "spotify:local:{0}".format(mo.group(1))
             link_obj = link.create_from_string(tmpStr)
             if link_obj is not None:
 

@@ -82,7 +82,7 @@ class SpotimcCallbacks(SessionCallbacks):
 
     def logged_in(self, session, error_num):
         #Log this event
-        self.__logger.debug('logged in: {:d}'.format(error_num))
+        self.__logger.debug('logged in: {0:d}'.format(error_num))
 
         #Store last error code
         self.__app.set_var('login_last_error', error_num)
@@ -103,10 +103,10 @@ class SpotimcCallbacks(SessionCallbacks):
         self.__app.get_var('logout_event').set()
 
     def connection_error(self, session, error):
-        self.__logger.error('connection error: {:d}'.format(error))
+        self.__logger.error('connection error: {0:d}'.format(error))
 
     def message_to_user(self, session, data):
-        self.__logger.info('message to user: {}'.format(data))
+        self.__logger.info('message to user: {0}'.format(data))
 
     def _get_log_message_level(self, message):
         matches = self.__log_regex.match(message)
@@ -123,7 +123,7 @@ class SpotimcCallbacks(SessionCallbacks):
             self.__logger.error(data)
 
     def streaming_error(self, session, error):
-        self.__logger.info('streaming error: {:d}'.format(error))
+        self.__logger.info('streaming error: {0:d}'.format(error))
 
     @run_in_thread
     def play_token_lost(self, session):
@@ -413,7 +413,7 @@ def gui_main(addon_dir):
             proxy_runner = ProxyRunner(sess, buf, host='127.0.0.1',
                                        allow_ranges=True)
             proxy_runner.start()
-            log_str = 'starting proxy at port {}'.format(
+            log_str = 'starting proxy at port {0}'.format(
                 proxy_runner.get_port())
             get_logger().info(log_str)
 

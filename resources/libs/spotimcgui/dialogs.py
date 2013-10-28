@@ -111,7 +111,7 @@ class LoginWindow(xbmcgui.WindowXMLDialog):
 
         if code in messages:
             escaped = messages[code].replace('"', '\"')
-            tmpStr = 'SetProperty(LoginErrorMessage, "{}")'.format(escaped)
+            tmpStr = 'SetProperty(LoginErrorMessage, "{0}")'.format(escaped)
             xbmc.executebuiltin(tmpStr)
         else:
             tmpStr = 'SetProperty(LoginErrorMessage, "Unknown error.")'

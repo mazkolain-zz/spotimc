@@ -61,7 +61,8 @@ class PlaylistView(BaseListContainerView):
 
         self.__initialized = True
 
-        # FIXME: Poor man's way of dealing with race conditions (resend notifications)
+        # FIXME: Poor man's way of dealing with race conditions (resend
+        # notifications)
         xbmc.executebuiltin("Action(Noop)")
 
     def __init__(self, session, container, playlist_manager):
@@ -125,11 +126,13 @@ class PlaylistView(BaseListContainerView):
 
         elif control_id == PlaylistView.context_play_playlist:
             self._start_playlist_playback(view_manager)
-            view_manager.get_window().setFocus(self.get_container(view_manager))
+            view_manager.get_window().setFocus(
+                self.get_container(view_manager))
 
         elif control_id == PlaylistView.context_set_current:
             self._set_current_playlist(view_manager)
-            view_manager.get_window().setFocus(self.get_container(view_manager))
+            view_manager.get_window().setFocus(
+                self.get_container(view_manager))
 
     def action(self, view_manager, action_id):
         #Silently ignore events when not intialized
@@ -174,14 +177,15 @@ class PlaylistView(BaseListContainerView):
         thumbnails = loader.get_thumbnails()
         if len(thumbnails) > 0:
             #Set cover info
-            item.setProperty("CoverLayout", iif(len(thumbnails) < 4, "one", "four"))
+            item.setProperty("CoverLayout",
+                             iif(len(thumbnails) < 4, "one", "four"))
 
             #Now loop to set all the images
             for idx, thumb_item in enumerate(thumbnails):
                 item_num = idx + 1
                 is_remote = thumb_item.startswith("http://")
-                item.setProperty("CoverItem{:d}".format(item_num), thumb_item)
-                item.setProperty("CoverItem{:d}IsRemote".format(item_num),
+                item.setProperty("CoverItem{0:d}".format(item_num), thumb_item)
+                item.setProperty("CoverItem{0:d}IsRemote".format(item_num),
                                  iif(is_remote, "true", "false"))
 
         list.addItem(item)

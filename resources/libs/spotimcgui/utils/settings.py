@@ -22,16 +22,16 @@ import xbmc
 
 class SkinSettings:
     def has_bool_true(self, name):
-        return xbmc.getCondVisibility('Skin.HasSetting({})'.format(name))
+        return xbmc.getCondVisibility('Skin.HasSetting({0})'.format(name))
 
     def set_bool_true(self, name):
-        xbmc.executebuiltin('Skin.SetBool({})'.format(name))
+        xbmc.executebuiltin('Skin.SetBool({0})'.format(name))
 
     def toggle_bool(self, name):
-        xbmc.executebuiltin('Skin.ToggleSetting({})'.format(name))
+        xbmc.executebuiltin('Skin.ToggleSetting({0})'.format(name))
 
     def get_value(self, name):
-        return xbmc.getInfoLabel('Skin.String({})'.format(name))
+        return xbmc.getInfoLabel('Skin.String({0})'.format(name))
 
     def set_value(self, name, value):
-        xbmc.executebuiltin('Skin.SetString({},{})'.format(name, value))
+        xbmc.executebuiltin('Skin.SetString({0},{1})'.format(name, value))

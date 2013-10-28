@@ -113,7 +113,7 @@ def create_build_dir():
 def generate_zip(build_dir, addon_id, addon_version, file_list):
     #for item in file_list:
     #    print item
-    zip_name = '{}-{}.zip'.format(addon_id, addon_version)
+    zip_name = '{0:d}-{1:d}.zip'.format(addon_id, addon_version)
     zip_path = os.path.join(build_dir, zip_name)
     zip_obj = zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED)
 
@@ -133,7 +133,7 @@ def main():
     addon_id, addon_version = get_addon_info()
     file_list = generate_file_list(work_dir)
     out_file = generate_zip(build_dir, addon_id, addon_version, file_list)
-    print('generated zip: {}'.format(os.path.relpath(out_file, work_dir)))
+    print('generated zip: {0}'.format(os.path.relpath(out_file, work_dir)))
 
 
 if __name__ == '__main__':
