@@ -18,7 +18,6 @@ along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-import xbmc
 from spotimcgui.views import BaseContainerView
 from spotimcgui.views.artists import open_artistbrowse_albums
 from spotimcgui.views.album import AlbumTracksView
@@ -26,41 +25,35 @@ from spotimcgui.views.album import AlbumTracksView
 
 class NowPlayingView(BaseContainerView):
     container_id = 1600
-    
+
     browse_artist_button = 1621
     browse_album_button = 1622
-    
-    
+
     def _get_current_track(self, view_manager):
         playlist_manager = view_manager.get_var('playlist_manager')
         session = view_manager.get_var('session')
         return playlist_manager.get_current_item(session)
-    
-    
+
     def _do_browse_artist(self, view_manager):
         track = self._get_current_track(view_manager)
         artist_list = [artist for artist in track.artists()]
         open_artistbrowse_albums(view_manager, artist_list)
-    
-    
+
     def _do_browse_album(self, view_manager):
         track = self._get_current_track(view_manager)
         session = view_manager.get_var('session')
         v = AlbumTracksView(session, track.album())
         view_manager.add_view(v)
-    
-    
+
     def click(self, view_manager, control_id):
         if control_id == NowPlayingView.browse_artist_button:
             self._do_browse_artist(view_manager)
-        
+
         elif control_id == NowPlayingView.browse_album_button:
-            self._do_browse_album(view_manager)        
-    
-    
+            self._do_browse_album(view_manager)
+
     def get_container(self, view_manager):
         return view_manager.get_window().getControl(NowPlayingView.container_id)
-    
-    
+
     def render(self, view_manager):
         return True

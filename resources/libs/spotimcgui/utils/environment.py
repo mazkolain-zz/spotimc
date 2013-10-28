@@ -17,12 +17,11 @@ You should have received a copy of the GNU General Public License
 along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
-
 from __main__ import __addon_path__
-import sys, os.path, platform
+import sys
+import os.path
+import platform
 import xbmc
-
 
 
 def set_library_paths():
@@ -43,14 +42,14 @@ def has_background_support():
 def get_architecture():
     try:
         machine = platform.machine()
-        
+
         #Some filtering...
         if machine.startswith('armv6'):
             return 'armv6'
-        
+
         elif machine.startswith('i686'):
             return 'x86'
-    
+
     except:
         return None
 
@@ -63,29 +62,29 @@ def add_dll_path(path):
 
 def set_dll_paths(base_dir):
     arch_str = get_architecture()
-    
+
     if xbmc.getCondVisibility('System.Platform.Linux'):
         if arch_str in(None, 'x86'):
             add_dll_path(os.path.join(base_dir, 'linux/x86'))
-        
+
         if arch_str in(None, 'x86_64'):
             add_dll_path(os.path.join(base_dir, 'linux/x86_64'))
-        
+
         if arch_str in(None, 'armv6'):
             add_dll_path(os.path.join(base_dir, 'linux/armv6hf'))
             add_dll_path(os.path.join(base_dir, 'linux/armv6'))
-    
+
     elif xbmc.getCondVisibility('System.Platform.Windows'):
         if arch_str in(None, 'x86'):
             add_dll_path(os.path.join(base_dir, 'windows/x86'))
         else:
             raise OSError('Sorry, only 32bit Windows is supported.')
-    
+
     elif xbmc.getCondVisibility('System.Platform.OSX'):
         add_dll_path(os.path.join(base_dir, 'osx'))
-    
+
     elif xbmc.getCondVisibility('System.Platform.Android'):
         add_dll_path(os.path.join(base_dir, 'android'))
-    
+
     else:
         raise OSError('Sorry, this platform is not supported.')

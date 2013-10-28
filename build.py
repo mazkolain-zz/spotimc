@@ -53,53 +53,53 @@ def get_addon_info():
     return root.attrib['id'], root.attrib['version']
 
 
-def is_included(path): 
+def is_included(path):
     for item in include_files:
         #Try fnmatching agains the include rule
         if fnmatch.fnmatch(path, item):
             return True
-        
+
         #Also test if it gets included by a contained file
         elif path.startswith(item):
             return True
-        
+
         #Or if the path is part of a pattern
         elif item.startswith(path):
             return True
-    
+
     return False
 
 
 def is_excluded(path):
-    
+
     #Exclude hidden files and folders
     if os.path.basename(path).startswith('.'):
         return True
-    
+
     #Iterate over the exclude patterns
     else:
-    
+
         for item in exclude_files:
             #Try fnmatching agains the exclude entry
             if fnmatch.fnmatch(path, item):
                 return True
-    
+
         return False
 
 
 def generate_file_list(path):
     file_list = []
-    
+
     for item in os.listdir(path):
         cur_path = os.path.join(path, item)
         cur_rel_path = os.path.relpath(cur_path, work_dir)
-         
+
         if is_included(cur_rel_path) and not is_excluded(cur_rel_path):
             file_list.append(cur_rel_path)
-            
+
             if os.path.isdir(cur_path):
                 file_list.extend(generate_file_list(cur_path))
-        
+
     return file_list
 
 
@@ -113,18 +113,18 @@ def create_build_dir():
 def generate_zip(build_dir, addon_id, addon_version, file_list):
     #for item in file_list:
     #    print item
-    zip_name = '%s-%s.zip' % (addon_id, addon_version)
+    zip_name = '{0:d}-{1:d}.zip'.format(addon_id, addon_version)
     zip_path = os.path.join(build_dir, zip_name)
     zip_obj = zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED)
-    
+
     for item in file_list:
         abs_path = os.path.join(work_dir, item)
         if not os.path.isdir(abs_path):
             arc_path = os.path.join(addon_id, item)
             zip_obj.write(abs_path, arc_path)
-    
+
     zip_obj.close()
-    
+
     return zip_path
 
 
@@ -133,7 +133,7 @@ def main():
     addon_id, addon_version = get_addon_info()
     file_list = generate_file_list(work_dir)
     out_file = generate_zip(build_dir, addon_id, addon_version, file_list)
-    print 'generated zip: %s' % os.path.relpath(out_file, work_dir)
+    print('generated zip: {0}'.format(os.path.relpath(out_file, work_dir)))
 
 
 if __name__ == '__main__':
