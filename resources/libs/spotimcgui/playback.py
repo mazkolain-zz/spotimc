@@ -68,7 +68,7 @@ class PlaylistManager:
     def _get_user_agent(self):
         if self.__user_agent is None:
             xbmc_build = xbmc.getInfoLabel("System.BuildVersion")
-            self.__user_agent = 'Spotimc/{0:d} (XBMC/{0:d})'.format(
+            self.__user_agent = 'Spotimc/{0} (XBMC/{1})'.format(
                 __addon_version__, xbmc_build)
 
         return self.__user_agent
@@ -109,15 +109,15 @@ class PlaylistManager:
                 self.__server_ip, self.__server_port,
                 track_id, list_index, headers
             )
-            return 'http://{0}:{1:d}/track/{2:d}.wav?idx={3:d}|{4}'.format(args)
+            return 'http://{0}:{1:d}/track/{2}.wav?idx={3:d}|{4}'.format(*args)
         else:
             args = (self.__server_ip, self.__server_port, track_id, headers)
-            return 'http://{0}:{1:d}/track/{2:d}.wav|{3}'.format(args)
+            return 'http://{0}:{1:d}/track/{2}.wav|{3}'.format(*args)
 
     def get_image_url(self, image_id):
         if image_id is not None:
             args = (self.__server_ip, self.__server_port, image_id)
-            return 'http://{0}:{1:d}/image/{2:d}.jpg'.format(args)
+            return 'http://{0}:{1:d}/image/{2}.jpg'.format(*args)
         else:
             return ''
 
