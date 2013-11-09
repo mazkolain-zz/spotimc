@@ -38,6 +38,7 @@ if environment.has_background_support():
 
     #Some specific imports for this condition
     from spotimcgui.settings import InfoValueManager
+    from spotimcgui.utils.gui import show_busy_dialog
 
     manager = InfoValueManager()
     spotimc_window_id = manager.get_infolabel('spotimc_window_id')
@@ -46,6 +47,7 @@ if environment.has_background_support():
         xbmc.executebuiltin('ActivateWindow(%s)' % spotimc_window_id)
     else:
         spotimc_path = os.path.join(__addon_path__, 'spotimc.py')
+        show_busy_dialog()
         xbmc.executebuiltin('RunScript("%s")' % spotimc_path)
 
 else:
