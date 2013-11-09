@@ -43,6 +43,7 @@ from settings import SettingsManager, CacheManagement, StreamQuality, \
     GuiSettingsReader, InfoValueManager
 from __main__ import __addon_version__, __addon_path__
 from utils.logs import get_logger, setup_logging
+from utils.gui import hide_busy_dialog, show_busy_dialog
 
 
 class Application:
@@ -340,16 +341,6 @@ def get_preloader_callback(session, playlist_manager, buffer):
                 buffer.open(session, next_track)
 
     return preloader
-
-
-def show_busy_dialog():
-    #if not xbmc.getCondVisibility('Window.IsActive(busydialog)'):
-        xbmc.executebuiltin('ActivateWindow(busydialog)')
-
-
-def hide_busy_dialog():
-    #if xbmc.getCondVisibility('Window.IsActive(busydialog)'):
-        xbmc.executebuiltin('Dialog.Close(busydialog)')
 
 
 def gui_main(addon_dir):
