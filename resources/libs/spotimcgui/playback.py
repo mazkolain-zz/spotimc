@@ -190,7 +190,7 @@ class PlaylistManager:
             item.setProperty('RatingPoints', rating_points)
 
             #Tell that analyzing the stream data is discouraged
-            item.setProperty('DoNotAnalyze', 'true')
+            item.setProperty('do_not_analyze', 'true')
 
             return track_url, item
 
