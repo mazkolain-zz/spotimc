@@ -209,10 +209,13 @@ class BaseContainerView(BaseView):
             #And focus if we were asked to do so
             if set_focus:
                 self._set_focus_container(view_manager)
+            
+            return True
 
         #Container is still loading, so focus the menu instead
         elif set_focus:
             self._set_focus_menu(view_manager)
+            return False
     
     def hide(self, view_manager):
         BaseView.hide(self, view_manager)
@@ -243,21 +246,11 @@ class BaseListContainerView(BaseContainerView):
                 self.set_focus(view_manager)
 
     def show(self, view_manager, set_focus=True):
-        #Keep the list position when updating
-        if self.is_visible(view_manager):
-            list_obj = self.get_list(view_manager)
-            self.__list_position = list_obj.getSelectedPosition()
-
-        #Reset it if it has items, avoiding the unwanted "memory" effect
-        elif self.get_list(view_manager).size() > 0:
-            self.get_list(view_manager).selectItem(0)
-
-        #Call the parent implementation
-        BaseContainerView.show(self, view_manager, set_focus)
-        window = view_manager.get_window()
-
-        #If the list was rendered
-        if self.is_visible(view_manager):
+        
+        #Call the parent implementation and check if it was rendered
+        if BaseContainerView.show(self, view_manager, set_focus):
+            
+            window = view_manager.get_window()
 
             #Restore the list position, if we have one
             if self.__list_position is not None:
@@ -276,9 +269,15 @@ class BaseListContainerView(BaseContainerView):
 
             else:
                 window.setProperty('ListWithNoItems', 'false')
-
+            
+            return True
+        
+        else:
+            return False
+    
     def hide(self, view_manager):
-        #Keep the list position
+        
+        #Store current list position
         list_obj = self.get_list(view_manager)
         self.__list_position = list_obj.getSelectedPosition()
 
