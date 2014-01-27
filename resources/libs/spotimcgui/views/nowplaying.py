@@ -71,7 +71,7 @@ class NowPlayingView(BaseContainerView):
     
     def show(self, view_manager, set_focus=True):
         self.__player_callbacks = PlayerCallbacks()
-        BaseContainerView.show(self, view_manager, set_focus=True)
+        return BaseContainerView.show(self, view_manager, set_focus=True)
     
     def hide(self, view_manager):
         self.__player_callbacks = None
