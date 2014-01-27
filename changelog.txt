@@ -1,3 +1,16 @@
+[B]1.0-beta5[/B]
+- New: Added support for running in the background. 
+- Fix: Crashes on Linux and OSX during shutdown.
+- Fix: Conflicts with script.cu.lrclyrics.
+- Fix: Music was muted randomly if crossfade enabled.
+- Fix: Slightly faster playlist list loading.
+- Fix: The menu was focused instead of the list randomly.
+- Fix: Focus was lost when playback ended while on now playing view.
+- Fix: Random crashes on arm hard float due to wrong lib shipped.
+- Fix: Useless debug information got printed to the log file.
+- Fix: Random clicks were heard when changing tracks.
+- Fix: Added default cover image for albums with no cover. 
+
 [B]1.0-beta4[/B]
 - Fix: Album covers were not displayed on remote apps (again).
 - Fix: Crash when startup view was set to playlists.
