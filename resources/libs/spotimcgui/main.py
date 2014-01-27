@@ -180,7 +180,10 @@ def show_legal_warning(settings_obj):
         d = xbmcgui.Dialog()
         l1 = 'Spotimc uses SPOTIFY(R) CORE but is not endorsed,'
         l2 = 'certified or otherwise approved in any way by Spotify.'
+        
+        hide_busy_dialog()
         d.ok('Spotimc', l1, l2)
+        show_busy_dialog()
 
 
 def check_addon_version(settings_obj):
@@ -192,14 +195,20 @@ def check_addon_version(settings_obj):
 
         #Don't display the upgrade message if it's the first run
         if last_run_version != '':
+            
             d = xbmcgui.Dialog()
             l1 = 'Spotimc was updated since the last run.'
             l2 = 'Do you want to see the changelog?'
-
+            
+            hide_busy_dialog()
+            
             if d.yesno('Spotimc', l1, l2):
                 file = settings_obj.get_addon_obj().getAddonInfo('changelog')
                 changelog = open(file).read()
                 dialogs.text_viewer_dialog('ChangeLog', changelog)
+            
+            show_busy_dialog()
+            
 
 
 def get_audio_buffer_size():

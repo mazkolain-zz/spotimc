@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with Spotimc.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import xbmc
+import xbmc, time
 
 
 
@@ -27,3 +27,5 @@ def show_busy_dialog():
 
 def hide_busy_dialog():
     xbmc.executebuiltin('Dialog.Close(busydialog)')
+    while xbmc.getCondVisibility('Window.IsActive(busydialog)'):
+        time.sleep(.1)
