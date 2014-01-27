@@ -175,16 +175,22 @@ class BaseContainerView(BaseView):
 
     def get_container(self, view_manager):
         raise NotImplementedError()
-
+    
+    def _set_focus_menu(self, view_manager):
+        view_manager.get_window().setFocusId(200)
+    
+    def _set_focus_container(self, view_manager):
+        container = self.get_container(view_manager)
+        view_manager.get_window().setFocus(container)
+    
     def set_focus(self, view_manager):
         #Focus the container if it's visible
         if self.is_visible(view_manager):
-            container = self.get_container(view_manager)
-            view_manager.get_window().setFocus(container)
+            self._set_focus_container(view_manager)
 
         #Otherwise focus the main menu
         else:
-            view_manager.get_window().setFocusId(200)
+            self._set_focus_menu(view_manager)
 
     def show(self, view_manager, set_focus=True):
         BaseView.show(self, view_manager, set_focus)
@@ -193,15 +199,21 @@ class BaseContainerView(BaseView):
         self.get_container(view_manager).setVisibleCondition('false')
         view_manager.get_window().show_loading()
 
+        #If the view was rendered successfully
         if self.render(view_manager):
+            
             #Hide loading and show container
             view_manager.get_window().hide_loading()
             self.get_container(view_manager).setVisibleCondition('true')
+            
+            #And focus if we were asked to do so
+            if set_focus:
+                self._set_focus_container(view_manager)
 
-        #And give focus if asked to do so
-        if set_focus:
-            self.set_focus(view_manager)
-
+        #Container is still loading, so focus the menu instead
+        elif set_focus:
+            self._set_focus_menu(view_manager)
+    
     def hide(self, view_manager):
         BaseView.hide(self, view_manager)
 
