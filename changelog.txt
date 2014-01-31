@@ -9,7 +9,8 @@
 - Fix: Random crashes on arm hard float due to wrong lib shipped.
 - Fix: Useless debug information got printed to the log file.
 - Fix: Random clicks were heard when changing tracks.
-- Fix: Added default cover image for albums with no cover. 
+- Fix: Added default cover image for albums with no cover.
+- Fix: Installation issues on XBMC Gotham.
 
 [B]1.0-beta4[/B]
 - Fix: Album covers were not displayed on remote apps (again).
