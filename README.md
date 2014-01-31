@@ -7,12 +7,12 @@ Please note that it's still in beta stage, so expect some minor issues here and 
 
 Compatibility
 -------------------
-Windows, Linux and OSX. IOS and Android not supported (yet). Requires at least XBMC Eden (v11.0) to run.
+Windows, Linux and OSX. IOS and Android not supported (yet). Requires at least XBMC Frodo (v12.0) to run.
 
 
 Download
 --------
-Latest release: [1.0-beta4](http://azkotoki.org/downloads/script-audio-spotimc-1-0-beta4/).
+Latest release: [1.0-beta5](http://azkotoki.org/downloads/script-audio-spotimc-1-0-beta5/).
 
 
 Installation
@@ -47,7 +47,7 @@ Known Issues
 * ~~Occasionally tracks take too long to start~~
 * It may crash during shutdown on certain situations
 * It's currently slow on the Raspberry Pi, but this will probably improve in the future
-* It's not possible to run the addon in the background at this moment
+* ~~It's not possible to run the addon in the background at this moment~~
 
 
 Legal
