@@ -13,3 +13,6 @@
 [submodule "resources/libs/taskutils"]
 	path = resources/libs/taskutils
 	url = https://github.com/mazkolain/taskutils.git
+[submodule "resources/dlls"]
+	path = resources/dlls
+	url = https://github.com/mazkolain/spotify-libs.git
