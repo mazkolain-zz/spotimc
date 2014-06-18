@@ -396,7 +396,7 @@ class SpecialPlaylistLoader(BasePlaylistLoader):
             if track.is_loaded():
                 return -playlist.track_create_time(track_index)
 
-        track_indexes = range(playlist.num_tracks() - 1)
+        track_indexes = range(playlist.num_tracks())
         sorted_indexes = sorted(track_indexes, key=sort_func)
 
         return [playlist.track(index) for index in sorted_indexes]
