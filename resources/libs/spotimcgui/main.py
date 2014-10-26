@@ -128,15 +128,14 @@ class SpotimcCallbacks(SessionCallbacks):
 
     @run_in_thread
     def play_token_lost(self, session):
-
-        #Cancel the current buffer
-        self.__audio_buffer.stop()
-
         if self.__app.has_var('playlist_manager'):
-            self.__app.get_var('playlist_manager').stop(False)
+            if self.__app.get_var('playlist_manager').is_playing():
+                #Cancel the current buffer
+                self.__audio_buffer.stop()
+                self.__app.get_var('playlist_manager').stop(False)
 
-        dlg = xbmcgui.Dialog()
-        dlg.ok('Playback stopped', 'This account is in use on another device.')
+                dlg = xbmcgui.Dialog()
+                dlg.ok('Playback stopped', 'This account is in use on another device.')
 
     def end_of_track(self, session):
         self.__audio_buffer.set_track_ended()

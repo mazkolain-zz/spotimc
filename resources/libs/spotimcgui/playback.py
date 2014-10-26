@@ -216,6 +216,9 @@ class PlaylistManager:
             self.__playlist.add(path, info, index)
 
     def is_playing(self, consider_pause=True):
+        if not xbmc.getCondVisibility('Player.HasAudio()'):
+            return False
+
         if consider_pause:
             return xbmc.getCondVisibility('Player.Playing | Player.Paused')
         else:
