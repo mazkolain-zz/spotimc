@@ -245,7 +245,7 @@
 		            <visible>true</visible>
 		            <colordiffuse>ffffffff</colordiffuse>
 		            <fadetime></fadetime>
-		            <texture>common/login-loading.gif</texture>
+		            <texture>common/main-loading.gif</texture>
 		            <aspectratio>stretch</aspectratio>
 		        </control>
 		    </control>
@@ -296,7 +296,7 @@
 				<textoffsety>0</textoffsety>
 				<font>spotimc_font18</font>
 				<selectedcolor></selectedcolor>
-				<textcolor>ffff0000</textcolor>
+				<textcolor>ffffffff</textcolor>
 				<shadowcolor>00000000</shadowcolor>
 				<align>left</align>
 				<aligny>center</aligny>
