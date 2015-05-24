@@ -68,6 +68,18 @@
 					<aspectratio>stretch</aspectratio>
 				</control>
 				
+				<control type="image">
+					<description>Main menu background</description>
+					<posx>1164</posx>
+					<posy>12</posy>
+					<width>104</width>
+					<height>104</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<texture>main-menu/spotify-core-logo.png</texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				
 				<control type="grouplist" id="210">
 					<description>Main menu options</description>
 					<posx>32</posx>

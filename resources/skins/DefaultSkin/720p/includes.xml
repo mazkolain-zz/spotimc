@@ -1325,7 +1325,7 @@
 		<height>16</height>
 		<font>spotimc_font20</font>
 		<selectedcolor></selectedcolor>
-		<textcolor>ffffffff</textcolor>
+		<textcolor>ff6a1b00</textcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<align>left</align>
 	</include>
@@ -1340,7 +1340,7 @@
 		<font>spotimc_font22</font>
 		<textcolor>ffffffff</textcolor>
 		<shadowcolor>00000000</shadowcolor>
-		<focusedcolor>ffffffff</focusedcolor>
+		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<align>left</align>
 		<aligny>center</aligny>
@@ -1376,7 +1376,7 @@
 		<texturefocus>common/login-button-focus.png</texturefocus>
 		<texturenofocus>common/login-button.png</texturenofocus>
 		<font>spotimc_font22</font>
-		<focusedcolor>ffffffff</focusedcolor>
+		<focusedcolor>ff6a1b00</focusedcolor>
 		<disabledcolor>ffffffff</disabledcolor>
 		<shadowcolor>00000000</shadowcolor>
 		<align>center</align>
