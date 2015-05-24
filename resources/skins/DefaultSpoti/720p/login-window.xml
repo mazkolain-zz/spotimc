@@ -1,0 +1,311 @@
+<window id="4002" type="dialog">
+    <defaultcontrol always="false">1000</defaultcontrol>
+    <allowoverlay>no</allowoverlay>
+    <backgroundcolor>0000000</backgroundcolor>
+    <!-- <views>50,51,509,510<views> -->
+    <!-- <animation effect="fade" time="100">WindowOpen</animation> -->
+    <!-- <animation effect="slide" end="0,576" time="100">WindowClose</animation> -->
+    
+    
+    <!-- Open animation -->
+    <!--
+    <animation type="WindowOpen">
+    	<effect type="slide" center="640,360" time="150" start="0,-360" end="0,0" />
+    </animation>
+    
+    <animation effect="fade" time="1000">WindowClose</animation>
+    -->
+    
+    <visible>true</visible>
+    <zorder>1</zorder>
+    <coordinates>
+	    <posx></posx>
+	    <posy></posy>
+    </coordinates>
+    <previouswindow></previouswindow>
+    <useincludes>false</useincludes>
+    
+    <controls>
+    	<!-- Window background -->
+    	<!--
+    	<control type="image">
+            <description>Background overlay</description>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+            <visible>true</visible>
+            <colordiffuse>80ffffff</colordiffuse>
+            <fadetime></fadetime>
+            <texture>common/overlay.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+        -->
+        
+        <control type="group" id="1000">
+            <description>Login container</description>
+            <defaultcontrol>1100</defaultcontrol>
+            
+            <!-- Hide while its logging in -->
+            <posx>384</posx>
+            <posy>160</posy>
+            <width>480</width>
+            <height>384</height>
+            
+            <animation type="WindowOpen">
+		    	<effect type="slide" tween="cubic" easing="out" center="640,360" time="200" start="0,-600" end="0,0" />
+		    </animation>
+		    
+		    <animation type="Hidden">
+		    	<effect type="slide" tween="cubic" easing="in" center="640,360" time="200" start="0,0" end="0,600" />
+		    </animation>
+		    
+		    <animation type="Conditional" condition="SubString(Window.Property(IsLoginError),true) + SubString(Window.Property(ShortErrorAnimation),false)" reversible="false">
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" time="200" start="0,0" end="100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="200" time="200" start="100,0" end="-100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="400" time="200" start="-100,0" end="100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="600" time="200" start="100,0" end="-100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="800" time="200" start="-100,0" end="100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="1000" time="200" start="100,0" end="-100,0" />
+				<effect type="slide" tween="cubic" easing="inout" center="640,360" delay="1200" time="200" start="-100,0" end="0,0" />
+			</animation>
+		    
+		    
+		    <control type="image">
+		    	<include>spotimc_dialog_border</include>
+	            <description>Window border</description>
+	            <posx>-16</posx>
+	            <posy>-16</posy>
+	            <width>512</width>
+	            <height>416</height>
+	        </control>
+	        
+	        <control type="image">
+	            <description>Window background image</description>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>480</width>
+	            <height>384</height>
+	            <visible>true</visible>
+	            <colordiffuse>ffffffff</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture>common/login-bg.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
+	        
+	        <control type="image">
+	            <description>Window background image (Spotify waves)</description>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>480</width>
+	            <height>384</height>
+	            
+	            <!-- Hide the waves when the animation is visible (looks ugly) -->
+	            <visible>!Control.IsVisible(1200)</visible>
+	            
+	            <colordiffuse>ffffffff</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture>common/login-bg-waves.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
+            
+            <!-- Login prompt text -->
+            <control type="label">
+            	<label>Login to Spotify</label>
+				<posx>32</posx>
+				<posy>32</posy>
+				<width>416</width>
+				<height>32</height>
+				<font>spotimc_font24</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<selectedcolor></selectedcolor>
+				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
+			</control>
+			
+			
+			<control type="group" id="1100">
+				<description>Login fields container</description>
+	            <defaultcontrol>1101</defaultcontrol>
+	            <visible>!Control.IsVisible(1200)</visible>
+	            <posx>32</posx>
+	            <posy>80</posy>
+	            <width>480</width>
+	            <height>384</height>
+			
+				<control type="label">
+					<include>spotimc_login_inputlabel</include>
+	                <label>Username</label>
+	                <posx>0</posx>
+	                <posy>0</posy>
+	            </control>
+	            
+				<control type="button" id="1101">
+					<include>spotimc_login_textinput</include>
+					<description>Username input</description>
+					<posx>0</posx>
+					<posy>32</posy>
+					<onclick></onclick>
+					<onfocus></onfocus>
+					<onup></onup>
+					<ondown>1102</ondown>
+					<onleft></onleft>
+					<onright></onright>
+	            </control>
+	            
+	            
+	            <control type="label">
+	            	<include>spotimc_login_inputlabel</include>
+	                <label>Password</label>
+	                <posx>0</posx>
+	                <posy>80</posy>
+	            </control>
+	            
+	            <control type="button" id="1102">
+	            	<include>spotimc_login_textinput</include>
+	                <description>Password input</description>
+	                <posx>0</posx>
+	                <posy>112</posy>
+	                <label></label>
+	                <onclick></onclick>
+	                <onfocus></onfocus>
+	                <onup>1101</onup>
+	                <ondown>1103</ondown>
+	                <onleft></onleft>
+	                <onright></onright>
+	            </control>
+	            
+	            <control type="label">
+	            	<include>spotimc_login_inputlabel</include>
+	                <label>Remember me</label>
+	                <posx>40</posx>
+	                <posy>168</posy>
+	            </control>
+	            
+	            <control type="togglebutton" id="1103">
+	            	<include>spotimc_login_toggle</include>
+		            <description>Remember me toggle</description>
+		            <posx>0</posx>
+		            <posy>168</posy>
+		            <onfocus></onfocus>
+		            <onup>1102</onup>
+		            <ondown>1104</ondown>
+		            <onleft></onleft>
+		            <onright></onright>
+		            <label></label>
+		            <usealttexture>Skin.HasSetting(spotimc_session_remember)</usealttexture>
+		            <onclick>Skin.ToggleSetting(spotimc_session_remember)</onclick>
+		        </control>
+		        
+		        <control type="button" id="1104">
+		        	<include>spotimc_login_button</include>
+			        <description>Login button</description>
+			        <label>Login</label>
+			        <posx>32</posx>
+			        <posy>224</posy>
+			        <onclick></onclick>
+			        <onfocus></onfocus>
+			        <onup>1103</onup>
+			        <ondown>1105</ondown>
+			        <onleft>-</onleft>
+			        <onright>1105</onright>
+		        </control>
+		        
+		        <control type="button" id="1105">
+		        	<include>spotimc_login_button</include>
+			        <description>Cancel button</description>
+			        <label>Cancel</label>
+			        <posx>224</posx>
+			        <posy>224</posy>
+			        <onclick></onclick>
+			        <onfocus></onfocus>
+			        <onup>1103</onup>
+			        <ondown>-</ondown>
+			        <onleft>1104</onleft>
+			        <onright>-</onright>
+		        </control>
+			</control>
+			
+			<control type="group" id="1200">
+	            <description>Wait container</description>
+	            <defaultcontrol>-</defaultcontrol>
+	            <visible>false</visible>
+	            <posx>32</posx>
+	            <posy>80</posy>
+	            <width>480</width>
+	            <height>384</height>
+	            
+		        <control type="image">
+		            <description>Loading animation</description>
+		            <posx>152</posx>
+		            <posy>64</posy>
+		            <width>112</width>
+		            <height>112</height>
+		            <visible>true</visible>
+		            <colordiffuse>ffffffff</colordiffuse>
+		            <fadetime></fadetime>
+		            <texture>common/main-loading.gif</texture>
+		            <aspectratio>stretch</aspectratio>
+		        </control>
+		    </control>
+        </control>
+        
+        
+        <control type="group" id="2000">
+            <description>Error container</description>
+            <defaultcontrol>-</defaultcontrol>
+            <visible>SubString(Window.Property(IsLoginError),true)</visible>
+            <posx>720</posx>
+            <posy>24</posy>
+            <width>322</width>
+            <height>121</height>
+            
+            <!-- Animation with delayed start -->
+            <animation type="Visible" reversible="false" condition="SubString(Window.Property(ShortErrorAnimation),false)">
+        		<effect type="slide" tween="elastic" easing="out" center="auto" delay="1300" time="1000" start="0,128" end="0,0" />
+        		<effect type="fade" tween="circle" easing="out" center="auto" delay="1300" time="1000" start="0" end="100" />
+        	</animation>
+        	
+        	<!-- Animation with immediate start -->
+            <animation type="Visible" reversible="false" condition="SubString(Window.Property(ShortErrorAnimation),true)">
+        		<effect type="slide" tween="elastic" easing="out" center="auto" delay="0" time="1000" start="0,128" end="0,0" />
+        		<effect type="fade" tween="circle" easing="out" center="auto" delay="0" time="1000" start="0" end="100" />
+        	</animation>
+            
+            <animation type="Hidden" reversible="false">
+        		<effect type="fade" tween="circle" easing="out" center="auto" time="500" start="100" end="0" />
+        	</animation>
+            
+	        <control type="image">
+	            <description>Error popup</description>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>322</width>
+	            <height>121</height>
+	            <visible>true</visible>
+	            <colordiffuse>ffffffff</colordiffuse>
+	            <fadetime></fadetime>
+	            <texture>common/login-error-message.png</texture>
+	            <aspectratio>stretch</aspectratio>
+	        </control>
+	        
+	        <control type="label">
+				<width>256</width>
+				<height>48</height>
+				<textoffsety>0</textoffsety>
+				<font>spotimc_font18</font>
+				<selectedcolor></selectedcolor>
+				<textcolor>ffffffff</textcolor>
+				<shadowcolor>00000000</shadowcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+				<wrapmultiline>true</wrapmultiline>
+				<info>Window.Property(LoginErrorMessage)</info>
+				<posx>32</posx>
+				<posy>20</posy>
+				<visible>true</visible>
+			</control>
+	    </control>
+    </controls>
+</window>

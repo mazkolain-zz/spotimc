@@ -20,5 +20,6 @@
 
 	<category label="Miscellaneous">
 		<setting id="misc_startup_screen" type="enum" label="Startup screen" values="New Stuff|Playlists" default="0" />
+		<setting id="misc_skin" type="enum" label="Skin" values="DefaultSkin|DefaultSpoti" default="0" />
 	</category>
 </settings>

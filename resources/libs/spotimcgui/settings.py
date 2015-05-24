@@ -94,6 +94,14 @@ class SettingsManager:
     def get_misc_startup_screen(self):
         return int(self._get_setting('misc_startup_screen'))
 
+    def get_misc_skin(self):
+        int_misc_skin = self._get_setting('misc_skin')
+        if int_misc_skin == '1':
+            str_misc_skin = "DefaultSpoti"
+        else:
+            str_misc_skin = "DefaultSkin"
+        return str(str_misc_skin)
+
     def show_dialog(self):
         #Show the dialog
         self.__addon.openSettings()
