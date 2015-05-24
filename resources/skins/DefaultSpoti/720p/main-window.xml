@@ -1,0 +1,1618 @@
+<window id="4001" type="window">
+    <defaultcontrol always="false">1000</defaultcontrol>
+    <allowoverlay>no</allowoverlay>
+    <backgroundcolor>ff000000</backgroundcolor>
+    <visible>true</visible>
+    <zorder>0</zorder>
+    <previouswindow></previouswindow>
+    <useincludes>false</useincludes>
+    
+    <controls>
+    	<!-- Main background image -->
+    	<control type="image">
+            <description>Main background image</description>
+            <posx></posx>
+            <posy></posy>
+            <width>1280</width>
+            <height>720</height>
+            <visible>true</visible>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <fadetime>200</fadetime>
+            <texture border="5" flipy="false" flipx="false">main-bg.png</texture>
+            <aspectratio>stretch</aspectratio>
+        </control>
+        
+        <control type="image" id="50">
+            <description>Loading animation</description>
+            <posx>576</posx>
+            <posy>360</posy>
+            <width>128</width>
+            <height>128</height>
+            <visible>true</visible>
+            <colordiffuse>FFFFFFFF</colordiffuse>
+            <fadetime>200</fadetime>
+            <texture>common/main-loading.gif</texture>
+            <aspectratio>stretch</aspectratio>
+            <visible>False</visible>
+        </control>
+        
+        <control type="group" id="100">
+            <description>Content Group</description>
+            <defaultcontrol>1000</defaultcontrol>
+            <visible>true</visible>
+            <posx>0</posx>
+            <posy>0</posy>
+            <width>1280</width>
+            <height>720</height>
+			
+			<animation effect="slide" tween="sine" condition="ControlGroup(5000).HasFocus()" time="250" easing="inout" start="0,0" end="256,0">Conditional</animation>
+			
+			<control type="group" id="200">
+	        	<description>Main Menu</description>
+	            <defaultcontrol>210</defaultcontrol>
+	            <visible>true</visible>
+	            <posx>0</posx>
+	            <posy>0</posy>
+	            <width>1280</width>
+	            <height>128</height>
+	            
+	            <control type="image">
+					<description>Main menu background</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>1280</width>
+					<height>128</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<texture>main-menu/header-bg.png</texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				
+				<control type="grouplist" id="210">
+					<description>Main menu options</description>
+					<posx>32</posx>
+					<posy>88</posy>
+					<width>1000</width>
+					<height>40</height>
+					<itemgap>8</itemgap>
+					<pagecontrol>25</pagecontrol>
+					<scrolltime tween="sine" easing="out">200</scrolltime>
+					<orientation>horizontal</orientation>
+					<usecontrolcoords>false</usecontrolcoords>
+					<visible>true</visible>
+					<onup>-</onup>
+					<ondown>1000</ondown>
+					<onleft>-</onleft>
+					<onright>201</onright>
+					
+					<control type="togglebutton" id="212">
+						<include>spotimc_topmenu_option</include>
+						<visible>true</visible>
+						<width>168</width>
+						<label>New Stuff</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),newstuff)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="213">
+						<include>spotimc_topmenu_option</include>
+						<visible>true</visible>
+						<width>152</width>
+						<label>Playlists</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),playlists)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="214">
+						<include>spotimc_topmenu_option</include>
+						<visible>true</visible>
+						<width>152</width>
+						<label>Search</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),search)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="215">
+						<include>spotimc_topmenu_option</include>
+						<visible>true</visible>
+						<width>144</width>
+						<label>More...</label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),more)</usealttexture>
+					</control>
+					
+					<control type="togglebutton" id="216">
+						<include>spotimc_topmenu_option</include>
+						<visible>true</visible>
+						<width>112</width>
+						<label>Exit</label>
+						<usealttexture>true</usealttexture>
+					</control>
+				</control>
+	        
+	        	<!-- Now playing button -->
+	        	<control type="group">
+		        	<description>Main Menu</description>
+		            <defaultcontrol>201</defaultcontrol>
+		            <visible>Player.Playing | Player.Paused</visible>
+		            <posx>816</posx>
+		            <posy>48</posy>
+		            <width>320</width>
+		            <height>80</height>
+		            
+		            <control type="togglebutton" id="201">
+						<posx>0</posx>
+						<posy>0</posy>
+						<height>80</height>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<texturefocus>main-menu/option-bg-focus.png</texturefocus>
+						<texturenofocus>main-menu/option-bg.png</texturenofocus>
+						<alttexturefocus>main-menu/option-bg-focus.png</alttexturefocus>
+						<alttexturenofocus>main-menu/option-bg-inactive.png</alttexturenofocus>
+						<font>spotimc_font20</font>
+						<textcolor>FFFFFFFF</textcolor>
+						<disabledcolor>80FFFFFF</disabledcolor>
+						<align>left</align>
+						<aligny>center</aligny>
+						<textoffsetx>80</textoffsetx>
+						<textoffsety>8</textoffsety>
+						<pulseonselect>false</pulseonselect>
+						<visible>true</visible>
+						<width>320</width>
+						<label></label>
+						<usealttexture>!StringCompare(Container.Property(MainActiveTab),nowplaying)</usealttexture>
+						<onup>-</onup>
+						<ondown>1000</ondown>
+						<onleft>216</onleft>
+						<onright>-</onright>
+					</control>
+					
+					<!-- Placeholder image -->
+					<control type="image">
+						<description>Now playing track's album cover</description>
+						<posx>8</posx>
+						<posy>8</posy>
+						<width>64</width>
+						<height>64</height>
+						<visible>true</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<aspectratio>scale</aspectratio>
+						<texture>common/disc-placeholder-nowplaying.png</texture>
+					</control>
+					
+					<!-- Real image -->
+					<control type="image">
+						<description>Now playing track's album cover</description>
+						<posx>8</posx>
+						<posy>8</posy>
+						<width>64</width>
+						<height>64</height>
+						<visible>!IsEmpty(Player.Art(thumb))</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<aspectratio>scale</aspectratio>
+						<fadetime>200</fadetime>
+						<texture background="true">$INFO[Player.Art(thumb)]</texture>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_nowplaying_text</include>
+						<posx>80</posx>
+						<posy>8</posy>
+						<width>224</width>
+						<label>Now playing:</label>
+						<visible>Player.Playing</visible>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_nowplaying_text</include>
+						<posx>80</posx>
+						<posy>8</posy>
+						<width>224</width>
+						<label>Paused:</label>
+						<visible>Player.Paused</visible>
+					</control>
+					
+					<control type="fadelabel">
+						<include>spotimc_nowplaying_text</include>
+						<label>$INFO[MusicPlayer.Title] by $INFO[MusicPlayer.Artist]</label>
+						<posx>80</posx>
+						<posy>30</posy>
+						<width>224</width>
+						<textoffsetx>0</textoffsetx>
+					</control>
+					
+					<control type="progress">
+						<description>My first progress control</description>
+						<posx>80</posx>
+						<posy>60</posy>
+						<width>120</width>
+						<height>8</height>
+						<visible>true</visible>
+						<reveal>true</reveal>
+						<texturebg>common/playback-bar-bg.png</texturebg>
+						<lefttexture>-</lefttexture>
+						<midtexture>common/playback-bar.png</midtexture>
+						<righttexture>-</righttexture>
+						<overlaytexture>-</overlaytexture>
+						<info>Player.Progress</info>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_nowplaying_time</include>
+						<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+						<posx>208</posx>
+						<posy>52</posy>
+						<width max="112">auto</width>
+					</control>
+					
+					<!-- Overlay when now playing is active -->
+					<control type="image">
+						<description>Active overlay</description>
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>320</width>
+						<height>80</height>
+						<visible>true</visible>
+						<colordiffuse>CCFFFFFF</colordiffuse>
+						<aspectratio>stretch</aspectratio>
+						<texture>common/now-playing-overlay.png</texture>
+						<visible>Control.IsVisible(1600) + !Control.HasFocus(201)</visible>
+						<aspectratio>stretch</aspectratio>
+					</control>
+		        </control>
+		    </control>
+			
+			
+            <!-- View Content Group -->
+			<control type="group" id="1000">
+				<description>View Content Group</description>
+				<defaultcontrol></defaultcontrol>
+				<visible>true</visible>
+				<posx>48</posx>
+				<posy>128</posy>
+				
+				<!-- New stuff container -->
+				<control type="group" id="1200">
+					<description>New stuff view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>New music on Spotify</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+				
+					<!-- New stuff list -->
+					<control type="panel" id="1201">
+						<include>spotimc_albumgrid</include>
+						<description>New Stuff</description>
+						<pagecontrol>1202</pagecontrol>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5200</onleft>
+						<onright>1202</onright>
+						<posx>0</posx>
+						<posy>80</posy>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1202">
+						<include>spotimc_scrollbar</include>
+						<posx>1152</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>464</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1201</onleft>
+						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				
+				<!-- Album tracks view -->
+				<control type="group" id="1300">
+					<description>Album tracks view</description>
+					<defaultcontrol>1303</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Album [COLOR ffffffff]$INFO[Container.Property(AlbumName)][/COLOR] by $INFO[Container.Property(ArtistName)]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Album Cover -->
+					<control type="image">
+						<include>spotimc_albumcover_big</include>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>288</width>
+						<height>480</height>
+						<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[Container.Property(AlbumCover)]</texture>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1303">
+						<include>spotimc_tracklist</include>
+						<description>Track list</description>
+						<posx>336</posx>
+						<posy>80</posy>
+						<width>816</width>
+						<height>512</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5300</onleft>
+						<onright>1304</onright>
+						<pagecontrol>1304</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1304">
+						<include>spotimc_scrollbar</include>
+						<posx>1168</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>480</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1303</onleft>
+						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				
+				<!-- Artist tracks view -->
+				<control type="group" id="1400">
+					<description>Artist tracks view</description>
+					<defaultcontrol>1100</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Top tracks of [COLOR ffffffff]$INFO[Container.Property(ArtistName)][/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1401">
+						<include>spotimc_tracklist</include>
+						<description>Track list</description>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>816</width>
+						<height>512</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>-</onleft>
+						<onright>1402</onright>
+						<pagecontrol>1402</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1402">
+						<include>spotimc_scrollbar</include>
+						<posx>832</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>496</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1401</onleft>
+						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				
+				<!-- Search tracks view -->
+				<control type="group" id="1500">
+					<description>Search tracks view</description>
+					<defaultcontrol>1520</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+						<visible>!SubString(Container.Property(SearchDidYouMeanStatus),true)</visible>
+					</control>
+					
+					<control type="grouplist" id="1501">
+						<description>My first group list control</description>
+						<posx>0</posx>
+						<posy>24</posy>
+						<width>960</width>
+						<height>48</height>
+						<itemgap>8</itemgap>
+						<pagecontrol>0</pagecontrol>
+						<scrolltime tween="sine" easing="out">200</scrolltime>
+						<orientation>horizontal</orientation>
+						<usecontrolcoords>false</usecontrolcoords>
+						<visible>SubString(Container.Property(SearchDidYouMeanStatus),true)</visible>
+						<onup>200</onup>
+						<ondown>1520</ondown>
+						<onleft>5500</onleft>
+						<onright>1510</onright>
+						
+						<control type="label" id="1502">
+							<include>spotimc_title_grouped</include>
+							<label>Search results for [COLOR ffffffff]$INFO[Container.Property(SearchQuery)][/COLOR].</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+						
+						<control type="label" id="1503">
+							<include>spotimc_title_grouped</include>
+							<label>Did you mean</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+						
+						<control type="button" id="1504">
+							<description>Did you mean</description>
+							<posy>0</posy>
+							<width>192</width>
+							<height>32</height>
+							<visible>true</visible>
+							<colordiffuse>FFFFFFFF</colordiffuse>
+							<texturefocus>common/item-bg-selected.png</texturefocus>
+							<texturenofocus>common/item-bg.png</texturenofocus>
+							<!-- <label>New search</label> -->
+							<label>$INFO[Container.Property(SearchDidYouMeanString)]</label>
+							<font>spotimc_font20</font>
+							<textcolor>ff969696</textcolor>
+							<focusedcolor>ffffffff</focusedcolor>
+							<disabledcolor>80FFFFFF</disabledcolor>
+							<align></align>
+							<aligny></aligny>
+							<textoffsetx>8</textoffsetx>
+							<textoffsety></textoffsety>
+							<pulseonselect>false</pulseonselect>
+							<onclick>-</onclick>
+							<onfocus>-</onfocus>
+						</control>
+						
+						<control type="label" id="1505">
+							<include>spotimc_title_grouped</include>
+							<label>?</label>
+							<posx>0</posx>
+							<posy>0</posy>
+						</control>
+					</control>
+					
+					<control type="button" id="1510">
+						<description>New search button</description>
+						<posx>976</posx>
+						<posy>24</posy>
+						<width>192</width>
+						<height>32</height>
+						<visible>true</visible>
+						<colordiffuse>FFFFFFFF</colordiffuse>
+						<texturefocus>common/search-new-focus.png</texturefocus>
+						<texturenofocus>common/search-new.png</texturenofocus>
+						<label>New search</label>
+						<font>spotimc_font20</font>
+						<textcolor>ff969696</textcolor>
+						<focusedcolor>ffffffff</focusedcolor>
+						<disabledcolor>80FFFFFF</disabledcolor>
+						<align></align>
+						<aligny></aligny>
+						<textoffsetx>32</textoffsetx>
+						<textoffsety></textoffsety>
+						<pulseonselect>false</pulseonselect>
+						<onclick></onclick>
+						<onfocus>-</onfocus>
+						<onup>200</onup>
+						<ondown>1520</ondown>
+						<onleft>1501</onleft>
+						<onright>200</onright>
+					</control>
+					
+					<!-- Track list header -->
+					<control type="group">
+						<posx>0</posx>
+						<posy>80</posy>
+						<include>spotimc_tracklist_wide_header</include>
+						<visible>SubString(Container.Property(ListWithNoItems),false)</visible>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>No results</label>
+						<posx>0</posx>
+						<posy>80</posy>
+						<visible>SubString(Container.Property(ListWithNoItems),true)</visible>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1520">
+						<include>spotimc_tracklist_wide</include>
+						<description>Track list</description>
+						<posx>0</posx>
+						<posy>112</posy>
+						<width>1168</width>
+						<height>448</height>
+						<onup>1510</onup>
+						<ondown>-</ondown>
+						<onleft>5500</onleft>
+						<onright>1521</onright>
+						<pagecontrol>1521</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1521">
+						<include>spotimc_scrollbar</include>
+						<posx>1176</posx>
+						<posy>112</posy>
+						<width>8</width>
+						<height>448</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1520</onleft>
+						<onright>1510</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				
+				<!-- Now playing view -->
+				<control type="group" id="1600">
+					<description>Now playing view</description>
+					<defaultcontrol>1601</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Now playing</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<control type="group" id="1601">
+						<description>Now playing container</description>
+						<defaultcontrol>1610</defaultcontrol>
+						<visible>!Player.Playing</visible>
+						<posx>0</posx>
+						<posy>0</posy>
+						
+						<control type="label">
+							<include>spotimc_title</include>
+							<label>[COLOR ffffffff]No tracks loaded[/COLOR]</label>
+							<posx>0</posx>
+							<posy>80</posy>
+						</control>
+					</control>
+					
+					<control type="group" id="1601">
+						<description>Now playing container</description>
+						<defaultcontrol>1610</defaultcontrol>
+						<visible>Player.Playing | Player.Paused</visible>
+						<posx>0</posx>
+						<posy>0</posy>
+						
+						<!-- Album Cover -->
+						<control type="image">
+							<include>spotimc_albumcover_big</include>
+							<posx>0</posx>
+							<posy>80</posy>
+							<width>288</width>
+							<height>480</height>
+							<texture fallback="common/disc-placeholder-big.png" background="true">$INFO[Player.Art(thumb)]</texture>
+						</control>
+						
+						<control type="label">
+							<posx>336</posx>
+							<posy>80</posy>
+							<width>auto</width>
+							<height>64</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font48</font>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
+							<info>MusicPlayer.Title</info>
+						</control>
+						
+						<control type="label">
+							<label>$INFO[MusicPlayer.Artist] - $INFO[MusicPlayer.Album]</label>
+							<posx>336</posx>
+							<posy>144</posy>
+							<width>auto</width>
+							<height>32</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font24</font>
+							<textcolor>ff969696</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
+						</control>
+						
+						<control type="progress">
+							<posx>336</posx>
+							<posy>194</posy>
+							<width>640</width>
+							<height>16</height>
+							<visible>true</visible>
+							<reveal>true</reveal>
+							<texturebg>common/playback-bar-bg.png</texturebg>
+							<lefttexture>-</lefttexture>
+							<midtexture>common/playback-bar.png</midtexture>
+							<righttexture>-</righttexture>
+							<overlaytexture>-</overlaytexture>
+							<info>Player.Progress</info>
+						</control>
+						
+						<control type="label">
+							<label>$INFO[Player.Time] / $INFO[Player.Duration]</label>
+							<posx>992</posx>
+							<posy>192</posy>
+							<width>160</width>
+							<height>16</height>
+							<visible>true</visible>
+							<align>left</align>
+							<aligny>center</aligny>
+							<scroll>false</scroll>
+							<number></number>
+							<angle>0</angle>
+							<haspath>false</haspath>
+							<font>spotimc_font20</font>
+							<textcolor>ffffffff</textcolor>
+							<shadowcolor>00000000</shadowcolor>
+							<wrapmultiline>false</wrapmultiline>
+							<scrollspeed>50</scrollspeed>
+							<scrollsuffix>-</scrollsuffix>
+						</control>
+						
+						<!-- Player commands -->
+						<control type="group" id="1610">
+							<description>Now playing container</description>
+							<defaultcontrol>1611</defaultcontrol>
+							<visible>Player.Playing | Player.Paused</visible>
+							<posx>336</posx>
+							<posy>240</posy>
+							
+							<!-- Back button -->
+							<control type="button" id="1611">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>0</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>-</onleft>
+								<onright>1612</onright>
+								<description>Backward button</description>
+								<texturefocus>common/player-backward-focus.png</texturefocus>
+								<texturenofocus>common/player-backward.png</texturenofocus>
+								<onclick>PlayerControl(Previous)</onclick>
+							</control>
+							
+							<!-- Play/Pause button -->
+							<control type="togglebutton" id="1612">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>80</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1611</onleft>
+								<onright>1613</onright>
+								<description>Play/Pause button</description>
+								<texturefocus>common/player-play-focus.png</texturefocus>
+								<texturenofocus>common/player-play.png</texturenofocus>
+								<alttexturefocus>common/player-pause-focus.png</alttexturefocus>
+								<alttexturenofocus>common/player-pause.png</alttexturenofocus>
+								<usealttexture>Player.Paused</usealttexture>
+								<onclick>PlayerControl(Play)</onclick>
+							</control>
+							
+							<!-- Forward button -->
+							<control type="button" id="1613">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>160</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1612</onleft>
+								<onright>1614</onright>
+								<description>Forward button</description>
+								<texturefocus>common/player-forward-focus.png</texturefocus>
+								<texturenofocus>common/player-forward.png</texturenofocus>
+								<onclick>PlayerControl(Next)</onclick>
+							</control>
+							
+							<!-- Shuffle button -->
+							<control type="togglebutton" id="1614">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>240</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1613</onleft>
+								<onright>1615</onright>
+								<description>Shuffle button</description>
+								<texturefocus>common/player-shuffle-focus.png</texturefocus>
+								<texturenofocus>common/player-shuffle.png</texturenofocus>
+								<alttexturefocus>common/player-shuffle-on-focus.png</alttexturefocus>
+								<alttexturenofocus>common/player-shuffle-on.png</alttexturenofocus>
+								<usealttexture>Playlist.IsRandom</usealttexture>
+								<onclick>PlayerControl(Random)</onclick>
+							</control>
+							
+							<!-- Repeat button -->
+							<control type="button" id="1615">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>320</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1614</onleft>
+								<onright>1616</onright>
+								<description>Repeat button</description>
+								<texturefocus>common/player-repeat-focus.png</texturefocus>
+								<texturenofocus>common/player-repeat.png</texturenofocus>
+								<onclick>PlayerControl(Repeat)</onclick>
+							</control>
+							
+							<!--  Repeat one status image -->
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on.png</texture>
+								<visible>Playlist.IsRepeatOne + !Control.HasFocus(1615)</visible>
+							</control>
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-focus.png</texture>
+								<visible>Playlist.IsRepeatOne + Control.HasFocus(1615)</visible>
+							</control>
+							
+							<!--  Repeat all status image -->
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-all.png</texture>
+								<visible>Playlist.IsRepeat + !Control.HasFocus(1615)</visible>
+							</control>
+							<control type="image">
+								<posx>320</posx>
+								<posy>0</posy>
+								<width>64</width>
+								<height>64</height>
+								<texture>common/player-repeat-on-all-focus.png</texture>
+								<visible>Playlist.IsRepeat + Control.HasFocus(1615)</visible>
+							</control>
+							
+							<!-- Vis button -->
+							<control type="button" id="1616">
+								<include>spotimc_nowplaying_player_button</include>
+								<posx>400</posx>
+								<posy>0</posy>
+								<onup>200</onup>
+								<ondown>1620</ondown>
+								<onleft>1615</onleft>
+								<onright>-</onright>
+								<description>Visualization button</description>
+								<texturefocus>common/player-vis-focus.png</texturefocus>
+								<texturenofocus>common/player-vis.png</texturenofocus>
+								<onclick>ActivateWindow(visualisation)</onclick>
+							</control>
+						</control>
+						
+						<!-- Current track options -->
+						<control type="label">
+							<include>spotimc_title</include>
+							<label>Current track:</label>
+							<posx>336</posx>
+							<posy>336</posy>
+						</control>
+						
+						<control type="grouplist" id="1620">
+							<description>Player menu</description>
+							<defaultcontrol>1621</defaultcontrol>
+							<posx>336</posx>
+							<posy>368</posy>
+							<width>1000</width>
+							<height>48</height>
+							<itemgap>16</itemgap>
+							<pagecontrol></pagecontrol>
+							<scrolltime tween="sine" easing="out">200</scrolltime>
+							<orientation>horizontal</orientation>
+							<usecontrolcoords>false</usecontrolcoords>
+							<visible>true</visible>
+							<onup>1610</onup>
+							<ondown>-</ondown>
+							<onleft>-</onleft>
+							<onright>200</onright>
+						
+							<!-- Browse artist button -->
+							<control type="button" id="1621">
+								<include>spotimc_nowplaying_button</include>
+								<description></description>
+								<texturefocus>common/nowplaying-br-artist-focus.png</texturefocus>
+								<texturenofocus>common/nowplaying-br-artist.png</texturenofocus>
+								<onclick></onclick>
+								<label>Browse artist</label>
+							</control>
+							
+							<!-- Browse album button -->
+							<control type="button" id="1622">
+								<include>spotimc_nowplaying_button</include>
+								<description></description>
+								<texturefocus>common/nowplaying-br-album-focus.png</texturefocus>
+								<texturenofocus>common/nowplaying-br-album.png</texturenofocus>
+								<onclick></onclick>
+								<label>Browse album</label>
+							</control>
+						</control>
+					</control>
+				</control>
+				
+				
+				<!-- Playlists view -->
+				<control type="group" id="1700">
+					<description>Playlists view</description>
+					<defaultcontrol></defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Showing [COLOR ffffffff]$INFO[Container(1701).NumItems] playlists[/COLOR]</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list -->
+					<control type="panel" id="1701">
+						<include>spotimc_playlist_list</include>
+						<description>Playlist list</description>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>1200</width>
+						<height>512</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5700</onleft>
+						<onright>1702</onright>
+						<pagecontrol>1702</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1702">
+						<include>spotimc_scrollbar</include>
+						<posx>1184</posx>
+						<posy>80</posy>
+						<width>8</width>
+						<height>464</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1701</onleft>
+						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				
+				<control type="group" id="1800">
+					<description>Playlist detail view</description>
+					<defaultcontrol>1801</defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<!-- Playlist image bg's -->
+					<control type="group">
+						<visible>true</visible>
+						<posx>0</posx>
+						<posy>28</posy>
+						
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>136</width>
+							<height>136</height>
+							<texture>common/item-bg.png</texture>
+						</control>
+						
+						<!-- Individual cover image -->
+						<control type="image">
+							<posx>4</posx>
+							<posy>4</posy>
+							<width>128</width>
+							<height>128</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one) + Container.Property(PlaylistDetailCoverItem1IsRemote)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						
+						<!-- Individual cover image -->
+						<control type="image">
+							<posx>4</posx>
+							<posy>4</posy>
+							<width>128</width>
+							<height>128</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),one) + !Container.Property(PlaylistDetailCoverItem1IsRemote)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture>$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						
+						<!-- Four cover image group -->
+						<control type="image">
+							<posx>4</posx>
+							<posy>4</posy>
+							<width>64</width>
+							<height>64</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem1)]</texture>
+						</control>
+						<control type="image">
+							<posx>68</posx>
+							<posy>4</posy>
+							<width>64</width>
+							<height>64</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem2)]</texture>
+						</control>
+						<control type="image">
+							<posx>4</posx>
+							<posy>68</posy>
+							<width>64</width>
+							<height>64</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem3)]</texture>
+						</control>
+						<control type="image">
+							<posx>68</posx>
+							<posy>68</posy>
+							<width>64</width>
+							<height>64</height>
+							<visible>SubString(Container.Property(PlaylistDetailCoverLayout),four)</visible>
+							<aspectratio>scale</aspectratio>
+							<colordiffuse>ffffffff</colordiffuse>
+							<texture background="true">$INFO[Container.Property(PlaylistDetailCoverItem4)]</texture>
+						</control>
+						
+						<!-- Collaborative status flag -->
+						<control type="image">
+							<posx>0</posx>
+							<posy>72</posy>
+							<width>64</width>
+							<height>64</height>
+							<texture>common/playlist-collaborative.png</texture>
+							<!-- WTF: Won't work referencing the property directly -->
+							<visible>SubString(Container.Property(PlaylistDetailCollaborative),True)</visible>
+						</control>
+					</control>
+					
+					
+					<!-- Main playlist detail label (without owner info) -->
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR]</label>
+						<posx>160</posx>
+						<posy>32</posy>
+						<!-- WTF: Won't work referencing the property directly -->
+						<visible>!SubString(Container.Property(PlaylistDetailShowOwner),True)</visible>
+					</control>
+					
+					<!-- Main playlist detail label (without owner info) -->
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>[COLOR ffffffff]$INFO[Container.Property(PlaylistDetailName)][/COLOR] by $INFO[Container.Property(PlaylistDetailOwner)]</label>
+						<posx>160</posx>
+						<posy>32</posy>
+						<!-- WTF: Won't work referencing the property directly -->
+						<visible>SubString(Container.Property(PlaylistDetailShowOwner),True)</visible>
+					</control>
+					
+					
+					<!-- Playlist info labels -->
+					<control type="group">
+						<visible>true</visible>
+						<posx>160</posx>
+						<posy>80</posy>
+						
+						<control type="image">
+							<posx>0</posx>
+							<posy>0</posy>
+							<width>1008</width>
+							<height>80</height>
+							<texture>common/item-bg.png</texture>
+						</control>
+						
+						<control type="label">
+							<include>spotimc_subtitle</include>
+							<label>$INFO[Container.Property(PlaylistDetailNumTracks)] tracks, $INFO[Container.Property(PlaylistDetailDuration)]</label>
+							<posx>16</posx>
+							<posy>16</posy>
+						</control>
+						
+						<control type="label">
+							<include>spotimc_subtitle</include>
+							<label>$INFO[Container.Property(PlaylistDetailNumSubscribers)] subscribers</label>
+							<posx>16</posx>
+							<posy>48</posy>
+							<visible>IntegerGreaterThan(Container.Property(PlaylistDetailNumSubscribers),0)</visible>
+						</control>
+					</control>
+					
+					
+					<!-- Track list header -->
+					<control type="group">
+						<posx>0</posx>
+						<posy>192</posy>
+						<include>spotimc_tracklist_wide_header</include>
+						<visible>SubString(Container.Property(ListWithNoItems),false)</visible>
+					</control>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>No tracks</label>
+						<posx>0</posx>
+						<posy>192</posy>
+						<visible>SubString(Container.Property(ListWithNoItems),true)</visible>
+					</control>
+					
+					<!-- Track list -->
+					<control type="list" id="1801">
+						<include>spotimc_tracklist_wide</include>
+						<description>Track list</description>
+						<posx>0</posx>
+						<posy>224</posy>
+						<width>1168</width>
+						<height>368</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5800</onleft>
+						<onright>1802</onright>
+						<pagecontrol>1802</pagecontrol>
+					</control>
+					
+					<!-- Scrollbar -->
+					<control type="scrollbar" id="1802">
+						<include>spotimc_scrollbar</include>
+						<posx>1176</posx>
+						<posy>224</posy>
+						<width>8</width>
+						<height>352</height>
+						<onup>-</onup>
+						<ondown>-</ondown>
+						<onleft>1801</onleft>
+						<onright>200</onright>
+						
+						<!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+					</control>
+				</control>
+				
+				<!-- Extras view -->
+				<control type="group" id="1900">
+					<description>Extras view</description>
+					<defaultcontrol></defaultcontrol>
+					<visible>false</visible>
+					<posx>0</posx>
+					<posy>0</posy>
+					
+					<control type="label">
+						<include>spotimc_title</include>
+						<label>Extra options that do not fit on the main menu</label>
+						<posx>0</posx>
+						<posy>32</posy>
+					</control>
+					
+					<!-- Track list -->
+					<control type="panel" id="1901">
+						<include>spotimc_extras_list</include>
+						<description>Playlist list</description>
+						<posx>0</posx>
+						<posy>80</posy>
+						<width>1216</width>
+						<height>504</height>
+						<onup>200</onup>
+						<ondown>-</ondown>
+						<onleft>5700</onleft>
+						<onright>200</onright>
+					</control>
+				</control>
+				
+				<!-- New stuff container -->
+                <control type="group" id="2000">
+                    <description>Artist albums view</description>
+                    <defaultcontrol>2001</defaultcontrol>
+                    <visible>false</visible>
+                    <posx>0</posx>
+                    <posy>0</posy>
+                    
+                    <control type="label">
+                        <include>spotimc_title</include>
+                        <label>Albums related to [COLOR ffffffff]$INFO[Container.Property(artistbrowse_artist_name)][/COLOR]</label>
+                        <posx>0</posx>
+                        <posy>32</posy>
+                    </control>
+                
+                    <!-- New stuff list -->
+                    <control type="panel" id="2001">
+                        <include>spotimc_albumgrid</include>
+                        <description>Artist albums</description>
+                        <pagecontrol>2002</pagecontrol>
+                        <onup>200</onup>
+                        <ondown>-</ondown>
+                        <onleft>6000</onleft>
+                        <onright>2002</onright>
+                        <posx>0</posx>
+                        <posy>80</posy>
+                    </control>
+                    
+                    <!-- Scrollbar -->
+                    <control type="scrollbar" id="2002">
+                        <include>spotimc_scrollbar</include>
+                        <posx>1152</posx>
+                        <posy>80</posy>
+                        <width>8</width>
+                        <height>464</height>
+                        <onup>-</onup>
+                        <ondown>-</ondown>
+                        <onleft>2001</onleft>
+                        <onright>200</onright>
+                        
+                        <!-- Disable if focus comes from the main menu -->
+						<enable>!ControlGroup(200).HasFocus()</enable>
+                    </control>
+                </control>
+			</control>
+	        
+	        
+	        <!-- Left menu -->
+			<control type="group" id="5000">
+				<description>Left Menu Group</description>
+				<defaultcontrol>501</defaultcontrol>
+				<visible>true</visible>
+				<posx>-256</posx>
+				<posy>0</posy>
+				<width>280</width>
+				<height>720</height>
+				
+				<control type="togglebutton" id="5001">
+					<posx>256</posx>
+					<posy>320</posy>
+					<width>24</width>
+					<height>64</height>
+					<colordiffuse>ffffffff</colordiffuse>
+					<texturefocus>common/left-menu-toggler-off.png</texturefocus>
+					<texturenofocus>common/left-menu-toggler-off.png</texturenofocus>
+					<alttexturefocus>common/left-menu-toggler-on.png</alttexturefocus>
+					<alttexturenofocus>common/left-menu-toggler-on.png</alttexturenofocus>
+					<usealttexture>ControlGroup(5000).HasFocus()</usealttexture>
+					<font>spotimc_font22</font>
+					<textcolor>ffffffff</textcolor>
+					<disabledcolor>ffffffff</disabledcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<textoffsetx>16</textoffsetx>
+					<textoffsety></textoffsety>
+					<pulseonselect>false</pulseonselect>
+					<onclick></onclick>
+					<onfocus></onfocus>
+					<onleft></onleft>
+					<onright></onright>
+					<onup></onup>
+					<ondown></ondown>
+					<visible>
+						Control.IsVisible(1200) |
+						Control.IsVisible(1300) |
+						Control.IsVisible(1500) |
+						Control.IsVisible(1700) |
+						Control.IsVisible(1800) |
+						Control.IsVisible(6000)
+					</visible>
+				</control>
+				
+				<!--
+				<control type="image">
+					<description>Left menu background</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>720</height>
+					<visible>true</visible>
+					<colordiffuse>FFFFFFFF</colordiffuse>
+					<fadetime>200</fadetime>
+					<texture></texture>
+					<aspectratio>stretch</aspectratio>
+				</control>
+				-->
+				
+				<control type="button" id="5002">
+					<description>Left menu background (Button)</description>
+					<description></description>
+					<label></label>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>256</width>
+					<height>720</height>
+					<visible>true</visible>
+					<texturefocus>common/left-menu-bg.png</texturefocus>
+					<texturenofocus>common/left-menu-bg.png</texturenofocus>
+					<pulseonselect>False</pulseonselect>
+					<onclick></onclick>
+					<onfocus></onfocus>
+					<onleft></onleft>
+					<onright>1000</onright>
+					<onup></onup>
+					<ondown></ondown>
+				</control>
+				
+				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5200">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Album options</description>
+					<onright>1200</onright>
+					<visible>Control.IsVisible(1200)</visible>
+					
+					<control type="label" id="5201">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected album:</label>
+					</control>
+					
+					<control type="button" id="5202">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5203">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
+				</control>
+				
+				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5300">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Album track options</description>
+					<onright>1300</onright>
+					<visible>Control.IsVisible(1300)</visible>
+					
+					<!--
+					<control type="label" id="5301">
+						<include>spotimc_leftmenu_label</include>
+						<label>Album browsing:</label>
+					</control>
+					
+					<control type="togglebutton" id="5302">
+						<include>spotimc_leftmenu_toggle</include>
+						<description>Tracks option</description>
+						<usealttexture>True</usealttexture>
+						<label>Tracks</label>
+						<visible>true</visible>
+					</control>
+					
+					<control type="togglebutton" id="5303">
+						<include>spotimc_leftmenu_toggle</include>
+						<description>Tracks option</description>
+						<usealttexture>False</usealttexture>
+						<label>Critics</label>
+						<visible>true</visible>
+					</control>
+					-->
+					
+					<control type="label" id="5304">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<!--
+					<control type="button" id="5305">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Add to playlist</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5306">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Add to queue</label>
+						<visible>True</visible>
+					</control>
+					-->
+					
+					<control type="button" id="5307">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Toggle star</label>
+						<visible>True</visible>
+					</control>
+				</control>
+				
+				<!-- Track search options -->
+				<control type="grouplist" id="5500">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Album track options</description>
+					<onright>1500</onright>
+					<visible>Control.IsVisible(1500)</visible>
+					
+					<!-- Track options -->
+					<control type="label" id="5501">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<control type="button" id="5502">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Browse artist</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5503">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Browse album</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5504">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Toggle star</label>
+						<visible>True</visible>
+					</control>
+					
+					<!--
+					<control type="button" id="5505">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Add to playlist</label>
+						<visible>True</visible>
+					</control>
+					-->
+					
+					<!-- Sort options -->
+					<!--
+					<control type="label" id="5506">
+						<include>spotimc_leftmenu_label</include>
+						<label>Sort by:</label>
+					</control>
+					
+					<control type="button" id="5507">
+						<include>spotimc_leftmenu_toggle</include>
+						<description></description>
+						<label>Track Title</label>
+					</control>
+					
+					<control type="button" id="5508">
+						<include>spotimc_leftmenu_toggle</include>
+						<description></description>
+						<label>Popularity</label>
+					</control>
+					
+					<control type="button" id="5509">
+						<include>spotimc_leftmenu_toggle</include>
+						<description></description>
+						<label>Album Title</label>
+					</control>
+					
+					<control type="button" id="5510">
+						<include>spotimc_leftmenu_toggle</include>
+						<description></description>
+						<label>Artist Name</label>
+					</control>
+					
+					<control type="button" id="5511">
+						<include>spotimc_leftmenu_toggle</include>
+						<description></description>
+						<label>Duration</label>
+					</control>
+					-->
+				</control>
+				
+				
+				<!-- Album tracks browsing options -->
+				<control type="grouplist" id="5700">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Playlist options</description>
+					<onright>1700</onright>
+					<visible>Control.IsVisible(1700)</visible>
+					
+					<control type="label" id="5701">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected playlist:</label>
+					</control>
+					
+					<control type="button" id="5702">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5703">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
+				</control>
+				
+				
+				<!-- Playlist options -->
+				<control type="grouplist" id="5800">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Playlist detail options</description>
+					<onright>1800</onright>
+					<visible>Control.IsVisible(1800)</visible>
+					
+					<!-- Track options -->
+					<control type="label" id="5810">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected track:</label>
+					</control>
+					
+					<control type="button" id="5811">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Browse artist</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5812">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Browse album</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="5813">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Toggle star</label>
+						<visible>True</visible>
+					</control>
+				</control>
+				
+				
+				<!-- Album browsing options -->
+				<control type="grouplist" id="6000">
+					<include>spotimc_leftmenu_grouplist</include>
+					<description>Album list options</description>
+					<onright>2000</onright>
+					<visible>Control.IsVisible(2000)</visible>
+					
+					
+					<!-- Album options -->
+					<control type="label" id="6001">
+						<include>spotimc_leftmenu_label</include>
+						<label>Selected album:</label>
+					</control>
+					
+					<control type="button" id="6002">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Play</label>
+						<visible>True</visible>
+					</control>
+					
+					<control type="button" id="6003">
+						<include>spotimc_leftmenu_button</include>
+						<description></description>
+						<label>Set current</label>
+						<visible>Player.Playing | Player.Paused</visible>
+					</control>
+					
+					
+					<!-- Album filtering -->
+					<control type="label" id="6010">
+						<include>spotimc_leftmenu_label</include>
+						<label>Album filter:</label>
+					</control>
+					
+					<control type="togglebutton" id="6011">
+						<include>spotimc_leftmenu_check</include>
+						<description></description>
+						<label>Albums</label>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_albums)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_albums)</onclick>
+					</control>
+					
+					<control type="togglebutton" id="6012">
+						<include>spotimc_leftmenu_check</include>
+						<description></description>
+						<label>Singles</label>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_singles)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_singles)</onclick>
+					</control>
+					
+					<control type="togglebutton" id="6013">
+						<include>spotimc_leftmenu_check</include>
+						<description></description>
+						<label>Compilations</label>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_compilations)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_compilations)</onclick>
+					</control>
+					
+					<control type="togglebutton" id="6014">
+						<include>spotimc_leftmenu_check</include>
+						<description></description>
+						<label>"Appears in"</label>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_appears_in)</usealttexture>
+						<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_appears_in)</onclick>
+					</control>
+					
+					
+					<!-- Album duplicates -->
+					<control type="label" id="6015">
+						<include>spotimc_leftmenu_label</include>
+						<label>Misc options:</label>
+					</control>
+					
+					<control type="togglebutton" id="6016">
+						<include>spotimc_leftmenu_check</include>
+						<description></description>
+						<label>Hide similar</label>
+						<usealttexture>Skin.HasSetting(spotimc_artistbrowse_albums_hide_similar)</usealttexture>
+	            		<onclick>Skin.ToggleSetting(spotimc_artistbrowse_albums_hide_similar)</onclick>
+					</control>
+				</control>
+			</control>
+	        
+		</control>
+    </controls>
+</window>

@@ -403,8 +403,9 @@ def gui_main(addon_dir):
     #Stay on the application until told to do so
     while not app.get_var('exit_requested'):
 
+        skin_name = SettingsManager().get_misc_skin()
         #Set the exit flag if login was cancelled
-        if not do_login(sess, addon_dir, "DefaultSkin", app):
+        if not do_login(sess, addon_dir, skin_name, app):
             app.set_var('exit_requested', True)
 
         #Otherwise block until state is sane, and continue
@@ -428,7 +429,7 @@ def gui_main(addon_dir):
             hide_busy_dialog()
             mainwin = windows.MainWindow("main-window.xml",
                                          addon_dir,
-                                         "DefaultSkin")
+                                         skin_name)
             mainwin.initialize(sess, proxy_runner, playlist_manager, app)
             app.set_var('main_window', mainwin)
             mainwin.doModal()
@@ -491,7 +492,7 @@ def main():
 
         #Install custom fonts
         fm = FontManager()
-        skin_dir = os.path.join(__addon_path__, "resources/skins/DefaultSkin")
+        skin_dir = os.path.join(__addon_path__, "resources/skins/" + SettingsManager().get_misc_skin())
         xml_path = os.path.join(skin_dir, "720p/font.xml")
         font_dir = os.path.join(skin_dir, "fonts")
         fm.install_file(xml_path, font_dir)
