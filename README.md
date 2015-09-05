@@ -1,6 +1,6 @@
 Spotimc
 =======
-Spotimc is an addon that gives you access to the Spotify music service. It requires a Spotify premium account.
+Spotimc is an addon that gives you access to the Spotify music service. <b>It requires a Spotify premium account.</b>
 
 Please note that it's still in beta stage, so expect some minor issues here and there. There's lots of room for improvement, so contributions are very much appreciated.
 
