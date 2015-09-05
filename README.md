@@ -17,6 +17,12 @@ Installation
 ------------
 Grab the latest installation zip file,saved this zip file (usb stick) and inside KODI go to Home > System > Settings > Add-ons > Install from zip file, and select the file you just downloaded (usb stick). Once installed you can run the addon from Home > Music > Addons > Spotimc.
 
+Screenshots
+-----------
+<img src=http://i.imgur.com/DFgbRfd.png>
+<img src=http://i.imgur.com/lyIb8Nf.png>
+
+
 Current Features
 ----------------
 * Recently added music
