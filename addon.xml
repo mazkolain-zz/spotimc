@@ -9,7 +9,7 @@
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary>Spotimc gives you access to the Spotify music service.</summary>
-        <description>Spotimc lets you search for music, browse your playlists and play your favourite tunes right from XBMC.[CR][CR]This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.[CR][CR]Special thanks to Seeleck for the logo and skin improvements.[CR][CR]Special thanks also for the CherryPy project, the DejaVu fonts project and the GNOME project (high contrast icons theme).</description>
+        <description>Spotimc lets you search for music, browse your playlists and play your favourite tunes right from KODI.[CR][CR]This product uses SPOTIFY(R) CORE but is not endorsed, certified or otherwise approved in any way by Spotify. Spotify is the registered trade mark of the Spotify Group.[CR][CR]Special thanks to Seeleck for the logo and skin improvements.[CR][CR]Special thanks also for the CherryPy project, the DejaVu fonts project and the GNOME project (high contrast icons theme).</description>
         <disclaimer>It requires a Spotify premium account.</disclaimer>
     </extension>
 </addon>
