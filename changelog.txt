@@ -1,4 +1,4 @@
-[B]1.0-beta5[/b]  
+[B]1.0-beta5[/B]  
   - Fix: Crashes on Linux and OSX during shutdown.
   - Fix: Conflicts with script.cu.lrclyrics.
   - Fix: Music was muted randomly if crossfade enabled.
