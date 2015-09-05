@@ -8,17 +8,17 @@ Please note that it's still in beta stage, so expect some minor issues here and 
 Compatibility
 -------------------
 Windows, Linux and OSX. IOS and Android not supported (yet). Requires at least XBMC Eden (v11.0) to run.
-
+Windows, Linux and OSX. IOS and Android not supported (yet). Requires at least KODI Eden (v11.0) to run.
 
 Download
 --------
 Latest release: [1.0-beta4](http://azkotoki.org/downloads/script-audio-spotimc-1-0-beta4/).
-
+Latest release: [1.0-beta5](http://azkotoki.org/downloads/script-audio-spotimc-1-0-beta5/).
 
 Installation
 ------------
 Grab the latest installation zip file, and inside XBMC go to Home > System > Settings > Add-ons > Install from zip file, and select the file you just downloaded. Once installed you can run the addon from Home > Music > Addons > Spotimc.
-
+Grab the latest installation zip file,saved this zip file (usb stick) and inside KODI go to Home > System > Settings > Add-ons > Install from zip file, and select the file you just downloaded (usb stick). Once installed you can run the addon from Home > Music > Addons > Spotimc.
 
 Current Features
 ----------------
