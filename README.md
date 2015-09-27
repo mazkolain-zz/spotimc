@@ -21,7 +21,7 @@ Screenshots
 -----------
 <img src=http://i.imgur.com/DFgbRfd.png>
 <img src=http://i.imgur.com/lyIb8Nf.png>
-
+<img src=http://i.imgur.com/YJwiPB0.png>
 
 Current Features
 ----------------
